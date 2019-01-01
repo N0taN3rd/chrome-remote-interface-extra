@@ -1,0 +1,18 @@
+{
+  "name": "chrome-remote-interface-extra",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "chrome-remote-interface": "^0.27.0",
+    "debug": "^4.1.1",
+    "eventemitter3": "^3.1.0",
+    "fs-extra": "^7.0.1",
+    "uuid": "^3.3.2"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^5.0.4",
+    "prettier-standard": "^8.0.1",
+    "standard": "^12.0.1"
+  }
+}
