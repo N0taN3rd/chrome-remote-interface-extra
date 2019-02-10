@@ -1,8 +1,7 @@
 {
   "name": "chrome-remote-interface-extra",
   "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "dependencies": {
     "chrome-remote-interface": "^0.27.1",
     "debug": "^4.1.1",
@@ -15,6 +14,9 @@
     "@types/fs-extra": "^5.0.4",
     "prettier-standard": "^9.1.1",
     "standard": "^12.0.1"
+  },
+  "scripts": {
+    "build-index": "node generateIndex.js"
   },
   "resolutions": {
     "*/**/graceful-fs": "~4.1.15",
