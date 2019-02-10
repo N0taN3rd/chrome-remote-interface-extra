@@ -8,25 +8,39 @@ async function gen () {
   const libFiles = await fs.readdir(libPath)
   const indexContents = []
   let indexExports = []
-  // const fileExports = []
   for (let i = 0; i < libFiles.length; i++) {
     if (libFiles[i] !== 'index.js') {
       const file = libFiles[i]
       const requirePath = `./${Path.basename(file, '.js')}`
-      if (file === 'USKeyboardLayout.js') {
-        indexContents.push(`const USKeyboardLayout = require('${requirePath}')`)
-        indexExports.push('  USKeyboardLayout')
-      } else {
-        const exports = Object.keys(require(Path.join(libPath, file)))
-        indexExports = indexExports.concat(exports.map(e => `  ${e}`))
-        exports.sort(stringSort)
-        indexContents.push(`const { ${exports.join(', ')} } = require('${requirePath}')`)
+      switch (file) {
+        case 'USKeyboardLayout.js':
+          indexContents.push(
+            `const USKeyboardLayout = require('${requirePath}')`
+          )
+          indexExports.push('  USKeyboardLayout')
+          break
+        case 'chromeRemoteInterfaceExtra.js':
+          indexContents.push(`const CRIExtra = require('${requirePath}')`)
+          indexExports.push('  CRIExtra')
+          break
+        default:
+          const exports = Object.keys(require(Path.join(libPath, file)))
+          indexExports = indexExports.concat(exports.map(e => `  ${e}`))
+          exports.sort(stringSort)
+          indexContents.push(
+            `const { ${exports.join(', ')} } = require('${requirePath}')`
+          )
+          break
       }
     }
   }
   indexExports.sort(stringSort)
   indexContents.push(`\nmodule.exports = {\n${indexExports.join(',\n')}\n}\n`)
-  await fs.writeFile(Path.join(libPath, 'index.js'), indexContents.join('\n'), 'utf8')
+  await fs.writeFile(
+    Path.join(libPath, 'index.js'),
+    indexContents.join('\n'),
+    'utf8'
+  )
 }
 
 gen().catch(error => {

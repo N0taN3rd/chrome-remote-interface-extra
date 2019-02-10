@@ -1,11 +1,10 @@
-const CDP = require('chrome-remote-interface')
-const { Browser, Page } = require('./lib')
+const { CRIExtra, Browser, Page } = require('./lib')
 
 async function puppeteeryWay () {
   let client
   try {
     // connect to endpoint
-    client = await CDP({ host: 'localhost', port: 9222 })
+    client = await CRIExtra({ host: 'localhost', port: 9222 })
     const browser = await Browser.create(client, {
       contextIds: [],
       ignoreHTTPSErrors: true
@@ -27,7 +26,7 @@ async function koolKidsWay () {
   let client
   try {
     // connect to endpoint
-    client = await CDP({ host: 'localhost', port: 9222 })
+    client = await CRIExtra({ host: 'localhost', port: 9222 })
     const page = await Page.create(client)
     await page.goto('https://example.com', { waitUntil: 'networkIdle' })
     await page.screenshot({ path: 'koolExample.png' })
@@ -40,7 +39,7 @@ async function koolKidsWay () {
   }
 }
 
-(async () => {
+;(async () => {
   await puppeteeryWay()
   await koolKidsWay()
 })()
