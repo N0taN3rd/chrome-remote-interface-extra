@@ -1,7 +1,7 @@
 {
   "name": "chrome-remote-interface-extra",
   "main": "./lib/index.js",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "license": "Apache-2.0",
   "dependencies": {
     "bufferutil": "^4.0.1",
