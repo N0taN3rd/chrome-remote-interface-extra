@@ -1,7 +1,7 @@
 {
   "name": "chrome-remote-interface-extra",
   "main": "./lib/index.js",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "license": "Apache-2.0",
   "dependencies": {
     "bufferutil": "^4.0.1",
@@ -11,10 +11,10 @@
     "fs-extra": "^7.0.1",
     "mime": "^2.4.0",
     "uuid": "^3.3.2",
-    "ws": "^6.1.3"
+    "ws": "^6.1.4"
   },
   "devDependencies": {
-    "@types/fs-extra": "^5.0.4",
+    "@types/fs-extra": "^5.0.5",
     "prettier-standard": "^9.1.1",
     "standard": "^12.0.1"
   },
