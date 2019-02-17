@@ -1,8 +1,20 @@
 {
   "name": "chrome-remote-interface-extra",
   "main": "./lib/index.js",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "license": "Apache-2.0",
+  "keywords": [
+    "chrome",
+    "chrome-remote-interface",
+    "headeless",
+    "puppeteer",
+    "Chrome DeveTools Protocol",
+    "CDP"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/N0taN3rd/chrome-remote-interface-extra.git"
+  },
   "dependencies": {
     "bufferutil": "^4.0.1",
     "chrome-remote-interface": "^0.27.1",
