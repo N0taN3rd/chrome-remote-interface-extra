@@ -1,7 +1,7 @@
 {
   "name": "chrome-remote-interface-extra",
-  "main": "./lib/index.js",
-  "version": "0.1.1",
+  "main": "./index.js",
+  "version": "0.2.0",
   "license": "Apache-2.0",
   "keywords": [
     "chrome",
@@ -21,17 +21,25 @@
     "debug": "^4.1.1",
     "eventemitter3": "^3.1.0",
     "fs-extra": "^7.0.1",
+    "gh-pages": "^2.0.1",
     "mime": "^2.4.0",
     "uuid": "^3.3.2",
     "ws": "^6.1.4"
   },
   "devDependencies": {
     "@types/fs-extra": "^5.0.5",
+    "esdoc": "^1.1.0",
+    "esdoc-ecmascript-proposal-plugin": "^1.0.0",
+    "esdoc-external-ecmascript-plugin": "^1.0.0",
+    "esdoc-node": "^1.0.4",
+    "esdoc-standard-plugin": "^1.0.0",
     "prettier-standard": "^9.1.1",
     "standard": "^12.0.1"
   },
   "scripts": {
-    "build-index": "node generateIndex.js"
+    "build-index": "node generateIndex.js",
+    "doc": "esdoc",
+    "publish-docs": "gh-pages -d docs"
   },
   "resolutions": {
     "*/**/graceful-fs": "~4.1.15",

@@ -1,4 +1,4 @@
-const { CRIExtra, Browser, Page } = require('./lib')
+const { CRIExtra, Browser, Page } = require('.')
 
 async function puppeteeryWay () {
   let client

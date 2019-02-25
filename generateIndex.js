@@ -21,7 +21,7 @@ const filesBaseName = filePath => Path.basename(filePath, '.js')
  * @param {string} filePath
  * @return {string}
  */
-const fileRequirePath = filePath => `./${filesBaseName(filePath)}`
+const fileRequirePath = filePath => `./lib/${filesBaseName(filePath)}`
 
 /**
  * @param {string} filePath
@@ -30,9 +30,15 @@ const fileRequirePath = filePath => `./${filesBaseName(filePath)}`
 function getFileExports (filePath) {
   const moduleExports = []
   let exportedKey
-  for (exportedKey in require(filePath)) {
-    moduleExports.push(exportedKey)
+  const exported = require(filePath)
+  if (typeof exported === 'object') {
+    for (exportedKey in exported) {
+      moduleExports.push(exportedKey)
+    }
+  } else {
+    moduleExports.push(exported.name)
   }
+
   moduleExports.sort(stringSort)
   return moduleExports
 }
@@ -55,15 +61,12 @@ async function isPathToFile (filePath) {
 
 function formatGeneratedIndex () {
   return new Promise((resolve, reject) => {
-    CP.exec(
-      `yarn run prettier-standard ${joinPathWithLibRoot('index.js')}`,
-      error => {
-        if (error) {
-          return reject(error)
-        }
-        resolve()
+    CP.exec(`yarn run prettier-standard 'index.js'`, error => {
+      if (error) {
+        return reject(error)
       }
-    )
+      resolve()
+    })
   })
 }
 
@@ -80,11 +83,13 @@ async function gen () {
     if (libFiles[i] !== 'index.js') {
       file = libFiles[i]
       switch (file) {
+        case 'DeviceDescriptors.js':
         case 'USKeyboardLayout.js':
+        case 'Events.js':
           indexContents.push(
-            `const USKeyboardLayout = require('${fileRequirePath(file)}')`
+            `const ${Path.basename(file, '.js')} = require('${fileRequirePath(file)}')`
           )
-          indexExports.push('  USKeyboardLayout')
+          indexExports.push(`  ${Path.basename(file, '.js')}`)
           break
         case 'chromeRemoteInterfaceExtra.js':
           indexContents.push(
@@ -100,22 +105,26 @@ async function gen () {
             fileExports = getFolderExports(joinPathWithLibRoot(file))
           }
           indexExports.push(...fileExports)
-          indexContents.push(
-            `const { ${
-              fileExports.join(', ')
-            } } = require('${fileRequirePath(file)}')`
-          )
+          if (fileExports.length === 1) {
+            indexContents.push(
+              `const ${fileExports.join('')} = require('${fileRequirePath(
+                file
+              )}')`
+            )
+          } else {
+            indexContents.push(
+              `const { ${fileExports.join(', ')} } = require('${fileRequirePath(
+                file
+              )}')`
+            )
+          }
           break
       }
     }
   }
   indexExports.sort(stringSort)
   indexContents.push(`\nmodule.exports = {\n${indexExports.join(',\n')}\n}\n`)
-  await fs.writeFile(
-    Path.join(libPath, 'index.js'),
-    indexContents.join('\n'),
-    'utf8'
-  )
+  await fs.writeFile('./index.js', indexContents.join('\n'), 'utf8')
   await formatGeneratedIndex()
 }
 

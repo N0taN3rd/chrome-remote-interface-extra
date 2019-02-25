@@ -1,0 +1,26 @@
+{
+  "source": "./lib/",
+  "destination": "./docs",
+  "plugins": [
+    {"name": "esdoc-node"},
+    {
+      "name": "esdoc-standard-plugin",
+      "option": {
+        "lint": {"enable": true},
+        "coverage": {"enable": true},
+        "accessor": {"access": ["public", "protected", "private"], "autoPrivate": true},
+        "undocumentIdentifier": {"enable": true},
+        "unexportedIdentifier": {"enable": false},
+        "typeInference": {"enable": true},
+        "brand": {
+          "title": "chrome-remote-interface-extra",
+          "description": "The chrome-remote-interface-extra brings a GoogleChrome/puppeteer like api to the chrome-remote-interface, as well as, making many of the full CDP values puppetter hides available",
+          "repository": "https://github.com/N0taN3rd/chrome-remote-interface-extra",
+          "author": "https://twitter.com/johnaberlin"
+        }
+      }
+    },
+    {"name": "esdoc-external-ecmascript-plugin", "option": {"enable": true}},
+    {"name": "esdoc-ecmascript-proposal-plugin", "option": {"all": true}}
+  ]
+}
