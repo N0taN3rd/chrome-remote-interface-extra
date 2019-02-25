@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">lib/frames/FrameManager.js | chrome-remote-interface-extra</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="The chrome-remote-interface-extra brings a GoogleChrome/puppeteer like api to the chrome-remote-interface, as well as, making many of the full CDP values puppetter hides available"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="chrome-remote-interface-extra"><meta property="twitter:description" content="The chrome-remote-interface-extra brings a GoogleChrome/puppeteer like api to the chrome-remote-interface, as well as, making many of the full CDP values puppetter hides available"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/N0taN3rd/chrome-remote-interface-extra"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/DOMWorld.js~DOMWorld.html">DOMWorld</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/Dialog.js~Dialog.html">Dialog</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/EmulationManager.js~EmulationManager.html">EmulationManager</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/Errors.js~CustomError.html">CustomError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/Errors.js~TimeoutError.html">TimeoutError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/LifecycleWatcher.js~LifecycleWatcher.html">LifecycleWatcher</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/Target.js~Target.html">Target</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/TimeoutSettings.js~TimeoutSettings.html">TimeoutSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/Tracing.js~Tracing.html">Tracing</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/WaitTask.js~WaitTask.html">WaitTask</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/Worker.js~Worker.html">Worker</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-CRIExtra">CRIExtra</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DeviceDescriptors">DeviceDescriptors</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ElementHandle">ElementHandle</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-JSHandle">JSHandle</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-createJSHandle">createJSHandle</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Device">Device</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-DeviceDescriptorViewPort">DeviceDescriptorViewPort</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-DOMRGBA">DOMRGBA</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Viewport">Viewport</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-BoxModel">BoxModel</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#accessibility">accessibility</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/accessibility/AXNode.js~AXNode.html">AXNode</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/accessibility/Accessibility.js~Accessibility.html">Accessibility</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-AXNode">AXNode</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Accessibility">Accessibility</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-SerializedAXNode">SerializedAXNode</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#browser">browser</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/Browser.js~Browser.html">Browser</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/BrowserContext.js~BrowserContext.html">BrowserContext</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Browser">Browser</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-BrowserContext">BrowserContext</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-BrowserInitOptions">BrowserInitOptions</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#connection">connection</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/connection/CDPSession.js~CDPSession.html">CDPSession</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/connection/CRIConnection.js~CRIConnection.html">CRIConnection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-adaptChromeRemoteInterfaceClient">adaptChromeRemoteInterfaceClient</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CRIClientPatched">CRIClientPatched</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CDPSession">CDPSession</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CRIClientPatched">CRIClientPatched</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CRIConnection">CRIConnection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-adaptChromeRemoteInterfaceClient">adaptChromeRemoteInterfaceClient</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ConnectionTypes">ConnectionTypes</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#coverage">coverage</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/coverage/CSSCoverage.js~CSSCoverage.html">CSSCoverage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/coverage/Coverage.js~Coverage.html">Coverage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/coverage/JSCoverage.js~JSCoverage.html">JSCoverage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CSSCoverage">CSSCoverage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Coverage">Coverage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-JSCoverage">JSCoverage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-CoverageEntry">CoverageEntry</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#executioncontext">executionContext</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/executionContext/ExecutionContext.js~ExecutionContext.html">ExecutionContext</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-EVALUATION_SCRIPT_URL">EVALUATION_SCRIPT_URL</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-EVALUATION_SCRIPT_URL">EVALUATION_SCRIPT_URL</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ExecutionContext">ExecutionContext</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#frames">frames</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/frames/Frame.js~Frame.html">Frame</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/frames/FrameManager.js~FrameManager.html">FrameManager</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/frames/FrameResource.js~FrameResource.html">FrameResource</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/frames/FrameResourceTree.js~FrameResourceTree.html">FrameResourceTree</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Frame">Frame</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FrameManager">FrameManager</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FrameResource">FrameResource</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FrameResourceTree">FrameResourceTree</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#input">input</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/input/Keyboard.js~Keyboard.html">Keyboard</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/input/Mouse.js~Mouse.html">Mouse</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/input/Touchscreen.js~Touchscreen.html">Touchscreen</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Keyboard">Keyboard</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Mouse">Mouse</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Touchscreen">Touchscreen</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-USKeyboardLayout">USKeyboardLayout</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-KeyDescription">KeyDescription</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-KeyDefinition">KeyDefinition</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#network">network</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/network/Cookie.js~Cookie.html">Cookie</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/network/NetworkIdleWatcher.js~NetIdleWatcher.html">NetIdleWatcher</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/network/NetworkManager.js~NetworkManager.html">NetworkManager</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/network/Request.js~Request.html">Request</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/network/Response.js~Response.html">Response</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/network/SecurityDetails.js~SecurityDetails.html">SecurityDetails</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Cookie">Cookie</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-NetIdleWatcher">NetIdleWatcher</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-NetworkManager">NetworkManager</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Request">Request</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Response">Response</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-SecurityDetails">SecurityDetails</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-CDPCookie">CDPCookie</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-NetIdleOptions">NetIdleOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-CookieParam">CookieParam</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-CookieToBeDeleted">CookieToBeDeleted</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ModifyCookieParam">ModifyCookieParam</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-NetworkConditions">NetworkConditions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-UserAgentOverride">UserAgentOverride</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#page">page</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/Page.js~Page.html">Page</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ConsoleMessage">ConsoleMessage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Page">Page</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ConsoleMessage.Location">ConsoleMessage.Location</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ExtraDomainsConfig">ExtraDomainsConfig</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Metrics">Metrics</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-PDFOptions">PDFOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-PageInitOptions">PageInitOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ScreenshotOptions">ScreenshotOptions</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">lib/frames/FrameManager.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/* eslint-env node, browser */
+const util = require(&apos;util&apos;)
+const EventEmitter = require(&apos;eventemitter3&apos;)
+const { assert, helper } = require(&apos;../helper&apos;)
+const Events = require(&apos;../Events&apos;)
+const {
+  ExecutionContext,
+  EVALUATION_SCRIPT_URL
+} = require(&apos;../executionContext&apos;)
+const LifecycleWatcher = require(&apos;../LifecycleWatcher&apos;)
+const Frame = require(&apos;./Frame&apos;)
+const FrameResourceTree = require(&apos;./FrameResourceTree&apos;)
+
+const UTILITY_WORLD_NAME = &apos;__chrome-remote-interface-extra_utility_world__&apos;
+
+class FrameManager extends EventEmitter {
+  /**
+   * @param {Chrome|CRIConnection|CDPSession|Object} client
+   * @param {!Object} frameTree
+   * @param {!TimeoutSettings} timeoutSettings
+   * @param {NetworkManager} [networkManager]
+   * @param {Page} [page]
+   */
+  constructor (client, frameTree, timeoutSettings, networkManager, page) {
+    super()
+    /**
+     * @type {!Chrome|CRIConnection|CDPSession|Object}
+     */
+    this._client = client
+
+    /**
+     * @type {!TimeoutSettings}
+     */
+    this._timeoutSettings = timeoutSettings
+
+    /**
+     * @type {?NetworkManager}
+     */
+    this._networkManager = networkManager
+
+    /**
+     * @type {?Page}
+     */
+    this._page = page
+
+    /**
+     * @type {Frame}
+     */
+    this._mainFrame = null
+
+    /** @type {Map&lt;string, Frame&gt;} */
+    this._frames = new Map()
+    /** @type {Map&lt;number, ExecutionContext&gt;} */
+    this._contextIdToContext = new Map()
+    /** @type {Set&lt;string&gt;} */
+    this._isolatedWorlds = new Set()
+
+    this._client.on(&apos;Page.frameAttached&apos;, event =&gt; this._onFrameAttached(event))
+    this._client.on(&apos;Page.frameNavigated&apos;, event =&gt;
+      this._onFrameNavigated(event)
+    )
+    this._client.on(&apos;Page.navigatedWithinDocument&apos;, event =&gt;
+      this._onFrameNavigatedWithinDocument(event)
+    )
+    this._client.on(&apos;Page.frameDetached&apos;, event =&gt; this._onFrameDetached(event))
+    this._client.on(&apos;Page.frameStoppedLoading&apos;, event =&gt;
+      this._onFrameStoppedLoading(event)
+    )
+    this._client.on(&apos;Runtime.executionContextCreated&apos;, event =&gt;
+      this._onExecutionContextCreated(event)
+    )
+    this._client.on(&apos;Runtime.executionContextDestroyed&apos;, event =&gt;
+      this._onExecutionContextDestroyed(event)
+    )
+    this._client.on(&apos;Runtime.executionContextsCleared&apos;, event =&gt;
+      this._onExecutionContextsCleared()
+    )
+    this._client.on(&apos;Page.lifecycleEvent&apos;, event =&gt;
+      this._onLifecycleEvent(event)
+    )
+    this._handleFrameTree(frameTree, true)
+  }
+
+  /**
+   * @return {?Page}
+   */
+  page () {
+    return this._page
+  }
+
+  /**
+   * @return {!Frame}
+   */
+  mainFrame () {
+    return this._mainFrame
+  }
+
+  /**
+   * @return {!Array&lt;Frame&gt;}
+   */
+  frames () {
+    return Array.from(this._frames.values())
+  }
+
+  /**
+   * @param {!string} frameId
+   * @return {?Frame}
+   */
+  frame (frameId) {
+    return this._frames.get(frameId) || null
+  }
+
+  /**
+   * @param {!Frame} frame
+   * @param {string} url
+   * @param {!{referer?: string, timeout?: number, waitUntil?: string|Array&lt;string&gt;, transitionType?: string}=} options
+   * @return {Promise&lt;Response|undefined&gt;}
+   */
+  async navigateFrame (frame, url, options = {}) {
+    assertNoLegacyNavigationOptions(options)
+    const {
+      waitUntil = [&apos;load&apos;],
+      timeout = this._timeoutSettings.navigationTimeout(),
+      transitionType
+    } = options
+    let referer = options.referer
+    if (referer == null) {
+      if (this._networkManager != null) {
+        referer = this._networkManager.extraHTTPHeaders()[&apos;referer&apos;]
+      }
+    }
+    const watcher = new LifecycleWatcher(this, frame, waitUntil, timeout)
+    const endnObj = { ensureNewDocumentNavigation: false }
+    const navigationParams = {
+      url,
+      transitionType,
+      referrer: referer,
+      frameId: frame._id
+    }
+    let error = await Promise.race([
+      this._navigate(navigationParams, endnObj),
+      watcher.timeoutOrTerminationPromise()
+    ])
+    if (!error) {
+      error = await Promise.race([
+        watcher.timeoutOrTerminationPromise(),
+        endnObj.ensureNewDocumentNavigation
+          ? watcher.newDocumentNavigationPromise()
+          : watcher.sameDocumentNavigationPromise()
+      ])
+    }
+    watcher.dispose()
+    if (error) throw error
+    return watcher.navigationResponse()
+  }
+
+  /**
+   * @param {!Frame} frame
+   * @param {!{timeout?: number, waitUntil?: string|Array&lt;string&gt;}=} options
+   * @return {Promise&lt;Response|undefined&gt;}
+   */
+  async waitForFrameNavigation (frame, options = {}) {
+    assertNoLegacyNavigationOptions(options)
+    const {
+      waitUntil = [&apos;load&apos;],
+      timeout = this._timeoutSettings.navigationTimeout()
+    } = options
+    const watcher = new LifecycleWatcher(this, frame, waitUntil, timeout)
+    const error = await Promise.race([
+      watcher.timeoutOrTerminationPromise(),
+      watcher.sameDocumentNavigationPromise(),
+      watcher.newDocumentNavigationPromise()
+    ])
+    watcher.dispose()
+    if (error) throw error
+    return watcher.navigationResponse()
+  }
+
+  async ensureSecondaryDOMWorld () {
+    await this._ensureIsolatedWorld(UTILITY_WORLD_NAME)
+  }
+
+  /**
+   * @return {Promise&lt;FrameResourceTree&gt;}
+   */
+  async getResourceTree () {
+    const { frameTree } = await this._client.send(&apos;Page.getResourceTree&apos;)
+    return new FrameResourceTree(this, frameTree)
+  }
+
+  /**
+   * @desc Returns content of the given resource. EXPERIMENTAL
+   * @param {string} frameId - Frame id to get resource for
+   * @param {string} url - URL of the resource to get content for
+   * @return {Promise&lt;Buffer&gt;} - Resource content
+   * @see https://chromedevtools.github.io/devtools-protocol/tot/Page#method-getResourceContent
+   */
+  async getFrameResourceContent (frameId, url) {
+    const { content, base64Encoded } = await this._client.send(
+      &apos;Page.getResourceContent&apos;,
+      { frameId, url }
+    )
+    return Buffer.from(content, base64Encoded ? &apos;base64&apos; : &apos;utf8&apos;)
+  }
+
+  /**
+   * @param {string} name
+   */
+  async _ensureIsolatedWorld (name) {
+    if (this._isolatedWorlds.has(name)) return
+    this._isolatedWorlds.add(name)
+    await this._client.send(&apos;Page.addScriptToEvaluateOnNewDocument&apos;, {
+      source: `//# sourceURL=${EVALUATION_SCRIPT_URL}`,
+      worldName: name
+    })
+    await Promise.all(
+      this.frames().map(frame =&gt;
+        this._client
+          .send(&apos;Page.createIsolatedWorld&apos;, {
+            frameId: frame._id,
+            grantUniveralAccess: true,
+            worldName: name
+          })
+          .catch(helper.noop)
+      )
+    )
+  }
+
+  /**
+   * @param {{transitionType: ?string, frameId: string, url: string, referrer: ?string}} navigationParams
+   * @param {{ensureNewDocumentNavigation: boolean}} endnObj
+   * @return {Promise&lt;Error|undefined&gt;}
+   */
+  async _navigate (navigationParams, endnObj) {
+    try {
+      const response = await this._client.send(
+        &apos;Page.navigate&apos;,
+        navigationParams
+      )
+      endnObj.ensureNewDocumentNavigation = !!response.loaderId
+      return response.errorText
+        ? new Error(`${response.errorText} at ${navigationParams.url}`)
+        : null
+    } catch (error) {
+      return error
+    }
+  }
+
+  /**
+   * @param {number} contextId
+   * @return {!ExecutionContext}
+   */
+  executionContextById (contextId) {
+    const context = this._contextIdToContext.get(contextId)
+    assert(context, &apos;INTERNAL ERROR: missing context with id = &apos; + contextId)
+    return context
+  }
+
+  /**
+   * @param {!Object} event
+   */
+  _onLifecycleEvent (event) {
+    const frame = this._frames.get(event.frameId)
+    if (!frame) return
+    frame._onLifecycleEvent(event.loaderId, event.name)
+    this.emit(Events.FrameManager.LifecycleEvent, frame)
+  }
+
+  /**
+   * @param {!Object} event
+   */
+  _onFrameAttached (event) {
+    if (this._frames.has(event.frameId)) return
+    assert(
+      event.parentFrameId,
+      &apos;A frame attached but does not have a parent id&apos;
+    )
+    const parentFrame = this._frames.get(event.parentFrameId)
+    const frame = new Frame(this, this._client, parentFrame, event.frameId)
+    this._frames.set(frame.id(), frame)
+    this.emit(Events.FrameManager.FrameAttached, frame)
+  }
+
+  /**
+   * @param {!Object} event
+   */
+  _onFrameNavigated (event) {
+    const framePayload = event.frame
+    const isMainFrame = !framePayload.parentId
+    let frame = isMainFrame
+      ? this._mainFrame
+      : this._frames.get(framePayload.id)
+    assert(
+      isMainFrame || frame,
+      &apos;We either navigate top level or have old version of the navigated frame&apos;
+    )
+
+    // Detach all child frames first.
+    if (frame) {
+      const childFrames = frame.childFrames()
+      for (let i = 0; i &lt; childFrames.length; i++) {
+        this._removeFramesRecursively(childFrames[i])
+      }
+    }
+
+    // Update or create main frame.
+    if (isMainFrame) {
+      if (frame) {
+        // Update frame id to retain frame identity on cross-process navigation.
+        this._frames.delete(frame._id)
+        frame._id = framePayload.id
+      } else {
+        // Initial main frame navigation.
+        frame = new Frame(this, this._client, null, framePayload.id)
+      }
+      this._frames.set(framePayload.id, frame)
+      this._mainFrame = frame
+    }
+
+    // Update frame payload.
+    frame._navigated(framePayload)
+
+    this.emit(Events.FrameManager.FrameNavigated, frame)
+  }
+
+  /**
+   * @param {!Object} event
+   */
+  _onFrameNavigatedWithinDocument (event) {
+    const frame = this._frames.get(event.frameId)
+    if (!frame) {
+      console.log(
+        &apos;A frame navigated within the document but we do not have that frame&apos;,
+        event
+      )
+      return
+    }
+    frame._navigatedWithinDocument(event.url)
+    this.emit(Events.FrameManager.FrameNavigatedWithinDocument, frame)
+    this.emit(Events.FrameManager.FrameNavigated, frame)
+  }
+
+  /**
+   * @param {!Object} event
+   */
+  _onFrameDetached (event) {
+    const frame = this._frames.get(event.frameId)
+    if (frame) {
+      this._removeFramesRecursively(frame)
+    } else {
+      console.log(
+        &apos;A frame detached from the document but we do not have that frame&apos;,
+        event
+      )
+    }
+  }
+
+  /**
+   * @param {!Object} event
+   */
+  _onFrameStoppedLoading (event) {
+    const frame = this._frames.get(event.frameId)
+    if (!frame) {
+      console.log(
+        &apos;A frame stopped loading but we do not have that frame&apos;,
+        event
+      )
+      return
+    }
+    frame._onLoadingStopped()
+    this.emit(Events.FrameManager.LifecycleEvent, frame)
+  }
+
+  /**
+   *
+   * @param {!Object} event
+   */
+  _onExecutionContextCreated (event) {
+    const contextPayload = event.context
+    const frameId = contextPayload.auxData
+      ? contextPayload.auxData.frameId
+      : null
+    const frame = this._frames.get(frameId) || null
+    let world = null
+    if (frame) {
+      if (contextPayload.auxData &amp;&amp; !!contextPayload.auxData[&apos;isDefault&apos;]) {
+        world = frame._mainWorld
+      } else if (contextPayload.name === UTILITY_WORLD_NAME) {
+        world = frame._secondaryWorld
+      }
+    }
+    if (
+      contextPayload.auxData &amp;&amp;
+      contextPayload.auxData[&apos;type&apos;] === &apos;isolated&apos;
+    ) {
+      this._isolatedWorlds.add(contextPayload.name)
+    }
+    /** @type {!ExecutionContext} */
+    const context = new ExecutionContext(this._client, contextPayload, world)
+    if (world) world._setContext(context)
+    this._contextIdToContext.set(contextPayload.id, context)
+  }
+
+  /**
+   * @param {!Object} event
+   */
+  _onExecutionContextDestroyed (event) {
+    const context = this._contextIdToContext.get(event.executionContextId)
+    if (!context) return
+    this._contextIdToContext.delete(event.executionContextId)
+    if (context._world) context._world._setContext(null)
+  }
+
+  _onExecutionContextsCleared () {
+    for (const context of this._contextIdToContext.values()) {
+      if (context._world) context._world._setContext(null)
+    }
+    this._contextIdToContext.clear()
+  }
+
+  /**
+   * @param {!Frame} frame
+   */
+  _removeFramesRecursively (frame) {
+    const childFrames = frame.childFrames()
+    for (let i = 0; i &lt; childFrames.length; i++) {
+      this._removeFramesRecursively(childFrames[i])
+    }
+    frame._detach()
+    this._frames.delete(frame._id)
+    this.emit(Events.FrameManager.FrameDetached, frame)
+  }
+
+  /**
+   * @param {!Object} frameTree
+   * @param {boolean} [first = false]
+   */
+  _handleFrameTree (frameTree, first = false) {
+    const parentFrame = this._frames.get(frameTree.frame.parentId || &apos;&apos;)
+    const frame = Frame.fromCDPFrame(this, frameTree.frame, parentFrame)
+    this._frames.set(frame.id(), frame)
+    if (parentFrame == null &amp;&amp; first) {
+      this._mainFrame = frame
+    } else if (first) {
+      console.log(
+        &apos;handled first frame in frame tree and it has a parent frame???&apos;,
+        frame
+      )
+    }
+    if (!frameTree.childFrames) return
+    const childFrames = frameTree.childFrames
+    for (let i = 0; i &lt; childFrames.length; i++) {
+      this._handleFrameTree(childFrames[i])
+    }
+  }
+
+  toJSON () {
+    return { mainFrame: this._mainFrame, frames: this.frames() }
+  }
+
+  /** @ignore */
+  // eslint-disable-next-line space-before-function-paren
+  [util.inspect.custom](depth, options) {
+    if (depth &lt; 0) {
+      return options.stylize(&apos;[FrameManager]&apos;, &apos;special&apos;)
+    }
+
+    const newOptions = Object.assign({}, options, {
+      depth: options.depth === null ? null : options.depth - 1
+    })
+    const inner = util.inspect(
+      { mainFrame: this._mainFrame, frames: this.frames() },
+      newOptions
+    )
+    return `${options.stylize(&apos;FrameManager&apos;, &apos;special&apos;)} ${inner}`
+  }
+}
+
+function assertNoLegacyNavigationOptions (options) {
+  assert(
+    options[&apos;networkIdleTimeout&apos;] === undefined,
+    &apos;ERROR: networkIdleTimeout option is no longer supported.&apos;
+  )
+  assert(
+    options[&apos;networkIdleInflight&apos;] === undefined,
+    &apos;ERROR: networkIdleInflight option is no longer supported.&apos;
+  )
+}
+
+/**
+ * @type {FrameManager}
+ */
+module.exports = FrameManager
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

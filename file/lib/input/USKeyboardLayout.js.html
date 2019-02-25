@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">lib/input/USKeyboardLayout.js | chrome-remote-interface-extra</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="The chrome-remote-interface-extra brings a GoogleChrome/puppeteer like api to the chrome-remote-interface, as well as, making many of the full CDP values puppetter hides available"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="chrome-remote-interface-extra"><meta property="twitter:description" content="The chrome-remote-interface-extra brings a GoogleChrome/puppeteer like api to the chrome-remote-interface, as well as, making many of the full CDP values puppetter hides available"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/N0taN3rd/chrome-remote-interface-extra"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/DOMWorld.js~DOMWorld.html">DOMWorld</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/Dialog.js~Dialog.html">Dialog</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/EmulationManager.js~EmulationManager.html">EmulationManager</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/Errors.js~CustomError.html">CustomError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/Errors.js~TimeoutError.html">TimeoutError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/LifecycleWatcher.js~LifecycleWatcher.html">LifecycleWatcher</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/Target.js~Target.html">Target</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/TimeoutSettings.js~TimeoutSettings.html">TimeoutSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/Tracing.js~Tracing.html">Tracing</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/WaitTask.js~WaitTask.html">WaitTask</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/Worker.js~Worker.html">Worker</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-CRIExtra">CRIExtra</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DeviceDescriptors">DeviceDescriptors</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ElementHandle">ElementHandle</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-JSHandle">JSHandle</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-createJSHandle">createJSHandle</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Device">Device</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-DeviceDescriptorViewPort">DeviceDescriptorViewPort</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-DOMRGBA">DOMRGBA</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Viewport">Viewport</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-BoxModel">BoxModel</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#accessibility">accessibility</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/accessibility/AXNode.js~AXNode.html">AXNode</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/accessibility/Accessibility.js~Accessibility.html">Accessibility</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-AXNode">AXNode</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Accessibility">Accessibility</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-SerializedAXNode">SerializedAXNode</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#browser">browser</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/Browser.js~Browser.html">Browser</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/BrowserContext.js~BrowserContext.html">BrowserContext</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Browser">Browser</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-BrowserContext">BrowserContext</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-BrowserInitOptions">BrowserInitOptions</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#connection">connection</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/connection/CDPSession.js~CDPSession.html">CDPSession</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/connection/CRIConnection.js~CRIConnection.html">CRIConnection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-adaptChromeRemoteInterfaceClient">adaptChromeRemoteInterfaceClient</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CRIClientPatched">CRIClientPatched</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CDPSession">CDPSession</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CRIClientPatched">CRIClientPatched</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CRIConnection">CRIConnection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-adaptChromeRemoteInterfaceClient">adaptChromeRemoteInterfaceClient</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ConnectionTypes">ConnectionTypes</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#coverage">coverage</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/coverage/CSSCoverage.js~CSSCoverage.html">CSSCoverage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/coverage/Coverage.js~Coverage.html">Coverage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/coverage/JSCoverage.js~JSCoverage.html">JSCoverage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CSSCoverage">CSSCoverage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Coverage">Coverage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-JSCoverage">JSCoverage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-CoverageEntry">CoverageEntry</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#executioncontext">executionContext</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/executionContext/ExecutionContext.js~ExecutionContext.html">ExecutionContext</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-EVALUATION_SCRIPT_URL">EVALUATION_SCRIPT_URL</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-EVALUATION_SCRIPT_URL">EVALUATION_SCRIPT_URL</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ExecutionContext">ExecutionContext</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#frames">frames</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/frames/Frame.js~Frame.html">Frame</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/frames/FrameManager.js~FrameManager.html">FrameManager</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/frames/FrameResource.js~FrameResource.html">FrameResource</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/frames/FrameResourceTree.js~FrameResourceTree.html">FrameResourceTree</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Frame">Frame</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FrameManager">FrameManager</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FrameResource">FrameResource</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FrameResourceTree">FrameResourceTree</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#input">input</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/input/Keyboard.js~Keyboard.html">Keyboard</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/input/Mouse.js~Mouse.html">Mouse</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/input/Touchscreen.js~Touchscreen.html">Touchscreen</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Keyboard">Keyboard</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Mouse">Mouse</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Touchscreen">Touchscreen</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-USKeyboardLayout">USKeyboardLayout</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-KeyDescription">KeyDescription</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-KeyDefinition">KeyDefinition</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#network">network</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/network/Cookie.js~Cookie.html">Cookie</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/network/NetworkIdleWatcher.js~NetIdleWatcher.html">NetIdleWatcher</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/network/NetworkManager.js~NetworkManager.html">NetworkManager</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/network/Request.js~Request.html">Request</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/network/Response.js~Response.html">Response</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/network/SecurityDetails.js~SecurityDetails.html">SecurityDetails</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Cookie">Cookie</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-NetIdleWatcher">NetIdleWatcher</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-NetworkManager">NetworkManager</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Request">Request</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Response">Response</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-SecurityDetails">SecurityDetails</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-CDPCookie">CDPCookie</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-NetIdleOptions">NetIdleOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-CookieParam">CookieParam</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-CookieToBeDeleted">CookieToBeDeleted</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ModifyCookieParam">ModifyCookieParam</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-NetworkConditions">NetworkConditions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-UserAgentOverride">UserAgentOverride</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#page">page</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/Page.js~Page.html">Page</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ConsoleMessage">ConsoleMessage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Page">Page</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ConsoleMessage.Location">ConsoleMessage.Location</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ExtraDomainsConfig">ExtraDomainsConfig</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Metrics">Metrics</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-PDFOptions">PDFOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-PageInitOptions">PageInitOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ScreenshotOptions">ScreenshotOptions</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">lib/input/USKeyboardLayout.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/**
+ * @typedef {Object} KeyDefinition
+ * @property {number} keyCode
+ * @property {number} shiftKeyCode
+ * @property {string} key
+ * @property {string} shiftKey
+ * @property {string} code
+ * @property {string} text
+ * @property {string} shiftText
+ * @property {number} location
+ */
+
+/**
+ * @type {Object&lt;string, KeyDefinition&gt;}
+ */
+module.exports = {
+  &apos;0&apos;: { keyCode: 48, key: &apos;0&apos;, code: &apos;Digit0&apos; },
+  &apos;1&apos;: { keyCode: 49, key: &apos;1&apos;, code: &apos;Digit1&apos; },
+  &apos;2&apos;: { keyCode: 50, key: &apos;2&apos;, code: &apos;Digit2&apos; },
+  &apos;3&apos;: { keyCode: 51, key: &apos;3&apos;, code: &apos;Digit3&apos; },
+  &apos;4&apos;: { keyCode: 52, key: &apos;4&apos;, code: &apos;Digit4&apos; },
+  &apos;5&apos;: { keyCode: 53, key: &apos;5&apos;, code: &apos;Digit5&apos; },
+  &apos;6&apos;: { keyCode: 54, key: &apos;6&apos;, code: &apos;Digit6&apos; },
+  &apos;7&apos;: { keyCode: 55, key: &apos;7&apos;, code: &apos;Digit7&apos; },
+  &apos;8&apos;: { keyCode: 56, key: &apos;8&apos;, code: &apos;Digit8&apos; },
+  &apos;9&apos;: { keyCode: 57, key: &apos;9&apos;, code: &apos;Digit9&apos; },
+  Power: { key: &apos;Power&apos;, code: &apos;Power&apos; },
+  Eject: { key: &apos;Eject&apos;, code: &apos;Eject&apos; },
+  Abort: { keyCode: 3, code: &apos;Abort&apos;, key: &apos;Cancel&apos; },
+  Help: { keyCode: 6, code: &apos;Help&apos;, key: &apos;Help&apos; },
+  Backspace: { keyCode: 8, code: &apos;Backspace&apos;, key: &apos;Backspace&apos; },
+  Tab: { keyCode: 9, code: &apos;Tab&apos;, key: &apos;Tab&apos; },
+  Numpad5: {
+    keyCode: 12,
+    shiftKeyCode: 101,
+    key: &apos;Clear&apos;,
+    code: &apos;Numpad5&apos;,
+    shiftKey: &apos;5&apos;,
+    location: 3
+  },
+  NumpadEnter: {
+    keyCode: 13,
+    code: &apos;NumpadEnter&apos;,
+    key: &apos;Enter&apos;,
+    text: &apos;\r&apos;,
+    location: 3
+  },
+  Enter: { keyCode: 13, code: &apos;Enter&apos;, key: &apos;Enter&apos;, text: &apos;\r&apos; },
+  &apos;\r&apos;: { keyCode: 13, code: &apos;Enter&apos;, key: &apos;Enter&apos;, text: &apos;\r&apos; },
+  &apos;\n&apos;: { keyCode: 13, code: &apos;Enter&apos;, key: &apos;Enter&apos;, text: &apos;\r&apos; },
+  ShiftLeft: { keyCode: 16, code: &apos;ShiftLeft&apos;, key: &apos;Shift&apos;, location: 1 },
+  ShiftRight: { keyCode: 16, code: &apos;ShiftRight&apos;, key: &apos;Shift&apos;, location: 2 },
+  ControlLeft: {
+    keyCode: 17,
+    code: &apos;ControlLeft&apos;,
+    key: &apos;Control&apos;,
+    location: 1
+  },
+  ControlRight: {
+    keyCode: 17,
+    code: &apos;ControlRight&apos;,
+    key: &apos;Control&apos;,
+    location: 2
+  },
+  AltLeft: { keyCode: 18, code: &apos;AltLeft&apos;, key: &apos;Alt&apos;, location: 1 },
+  AltRight: { keyCode: 18, code: &apos;AltRight&apos;, key: &apos;Alt&apos;, location: 2 },
+  Pause: { keyCode: 19, code: &apos;Pause&apos;, key: &apos;Pause&apos; },
+  CapsLock: { keyCode: 20, code: &apos;CapsLock&apos;, key: &apos;CapsLock&apos; },
+  Escape: { keyCode: 27, code: &apos;Escape&apos;, key: &apos;Escape&apos; },
+  Convert: { keyCode: 28, code: &apos;Convert&apos;, key: &apos;Convert&apos; },
+  NonConvert: { keyCode: 29, code: &apos;NonConvert&apos;, key: &apos;NonConvert&apos; },
+  Space: { keyCode: 32, code: &apos;Space&apos;, key: &apos; &apos; },
+  Numpad9: {
+    keyCode: 33,
+    shiftKeyCode: 105,
+    key: &apos;PageUp&apos;,
+    code: &apos;Numpad9&apos;,
+    shiftKey: &apos;9&apos;,
+    location: 3
+  },
+  PageUp: { keyCode: 33, code: &apos;PageUp&apos;, key: &apos;PageUp&apos; },
+  Numpad3: {
+    keyCode: 34,
+    shiftKeyCode: 99,
+    key: &apos;PageDown&apos;,
+    code: &apos;Numpad3&apos;,
+    shiftKey: &apos;3&apos;,
+    location: 3
+  },
+  PageDown: { keyCode: 34, code: &apos;PageDown&apos;, key: &apos;PageDown&apos; },
+  End: { keyCode: 35, code: &apos;End&apos;, key: &apos;End&apos; },
+  Numpad1: {
+    keyCode: 35,
+    shiftKeyCode: 97,
+    key: &apos;End&apos;,
+    code: &apos;Numpad1&apos;,
+    shiftKey: &apos;1&apos;,
+    location: 3
+  },
+  Home: { keyCode: 36, code: &apos;Home&apos;, key: &apos;Home&apos; },
+  Numpad7: {
+    keyCode: 36,
+    shiftKeyCode: 103,
+    key: &apos;Home&apos;,
+    code: &apos;Numpad7&apos;,
+    shiftKey: &apos;7&apos;,
+    location: 3
+  },
+  ArrowLeft: { keyCode: 37, code: &apos;ArrowLeft&apos;, key: &apos;ArrowLeft&apos; },
+  Numpad4: {
+    keyCode: 37,
+    shiftKeyCode: 100,
+    key: &apos;ArrowLeft&apos;,
+    code: &apos;Numpad4&apos;,
+    shiftKey: &apos;4&apos;,
+    location: 3
+  },
+  Numpad8: {
+    keyCode: 38,
+    shiftKeyCode: 104,
+    key: &apos;ArrowUp&apos;,
+    code: &apos;Numpad8&apos;,
+    shiftKey: &apos;8&apos;,
+    location: 3
+  },
+  ArrowUp: { keyCode: 38, code: &apos;ArrowUp&apos;, key: &apos;ArrowUp&apos; },
+  ArrowRight: { keyCode: 39, code: &apos;ArrowRight&apos;, key: &apos;ArrowRight&apos; },
+  Numpad6: {
+    keyCode: 39,
+    shiftKeyCode: 102,
+    key: &apos;ArrowRight&apos;,
+    code: &apos;Numpad6&apos;,
+    shiftKey: &apos;6&apos;,
+    location: 3
+  },
+  Numpad2: {
+    keyCode: 40,
+    shiftKeyCode: 98,
+    key: &apos;ArrowDown&apos;,
+    code: &apos;Numpad2&apos;,
+    shiftKey: &apos;2&apos;,
+    location: 3
+  },
+  ArrowDown: { keyCode: 40, code: &apos;ArrowDown&apos;, key: &apos;ArrowDown&apos; },
+  Select: { keyCode: 41, code: &apos;Select&apos;, key: &apos;Select&apos; },
+  Open: { keyCode: 43, code: &apos;Open&apos;, key: &apos;Execute&apos; },
+  PrintScreen: { keyCode: 44, code: &apos;PrintScreen&apos;, key: &apos;PrintScreen&apos; },
+  Insert: { keyCode: 45, code: &apos;Insert&apos;, key: &apos;Insert&apos; },
+  Numpad0: {
+    keyCode: 45,
+    shiftKeyCode: 96,
+    key: &apos;Insert&apos;,
+    code: &apos;Numpad0&apos;,
+    shiftKey: &apos;0&apos;,
+    location: 3
+  },
+  Delete: { keyCode: 46, code: &apos;Delete&apos;, key: &apos;Delete&apos; },
+  NumpadDecimal: {
+    keyCode: 46,
+    shiftKeyCode: 110,
+    code: &apos;NumpadDecimal&apos;,
+    key: &apos;\u0000&apos;,
+    shiftKey: &apos;.&apos;,
+    location: 3
+  },
+  Digit0: { keyCode: 48, code: &apos;Digit0&apos;, shiftKey: &apos;)&apos;, key: &apos;0&apos; },
+  Digit1: { keyCode: 49, code: &apos;Digit1&apos;, shiftKey: &apos;!&apos;, key: &apos;1&apos; },
+  Digit2: { keyCode: 50, code: &apos;Digit2&apos;, shiftKey: &apos;@&apos;, key: &apos;2&apos; },
+  Digit3: { keyCode: 51, code: &apos;Digit3&apos;, shiftKey: &apos;#&apos;, key: &apos;3&apos; },
+  Digit4: { keyCode: 52, code: &apos;Digit4&apos;, shiftKey: &apos;$&apos;, key: &apos;4&apos; },
+  Digit5: { keyCode: 53, code: &apos;Digit5&apos;, shiftKey: &apos;%&apos;, key: &apos;5&apos; },
+  Digit6: { keyCode: 54, code: &apos;Digit6&apos;, shiftKey: &apos;^&apos;, key: &apos;6&apos; },
+  Digit7: { keyCode: 55, code: &apos;Digit7&apos;, shiftKey: &apos;&amp;&apos;, key: &apos;7&apos; },
+  Digit8: { keyCode: 56, code: &apos;Digit8&apos;, shiftKey: &apos;*&apos;, key: &apos;8&apos; },
+  Digit9: { keyCode: 57, code: &apos;Digit9&apos;, shiftKey: &apos;(&apos;, key: &apos;9&apos; },
+  KeyA: { keyCode: 65, code: &apos;KeyA&apos;, shiftKey: &apos;A&apos;, key: &apos;a&apos; },
+  KeyB: { keyCode: 66, code: &apos;KeyB&apos;, shiftKey: &apos;B&apos;, key: &apos;b&apos; },
+  KeyC: { keyCode: 67, code: &apos;KeyC&apos;, shiftKey: &apos;C&apos;, key: &apos;c&apos; },
+  KeyD: { keyCode: 68, code: &apos;KeyD&apos;, shiftKey: &apos;D&apos;, key: &apos;d&apos; },
+  KeyE: { keyCode: 69, code: &apos;KeyE&apos;, shiftKey: &apos;E&apos;, key: &apos;e&apos; },
+  KeyF: { keyCode: 70, code: &apos;KeyF&apos;, shiftKey: &apos;F&apos;, key: &apos;f&apos; },
+  KeyG: { keyCode: 71, code: &apos;KeyG&apos;, shiftKey: &apos;G&apos;, key: &apos;g&apos; },
+  KeyH: { keyCode: 72, code: &apos;KeyH&apos;, shiftKey: &apos;H&apos;, key: &apos;h&apos; },
+  KeyI: { keyCode: 73, code: &apos;KeyI&apos;, shiftKey: &apos;I&apos;, key: &apos;i&apos; },
+  KeyJ: { keyCode: 74, code: &apos;KeyJ&apos;, shiftKey: &apos;J&apos;, key: &apos;j&apos; },
+  KeyK: { keyCode: 75, code: &apos;KeyK&apos;, shiftKey: &apos;K&apos;, key: &apos;k&apos; },
+  KeyL: { keyCode: 76, code: &apos;KeyL&apos;, shiftKey: &apos;L&apos;, key: &apos;l&apos; },
+  KeyM: { keyCode: 77, code: &apos;KeyM&apos;, shiftKey: &apos;M&apos;, key: &apos;m&apos; },
+  KeyN: { keyCode: 78, code: &apos;KeyN&apos;, shiftKey: &apos;N&apos;, key: &apos;n&apos; },
+  KeyO: { keyCode: 79, code: &apos;KeyO&apos;, shiftKey: &apos;O&apos;, key: &apos;o&apos; },
+  KeyP: { keyCode: 80, code: &apos;KeyP&apos;, shiftKey: &apos;P&apos;, key: &apos;p&apos; },
+  KeyQ: { keyCode: 81, code: &apos;KeyQ&apos;, shiftKey: &apos;Q&apos;, key: &apos;q&apos; },
+  KeyR: { keyCode: 82, code: &apos;KeyR&apos;, shiftKey: &apos;R&apos;, key: &apos;r&apos; },
+  KeyS: { keyCode: 83, code: &apos;KeyS&apos;, shiftKey: &apos;S&apos;, key: &apos;s&apos; },
+  KeyT: { keyCode: 84, code: &apos;KeyT&apos;, shiftKey: &apos;T&apos;, key: &apos;t&apos; },
+  KeyU: { keyCode: 85, code: &apos;KeyU&apos;, shiftKey: &apos;U&apos;, key: &apos;u&apos; },
+  KeyV: { keyCode: 86, code: &apos;KeyV&apos;, shiftKey: &apos;V&apos;, key: &apos;v&apos; },
+  KeyW: { keyCode: 87, code: &apos;KeyW&apos;, shiftKey: &apos;W&apos;, key: &apos;w&apos; },
+  KeyX: { keyCode: 88, code: &apos;KeyX&apos;, shiftKey: &apos;X&apos;, key: &apos;x&apos; },
+  KeyY: { keyCode: 89, code: &apos;KeyY&apos;, shiftKey: &apos;Y&apos;, key: &apos;y&apos; },
+  KeyZ: { keyCode: 90, code: &apos;KeyZ&apos;, shiftKey: &apos;Z&apos;, key: &apos;z&apos; },
+  MetaLeft: { keyCode: 91, code: &apos;MetaLeft&apos;, key: &apos;Meta&apos;, location: 1 },
+  MetaRight: { keyCode: 92, code: &apos;MetaRight&apos;, key: &apos;Meta&apos;, location: 2 },
+  ContextMenu: { keyCode: 93, code: &apos;ContextMenu&apos;, key: &apos;ContextMenu&apos; },
+  NumpadMultiply: {
+    keyCode: 106,
+    code: &apos;NumpadMultiply&apos;,
+    key: &apos;*&apos;,
+    location: 3
+  },
+  NumpadAdd: { keyCode: 107, code: &apos;NumpadAdd&apos;, key: &apos;+&apos;, location: 3 },
+  NumpadSubtract: {
+    keyCode: 109,
+    code: &apos;NumpadSubtract&apos;,
+    key: &apos;-&apos;,
+    location: 3
+  },
+  NumpadDivide: { keyCode: 111, code: &apos;NumpadDivide&apos;, key: &apos;/&apos;, location: 3 },
+  F1: { keyCode: 112, code: &apos;F1&apos;, key: &apos;F1&apos; },
+  F2: { keyCode: 113, code: &apos;F2&apos;, key: &apos;F2&apos; },
+  F3: { keyCode: 114, code: &apos;F3&apos;, key: &apos;F3&apos; },
+  F4: { keyCode: 115, code: &apos;F4&apos;, key: &apos;F4&apos; },
+  F5: { keyCode: 116, code: &apos;F5&apos;, key: &apos;F5&apos; },
+  F6: { keyCode: 117, code: &apos;F6&apos;, key: &apos;F6&apos; },
+  F7: { keyCode: 118, code: &apos;F7&apos;, key: &apos;F7&apos; },
+  F8: { keyCode: 119, code: &apos;F8&apos;, key: &apos;F8&apos; },
+  F9: { keyCode: 120, code: &apos;F9&apos;, key: &apos;F9&apos; },
+  F10: { keyCode: 121, code: &apos;F10&apos;, key: &apos;F10&apos; },
+  F11: { keyCode: 122, code: &apos;F11&apos;, key: &apos;F11&apos; },
+  F12: { keyCode: 123, code: &apos;F12&apos;, key: &apos;F12&apos; },
+  F13: { keyCode: 124, code: &apos;F13&apos;, key: &apos;F13&apos; },
+  F14: { keyCode: 125, code: &apos;F14&apos;, key: &apos;F14&apos; },
+  F15: { keyCode: 126, code: &apos;F15&apos;, key: &apos;F15&apos; },
+  F16: { keyCode: 127, code: &apos;F16&apos;, key: &apos;F16&apos; },
+  F17: { keyCode: 128, code: &apos;F17&apos;, key: &apos;F17&apos; },
+  F18: { keyCode: 129, code: &apos;F18&apos;, key: &apos;F18&apos; },
+  F19: { keyCode: 130, code: &apos;F19&apos;, key: &apos;F19&apos; },
+  F20: { keyCode: 131, code: &apos;F20&apos;, key: &apos;F20&apos; },
+  F21: { keyCode: 132, code: &apos;F21&apos;, key: &apos;F21&apos; },
+  F22: { keyCode: 133, code: &apos;F22&apos;, key: &apos;F22&apos; },
+  F23: { keyCode: 134, code: &apos;F23&apos;, key: &apos;F23&apos; },
+  F24: { keyCode: 135, code: &apos;F24&apos;, key: &apos;F24&apos; },
+  NumLock: { keyCode: 144, code: &apos;NumLock&apos;, key: &apos;NumLock&apos; },
+  ScrollLock: { keyCode: 145, code: &apos;ScrollLock&apos;, key: &apos;ScrollLock&apos; },
+  AudioVolumeMute: {
+    keyCode: 173,
+    code: &apos;AudioVolumeMute&apos;,
+    key: &apos;AudioVolumeMute&apos;
+  },
+  AudioVolumeDown: {
+    keyCode: 174,
+    code: &apos;AudioVolumeDown&apos;,
+    key: &apos;AudioVolumeDown&apos;
+  },
+  AudioVolumeUp: { keyCode: 175, code: &apos;AudioVolumeUp&apos;, key: &apos;AudioVolumeUp&apos; },
+  MediaTrackNext: {
+    keyCode: 176,
+    code: &apos;MediaTrackNext&apos;,
+    key: &apos;MediaTrackNext&apos;
+  },
+  MediaTrackPrevious: {
+    keyCode: 177,
+    code: &apos;MediaTrackPrevious&apos;,
+    key: &apos;MediaTrackPrevious&apos;
+  },
+  MediaStop: { keyCode: 178, code: &apos;MediaStop&apos;, key: &apos;MediaStop&apos; },
+  MediaPlayPause: {
+    keyCode: 179,
+    code: &apos;MediaPlayPause&apos;,
+    key: &apos;MediaPlayPause&apos;
+  },
+  Semicolon: { keyCode: 186, code: &apos;Semicolon&apos;, shiftKey: &apos;:&apos;, key: &apos;;&apos; },
+  Equal: { keyCode: 187, code: &apos;Equal&apos;, shiftKey: &apos;+&apos;, key: &apos;=&apos; },
+  NumpadEqual: { keyCode: 187, code: &apos;NumpadEqual&apos;, key: &apos;=&apos;, location: 3 },
+  Comma: { keyCode: 188, code: &apos;Comma&apos;, shiftKey: &apos;&lt;&apos;, key: &apos;,&apos; },
+  Minus: { keyCode: 189, code: &apos;Minus&apos;, shiftKey: &apos;_&apos;, key: &apos;-&apos; },
+  Period: { keyCode: 190, code: &apos;Period&apos;, shiftKey: &apos;&gt;&apos;, key: &apos;.&apos; },
+  Slash: { keyCode: 191, code: &apos;Slash&apos;, shiftKey: &apos;?&apos;, key: &apos;/&apos; },
+  Backquote: { keyCode: 192, code: &apos;Backquote&apos;, shiftKey: &apos;~&apos;, key: &apos;`&apos; },
+  BracketLeft: { keyCode: 219, code: &apos;BracketLeft&apos;, shiftKey: &apos;{&apos;, key: &apos;[&apos; },
+  Backslash: { keyCode: 220, code: &apos;Backslash&apos;, shiftKey: &apos;|&apos;, key: &apos;\\&apos; },
+  BracketRight: { keyCode: 221, code: &apos;BracketRight&apos;, shiftKey: &apos;}&apos;, key: &apos;]&apos; },
+  Quote: { keyCode: 222, code: &apos;Quote&apos;, shiftKey: &apos;&quot;&apos;, key: &quot;&apos;&quot; },
+  AltGraph: { keyCode: 225, code: &apos;AltGraph&apos;, key: &apos;AltGraph&apos; },
+  Props: { keyCode: 247, code: &apos;Props&apos;, key: &apos;CrSel&apos; },
+  Cancel: { keyCode: 3, key: &apos;Cancel&apos;, code: &apos;Abort&apos; },
+  Clear: { keyCode: 12, key: &apos;Clear&apos;, code: &apos;Numpad5&apos;, location: 3 },
+  Shift: { keyCode: 16, key: &apos;Shift&apos;, code: &apos;ShiftLeft&apos;, location: 1 },
+  Control: { keyCode: 17, key: &apos;Control&apos;, code: &apos;ControlLeft&apos;, location: 1 },
+  Alt: { keyCode: 18, key: &apos;Alt&apos;, code: &apos;AltLeft&apos;, location: 1 },
+  Accept: { keyCode: 30, key: &apos;Accept&apos; },
+  ModeChange: { keyCode: 31, key: &apos;ModeChange&apos; },
+  &apos; &apos;: { keyCode: 32, key: &apos; &apos;, code: &apos;Space&apos; },
+  Print: { keyCode: 42, key: &apos;Print&apos; },
+  Execute: { keyCode: 43, key: &apos;Execute&apos;, code: &apos;Open&apos; },
+  &apos;\u0000&apos;: { keyCode: 46, key: &apos;\u0000&apos;, code: &apos;NumpadDecimal&apos;, location: 3 },
+  a: { keyCode: 65, key: &apos;a&apos;, code: &apos;KeyA&apos; },
+  b: { keyCode: 66, key: &apos;b&apos;, code: &apos;KeyB&apos; },
+  c: { keyCode: 67, key: &apos;c&apos;, code: &apos;KeyC&apos; },
+  d: { keyCode: 68, key: &apos;d&apos;, code: &apos;KeyD&apos; },
+  e: { keyCode: 69, key: &apos;e&apos;, code: &apos;KeyE&apos; },
+  f: { keyCode: 70, key: &apos;f&apos;, code: &apos;KeyF&apos; },
+  g: { keyCode: 71, key: &apos;g&apos;, code: &apos;KeyG&apos; },
+  h: { keyCode: 72, key: &apos;h&apos;, code: &apos;KeyH&apos; },
+  i: { keyCode: 73, key: &apos;i&apos;, code: &apos;KeyI&apos; },
+  j: { keyCode: 74, key: &apos;j&apos;, code: &apos;KeyJ&apos; },
+  k: { keyCode: 75, key: &apos;k&apos;, code: &apos;KeyK&apos; },
+  l: { keyCode: 76, key: &apos;l&apos;, code: &apos;KeyL&apos; },
+  m: { keyCode: 77, key: &apos;m&apos;, code: &apos;KeyM&apos; },
+  n: { keyCode: 78, key: &apos;n&apos;, code: &apos;KeyN&apos; },
+  o: { keyCode: 79, key: &apos;o&apos;, code: &apos;KeyO&apos; },
+  p: { keyCode: 80, key: &apos;p&apos;, code: &apos;KeyP&apos; },
+  q: { keyCode: 81, key: &apos;q&apos;, code: &apos;KeyQ&apos; },
+  r: { keyCode: 82, key: &apos;r&apos;, code: &apos;KeyR&apos; },
+  s: { keyCode: 83, key: &apos;s&apos;, code: &apos;KeyS&apos; },
+  t: { keyCode: 84, key: &apos;t&apos;, code: &apos;KeyT&apos; },
+  u: { keyCode: 85, key: &apos;u&apos;, code: &apos;KeyU&apos; },
+  v: { keyCode: 86, key: &apos;v&apos;, code: &apos;KeyV&apos; },
+  w: { keyCode: 87, key: &apos;w&apos;, code: &apos;KeyW&apos; },
+  x: { keyCode: 88, key: &apos;x&apos;, code: &apos;KeyX&apos; },
+  y: { keyCode: 89, key: &apos;y&apos;, code: &apos;KeyY&apos; },
+  z: { keyCode: 90, key: &apos;z&apos;, code: &apos;KeyZ&apos; },
+  Meta: { keyCode: 91, key: &apos;Meta&apos;, code: &apos;MetaLeft&apos;, location: 1 },
+  &apos;*&apos;: { keyCode: 106, key: &apos;*&apos;, code: &apos;NumpadMultiply&apos;, location: 3 },
+  &apos;+&apos;: { keyCode: 107, key: &apos;+&apos;, code: &apos;NumpadAdd&apos;, location: 3 },
+  &apos;-&apos;: { keyCode: 109, key: &apos;-&apos;, code: &apos;NumpadSubtract&apos;, location: 3 },
+  &apos;/&apos;: { keyCode: 111, key: &apos;/&apos;, code: &apos;NumpadDivide&apos;, location: 3 },
+  &apos;;&apos;: { keyCode: 186, key: &apos;;&apos;, code: &apos;Semicolon&apos; },
+  &apos;=&apos;: { keyCode: 187, key: &apos;=&apos;, code: &apos;Equal&apos; },
+  &apos;,&apos;: { keyCode: 188, key: &apos;,&apos;, code: &apos;Comma&apos; },
+  &apos;.&apos;: { keyCode: 190, key: &apos;.&apos;, code: &apos;Period&apos; },
+  &apos;`&apos;: { keyCode: 192, key: &apos;`&apos;, code: &apos;Backquote&apos; },
+  &apos;[&apos;: { keyCode: 219, key: &apos;[&apos;, code: &apos;BracketLeft&apos; },
+  &apos;\\&apos;: { keyCode: 220, key: &apos;\\&apos;, code: &apos;Backslash&apos; },
+  &apos;]&apos;: { keyCode: 221, key: &apos;]&apos;, code: &apos;BracketRight&apos; },
+  &quot;&apos;&quot;: { keyCode: 222, key: &quot;&apos;&quot;, code: &apos;Quote&apos; },
+  Attn: { keyCode: 246, key: &apos;Attn&apos; },
+  CrSel: { keyCode: 247, key: &apos;CrSel&apos;, code: &apos;Props&apos; },
+  ExSel: { keyCode: 248, key: &apos;ExSel&apos; },
+  EraseEof: { keyCode: 249, key: &apos;EraseEof&apos; },
+  Play: { keyCode: 250, key: &apos;Play&apos; },
+  ZoomOut: { keyCode: 251, key: &apos;ZoomOut&apos; },
+  &apos;)&apos;: { keyCode: 48, key: &apos;)&apos;, code: &apos;Digit0&apos; },
+  &apos;!&apos;: { keyCode: 49, key: &apos;!&apos;, code: &apos;Digit1&apos; },
+  &apos;@&apos;: { keyCode: 50, key: &apos;@&apos;, code: &apos;Digit2&apos; },
+  &apos;#&apos;: { keyCode: 51, key: &apos;#&apos;, code: &apos;Digit3&apos; },
+  $: { keyCode: 52, key: &apos;$&apos;, code: &apos;Digit4&apos; },
+  &apos;%&apos;: { keyCode: 53, key: &apos;%&apos;, code: &apos;Digit5&apos; },
+  &apos;^&apos;: { keyCode: 54, key: &apos;^&apos;, code: &apos;Digit6&apos; },
+  &apos;&amp;&apos;: { keyCode: 55, key: &apos;&amp;&apos;, code: &apos;Digit7&apos; },
+  &apos;(&apos;: { keyCode: 57, key: &apos;(&apos;, code: &apos;Digit9&apos; },
+  A: { keyCode: 65, key: &apos;A&apos;, code: &apos;KeyA&apos; },
+  B: { keyCode: 66, key: &apos;B&apos;, code: &apos;KeyB&apos; },
+  C: { keyCode: 67, key: &apos;C&apos;, code: &apos;KeyC&apos; },
+  D: { keyCode: 68, key: &apos;D&apos;, code: &apos;KeyD&apos; },
+  E: { keyCode: 69, key: &apos;E&apos;, code: &apos;KeyE&apos; },
+  F: { keyCode: 70, key: &apos;F&apos;, code: &apos;KeyF&apos; },
+  G: { keyCode: 71, key: &apos;G&apos;, code: &apos;KeyG&apos; },
+  H: { keyCode: 72, key: &apos;H&apos;, code: &apos;KeyH&apos; },
+  I: { keyCode: 73, key: &apos;I&apos;, code: &apos;KeyI&apos; },
+  J: { keyCode: 74, key: &apos;J&apos;, code: &apos;KeyJ&apos; },
+  K: { keyCode: 75, key: &apos;K&apos;, code: &apos;KeyK&apos; },
+  L: { keyCode: 76, key: &apos;L&apos;, code: &apos;KeyL&apos; },
+  M: { keyCode: 77, key: &apos;M&apos;, code: &apos;KeyM&apos; },
+  N: { keyCode: 78, key: &apos;N&apos;, code: &apos;KeyN&apos; },
+  O: { keyCode: 79, key: &apos;O&apos;, code: &apos;KeyO&apos; },
+  P: { keyCode: 80, key: &apos;P&apos;, code: &apos;KeyP&apos; },
+  Q: { keyCode: 81, key: &apos;Q&apos;, code: &apos;KeyQ&apos; },
+  R: { keyCode: 82, key: &apos;R&apos;, code: &apos;KeyR&apos; },
+  S: { keyCode: 83, key: &apos;S&apos;, code: &apos;KeyS&apos; },
+  T: { keyCode: 84, key: &apos;T&apos;, code: &apos;KeyT&apos; },
+  U: { keyCode: 85, key: &apos;U&apos;, code: &apos;KeyU&apos; },
+  V: { keyCode: 86, key: &apos;V&apos;, code: &apos;KeyV&apos; },
+  W: { keyCode: 87, key: &apos;W&apos;, code: &apos;KeyW&apos; },
+  X: { keyCode: 88, key: &apos;X&apos;, code: &apos;KeyX&apos; },
+  Y: { keyCode: 89, key: &apos;Y&apos;, code: &apos;KeyY&apos; },
+  Z: { keyCode: 90, key: &apos;Z&apos;, code: &apos;KeyZ&apos; },
+  &apos;:&apos;: { keyCode: 186, key: &apos;:&apos;, code: &apos;Semicolon&apos; },
+  &apos;&lt;&apos;: { keyCode: 188, key: &apos;&lt;&apos;, code: &apos;Comma&apos; },
+  _: { keyCode: 189, key: &apos;_&apos;, code: &apos;Minus&apos; },
+  &apos;&gt;&apos;: { keyCode: 190, key: &apos;&gt;&apos;, code: &apos;Period&apos; },
+  &apos;?&apos;: { keyCode: 191, key: &apos;?&apos;, code: &apos;Slash&apos; },
+  &apos;~&apos;: { keyCode: 192, key: &apos;~&apos;, code: &apos;Backquote&apos; },
+  &apos;{&apos;: { keyCode: 219, key: &apos;{&apos;, code: &apos;BracketLeft&apos; },
+  &apos;|&apos;: { keyCode: 220, key: &apos;|&apos;, code: &apos;Backslash&apos; },
+  &apos;}&apos;: { keyCode: 221, key: &apos;}&apos;, code: &apos;BracketRight&apos; },
+  &apos;&quot;&apos;: { keyCode: 222, key: &apos;&quot;&apos;, code: &apos;Quote&apos; }
+}
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

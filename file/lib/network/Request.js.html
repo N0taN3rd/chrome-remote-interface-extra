@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">lib/network/Request.js | chrome-remote-interface-extra</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="The chrome-remote-interface-extra brings a GoogleChrome/puppeteer like api to the chrome-remote-interface, as well as, making many of the full CDP values puppetter hides available"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="chrome-remote-interface-extra"><meta property="twitter:description" content="The chrome-remote-interface-extra brings a GoogleChrome/puppeteer like api to the chrome-remote-interface, as well as, making many of the full CDP values puppetter hides available"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/N0taN3rd/chrome-remote-interface-extra"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/DOMWorld.js~DOMWorld.html">DOMWorld</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/Dialog.js~Dialog.html">Dialog</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/EmulationManager.js~EmulationManager.html">EmulationManager</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/Errors.js~CustomError.html">CustomError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/Errors.js~TimeoutError.html">TimeoutError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/LifecycleWatcher.js~LifecycleWatcher.html">LifecycleWatcher</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/Target.js~Target.html">Target</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/TimeoutSettings.js~TimeoutSettings.html">TimeoutSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/Tracing.js~Tracing.html">Tracing</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/WaitTask.js~WaitTask.html">WaitTask</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/Worker.js~Worker.html">Worker</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-CRIExtra">CRIExtra</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DeviceDescriptors">DeviceDescriptors</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ElementHandle">ElementHandle</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-JSHandle">JSHandle</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-createJSHandle">createJSHandle</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Device">Device</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-DeviceDescriptorViewPort">DeviceDescriptorViewPort</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-DOMRGBA">DOMRGBA</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Viewport">Viewport</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-BoxModel">BoxModel</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#accessibility">accessibility</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/accessibility/AXNode.js~AXNode.html">AXNode</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/accessibility/Accessibility.js~Accessibility.html">Accessibility</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-AXNode">AXNode</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Accessibility">Accessibility</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-SerializedAXNode">SerializedAXNode</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#browser">browser</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/Browser.js~Browser.html">Browser</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/BrowserContext.js~BrowserContext.html">BrowserContext</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Browser">Browser</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-BrowserContext">BrowserContext</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-BrowserInitOptions">BrowserInitOptions</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#connection">connection</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/connection/CDPSession.js~CDPSession.html">CDPSession</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/connection/CRIConnection.js~CRIConnection.html">CRIConnection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-adaptChromeRemoteInterfaceClient">adaptChromeRemoteInterfaceClient</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CRIClientPatched">CRIClientPatched</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CDPSession">CDPSession</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CRIClientPatched">CRIClientPatched</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CRIConnection">CRIConnection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-adaptChromeRemoteInterfaceClient">adaptChromeRemoteInterfaceClient</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ConnectionTypes">ConnectionTypes</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#coverage">coverage</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/coverage/CSSCoverage.js~CSSCoverage.html">CSSCoverage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/coverage/Coverage.js~Coverage.html">Coverage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/coverage/JSCoverage.js~JSCoverage.html">JSCoverage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CSSCoverage">CSSCoverage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Coverage">Coverage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-JSCoverage">JSCoverage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-CoverageEntry">CoverageEntry</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#executioncontext">executionContext</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/executionContext/ExecutionContext.js~ExecutionContext.html">ExecutionContext</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-EVALUATION_SCRIPT_URL">EVALUATION_SCRIPT_URL</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-EVALUATION_SCRIPT_URL">EVALUATION_SCRIPT_URL</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ExecutionContext">ExecutionContext</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#frames">frames</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/frames/Frame.js~Frame.html">Frame</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/frames/FrameManager.js~FrameManager.html">FrameManager</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/frames/FrameResource.js~FrameResource.html">FrameResource</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/frames/FrameResourceTree.js~FrameResourceTree.html">FrameResourceTree</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Frame">Frame</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FrameManager">FrameManager</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FrameResource">FrameResource</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FrameResourceTree">FrameResourceTree</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#input">input</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/input/Keyboard.js~Keyboard.html">Keyboard</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/input/Mouse.js~Mouse.html">Mouse</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/input/Touchscreen.js~Touchscreen.html">Touchscreen</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Keyboard">Keyboard</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Mouse">Mouse</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Touchscreen">Touchscreen</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-USKeyboardLayout">USKeyboardLayout</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-KeyDescription">KeyDescription</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-KeyDefinition">KeyDefinition</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#network">network</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/network/Cookie.js~Cookie.html">Cookie</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/network/NetworkIdleWatcher.js~NetIdleWatcher.html">NetIdleWatcher</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/network/NetworkManager.js~NetworkManager.html">NetworkManager</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/network/Request.js~Request.html">Request</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/network/Response.js~Response.html">Response</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/network/SecurityDetails.js~SecurityDetails.html">SecurityDetails</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Cookie">Cookie</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-NetIdleWatcher">NetIdleWatcher</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-NetworkManager">NetworkManager</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Request">Request</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Response">Response</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-SecurityDetails">SecurityDetails</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-CDPCookie">CDPCookie</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-NetIdleOptions">NetIdleOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-CookieParam">CookieParam</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-CookieToBeDeleted">CookieToBeDeleted</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ModifyCookieParam">ModifyCookieParam</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-NetworkConditions">NetworkConditions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-UserAgentOverride">UserAgentOverride</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#page">page</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/Page.js~Page.html">Page</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ConsoleMessage">ConsoleMessage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Page">Page</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ConsoleMessage.Location">ConsoleMessage.Location</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ExtraDomainsConfig">ExtraDomainsConfig</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Metrics">Metrics</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-PDFOptions">PDFOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-PageInitOptions">PageInitOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ScreenshotOptions">ScreenshotOptions</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">lib/network/Request.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">const { STATUS_CODES } = require(&apos;http&apos;)
+const { URL } = require(&apos;url&apos;)
+const util = require(&apos;util&apos;)
+const { assert, debugError, helper } = require(&apos;../helper&apos;)
+const {
+  NonHTTP2Protocols,
+  CRLF,
+  HTTP11,
+  SpaceChar,
+  stringifyRequestHeaders
+} = require(&apos;./_shared&apos;)
+
+const errorReasons = {
+  aborted: &apos;Aborted&apos;,
+  accessdenied: &apos;AccessDenied&apos;,
+  addressunreachable: &apos;AddressUnreachable&apos;,
+  blockedbyclient: &apos;BlockedByClient&apos;,
+  blockedbyresponse: &apos;BlockedByResponse&apos;,
+  connectionaborted: &apos;ConnectionAborted&apos;,
+  connectionclosed: &apos;ConnectionClosed&apos;,
+  connectionfailed: &apos;ConnectionFailed&apos;,
+  connectionrefused: &apos;ConnectionRefused&apos;,
+  connectionreset: &apos;ConnectionReset&apos;,
+  internetdisconnected: &apos;InternetDisconnected&apos;,
+  namenotresolved: &apos;NameNotResolved&apos;,
+  timedout: &apos;TimedOut&apos;,
+  failed: &apos;Failed&apos;
+}
+
+class Request {
+  /**
+   * @param {Object} client
+   * @param {Object} event
+   * @param {?Frame} frame
+   * @param {Array&lt;Request&gt;} redirectChain
+   * @param {string} interceptionId
+   * @param {boolean} allowInterception
+   */
+  constructor (
+    client,
+    event,
+    frame,
+    redirectChain,
+    interceptionId,
+    allowInterception
+  ) {
+    /**
+     * @type {Object}
+     * @protected
+     */
+    this._client = client
+
+    /**
+     * @type {?Frame}
+     */
+    this._frame = frame
+
+    /**
+     * @type {string}
+     */
+    this._interceptionId = interceptionId
+
+    /**
+     * @type {boolean}
+     */
+    this._allowInterception = allowInterception
+
+    /**
+     * @type {?Response}
+     */
+    this._response = null
+
+    /**
+     * @type {string}
+     */
+    this._requestId = event.requestId
+
+    /**
+     * @type {string}
+     */
+    this._loaderId = event.loaderId
+
+    /**
+     * @type {string}
+     */
+    this._documentURL = event.documentURL
+
+    /**
+     * @type {number}
+     */
+    this._timestamp = event.timestamp
+
+    /**
+     * @type {number}
+     */
+    this._wallTime = event.wallTime
+    /**
+     * @type {string}
+     */
+    this._initiator = event.initiator
+
+    /**
+     * @type {string}
+     */
+    this._type = event.type
+
+    /**
+     * @type {string}
+     */
+    this._frameId = event.frameId
+
+    /**
+     * @type {boolean}
+     */
+    this._hasUserGesture = event.hasUserGesture
+
+    /** @type {Object} **/
+    const rinfo = event.request
+
+    /**
+     * @type {string}
+     */
+    this._url = rinfo.url
+
+    /**
+     * @type {?URL}
+     * @private
+     */
+    this._purl = null
+
+    /**
+     * @type {Object}
+     */
+    this._headers = rinfo.headers
+
+    /**
+     * @type {Object}
+     */
+    this._fullHeaders = null
+
+    /**
+     * @type {?string}
+     */
+    this._headersText = null
+
+    /**
+     * @type {?string}
+     */
+    this._urlFragment = rinfo.urlFragment
+
+    /**
+     * @type {string}
+     */
+    this._method = rinfo.method
+
+    /**
+     * @type {?string}
+     */
+    this._postData = rinfo.postData
+
+    /**
+     * @type {?boolean}
+     */
+    this._hasPostData = rinfo.hasPostData
+
+    /**
+     * @type {?string}
+     */
+    this._mixedContentType = rinfo.mixedContentType
+
+    /**
+     * @type {string}
+     */
+    this._initialPriority = rinfo.initialPriority
+
+    /**
+     * @type {string}
+     */
+    this._referrerPolicy = rinfo.referrerPolicy
+
+    /**
+     * @type {boolean}
+     */
+    this._isLinkPreload = rinfo.isLinkPreload
+
+    /**
+     * @type {boolean}
+     */
+    this._isNavigationRequest =
+      this._requestId === this._loaderId &amp;&amp; this._type === &apos;Document&apos;
+
+    /**
+     * @type {?string}
+     */
+    this._protocol = null
+
+    /**
+     * @type {Array&lt;Request&gt;}
+     */
+    this._redirectChain = redirectChain
+
+    /**
+     * @type {boolean}
+     * @protected
+     */
+    this._fromMemoryCache = false
+
+    /**
+     * @type {?string}
+     */
+    this._failureText = null
+  }
+
+  /**
+   * @param {boolean} [noHTTP2Plus] - When true if the request was made via HTTP2/HTTP3 the protocol is forced to HTTP/1.1
+   * @return {string}
+   */
+  requestLine (noHTTP2Plus) {
+    const url = this.parsedURL()
+    const path = `${url.pathname}${
+      url.search ? `?${url.searchParams.toString()}` : &apos;&apos;
+    }${url.hash ? url.hash : &apos;&apos;}`
+    let proto = this._protocol ? this._protocol : HTTP11
+    if (noHTTP2Plus &amp;&amp; !NonHTTP2Protocols.has(proto)) {
+      proto = HTTP11
+    }
+    return `${this._method} ${path} ${proto}`
+  }
+
+  /**
+   * @param {boolean} [noHTTP2Plus] - When true if the request was made via HTTP2/HTTP3 the protocol is forced to HTTP/1.1
+   * @return {string}
+   */
+  requestLineAndHeaders (noHTTP2Plus) {
+    if (!noHTTP2Plus) {
+      if (this._headersText) return this._headersText
+      return `${this.requestLine()}${CRLF}${stringifyRequestHeaders(
+        this.headers(),
+        this.parsedURL().host
+      )}`
+    }
+    if (this._headersText) {
+      const fcrlfidx = this._headersText.indexOf(CRLF)
+      const fline = this._headersText.substring(0, fcrlfidx)
+      const protocol = fline.substring(fline.lastIndexOf(SpaceChar) + 1)
+      if (NonHTTP2Protocols.has(protocol)) {
+        return this._headersText
+      }
+      return `${fline.replace(protocol, HTTP11)}${this._headersText.substring(
+        fcrlfidx
+      )}`
+    }
+    return `${this.requestLine(noHTTP2Plus)}${CRLF}${stringifyRequestHeaders(
+      this.headers(),
+      this.parsedURL().host
+    )}`
+  }
+
+  /**
+   * @return {string}
+   */
+  url () {
+    return this._urlFragment != null ? this._url + this._urlFragment : this._url
+  }
+
+  /**
+   * @return {URL}
+   */
+  parsedURL () {
+    if (!this._purl) {
+      this._purl = new URL(this.url())
+    }
+    return this._purl
+  }
+
+  /**
+   *
+   * @return {Object}
+   */
+  headers () {
+    return this._fullHeaders != null ? this._fullHeaders : this._headers
+  }
+
+  /**
+   *
+   * @return {string}
+   */
+  method () {
+    return this._method
+  }
+
+  /**
+   *
+   * @return {?string}
+   */
+  postData () {
+    return this._postData
+  }
+
+  /**
+   * @return {?Response}
+   */
+  response () {
+    return this._response
+  }
+
+  /**
+   *
+   * @return {?string}
+   */
+  protocol () {
+    return this._protocol
+  }
+
+  /**
+   *
+   * @return {string}
+   */
+  requestId () {
+    return this._requestId
+  }
+
+  /**
+   *
+   * @return {string}
+   */
+  loaderId () {
+    return this._loaderId
+  }
+
+  /**
+   *
+   * @return {string}
+   */
+  documentURL () {
+    return this._documentURL
+  }
+
+  /**
+   *
+   * @return {number}
+   */
+  timestamp () {
+    return this._timestamp
+  }
+
+  /**
+   *
+   * @return {number}
+   */
+  wallTime () {
+    return this._wallTime
+  }
+
+  /**
+   *
+   * @return {string}
+   */
+  initiator () {
+    return this._initiator
+  }
+
+  /**
+   *
+   * @return {string}
+   */
+  type () {
+    return this._type
+  }
+
+  /**
+   *
+   * @return {string}
+   */
+  frameId () {
+    return this._frameId
+  }
+
+  /**
+   *
+   * @return {?string}
+   */
+  headersText () {
+    return this._headersText
+  }
+
+  /**
+   *
+   * @return {?string}
+   */
+  urlFragment () {
+    return this._urlFragment
+  }
+
+  /**
+   *
+   * @return {?boolean}
+   */
+  hasPostData () {
+    return this._hasPostData
+  }
+
+  /**
+   *
+   * @return {?string}
+   */
+  mixedContentType () {
+    return this._mixedContentType
+  }
+
+  /**
+   *
+   * @return {string}
+   */
+  initialPriority () {
+    return this._initialPriority
+  }
+
+  /**
+   *
+   * @return {string}
+   */
+  referrerPolicy () {
+    return this._referrerPolicy
+  }
+
+  /**
+   *
+   * @return {boolean}
+   */
+  isNavigationRequest () {
+    return this._isNavigationRequest
+  }
+
+  /**
+   *
+   * @return {boolean}
+   */
+  hasUserGesture () {
+    return this._hasUserGesture
+  }
+
+  /**
+   *
+   * @return {?Frame}
+   */
+  frame () {
+    return this._frame
+  }
+
+  /**
+   *
+   * @return {boolean}
+   */
+  isLinkPreload () {
+    return this._isLinkPreload
+  }
+
+  /**
+   * @return {Array&lt;Request&gt;}
+   */
+  redirectChain () {
+    return this._redirectChain.slice()
+  }
+
+  /**
+   * @return {boolean}
+   */
+  fromMemoryCache () {
+    return this._fromMemoryCache
+  }
+
+  /**
+   * @return {?{errorText: string}}
+   */
+  failure () {
+    if (!this._failureText) return null
+    return {
+      errorText: this._failureText
+    }
+  }
+
+  /**
+   * @desc Returns post data sent with the request. Returns an error when no data was sent with the request
+   * @return {Promise&lt;Buffer&gt;}
+   * @see https://chromedevtools.github.io/devtools-protocol/tot/Network#method-getRequestPostData
+   */
+  async getPostData () {
+    const data = await this._client.send(&apos;Network.getRequestPostData&apos;, {
+      requestId: this._requestId
+    })
+    return Buffer.from(data.postData, data.base64Encoded ? &apos;base64&apos; : &apos;utf8&apos;)
+  }
+
+  /**
+   * @param {!{url?: string, method?:string, postData?: string, headers?: !Object}} overrides
+   */
+  async continue (overrides = {}) {
+    if (this._url.startsWith(&apos;data:&apos;)) return
+    assert(this._allowInterception, &apos;Request Interception is not enabled!&apos;)
+    assert(!this._interceptionHandled, &apos;Request is already handled!&apos;)
+    const { url, method, postData, headers } = overrides
+    this._interceptionHandled = true
+    await this._client
+      .send(&apos;Network.continueInterceptedRequest&apos;, {
+        interceptionId: this._interceptionId,
+        url,
+        method,
+        postData,
+        headers
+      })
+      .catch(error =&gt; {
+        // In certain cases, protocol will return error if the request was already canceled
+        // or the page was closed. We should tolerate these errors.
+        debugError(error)
+      })
+  }
+
+  /**
+   * @param {!{status: number, headers: Object, contentType: string, body: (string|Buffer)}} response
+   */
+  async respond (response) {
+    // Mocking responses for dataURL requests is not currently supported.
+    if (this._url.startsWith(&apos;data:&apos;)) return
+    assert(this._allowInterception, &apos;Request Interception is not enabled!&apos;)
+    assert(!this._interceptionHandled, &apos;Request is already handled!&apos;)
+    this._interceptionHandled = true
+
+    const responseBody =
+      response.body &amp;&amp; helper.isString(response.body)
+        ? Buffer.from(/** @type {string} */ (response.body))
+        : /** @type {?Buffer} */ (response.body || null)
+
+    const responseHeaders = {}
+    if (response.headers) {
+      const headerKeys = Object.keys(response.headers)
+      for (let i = 0; i &lt; headerKeys.length; i++) {
+        responseHeaders[headerKeys[i].toLowerCase()] =
+          response.headers[headerKeys[i]]
+      }
+    }
+    if (response.contentType) {
+      responseHeaders[&apos;content-type&apos;] = response.contentType
+    }
+    if (responseBody &amp;&amp; !(&apos;content-length&apos; in responseHeaders)) {
+      responseHeaders[&apos;content-length&apos;] = Buffer.byteLength(responseBody)
+    }
+
+    const statusCode = response.status || 200
+    const statusText = STATUS_CODES[statusCode] || &apos;&apos;
+    const statusLine = `HTTP/1.1 ${statusCode} ${statusText}`
+
+    const CRLF = &apos;\r\n&apos;
+    const text = [statusLine, CRLF]
+    const responseHeaderKeys = Object.keys(responseHeaders)
+    for (let i = 0; i &lt; responseHeaderKeys.length; i++) {
+      text.push(
+        responseHeaderKeys[i],
+        &apos;: &apos;,
+        responseHeaders[responseHeaderKeys[i]],
+        CRLF
+      )
+    }
+    text.push(CRLF)
+    let responseBuffer = Buffer.from(text.join(&apos;&apos;), &apos;utf8&apos;)
+    if (responseBody) {
+      responseBuffer = Buffer.concat([responseBuffer, responseBody])
+    }
+
+    await this._client
+      .send(&apos;Network.continueInterceptedRequest&apos;, {
+        interceptionId: this._interceptionId,
+        rawResponse: responseBuffer.toString(&apos;base64&apos;)
+      })
+      .catch(error =&gt; {
+        // In certain cases, protocol will return error if the request was already canceled
+        // or the page was closed. We should tolerate these errors.
+        debugError(error)
+      })
+  }
+
+  /**
+   * @param {string=} errorCode
+   */
+  async abort (errorCode = &apos;failed&apos;) {
+    // Request interception is not supported for data: urls.
+    if (this._url.startsWith(&apos;data:&apos;)) return
+    const errorReason = errorReasons[errorCode]
+    assert(errorReason, &apos;Unknown error code: &apos; + errorCode)
+    assert(this._allowInterception, &apos;Request Interception is not enabled!&apos;)
+    assert(!this._interceptionHandled, &apos;Request is already handled!&apos;)
+    this._interceptionHandled = true
+    await this._client
+      .send(&apos;Network.continueInterceptedRequest&apos;, {
+        interceptionId: this._interceptionId,
+        errorReason
+      })
+      .catch(error =&gt; {
+        // In certain cases, protocol will return error if the request was already canceled
+        // or the page was closed. We should tolerate these errors.
+        debugError(error)
+      })
+  }
+
+  /**
+   * @return {{headers: Object, initialPriority: string, method: string, referrerPolicy: string, frameId: string, mixedContentType: ?string, documentURL: string, initiator: string, loaderId: string, hasPostData: ?boolean, urlFragment: ?string, type: string, url: string, isLinkPreload: boolean, requestId: string, response: ?Response, hasUserGesture: boolean, wallTime: number, fromMemoryCache: boolean, postData: ?string, timestamp: number}}
+   */
+  toJSON () {
+    return {
+      documentURL: this._documentURL,
+      frameId: this._frameId,
+      fromMemoryCache: this._fromMemoryCache,
+      hasPostData: this._hasPostData,
+      hasUserGesture: this._hasUserGesture,
+      headers: this.headers(),
+      initialPriority: this._initialPriority,
+      initiator: this._initiator,
+      isLinkPreload: this._isLinkPreload,
+      loaderId: this._loaderId,
+      method: this._method,
+      mixedContentType: this._mixedContentType,
+      postData: this._postData,
+      referrerPolicy: this._referrerPolicy,
+      requestId: this._requestId,
+      response: this._response,
+      timestamp: this._timestamp,
+      type: this._type,
+      url: this._url,
+      urlFragment: this._urlFragment,
+      wallTime: this._wallTime
+    }
+  }
+
+  /** @ignore */
+  // eslint-disable-next-line space-before-function-paren
+  [util.inspect.custom](depth, options) {
+    if (depth &lt; 0) {
+      return options.stylize(&apos;[Request]&apos;, &apos;special&apos;)
+    }
+    const newOptions = Object.assign({}, options, {
+      depth: options.depth === null ? null : options.depth - 1
+    })
+    const inner = util.inspect(
+      {
+        url: this.url(),
+        method: this._method,
+        headers: this.headers(),
+        requestId: this._requestId,
+        type: this._type
+      },
+      newOptions
+    )
+    return `${options.stylize(&apos;Request&apos;, &apos;special&apos;)} ${inner}`
+  }
+}
+
+/**
+ * @type {Request}
+ */
+module.exports = Request
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

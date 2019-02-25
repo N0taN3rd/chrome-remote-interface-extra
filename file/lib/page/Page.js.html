@@ -1,0 +1,2099 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">lib/page/Page.js | chrome-remote-interface-extra</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="The chrome-remote-interface-extra brings a GoogleChrome/puppeteer like api to the chrome-remote-interface, as well as, making many of the full CDP values puppetter hides available"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="chrome-remote-interface-extra"><meta property="twitter:description" content="The chrome-remote-interface-extra brings a GoogleChrome/puppeteer like api to the chrome-remote-interface, as well as, making many of the full CDP values puppetter hides available"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/N0taN3rd/chrome-remote-interface-extra"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/DOMWorld.js~DOMWorld.html">DOMWorld</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/Dialog.js~Dialog.html">Dialog</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/EmulationManager.js~EmulationManager.html">EmulationManager</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/Errors.js~CustomError.html">CustomError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/Errors.js~TimeoutError.html">TimeoutError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/LifecycleWatcher.js~LifecycleWatcher.html">LifecycleWatcher</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/Target.js~Target.html">Target</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/TimeoutSettings.js~TimeoutSettings.html">TimeoutSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/Tracing.js~Tracing.html">Tracing</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/WaitTask.js~WaitTask.html">WaitTask</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/Worker.js~Worker.html">Worker</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-CRIExtra">CRIExtra</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DeviceDescriptors">DeviceDescriptors</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ElementHandle">ElementHandle</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-JSHandle">JSHandle</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-createJSHandle">createJSHandle</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Device">Device</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-DeviceDescriptorViewPort">DeviceDescriptorViewPort</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-DOMRGBA">DOMRGBA</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Viewport">Viewport</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-BoxModel">BoxModel</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#accessibility">accessibility</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/accessibility/AXNode.js~AXNode.html">AXNode</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/accessibility/Accessibility.js~Accessibility.html">Accessibility</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-AXNode">AXNode</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Accessibility">Accessibility</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-SerializedAXNode">SerializedAXNode</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#browser">browser</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/Browser.js~Browser.html">Browser</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/BrowserContext.js~BrowserContext.html">BrowserContext</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Browser">Browser</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-BrowserContext">BrowserContext</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-BrowserInitOptions">BrowserInitOptions</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#connection">connection</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/connection/CDPSession.js~CDPSession.html">CDPSession</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/connection/CRIConnection.js~CRIConnection.html">CRIConnection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-adaptChromeRemoteInterfaceClient">adaptChromeRemoteInterfaceClient</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CRIClientPatched">CRIClientPatched</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CDPSession">CDPSession</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CRIClientPatched">CRIClientPatched</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CRIConnection">CRIConnection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-adaptChromeRemoteInterfaceClient">adaptChromeRemoteInterfaceClient</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ConnectionTypes">ConnectionTypes</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#coverage">coverage</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/coverage/CSSCoverage.js~CSSCoverage.html">CSSCoverage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/coverage/Coverage.js~Coverage.html">Coverage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/coverage/JSCoverage.js~JSCoverage.html">JSCoverage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CSSCoverage">CSSCoverage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Coverage">Coverage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-JSCoverage">JSCoverage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-CoverageEntry">CoverageEntry</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#executioncontext">executionContext</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/executionContext/ExecutionContext.js~ExecutionContext.html">ExecutionContext</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-EVALUATION_SCRIPT_URL">EVALUATION_SCRIPT_URL</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-EVALUATION_SCRIPT_URL">EVALUATION_SCRIPT_URL</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ExecutionContext">ExecutionContext</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#frames">frames</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/frames/Frame.js~Frame.html">Frame</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/frames/FrameManager.js~FrameManager.html">FrameManager</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/frames/FrameResource.js~FrameResource.html">FrameResource</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/frames/FrameResourceTree.js~FrameResourceTree.html">FrameResourceTree</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Frame">Frame</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FrameManager">FrameManager</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FrameResource">FrameResource</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FrameResourceTree">FrameResourceTree</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#input">input</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/input/Keyboard.js~Keyboard.html">Keyboard</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/input/Mouse.js~Mouse.html">Mouse</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/input/Touchscreen.js~Touchscreen.html">Touchscreen</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Keyboard">Keyboard</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Mouse">Mouse</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Touchscreen">Touchscreen</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-USKeyboardLayout">USKeyboardLayout</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-KeyDescription">KeyDescription</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-KeyDefinition">KeyDefinition</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#network">network</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/network/Cookie.js~Cookie.html">Cookie</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/network/NetworkIdleWatcher.js~NetIdleWatcher.html">NetIdleWatcher</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/network/NetworkManager.js~NetworkManager.html">NetworkManager</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/network/Request.js~Request.html">Request</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/network/Response.js~Response.html">Response</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/network/SecurityDetails.js~SecurityDetails.html">SecurityDetails</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Cookie">Cookie</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-NetIdleWatcher">NetIdleWatcher</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-NetworkManager">NetworkManager</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Request">Request</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Response">Response</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-SecurityDetails">SecurityDetails</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-CDPCookie">CDPCookie</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-NetIdleOptions">NetIdleOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-CookieParam">CookieParam</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-CookieToBeDeleted">CookieToBeDeleted</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ModifyCookieParam">ModifyCookieParam</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-NetworkConditions">NetworkConditions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-UserAgentOverride">UserAgentOverride</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#page">page</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/Page.js~Page.html">Page</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ConsoleMessage">ConsoleMessage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Page">Page</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ConsoleMessage.Location">ConsoleMessage.Location</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ExtraDomainsConfig">ExtraDomainsConfig</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Metrics">Metrics</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-PDFOptions">PDFOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-PageInitOptions">PageInitOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ScreenshotOptions">ScreenshotOptions</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">lib/page/Page.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">const util = require(&apos;util&apos;)
+const fs = require(&apos;fs-extra&apos;)
+const EventEmitter = require(&apos;eventemitter3&apos;)
+const mime = require(&apos;mime&apos;)
+const ConsoleMessage = require(&apos;./ConsoleMessage&apos;)
+const Dialog = require(&apos;../Dialog&apos;)
+const EmulationManager = require(&apos;../EmulationManager&apos;)
+const Events = require(&apos;../Events&apos;)
+const TimeoutSettings = require(&apos;../TimeoutSettings&apos;)
+const Tracing = require(&apos;../Tracing&apos;)
+const Worker = require(&apos;../Worker&apos;)
+const { Accessibility } = require(&apos;../accessibility&apos;)
+const { CRIConnection } = require(&apos;../connection&apos;)
+const { Cookie, NetworkManager } = require(&apos;../network&apos;)
+const { Coverage } = require(&apos;../coverage&apos;)
+const { FrameManager } = require(&apos;../frames&apos;)
+const { Keyboard, Mouse, Touchscreen } = require(&apos;../input&apos;)
+const { TaskQueue } = require(&apos;../TaskQueue&apos;)
+const { createJSHandle } = require(&apos;../JSHandle&apos;)
+const { helper, debugError, assert } = require(&apos;../helper&apos;)
+
+/**
+ * @typedef {Object} ExtraDomainsConfig
+ * @property {?boolean} [workers = false]
+ * @property {?boolean} [coverage = false]
+ * @property {?boolean} [console = false]
+ * @property {?boolean} [log = false]
+ * @property {?boolean} [performance = false]
+ * @property {?boolean} [security = false]
+ */
+
+/**
+ * @typedef {Object} PageInitOptions
+ * @property {boolean} ignoreHTTPSErrors
+ * @property {?Target} target
+ * @property {?Object} defaultViewPort
+ * @property {?TaskQueue} screenshotTaskQueue
+ * @property {?ExtraDomainsConfig} additionalDomains
+ */
+
+/**
+ * @type {ExtraDomainsConfig}
+ */
+const DefaultEnabledOptions = {
+  workers: false,
+  coverage: false,
+  console: false,
+  log: false,
+  performance: false
+}
+
+class Page extends EventEmitter {
+  /**
+   * @param {CDPSession|CRIConnection|Chrome|Object} client
+   * @param {PageInitOptions=} [optionals]
+   * @return {Promise&lt;Page&gt;}
+   */
+  static async create (client, optionals = {}) {
+    await client.send(&apos;Page.enable&apos;)
+    const { frameTree } = await client.send(&apos;Page.getFrameTree&apos;)
+    const {
+      target,
+      defaultViewport,
+      screenshotTaskQueue = new TaskQueue(),
+      additionalDomains,
+      ignoreHTTPSErrors
+    } = optionals
+    /**
+     * @type {ExtraDomainsConfig}
+     */
+    const enableExtraDomains = Object.assign(
+      {},
+      DefaultEnabledOptions,
+      additionalDomains
+    )
+    const page = new Page(client, frameTree, {
+      target,
+      ignoreHTTPSErrors,
+      screenshotTaskQueue,
+      additionalDomains: enableExtraDomains
+    })
+    const promises = [
+      client.send(&apos;Page.setLifecycleEventsEnabled&apos;, { enabled: true }),
+      client.send(&apos;Network.enable&apos;, {}),
+      client
+        .send(&apos;Runtime.enable&apos;, {})
+        .then(() =&gt; page._frameManager.ensureSecondaryDOMWorld())
+    ]
+    if (enableExtraDomains.workers) {
+      promises.push(
+        client.send(&apos;Target.setAutoAttach&apos;, {
+          autoAttach: true,
+          waitForDebuggerOnStart: false,
+          flatten: true
+        })
+      )
+    }
+    if (enableExtraDomains.log) {
+      promises.push(client.send(&apos;Log.enable&apos;, {}))
+    }
+    if (enableExtraDomains.security || ignoreHTTPSErrors) {
+      promises.push(client.send(&apos;Security.enable&apos;, {}))
+    }
+    if (enableExtraDomains.performance) {
+      promises.push(client.send(&apos;Performance.enable&apos;, {}))
+    }
+    await Promise.all(promises)
+    if (ignoreHTTPSErrors) {
+      await client.send(&apos;Security.setOverrideCertificateErrors&apos;, {
+        override: true
+      })
+    }
+    // Initialize default page size.
+    if (defaultViewport) await page.setViewport(defaultViewport)
+    return page
+  }
+
+  /**
+   * @param {Chrome|CRIConnection|CDPSession|Object} client
+   * @param {!Object} frameTree
+   * @param {PageInitOptions} initOpts
+   */
+  constructor (client, frameTree, initOpts) {
+    super()
+    this._closed = false
+    /** @type {Chrome|CRIConnection|CDPSession|Object} */
+    this._client = client
+    /** @type {?Target} */
+    this._target = initOpts.target
+    /** @type {?string} */
+    this._targetId = null
+    this._keyboard = new Keyboard(client)
+    this._mouse = new Mouse(client, this._keyboard)
+    this._timeoutSettings = new TimeoutSettings()
+    this._touchscreen = new Touchscreen(client, this._keyboard)
+    this._accessibility = new Accessibility(client)
+    /** @type {!NetworkManager} */
+    this._networkManager = new NetworkManager(client)
+    /** @type {!FrameManager} */
+    this._frameManager = new FrameManager(
+      client,
+      frameTree,
+      this._timeoutSettings,
+      this._networkManager,
+      this
+    )
+    this._networkManager.setFrameManager(this._frameManager)
+    this._emulationManager = new EmulationManager(client)
+    this._tracing = new Tracing(client)
+    /** @type {!Map&lt;string, Function&gt;} */
+    this._pageBindings = new Map()
+    this._ignoreHTTPSErrors = initOpts.ignoreHTTPSErrors
+    this._coverage = new Coverage(client)
+    this._javascriptEnabled = true
+    /** @type {?Viewport} */
+    this._viewport = null
+
+    this._screenshotTaskQueue = initOpts.screenshotTaskQueue || new TaskQueue()
+
+    this._additionalDomains = initOpts.additionalDomains
+
+    /** @type {!Map&lt;string, Worker&gt;} */
+    this._workers = new Map()
+    this._onAttachedToTarget = this._onAttachedToTarget.bind(this)
+    this._onDetachedFromTarget = this._onDetachedFromTarget.bind(this)
+    if (this._additionalDomains.workers) {
+      this._client.on(&apos;Target.attachedToTarget&apos;, this._onAttachedToTarget)
+      this._client.on(&apos;Target.detachedFromTarget&apos;, this._onDetachedFromTarget)
+    }
+    this._frameManager.on(Events.FrameManager.FrameAttached, event =&gt;
+      this.emit(Events.Page.FrameAttached, event)
+    )
+    this._frameManager.on(Events.FrameManager.FrameDetached, event =&gt;
+      this.emit(Events.Page.FrameDetached, event)
+    )
+    this._frameManager.on(Events.FrameManager.FrameNavigated, event =&gt;
+      this.emit(Events.Page.FrameNavigated, event)
+    )
+
+    this._networkManager.on(Events.NetworkManager.Request, event =&gt;
+      this.emit(Events.Page.Request, event)
+    )
+    this._networkManager.on(Events.NetworkManager.Response, event =&gt;
+      this.emit(Events.Page.Response, event)
+    )
+    this._networkManager.on(Events.NetworkManager.RequestFailed, event =&gt;
+      this.emit(Events.Page.RequestFailed, event)
+    )
+    this._networkManager.on(Events.NetworkManager.RequestFinished, event =&gt;
+      this.emit(Events.Page.RequestFinished, event)
+    )
+
+    client.on(&apos;Page.domContentEventFired&apos;, event =&gt;
+      this.emit(Events.Page.DOMContentLoaded, event.timestamp)
+    )
+    client.on(&apos;Page.loadEventFired&apos;, event =&gt;
+      this.emit(Events.Page.Load, event.timestamp)
+    )
+    client.on(&apos;Runtime.consoleAPICalled&apos;, event =&gt; this._onConsoleAPI(event))
+    client.on(&apos;Runtime.bindingCalled&apos;, event =&gt; this._onBindingCalled(event))
+    client.on(&apos;Page.javascriptDialogOpening&apos;, event =&gt; this._onDialog(event))
+    client.on(&apos;Runtime.exceptionThrown&apos;, exception =&gt;
+      this._handleException(exception.exceptionDetails)
+    )
+    client.on(&apos;Security.certificateError&apos;, event =&gt;
+      this._onCertificateError(event)
+    )
+    client.on(&apos;Inspector.targetCrashed&apos;, event =&gt; this._onTargetCrashed())
+    client.on(&apos;Performance.metrics&apos;, event =&gt; this._emitMetrics(event))
+    client.on(&apos;Log.entryAdded&apos;, event =&gt; this._onLogEntryAdded(event))
+    if (this._target) {
+      this._target._isClosedPromise.then(() =&gt; {
+        this.emit(Events.Page.Close)
+        this._closed = true
+      })
+    } else {
+      this._client.on(this._client.$$disconnectEvent, () =&gt; {
+        this.emit(Events.Page.Close)
+        this._closed = true
+      })
+    }
+  }
+
+  /**
+   * @return {NetworkManager}
+   */
+  get networkManager () {
+    return this._networkManager
+  }
+
+  /**
+   * @return {!FrameManager}
+   */
+  get frameManager () {
+    return this._frameManager
+  }
+
+  /**
+   * @return {boolean}
+   */
+  get javascriptEnabled () {
+    return this._javascriptEnabled
+  }
+
+  /**
+   * @return {!Keyboard}
+   */
+  get keyboard () {
+    return this._keyboard
+  }
+
+  /**
+   * @return {!Touchscreen}
+   */
+  get touchscreen () {
+    return this._touchscreen
+  }
+
+  /**
+   * @return {!Coverage}
+   */
+  get coverage () {
+    return this._coverage
+  }
+
+  /**
+   * @return {!Tracing}
+   */
+  get tracing () {
+    return this._tracing
+  }
+
+  /**
+   * @return {!Accessibility}
+   */
+  get accessibility () {
+    return this._accessibility
+  }
+
+  /**
+   * @return {!Mouse}
+   */
+  get mouse () {
+    return this._mouse
+  }
+
+  /**
+   * @return {?Target}
+   */
+  target () {
+    return this._target
+  }
+
+  /**
+   * @return {?Browser}
+   */
+  browser () {
+    if (this._target) {
+      return this._target.browser()
+    }
+    return null
+  }
+
+  /**
+   * @return {?BrowserContext}
+   */
+  browserContext () {
+    if (this._target) {
+      return this._target.browserContext()
+    }
+    return null
+  }
+
+  /**
+   * @return {!Frame}
+   */
+  mainFrame () {
+    return this._frameManager.mainFrame()
+  }
+
+  /**
+   * @return {Array&lt;Frame&gt;}
+   */
+  frames () {
+    return this._frameManager.frames()
+  }
+
+  /**
+   * @return {Array&lt;Worker&gt;}
+   */
+  workers () {
+    return Array.from(this._workers.values())
+  }
+
+  /**
+   * @return {!string}
+   */
+  url () {
+    return this.mainFrame().url()
+  }
+
+  /**
+   * @return {Promise&lt;string&gt;}
+   */
+  content () {
+    return this._frameManager.mainFrame().content()
+  }
+
+  /**
+   * @return {Promise&lt;string&gt;}
+   */
+  title () {
+    return this.mainFrame().title()
+  }
+
+  /**
+   * @return {?Viewport}
+   */
+  viewport () {
+    return this._viewport
+  }
+
+  /**
+   * @return {boolean}
+   */
+  isClosed () {
+    return this._closed
+  }
+
+  /**
+   * @param {Function|string} pageFunction
+   * @param {Array&lt;*&gt;} args
+   * @return {Promise&lt;*&gt;}
+   */
+  evaluate (pageFunction, ...args) {
+    return this._frameManager.mainFrame().evaluate(pageFunction, ...args)
+  }
+
+  /**
+   * @param {string} selector
+   * @param {!{delay?: number, button?: &quot;left&quot;|&quot;right&quot;|&quot;middle&quot;, clickCount?: number}=} options
+   */
+  click (selector, options = {}) {
+    return this.mainFrame().click(selector, options)
+  }
+
+  /**
+   * @param {string} selector
+   */
+  focus (selector) {
+    return this.mainFrame().focus(selector)
+  }
+
+  /**
+   * @param {string} selector
+   */
+  hover (selector) {
+    return this.mainFrame().hover(selector)
+  }
+
+  /**
+   * @param {string} selector
+   * @param {...string} values
+   * @return {Promise&lt;Array&lt;string&gt;&gt;}
+   */
+  select (selector, ...values) {
+    return this.mainFrame().select(selector, ...values)
+  }
+
+  /**
+   * @param {string} selector
+   */
+  tap (selector) {
+    return this.mainFrame().tap(selector)
+  }
+
+  /**
+   * @param {string} selector
+   * @param {string} text
+   * @param {{delay: (number|undefined)}=} options
+   */
+  type (selector, text, options) {
+    return this.mainFrame().type(selector, text, options)
+  }
+
+  /**
+   * @param {(string|number|Function)} selectorOrFunctionOrTimeout
+   * @param {!Object=} options
+   * @param {Array&lt;*&gt;} args
+   * @return {Promise&lt;JSHandle&gt;}
+   */
+  waitFor (selectorOrFunctionOrTimeout, options = {}, ...args) {
+    return this.mainFrame().waitFor(
+      selectorOrFunctionOrTimeout,
+      options,
+      ...args
+    )
+  }
+
+  /**
+   * @param {string} selector
+   * @param {!{visible?: boolean, hidden?: boolean, timeout?: number}=} options
+   * @return {Promise&lt;ElementHandle|undefined&gt;}
+   */
+  waitForSelector (selector, options = {}) {
+    return this.mainFrame().waitForSelector(selector, options)
+  }
+
+  /**
+   * @param {string} xpath
+   * @param {!{visible?: boolean, hidden?: boolean, timeout?: number}=} options
+   * @return {Promise&lt;ElementHandle|undefined&gt;}
+   */
+  waitForXPath (xpath, options = {}) {
+    return this.mainFrame().waitForXPath(xpath, options)
+  }
+
+  /**
+   * @param {Function} pageFunction
+   * @param {!{polling?: string|number, timeout?: number}=} options
+   * @param {Array&lt;*&gt;} args
+   * @return {Promise&lt;JSHandle&gt;}
+   */
+  waitForFunction (pageFunction, options = {}, ...args) {
+    return this.mainFrame().waitForFunction(pageFunction, options, ...args)
+  }
+
+  /**
+   * @desc Returns metrics relating to the layouting of the page, such as viewport bounds/scale
+   * @return {Promise&lt;{layoutViewport: Object, visualViewport: Object, contentSize: Object}&gt;}
+   * @see https://chromedevtools.github.io/devtools-protocol/tot/Page#method-getLayoutMetrics
+   */
+  getLayoutMetrics () {
+    return this._client.send(&apos;Page.getLayoutMetrics&apos;)
+  }
+
+  /**
+   * @return {Promise&lt;?{currentIndex: number, entries: Array&lt;Object&gt;}&gt;}
+   * @see https://chromedevtools.github.io/devtools-protocol/tot/Page#method-getNavigationHistory
+   */
+  getNavigationHistory () {
+    return this._client.send(&apos;Page.getNavigationHistory&apos;)
+  }
+
+  /**
+   * @param {string} frameId
+   * @param {string} url
+   * @return {Promise&lt;Buffer&gt;}
+   * @see https://chromedevtools.github.io/devtools-protocol/tot/Page#method-getResourceContent
+   */
+  getResourceContent (frameId, url) {
+    return this._frameManager.getFrameResourceContent(frameId, url)
+  }
+
+  /**
+   * @return {Promise&lt;FrameResourceTree&gt;}
+   */
+  getResourceTree () {
+    return this._frameManager.getResourceTree()
+  }
+
+  /**
+   * @return {Promise&lt;?{url: string, errors: Array&lt;Object&gt;, data: ?string}&gt;}
+   */
+  getAppManifest () {
+    return this._client.send(&apos;Page.getAppManifest&apos;)
+  }
+
+  /**
+   * @desc Returns all browser cookies.
+   * Depending on the backend support, will return detailed cookie information in the cookies field.
+   * @return {Promise&lt;Array&lt;Cookie&gt;&gt;}
+   * @see https://chromedevtools.github.io/devtools-protocol/tot/Network#method-getAllCookies
+   */
+  getAllCookies () {
+    return this._networkManager.getAllCookies()
+  }
+
+  /**
+   * @desc Returns a promise that resolves once this pages network has become idle.
+   * Detection of network idle considers only the number of in-flight HTTP requests
+   * for the Page connected to.
+   * @param {NetIdleOptions} [options]
+   * @return {Promise&lt;void&gt;}
+   */
+  networkIdlePromise (options) {
+    return this._networkManager.networkIdlePromise(options)
+  }
+
+  workerDomainEnabled () {
+    return this._additionalDomains.workers
+  }
+
+  logDomainEnabled () {
+    return this._additionalDomains.log
+  }
+
+  securityDomainEnabled () {
+    return this._additionalDomains.security
+  }
+
+  performanceDomainEnabled () {
+    return this._additionalDomains.performance
+  }
+
+  /**
+   * @param {boolean} enabled
+   */
+  setOfflineMode (enabled) {
+    return this._networkManager.setOfflineMode(enabled)
+  }
+
+  /**
+   * @param {number} timeout
+   */
+  setDefaultNavigationTimeout (timeout) {
+    this._timeoutSettings.setDefaultNavigationTimeout(timeout)
+  }
+
+  /**
+   * @param {number} timeout
+   */
+  setDefaultTimeout (timeout) {
+    this._timeoutSettings.setDefaultTimeout(timeout)
+  }
+
+  /**
+   * @param {string} selector
+   * @return {Promise&lt;ElementHandle|undefined&gt;}
+   */
+  querySelector (selector) {
+    return this.$(selector)
+  }
+
+  /**
+   * @param {string} selector
+   * @return {Promise&lt;Array&lt;ElementHandle&gt;&gt;}
+   */
+  querySelectorAll (selector) {
+    return this.$$(selector)
+  }
+
+  /**
+   * @param {string} selector
+   * @param {Function|String} pageFunction
+   * @param {Array&lt;*&gt;} args
+   * @return {Promise&lt;Object|undefined&gt;}
+   */
+  querySelectorEval (selector, pageFunction, ...args) {
+    return this.$eval(selector, pageFunction, ...args)
+  }
+
+  /**
+   * @param {string} selector
+   * @param {Function|String} pageFunction
+   * @param {Array&lt;*&gt;} args
+   * @return {Promise&lt;Object|undefined&gt;}
+   */
+  querySelectorAllEval (selector, pageFunction, ...args) {
+    return this.$$eval(selector, pageFunction, ...args)
+  }
+
+  /**
+   * @param {string} expression
+   * @return {Promise&lt;Array&lt;ElementHandle&gt;&gt;}
+   */
+  xpathQuery (expression) {
+    return this.$x(expression)
+  }
+
+  /**
+   * @param {string} selector
+   * @return {Promise&lt;ElementHandle|undefined&gt;}
+   */
+  $ (selector) {
+    return this.mainFrame().$(selector)
+  }
+
+  /**
+   * @param {string} selector
+   * @param {Function|string} pageFunction
+   * @param {Array&lt;*&gt;} args
+   * @return {Promise&lt;Object|undefined&gt;}
+   */
+  $eval (selector, pageFunction, ...args) {
+    return this.mainFrame().$eval(selector, pageFunction, ...args)
+  }
+
+  /**
+   * @param {string} selector
+   * @param {Function|string} pageFunction
+   * @param {Array&lt;*&gt;} args
+   * @return {Promise&lt;Object|undefined&gt;}
+   */
+  $$eval (selector, pageFunction, ...args) {
+    return this.mainFrame().$$eval(selector, pageFunction, ...args)
+  }
+
+  /**
+   * @param {string} selector
+   * @return {Promise&lt;Array&lt;ElementHandle&gt;&gt;}
+   */
+  $$ (selector) {
+    return this.mainFrame().$$(selector)
+  }
+
+  /**
+   * @param {string} expression
+   * @return {Promise&lt;Array&lt;ElementHandle&gt;&gt;}
+   */
+  $x (expression) {
+    return this.mainFrame().$x(expression)
+  }
+
+  /**
+   * @desc Returns all browser cookies for the current URL.
+   * Depending on the backend support, will return detailed cookie information in the cookies field.
+   * @param {Array&lt;string&gt;} urls - The list of URLs for which applicable cookies will be fetched
+   * @return {Promise&lt;Array&lt;Cookie&gt;&gt;}
+   * @see https://chromedevtools.github.io/devtools-protocol/tot/Network#method-getCookies
+   */
+  cookies (...urls) {
+    return this._networkManager.getCookies(urls.length ? urls : [this.url()])
+  }
+
+  /**
+   * @desc Clears browser cookies
+   * @return {Promise&lt;void&gt;}
+   * @see https://chromedevtools.github.io/devtools-protocol/tot/Network#method-clearBrowserCookies
+   */
+  clearBrowserCookies () {
+    return this._networkManager.clearBrowserCookies()
+  }
+
+  /**
+   * @desc Blocks URLs from loading. EXPERIMENTAL
+   * @param {...string} urls - URL patterns to block. Wildcards (&apos;*&apos;) are allowed
+   * @return {Promise&lt;void&gt;}
+   * @see https://chromedevtools.github.io/devtools-protocol/tot/Network#method-setBlockedURLs
+   */
+  setBlockedURLs (...urls) {
+    return this._networkManager.setBlockedURLs(...urls)
+  }
+
+  /**
+   * @desc Returns the DER-encoded certificate. EXPERIMENTAL
+   * @param {string} origin - Origin to get certificate for
+   * @return {Promise&lt;Array&lt;string&gt;&gt;}
+   * @see https://chromedevtools.github.io/devtools-protocol/tot/Network#method-getCertificate
+   */
+  getDEREncodedCertificateForOrigin (origin) {
+    return this._networkManager.getCertificate(origin)
+  }
+
+  /**
+   * @param {string} url
+   * @param {!{referer?: string, timeout?: number, waitUntil?: string|Array&lt;string&gt;, transitionType?: string}=} options
+   * @return {Promise&lt;Response|undefined&gt;}
+   */
+  goto (url, options) {
+    return this._frameManager.mainFrame().goto(url, options)
+  }
+
+  /**
+   * @param {!{timeout?: number, waitUntil?: string|Array&lt;string&gt;}=} options
+   * @return {Promise&lt;Response|undefined&gt;}
+   */
+  waitForNavigation (options = {}) {
+    return this._frameManager.mainFrame().waitForNavigation(options)
+  }
+
+  /**
+   * @param {(string|Function)} urlOrPredicate
+   * @param {!{timeout?: number}=} options
+   * @return {Promise&lt;Request&gt;}
+   */
+  waitForRequest (urlOrPredicate, options = {}) {
+    const { timeout = this._timeoutSettings.timeout() } = options
+    return helper.waitForEvent(
+      this._networkManager,
+      Events.NetworkManager.Request,
+      request =&gt; {
+        if (helper.isString(urlOrPredicate)) {
+          return urlOrPredicate === request.url()
+        }
+        if (typeof urlOrPredicate === &apos;function&apos;) {
+          return !!urlOrPredicate(request)
+        }
+        return false
+      },
+      timeout
+    )
+  }
+
+  /**
+   * @param {(string|Function)} urlOrPredicate
+   * @param {!{timeout?: number}=} options
+   * @return {Promise&lt;Response&gt;}
+   */
+  waitForResponse (urlOrPredicate, options = {}) {
+    const { timeout = this._timeoutSettings.timeout() } = options
+    return helper.waitForEvent(
+      this._networkManager,
+      Events.NetworkManager.Response,
+      response =&gt; {
+        if (helper.isString(urlOrPredicate)) {
+          return urlOrPredicate === response.url()
+        }
+        if (typeof urlOrPredicate === &apos;function&apos;) {
+          return !!urlOrPredicate(response)
+        }
+        return false
+      },
+      timeout
+    )
+  }
+
+  /**
+   * @param {!{timeout?: number, waitUntil?: string|Array&lt;string&gt;}=} options
+   * @return {Promise&lt;Response|undefined&gt;}
+   */
+  goBack (options) {
+    return this._go(-1, options)
+  }
+
+  /**
+   * @param {!{timeout?: number, waitUntil?: string|Array&lt;string&gt;}=} options
+   * @return {Promise&lt;Response|undefined&gt;}
+   */
+  goForward (options) {
+    return this._go(+1, options)
+  }
+
+  /**
+   * @desc Inject object to the target&apos;s main frame that provides a communication channel with browser target.
+   *
+   * Injected object will be available as window[bindingName].
+   *
+   * The object has the following API:
+   *  * binding.send(json) - a method to send messages over the remote debugging protocol
+   *  * binding.onmessage = json =&gt; handleMessage(json) - a callback that will be called for the protocol notifications and command responses.
+   *
+   * EXPERIMENTAL
+   * @param {string} [bindingName] - Binding name, &apos;cdp&apos; if not specified
+   * @return {Promise&lt;void&gt;}
+   * @see https://chromedevtools.github.io/devtools-protocol/tot/Target#method-exposeDevToolsProtocol
+   */
+  async exposeDevToolsProtocol (bindingName) {
+    if (this._target) {
+      await this._target.exposeDevToolsProtocol(bindingName)
+      return
+    }
+
+    let pageURL
+    let title
+    if (this._targetId == null) {
+      const { targetInfos } = await this._client.send(&apos;Target.getTargets&apos;, {})
+      pageURL = this.url()
+      title = await this.title()
+      for (let i = 0; i &lt; targetInfos.length; i++) {
+        const targetInfo = targetInfos[i]
+        console.log(targetInfo)
+        if (pageURL === targetInfo.url) {
+          this._targetId = targetInfo.targetId
+          break
+        }
+      }
+    }
+
+    if (this._targetId == null) {
+      throw new Error(
+        `Failed to expose devtools protocol. This page (url=${pageURL}, title=${title}) was created without passing in a target and we could not find this page&apos;s target id`
+      )
+    }
+
+    await this._client.send(&apos;Target.exposeDevToolsProtocol&apos;, {
+      targetId: this._targetId,
+      bindingName: bindingName || undefined
+    })
+  }
+
+  /**
+   * @param {number} entryId
+   * @return {Promise&lt;void&gt;}
+   */
+  async navigateToHistoryEntry (entryId) {
+    await this._client.send(&apos;Page.navigateToHistoryEntry&apos;, { entryId })
+  }
+
+  async resetNavigationHistory () {
+    await this._client.send(&apos;Page.resetNavigationHistory&apos;)
+  }
+
+  /**
+   * @desc Toggles ignoring of service worker for each request. EXPERIMENTAL
+   * @param {boolean} bypass - Bypass service worker and load from network
+   * @return {Promise&lt;void&gt;}
+   * @see https://chromedevtools.github.io/devtools-protocol/tot/Network#method-setBypassServiceWorker
+   */
+  async httpRequestsBypassServiceWorker (bypass) {
+    await this._networkManager.bypassServiceWorker(bypass)
+  }
+
+  /**
+   * @desc Force the page stop all navigations and pending resource fetches
+   * @return {Promise&lt;void&gt;}
+   * @see https://chromedevtools.github.io/devtools-protocol/tot/Page#method-stopLoading
+   */
+  async stopLoading () {
+    await this._client.send(&apos;Page.stopLoading&apos;)
+  }
+
+  /**
+   * @desc Set the behavior when downloading a file. EXPERIMENTAL
+   *
+   * @param {string} behavior - Whether to allow all or deny all download requests, or use default Chrome behavior if available (otherwise deny). Allowed values: deny, allow, default
+   * @param {string} [downloadPath] - The default path to save downloaded files to. This is requred if behavior is set to &apos;allow&apos;
+   * @return {Promise&lt;void&gt;}
+   * @see https://chromedevtools.github.io/devtools-protocol/tot/Page#method-setDownloadBehavior
+   */
+  async setDownloadBehavior (behavior, downloadPath) {
+    await this._client.send(&apos;Page.setDownloadBehavior&apos;, {
+      behavior,
+      downloadPath: downloadPath || undefined
+    })
+  }
+
+  /**
+   * Evaluates given script in every frame upon creation (before loading frame&apos;s scripts)
+   * @param {string} source - The string contents of the script
+   * @param {string} [worldName] - If specified, creates an isolated world with the given name and evaluates given
+   * script in it. This world name will be used as the ExecutionContextDescription::name when the corresponding
+   * event is emitted.
+   * @return {Promise&lt;string&gt;} - Identifier of the added script
+   * @see https://chromedevtools.github.io/devtools-protocol/tot/Page#method-addScriptToEvaluateOnNewDocument
+   */
+  async addScriptToEvaluateOnNewDocument (source, worldName) {
+    const { identifier } = await this._client.send(
+      &apos;Page.addScriptToEvaluateOnNewDocument&apos;,
+      { source, woldName: worldName || undefined }
+    )
+    return identifier
+  }
+
+  /**
+   * @param {string} identifier - Identifier of the added script
+   * @return {Promise&lt;void&gt;}
+   * @see https://chromedevtools.github.io/devtools-protocol/tot/Page#method-removeScriptToEvaluateOnNewDocument
+   */
+  async removeScriptToEvaluateOnNewDocument (identifier) {
+    if (!identifier) return
+    await this._client.send(&apos;Page.removeScriptToEvaluateOnNewDocument&apos;, {
+      identifier
+    })
+  }
+
+  /**
+   * @return {Promise&lt;string&gt;}
+   */
+  async userAgent () {
+    const version = await this._client.send(&apos;Browser.getVersion&apos;)
+    return version.userAgent
+  }
+
+  /**
+   * @param {string} acceptLanguage
+   */
+  async setAcceptLanguage (acceptLanguage) {
+    await this._networkManager.setAcceptLanguage(acceptLanguage)
+  }
+
+  /**
+   * @param {string} platform
+   */
+  async setNavigatorPlatform (platform) {
+    await this._networkManager.setNavigatorPlatform(platform)
+  }
+
+  async disableCache () {
+    await this._networkManager.disableCache()
+  }
+
+  async enableCache () {
+    await this._networkManager.enableCache()
+  }
+
+  async clearBrowserCache () {
+    await this._networkManager.clearBrowserCache()
+  }
+
+  async disableWorkerDomain () {
+    if (this._additionalDomains.workers) {
+      this._additionalDomains.workers = false
+      await this._client.send(&apos;Target.setAutoAttach&apos;, {
+        autoAttach: false,
+        waitForDebuggerOnStart: false,
+        flatten: true
+      })
+      this._client.removeListener(
+        &apos;Target.attachedToTarget&apos;,
+        this._onAttachedToTarget
+      )
+      this._client.removeListener(
+        &apos;Target.detachedFromTarget&apos;,
+        this._onAttachedToTarget
+      )
+    }
+  }
+
+  async enableWorkerDomain () {
+    if (!this._additionalDomains.workers) {
+      this._additionalDomains.workers = true
+      await this._client.send(&apos;Target.setAutoAttach&apos;, {
+        autoAttach: true,
+        waitForDebuggerOnStart: false,
+        flatten: true
+      })
+      this._client.on(&apos;Target.attachedToTarget&apos;, this._onAttachedToTarget)
+      this._client.on(&apos;Target.detachedFromTarget&apos;, this._onDetachedFromTarget)
+    }
+  }
+
+  async disableLogDomain () {
+    if (this._additionalDomains.log) {
+      this._additionalDomains.log = false
+      await this._client.send(&apos;Log.disable&apos;, {})
+    }
+  }
+
+  async enableLogDomain () {
+    if (!this._additionalDomains.log) {
+      this._additionalDomains.log = true
+      await this._client.send(&apos;Log.enable&apos;, {})
+    }
+  }
+
+  async disableSecurityDomain () {
+    if (this._additionalDomains.security) {
+      this._additionalDomains.security = false
+      await this._client.send(&apos;Security.disable&apos;, {})
+    }
+  }
+
+  async enableSecurityDomain () {
+    if (!this._additionalDomains.security) {
+      this._additionalDomains.security = true
+      await this._client.send(&apos;Security.enable&apos;, {})
+    }
+  }
+
+  async disablePerformanceDomain () {
+    if (this._additionalDomains.performance) {
+      this._additionalDomains.performance = false
+      await this._client.send(&apos;Performance.disable&apos;, {})
+    }
+  }
+
+  async enablePerformanceDomain () {
+    if (!this._additionalDomains.performance) {
+      this._additionalDomains.performance = true
+      await this._client.send(&apos;Performance.enable&apos;, {})
+    }
+  }
+  /**
+   * @param {!{longitude: number, latitude: number, accuracy: (number|undefined)}} options
+   */
+  async setGeolocation (options) {
+    await this._emulationManager.setGeolocation(options)
+  }
+
+  /**
+   * @param {boolean} value
+   */
+  async setRequestInterception (value) {
+    return this._networkManager.setRequestInterception(value)
+  }
+
+  /**
+   * @param {Function|string} pageFunction
+   * @param {Array&lt;*&gt;} args
+   * @return {Promise&lt;JSHandle&gt;}
+   */
+  async evaluateHandle (pageFunction, ...args) {
+    const context = await this.mainFrame().executionContext()
+    return context.evaluateHandle(pageFunction, ...args)
+  }
+
+  /**
+   * @param {!JSHandle} prototypeHandle
+   * @return {Promise&lt;JSHandle&gt;}
+   */
+  async queryObjects (prototypeHandle) {
+    const context = await this.mainFrame().executionContext()
+    return context.queryObjects(prototypeHandle)
+  }
+
+  /**
+   * @desc Deletes the specified browser cookies with matching name and url or domain/path pair.
+   * @param {CDPCookie|CookieToBeDeleted|string|Cookie} cookie - The cookie to be deleted
+   * @return {Promise&lt;void&gt;}
+   * @see https://chromedevtools.github.io/devtools-protocol/tot/Network#method-deleteCookies
+   */
+  async deleteCookie (cookie) {
+    const pageURL = this.url()
+    const startsWithHTTP = pageURL.startsWith(&apos;http&apos;)
+    await this._networkManager.deleteCookie(
+      ensureCookie(cookie, pageURL, startsWithHTTP)
+    )
+  }
+
+  /**
+   * @desc Deletes the specified browser cookies with matching name and url or domain/path pair.
+   * @param {Array&lt;CDPCookie|CookieToBeDeleted|string|Cookie&gt;} cookies - The cookies to be deleted
+   * @return {Promise&lt;void&gt;}
+   * @see https://chromedevtools.github.io/devtools-protocol/tot/Network#method-deleteCookies
+   */
+  async deleteCookies (...cookies) {
+    const pageURL = this.url()
+    const startsWithHTTP = pageURL.startsWith(&apos;http&apos;)
+    for (let i = 0; i &lt; cookies.length; i++) {
+      await this._networkManager.deleteCookie(
+        ensureCookie(cookies[i], pageURL, startsWithHTTP)
+      )
+    }
+  }
+
+  /**
+   * @param {CDPCookie|Cookie|string} cookie - The new cookie to be set
+   * @return {Promise&lt;boolean&gt;} - T/F indicating if the cookie was set
+   * @see https://chromedevtools.github.io/devtools-protocol/tot/Network#method-setCookie
+   */
+  async setCookie (cookie) {
+    const pageURL = this.url()
+    const startsWithHTTP = pageURL.startsWith(&apos;http&apos;)
+    const cookieToBeSet = ensureCookie(cookie, pageURL, startsWithHTTP)
+    await this._networkManager.deleteCookie(cookieToBeSet)
+    return this._networkManager.setCookie(cookieToBeSet)
+  }
+
+  /**
+   * @desc Sets given cookies
+   * @param {Array&lt;CDPCookie|Cookie|string&gt;} cookies
+   * @return {Promise&lt;void&gt;}
+   * @see https://chromedevtools.github.io/devtools-protocol/tot/Network#method-setCookies
+   */
+  async setCookies (...cookies) {
+    if (!cookies.length) return
+    const pageURL = this.url()
+    const startsWithHTTP = pageURL.startsWith(&apos;http&apos;)
+    for (let i = 0; i &lt; cookies.length; i++) {
+      const cookie = ensureCookie(cookies[i], pageURL, startsWithHTTP)
+      await this._networkManager.deleteCookie(cookie)
+      await this._networkManager.setCookies(cookie)
+    }
+  }
+  /**
+   * @param {!{url?: string, path?: string, content?: string, type?: string}} options
+   * @return {Promise&lt;ElementHandle&gt;}
+   */
+  async addScriptTag (options) {
+    return this.mainFrame().addScriptTag(options)
+  }
+
+  /**
+   * @param {!{url?: string, path?: string, content?: string}} options
+   * @return {Promise&lt;ElementHandle&gt;}
+   */
+  async addStyleTag (options) {
+    return this.mainFrame().addStyleTag(options)
+  }
+
+  /**
+   * @param {string} name
+   * @param {Function} puppeteerFunction
+   */
+  async exposeFunction (name, puppeteerFunction) {
+    if (this._pageBindings.has(name)) {
+      throw new Error(
+        `Failed to add page binding with name ${name}: window[&apos;${name}&apos;] already exists!`
+      )
+    }
+    this._pageBindings.set(name, puppeteerFunction)
+
+    const expression = helper.evaluationString(addPageBinding, name)
+    await this._client.send(&apos;Runtime.addBinding&apos;, { name: name })
+    await this._client.send(&apos;Page.addScriptToEvaluateOnNewDocument&apos;, {
+      source: expression
+    })
+    await Promise.all(
+      this.frames().map(frame =&gt; frame.evaluate(expression).catch(debugError))
+    )
+
+    function addPageBinding (bindingName) {
+      const binding = window[bindingName]
+      window[bindingName] = async (...args) =&gt; {
+        const me = window[bindingName]
+        let callbacks = me[&apos;callbacks&apos;]
+        if (!callbacks) {
+          callbacks = new Map()
+          me[&apos;callbacks&apos;] = callbacks
+        }
+        const seq = (me[&apos;lastSeq&apos;] || 0) + 1
+        me[&apos;lastSeq&apos;] = seq
+        const promise = new Promise((resolve, reject) =&gt;
+          callbacks.set(seq, { resolve, reject })
+        )
+        binding(JSON.stringify({ name: bindingName, seq, args }))
+        return promise
+      }
+    }
+  }
+
+  /**
+   * @param {?{username: string, password: string}} credentials
+   */
+  async authenticate (credentials) {
+    return this._networkManager.authenticate(credentials)
+  }
+
+  /**
+   * @param {!Object&lt;string, string&gt;} headers
+   */
+  async setExtraHTTPHeaders (headers) {
+    return this._networkManager.setExtraHTTPHeaders(headers)
+  }
+
+  /**
+   * @param {string} userAgent
+   */
+  async setUserAgent (userAgent) {
+    return this._networkManager.setUserAgent(userAgent)
+  }
+
+  /**
+   * @return {Promise&lt;Metrics&gt;}
+   */
+  async metrics () {
+    const response = await this._client.send(&apos;Performance.getMetrics&apos;)
+    return this._buildMetricsObject(response.metrics)
+  }
+
+  /**
+   * @param {string} html
+   * @param {!{timeout?: number, waitUntil?: string|Array&lt;string&gt;}=} options
+   */
+  async setContent (html, options) {
+    await this._frameManager.mainFrame().setContent(html, options)
+  }
+  /**
+   * @param {!{timeout?: number, waitUntil?: string|Array&lt;string&gt;, ignoreCache?: boolean, scriptToEvaluateOnLoad?: string}=} options
+   * @return {Promise&lt;Response|undefined&gt;}
+   */
+  async reload (options) {
+    const params = {}
+    if (options) {
+      params.ignoreCache = options.ignoreCache
+      params.scriptToEvaluateOnLoad = options.scriptToEvaluateOnLoad
+    }
+    const [response] = await Promise.all([
+      this.waitForNavigation(options),
+      this._client.send(&apos;Page.reload&apos;, params)
+    ])
+    return response
+  }
+
+  async bringToFront () {
+    await this._client.send(&apos;Page.bringToFront&apos;)
+  }
+
+  /**
+   * @param {!{viewport: !Viewport, userAgent: string}} options
+   */
+  async emulate (options) {
+    await Promise.all([
+      this.setViewport(options.viewport),
+      this.setUserAgent(options.userAgent)
+    ])
+  }
+
+  /**
+   * @param {boolean} enabled
+   */
+  async setJavaScriptEnabled (enabled) {
+    if (this._javascriptEnabled === enabled) return
+    this._javascriptEnabled = enabled
+    await this._emulationManager.setScriptExecutionDisabled(!enabled)
+  }
+
+  /**
+   * @param {boolean} enabled
+   */
+  async setBypassCSP (enabled) {
+    await this._client.send(&apos;Page.setBypassCSP&apos;, { enabled })
+  }
+
+  /**
+   * @param {?string} mediaType
+   */
+  async emulateMedia (mediaType) {
+    await this._emulationManager.setEmulatedMedia(mediaType || &apos;&apos;)
+  }
+
+  /**
+   * @param {!Viewport} viewport
+   */
+  async setViewport (viewport) {
+    const needsReload = await this._emulationManager.emulateViewport(viewport)
+    this._viewport = viewport
+    if (needsReload) await this.reload()
+  }
+
+  /**
+   * @param {Function|string} pageFunction
+   * @param {Array&lt;*&gt;} args
+   */
+  async evaluateOnNewDocument (pageFunction, ...args) {
+    const source = helper.evaluationString(pageFunction, ...args)
+    await this._client.send(&apos;Page.addScriptToEvaluateOnNewDocument&apos;, { source })
+  }
+
+  /**
+   * @param {boolean} enabled
+   */
+  async setCacheEnabled (enabled = true) {
+    if (enabled) {
+      await this._networkManager.enableCache()
+    } else {
+      await this._networkManager.disableCache()
+    }
+  }
+
+  /**
+   * @param {!ScreenshotOptions=} options
+   * @return {Promise&lt;Buffer|!String&gt;}
+   */
+  async screenshot (options = {}) {
+    let screenshotType = null
+    // options.type takes precedence over inferring the type from options.path
+    // because it may be a 0-length file with no extension created beforehand (i.e. as a temp file).
+    if (options.type) {
+      assert(
+        options.type === &apos;png&apos; || options.type === &apos;jpeg&apos;,
+        &apos;Unknown options.type value: &apos; + options.type
+      )
+      screenshotType = options.type
+    } else if (options.path) {
+      const mimeType = mime.getType(options.path)
+      if (mimeType === &apos;image/png&apos;) screenshotType = &apos;png&apos;
+      else if (mimeType === &apos;image/jpeg&apos;) screenshotType = &apos;jpeg&apos;
+      assert(screenshotType, &apos;Unsupported screenshot mime type: &apos; + mimeType)
+    }
+
+    if (!screenshotType) screenshotType = &apos;png&apos;
+
+    if (options.quality) {
+      assert(
+        screenshotType === &apos;jpeg&apos;,
+        &apos;options.quality is unsupported for the &apos; +
+          screenshotType +
+          &apos; screenshots&apos;
+      )
+      assert(
+        typeof options.quality === &apos;number&apos;,
+        &apos;Expected options.quality to be a number but found &apos; +
+          typeof options.quality
+      )
+      assert(
+        Number.isInteger(options.quality),
+        &apos;Expected options.quality to be an integer&apos;
+      )
+      assert(
+        options.quality &gt;= 0 &amp;&amp; options.quality &lt;= 100,
+        &apos;Expected options.quality to be between 0 and 100 (inclusive), got &apos; +
+          options.quality
+      )
+    }
+    assert(
+      !options.clip || !options.fullPage,
+      &apos;options.clip and options.fullPage are exclusive&apos;
+    )
+    if (options.clip) {
+      assert(
+        typeof options.clip.x === &apos;number&apos;,
+        &apos;Expected options.clip.x to be a number but found &apos; +
+          typeof options.clip.x
+      )
+      assert(
+        typeof options.clip.y === &apos;number&apos;,
+        &apos;Expected options.clip.y to be a number but found &apos; +
+          typeof options.clip.y
+      )
+      assert(
+        typeof options.clip.width === &apos;number&apos;,
+        &apos;Expected options.clip.width to be a number but found &apos; +
+          typeof options.clip.width
+      )
+      assert(
+        typeof options.clip.height === &apos;number&apos;,
+        &apos;Expected options.clip.height to be a number but found &apos; +
+          typeof options.clip.height
+      )
+      assert(
+        options.clip.width !== 0,
+        &apos;Expected options.clip.width not to be 0.&apos;
+      )
+      assert(
+        options.clip.height !== 0,
+        &apos;Expected options.clip.width not to be 0.&apos;
+      )
+    }
+    return this._screenshotTaskQueue.postTask(
+      this._screenshotTask.bind(this, screenshotType, options)
+    )
+  }
+
+  /**
+   * @param {!PDFOptions=} options
+   * @return {Promise&lt;Buffer&gt;}
+   */
+  async pdf (options = {}) {
+    const {
+      scale = 1,
+      displayHeaderFooter = false,
+      headerTemplate = &apos;&apos;,
+      footerTemplate = &apos;&apos;,
+      printBackground = false,
+      landscape = false,
+      pageRanges = &apos;&apos;,
+      preferCSSPageSize = false,
+      margin = {},
+      path = null
+    } = options
+
+    let paperWidth = 8.5
+    let paperHeight = 11
+    if (options.format) {
+      const format = Page.PaperFormats[options.format.toLowerCase()]
+      assert(format, &apos;Unknown paper format: &apos; + options.format)
+      paperWidth = format.width
+      paperHeight = format.height
+    } else {
+      paperWidth = convertPrintParameterToInches(options.width) || paperWidth
+      paperHeight = convertPrintParameterToInches(options.height) || paperHeight
+    }
+
+    const marginTop = convertPrintParameterToInches(margin.top) || 0
+    const marginLeft = convertPrintParameterToInches(margin.left) || 0
+    const marginBottom = convertPrintParameterToInches(margin.bottom) || 0
+    const marginRight = convertPrintParameterToInches(margin.right) || 0
+
+    const result = await this._client.send(&apos;Page.printToPDF&apos;, {
+      landscape,
+      displayHeaderFooter,
+      headerTemplate,
+      footerTemplate,
+      printBackground,
+      scale,
+      paperWidth,
+      paperHeight,
+      marginTop,
+      marginBottom,
+      marginLeft,
+      marginRight,
+      pageRanges,
+      preferCSSPageSize
+    })
+    const buffer = Buffer.from(result.data, &apos;base64&apos;)
+    if (path !== null) await fs.writeFile(path, buffer)
+    return buffer
+  }
+
+  /**
+   * @param {!{runBeforeUnload: (boolean|undefined)}=} options
+   */
+  async close (options = { runBeforeUnload: undefined }) {
+    // TODO(n0tan3rd): check for client already closed here somehow
+    const runBeforeUnload = !!options.runBeforeUnload
+    if (runBeforeUnload) {
+      await this._client.send(&apos;Page.close&apos;)
+    } else if (this._target) {
+      await this._client._connection.send(&apos;Target.closeTarget&apos;, {
+        targetId: this._target._targetId
+      })
+      await this._target._isClosedPromise
+    }
+  }
+
+  /**
+   * @param {&quot;png&quot;|&quot;jpeg&quot;} format
+   * @param {!ScreenshotOptions=} options
+   * @return {Promise&lt;Buffer|!String&gt;}
+   */
+  async _screenshotTask (format, options) {
+    if (this._target) {
+      await this._client.send(&apos;Target.activateTarget&apos;, {
+        targetId: this._target._targetId
+      })
+    }
+    let clip = options.clip ? processClip(options.clip) : undefined
+
+    if (options.fullPage) {
+      const metrics = await this.getLayoutMetrics()
+      const width = Math.ceil(metrics.contentSize.width)
+      const height = Math.ceil(metrics.contentSize.height)
+
+      // Overwrite clip for full page at all times.
+      clip = { x: 0, y: 0, width, height, scale: 1 }
+      const { isMobile = false, deviceScaleFactor = 1, isLandscape = false } =
+        this._viewport || {}
+      /** @type {!Object} */
+      const screenOrientation = isLandscape
+        ? { angle: 90, type: &apos;landscapePrimary&apos; }
+        : { angle: 0, type: &apos;portraitPrimary&apos; }
+      await this._client.send(&apos;Emulation.setDeviceMetricsOverride&apos;, {
+        mobile: isMobile,
+        width,
+        height,
+        deviceScaleFactor,
+        screenOrientation
+      })
+    }
+    const shouldSetDefaultBackground =
+      options.omitBackground &amp;&amp; format === &apos;png&apos;
+    if (shouldSetDefaultBackground) {
+      await this._emulationManager.setDefaultBackgroundColorOverride({
+        r: 0,
+        g: 0,
+        b: 0,
+        a: 0
+      })
+    }
+    const result = await this._client.send(&apos;Page.captureScreenshot&apos;, {
+      format,
+      quality: options.quality,
+      clip
+    })
+    if (shouldSetDefaultBackground) {
+      await this._emulationManager.setDefaultBackgroundColorOverride()
+    }
+
+    if (options.fullPage &amp;&amp; this._viewport) {
+      await this.setViewport(this._viewport)
+    }
+
+    const buffer =
+      options.encoding === &apos;base64&apos;
+        ? result.data
+        : Buffer.from(result.data, &apos;base64&apos;)
+    if (options.path) await fs.writeFile(options.path, buffer)
+    return buffer
+
+    function processClip (clip) {
+      const x = Math.round(clip.x)
+      const y = Math.round(clip.y)
+      const width = Math.round(clip.width + clip.x - x)
+      const height = Math.round(clip.height + clip.y - y)
+      return { x, y, width, height, scale: 1 }
+    }
+  }
+
+  /**
+   * @param delta
+   * @param {!{timeout?: number, waitUntil?: string|Array&lt;string&gt;}=} options
+   * @return {Promise&lt;Response|undefined&gt;}
+   */
+  async _go (delta, options) {
+    const history = await this.getNavigationHistory()
+    const entry = history.entries[history.currentIndex + delta]
+    if (!entry) return null
+    const [response] = await Promise.all([
+      this.waitForNavigation(options),
+      this.navigateToHistoryEntry(entry.id)
+    ])
+    return response
+  }
+
+  /**
+   * @param {!Object} event
+   */
+  async _onConsoleAPI (event) {
+    if (event.executionContextId === 0) {
+      // DevTools protocol stores the last 1000 console messages. These
+      // messages are always reported even for removed execution contexts. In
+      // this case, they are marked with executionContextId = 0 and are
+      // reported upon enabling Runtime agent.
+      //
+      // Ignore these messages since:
+      // - there&apos;s no execution context we can use to operate with message
+      //   arguments
+      // - these messages are reported before Puppeteer clients can subscribe
+      //   to the &apos;console&apos;
+      //   page event.
+      //
+      // @see https://github.com/GoogleChrome/puppeteer/issues/3865
+      return
+    }
+    const context = this._frameManager.executionContextById(
+      event.executionContextId
+    )
+    const values = event.args.map(arg =&gt; createJSHandle(context, arg))
+    this._addConsoleMessage(event.type, values, event.stackTrace)
+  }
+
+  /**
+   * @param {!Object} event
+   */
+  async _onBindingCalled (event) {
+    const { name, seq, args } = JSON.parse(event.payload)
+    let expression = null
+    try {
+      const result = await this._pageBindings.get(name)(...args)
+      expression = helper.evaluationString(deliverResult, name, seq, result)
+    } catch (error) {
+      if (error instanceof Error) {
+        expression = helper.evaluationString(
+          deliverError,
+          name,
+          seq,
+          error.message,
+          error.stack
+        )
+      } else {
+        expression = helper.evaluationString(
+          deliverErrorValue,
+          name,
+          seq,
+          error
+        )
+      }
+    }
+    this._client
+      .send(&apos;Runtime.evaluate&apos;, {
+        expression,
+        contextId: event.executionContextId
+      })
+      .catch(debugError)
+
+    /**
+     * @param {string} name
+     * @param {number} seq
+     * @param {*} result
+     */
+    function deliverResult (name, seq, result) {
+      window[name][&apos;callbacks&apos;].get(seq).resolve(result)
+      window[name][&apos;callbacks&apos;].delete(seq)
+    }
+
+    /**
+     * @param {string} name
+     * @param {number} seq
+     * @param {string} message
+     * @param {string} stack
+     */
+    function deliverError (name, seq, message, stack) {
+      const error = new Error(message)
+      error.stack = stack
+      window[name][&apos;callbacks&apos;].get(seq).reject(error)
+      window[name][&apos;callbacks&apos;].delete(seq)
+    }
+
+    /**
+     * @param {string} name
+     * @param {number} seq
+     * @param {*} value
+     */
+    function deliverErrorValue (name, seq, value) {
+      window[name][&apos;callbacks&apos;].get(seq).reject(value)
+      window[name][&apos;callbacks&apos;].delete(seq)
+    }
+  }
+
+  _onAttachedToTarget (event) {
+    if (event.targetInfo.type !== &apos;worker&apos;) {
+      // If we don&apos;t detach from service workers, they will never die.
+      this._client
+        .send(&apos;Target.detachFromTarget&apos;, {
+          sessionId: event.sessionId
+        })
+        .catch(debugError)
+      return
+    }
+    const session = CRIConnection.fromSession(this._client).session(
+      event.sessionId
+    )
+    const worker = new Worker(
+      session,
+      event.targetInfo.url,
+      this._addConsoleMessage.bind(this),
+      this._handleException.bind(this)
+    )
+    this._workers.set(event.sessionId, worker)
+    this.emit(Events.Page.WorkerCreated, worker)
+  }
+
+  _onDetachedFromTarget (event) {
+    const worker = this._workers.get(event.sessionId)
+    if (!worker) return
+    this.emit(Events.Page.WorkerDestroyed, worker)
+    this._workers.delete(event.sessionId)
+  }
+
+  _onTargetCrashed () {
+    this.emit(&apos;error&apos;, new Error(&apos;Page crashed!&apos;))
+    this.emit(Events.Page.Crashed)
+  }
+
+  /**
+   * @param {!Object} event
+   */
+  _onLogEntryAdded (event) {
+    const { level, text, args, source, url, lineNumber } = event.entry
+    if (source !== &apos;worker&apos;) {
+      this.emit(
+        Events.Page.Console,
+        new ConsoleMessage(level, text, [], { url, lineNumber })
+      )
+    }
+    if (args) {
+      return Promise.all(
+        args.map(arg =&gt; helper.releaseObject(this._client, arg))
+      )
+    }
+  }
+
+  /**
+   * @param {!Object} event
+   */
+  _onCertificateError (event) {
+    if (!this._ignoreHTTPSErrors) return
+    this._client
+      .send(&apos;Security.handleCertificateError&apos;, {
+        eventId: event.eventId,
+        action: &apos;continue&apos;
+      })
+      .catch(debugError)
+  }
+
+  /**
+   * @param {!Object} event
+   */
+  _emitMetrics (event) {
+    this.emit(Events.Page.Metrics, {
+      title: event.title,
+      metrics: this._buildMetricsObject(event.metrics)
+    })
+  }
+
+  /**
+   * @param {?Array&lt;Object&gt;} metrics
+   * @return {!Metrics}
+   */
+  _buildMetricsObject (metrics) {
+    const result = {}
+    const _metrics = metrics || []
+    for (let i = 0; i &lt; _metrics.length; i++) {
+      const metric = _metrics[i]
+      if (supportedMetrics.has(metric.name)) result[metric.name] = metric.value
+    }
+    return result
+  }
+
+  /**
+   * @param {!Object} exceptionDetails
+   */
+  _handleException (exceptionDetails) {
+    const message = helper.getExceptionMessage(exceptionDetails)
+    const err = new Error(message)
+    err.stack = &apos;&apos; // Don&apos;t report clientside error with a node stack attached
+    this.emit(Events.Page.PageError, err)
+  }
+
+  /**
+   * @param {string} type
+   * @param {Array&lt;JSHandle&gt;} args
+   * @param {Object=} stackTrace
+   */
+  _addConsoleMessage (type, args, stackTrace) {
+    if (!this.listenerCount(Events.Page.Console)) {
+      args.forEach(arg =&gt; arg.dispose())
+      return
+    }
+    const textTokens = []
+    for (let i = 0; i &lt; args.length; i++) {
+      const remoteObject = args[i]._remoteObject
+      if (remoteObject.objectId) {
+        textTokens.push(args[i].toString())
+      } else {
+        textTokens.push(helper.valueFromRemoteObject(remoteObject))
+      }
+    }
+    let location
+    if (stackTrace &amp;&amp; stackTrace.callFrames.length) {
+      location = {
+        url: stackTrace.callFrames[0].url,
+        lineNumber: stackTrace.callFrames[0].lineNumber,
+        columnNumber: stackTrace.callFrames[0].columnNumber
+      }
+    }
+    const message = new ConsoleMessage(
+      type,
+      textTokens.join(&apos; &apos;),
+      args,
+      location || {}
+    )
+    this.emit(Events.Page.Console, message)
+  }
+
+  _onDialog (event) {
+    let dialogType = null
+    if (event.type === &apos;alert&apos;) dialogType = Dialog.Type.Alert
+    else if (event.type === &apos;confirm&apos;) dialogType = Dialog.Type.Confirm
+    else if (event.type === &apos;prompt&apos;) dialogType = Dialog.Type.Prompt
+    else if (event.type === &apos;beforeunload&apos;) {
+      dialogType = Dialog.Type.BeforeUnload
+    }
+    assert(dialogType, &apos;Unknown javascript dialog type: &apos; + event.type)
+    const dialog = new Dialog(
+      this._client,
+      dialogType,
+      event.message,
+      event.defaultPrompt
+    )
+    this.emit(Events.Page.Dialog, dialog)
+  }
+
+  /**
+   * @return {{frames: !FrameManager, javascriptEnabled: boolean, additionalDomains: ExtraDomainsConfig, workers: IterableIterator&lt;Worker&gt;, url: string, target: ?Target, network: !NetworkManager}}
+   */
+  toJSON () {
+    return {
+      url: this._frameManager.mainFrame().url(),
+      target: this._target,
+      frames: this._frameManager,
+      network: this._networkManager,
+      additionalDomains: this._additionalDomains,
+      workers: this._workers.values(),
+      javascriptEnabled: this._javascriptEnabled
+    }
+  }
+
+  /** @ignore */
+  // eslint-disable-next-line space-before-function-paren
+  [util.inspect.custom](depth, options) {
+    if (depth &lt; 0) {
+      return options.stylize(&apos;[Page]&apos;, &apos;special&apos;)
+    }
+
+    const newOptions = Object.assign({}, options, {
+      depth: options.depth === null ? null : options.depth - 1
+    })
+    const inner = util.inspect(
+      {
+        target: this._target,
+        network: this._networkManager,
+        frames: this._frameManager,
+        emulation: this._emulationManager,
+        pageBindings: this._pageBindings,
+        additionalDomains: this._additionalDomains,
+        workers: this._workers,
+        javascriptEnabled: this._javascriptEnabled,
+        timeoutSettings: this._timeoutSettings
+      },
+      newOptions
+    )
+    return `${options.stylize(&apos;Page&apos;, &apos;special&apos;)} ${inner}`
+  }
+}
+
+/**
+ *
+ * @param {CDPCookie|Cookie|string} cookie
+ * @param {string} url
+ * @param {boolean} setURLIfMissing
+ * @return {CDPCookie}
+ */
+function ensureCookie (cookie, url, setURLIfMissing) {
+  let ensuredCookie
+  if (typeof cookie === &apos;string&apos;) {
+    const nameValue = cookie.split(&apos;=&apos;)
+    ensuredCookie = { name: nameValue[0], value: nameValue[1] }
+  } else if (cookie instanceof Cookie) {
+    ensuredCookie = cookie.toJSON()
+  } else {
+    ensuredCookie = Object.assign({}, cookie)
+  }
+  if (!ensuredCookie.url &amp;&amp; setURLIfMissing) ensuredCookie.url = url
+  return ensuredCookie
+}
+
+/**
+ * @typedef {Object} PDFOptions
+ * @property {number=} scale
+ * @property {boolean=} displayHeaderFooter
+ * @property {string=} headerTemplate
+ * @property {string=} footerTemplate
+ * @property {boolean=} printBackground
+ * @property {boolean=} landscape
+ * @property {string=} pageRanges
+ * @property {string=} format
+ * @property {string|number=} width
+ * @property {string|number=} height
+ * @property {boolean=} preferCSSPageSize
+ * @property {!{top?: string|number, bottom?: string|number, left?: string|number, right?: string|number}=} margin
+ * @property {string=} path
+ */
+
+/**
+ * @typedef {Object} Metrics
+ * @property {number=} Timestamp
+ * @property {number=} Documents
+ * @property {number=} Frames
+ * @property {number=} JSEventListeners
+ * @property {number=} Nodes
+ * @property {number=} LayoutCount
+ * @property {number=} RecalcStyleCount
+ * @property {number=} LayoutDuration
+ * @property {number=} RecalcStyleDuration
+ * @property {number=} ScriptDuration
+ * @property {number=} TaskDuration
+ * @property {number=} JSHeapUsedSize
+ * @property {number=} JSHeapTotalSize
+ */
+
+/**
+ * @typedef {Object} ScreenshotOptions
+ * @property {string} type
+ * @property {string} path
+ * @property {boolean} fullPage
+ * @property {{x: number, y: number, width: number, height: number}} clip
+ * @property {number} quality
+ * @property {boolean} omitBackground
+ * @property {string} encoding
+ */
+
+/** @type {!Set&lt;string&gt;} */
+const supportedMetrics = new Set([
+  &apos;Timestamp&apos;,
+  &apos;Documents&apos;,
+  &apos;Frames&apos;,
+  &apos;JSEventListeners&apos;,
+  &apos;Nodes&apos;,
+  &apos;LayoutCount&apos;,
+  &apos;RecalcStyleCount&apos;,
+  &apos;LayoutDuration&apos;,
+  &apos;RecalcStyleDuration&apos;,
+  &apos;ScriptDuration&apos;,
+  &apos;TaskDuration&apos;,
+  &apos;JSHeapUsedSize&apos;,
+  &apos;JSHeapTotalSize&apos;
+])
+
+/** @enum {!{width: number, height: number}} */
+Page.PaperFormats = {
+  letter: { width: 8.5, height: 11 },
+  legal: { width: 8.5, height: 14 },
+  tabloid: { width: 11, height: 17 },
+  ledger: { width: 17, height: 11 },
+  a0: { width: 33.1, height: 46.8 },
+  a1: { width: 23.4, height: 33.1 },
+  a2: { width: 16.5, height: 23.4 },
+  a3: { width: 11.7, height: 16.5 },
+  a4: { width: 8.27, height: 11.7 },
+  a5: { width: 5.83, height: 8.27 },
+  a6: { width: 4.13, height: 5.83 }
+}
+
+const unitToPixels = {
+  px: 1,
+  in: 96,
+  cm: 37.8,
+  mm: 3.78
+}
+
+/**
+ * @param {(string|number|undefined)} parameter
+ * @return {(number|undefined)}
+ */
+function convertPrintParameterToInches (parameter) {
+  if (typeof parameter === &apos;undefined&apos;) return undefined
+  let pixels
+  if (helper.isNumber(parameter)) {
+    // Treat numbers as pixel values to be aligned with phantom&apos;s paperSize.
+    pixels = /** @type {number} */ (parameter)
+  } else if (helper.isString(parameter)) {
+    const text = /** @type {string} */ (parameter)
+    let unit = text.substring(text.length - 2).toLowerCase()
+    let valueText = &apos;&apos;
+    if (unitToPixels.hasOwnProperty(unit)) {
+      valueText = text.substring(0, text.length - 2)
+    } else {
+      // In case of unknown unit try to parse the whole parameter as number of pixels.
+      // This is consistent with phantom&apos;s paperSize behavior.
+      unit = &apos;px&apos;
+      valueText = text
+    }
+    const value = Number(valueText)
+    assert(!isNaN(value), &apos;Failed to parse parameter value: &apos; + text)
+    pixels = value * unitToPixels[unit]
+  } else {
+    throw new Error(
+      &apos;page.pdf() Cannot handle parameter type: &apos; + typeof parameter
+    )
+  }
+  return pixels / 96
+}
+
+/**
+ * @type {Page}
+ */
+module.exports = Page
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

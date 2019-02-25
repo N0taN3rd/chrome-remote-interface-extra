@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">lib/JSHandle.js | chrome-remote-interface-extra</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="The chrome-remote-interface-extra brings a GoogleChrome/puppeteer like api to the chrome-remote-interface, as well as, making many of the full CDP values puppetter hides available"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="chrome-remote-interface-extra"><meta property="twitter:description" content="The chrome-remote-interface-extra brings a GoogleChrome/puppeteer like api to the chrome-remote-interface, as well as, making many of the full CDP values puppetter hides available"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/N0taN3rd/chrome-remote-interface-extra"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/DOMWorld.js~DOMWorld.html">DOMWorld</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/Dialog.js~Dialog.html">Dialog</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/EmulationManager.js~EmulationManager.html">EmulationManager</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/Errors.js~CustomError.html">CustomError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/Errors.js~TimeoutError.html">TimeoutError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/LifecycleWatcher.js~LifecycleWatcher.html">LifecycleWatcher</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/Target.js~Target.html">Target</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/TimeoutSettings.js~TimeoutSettings.html">TimeoutSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/Tracing.js~Tracing.html">Tracing</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/WaitTask.js~WaitTask.html">WaitTask</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/Worker.js~Worker.html">Worker</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-CRIExtra">CRIExtra</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DeviceDescriptors">DeviceDescriptors</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ElementHandle">ElementHandle</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-JSHandle">JSHandle</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-createJSHandle">createJSHandle</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Device">Device</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-DeviceDescriptorViewPort">DeviceDescriptorViewPort</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-DOMRGBA">DOMRGBA</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Viewport">Viewport</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-BoxModel">BoxModel</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#accessibility">accessibility</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/accessibility/AXNode.js~AXNode.html">AXNode</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/accessibility/Accessibility.js~Accessibility.html">Accessibility</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-AXNode">AXNode</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Accessibility">Accessibility</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-SerializedAXNode">SerializedAXNode</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#browser">browser</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/Browser.js~Browser.html">Browser</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/BrowserContext.js~BrowserContext.html">BrowserContext</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Browser">Browser</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-BrowserContext">BrowserContext</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-BrowserInitOptions">BrowserInitOptions</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#connection">connection</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/connection/CDPSession.js~CDPSession.html">CDPSession</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/connection/CRIConnection.js~CRIConnection.html">CRIConnection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-adaptChromeRemoteInterfaceClient">adaptChromeRemoteInterfaceClient</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CRIClientPatched">CRIClientPatched</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CDPSession">CDPSession</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CRIClientPatched">CRIClientPatched</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CRIConnection">CRIConnection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-adaptChromeRemoteInterfaceClient">adaptChromeRemoteInterfaceClient</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ConnectionTypes">ConnectionTypes</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#coverage">coverage</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/coverage/CSSCoverage.js~CSSCoverage.html">CSSCoverage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/coverage/Coverage.js~Coverage.html">Coverage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/coverage/JSCoverage.js~JSCoverage.html">JSCoverage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CSSCoverage">CSSCoverage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Coverage">Coverage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-JSCoverage">JSCoverage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-CoverageEntry">CoverageEntry</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#executioncontext">executionContext</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/executionContext/ExecutionContext.js~ExecutionContext.html">ExecutionContext</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-EVALUATION_SCRIPT_URL">EVALUATION_SCRIPT_URL</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-EVALUATION_SCRIPT_URL">EVALUATION_SCRIPT_URL</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ExecutionContext">ExecutionContext</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#frames">frames</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/frames/Frame.js~Frame.html">Frame</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/frames/FrameManager.js~FrameManager.html">FrameManager</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/frames/FrameResource.js~FrameResource.html">FrameResource</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/frames/FrameResourceTree.js~FrameResourceTree.html">FrameResourceTree</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Frame">Frame</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FrameManager">FrameManager</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FrameResource">FrameResource</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FrameResourceTree">FrameResourceTree</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#input">input</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/input/Keyboard.js~Keyboard.html">Keyboard</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/input/Mouse.js~Mouse.html">Mouse</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/input/Touchscreen.js~Touchscreen.html">Touchscreen</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Keyboard">Keyboard</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Mouse">Mouse</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Touchscreen">Touchscreen</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-USKeyboardLayout">USKeyboardLayout</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-KeyDescription">KeyDescription</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-KeyDefinition">KeyDefinition</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#network">network</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/network/Cookie.js~Cookie.html">Cookie</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/network/NetworkIdleWatcher.js~NetIdleWatcher.html">NetIdleWatcher</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/network/NetworkManager.js~NetworkManager.html">NetworkManager</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/network/Request.js~Request.html">Request</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/network/Response.js~Response.html">Response</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/network/SecurityDetails.js~SecurityDetails.html">SecurityDetails</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Cookie">Cookie</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-NetIdleWatcher">NetIdleWatcher</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-NetworkManager">NetworkManager</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Request">Request</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Response">Response</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-SecurityDetails">SecurityDetails</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-CDPCookie">CDPCookie</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-NetIdleOptions">NetIdleOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-CookieParam">CookieParam</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-CookieToBeDeleted">CookieToBeDeleted</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ModifyCookieParam">ModifyCookieParam</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-NetworkConditions">NetworkConditions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-UserAgentOverride">UserAgentOverride</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#page">page</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/Page.js~Page.html">Page</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ConsoleMessage">ConsoleMessage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Page">Page</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ConsoleMessage.Location">ConsoleMessage.Location</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ExtraDomainsConfig">ExtraDomainsConfig</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Metrics">Metrics</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-PDFOptions">PDFOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-PageInitOptions">PageInitOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ScreenshotOptions">ScreenshotOptions</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">lib/JSHandle.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/* eslint-env node, browser */
+const Path = require(&apos;path&apos;)
+const util = require(&apos;util&apos;)
+const { helper, assert, debugError } = require(&apos;./helper&apos;)
+
+/**
+ *
+ * @param {ExecutionContext} context
+ * @param {Object} remoteObject
+ * @return {JSHandle|ElementHandle}
+ */
+function createJSHandle (context, remoteObject) {
+  const frame = context.frame()
+  if (remoteObject.subtype === &apos;node&apos; &amp;&amp; frame) {
+    const frameManager = frame.frameManager()
+    return new ElementHandle(
+      context,
+      context._client,
+      remoteObject,
+      frameManager.page(),
+      frameManager
+    )
+  }
+  return new JSHandle(context, context._client, remoteObject)
+}
+
+exports.createJSHandle = createJSHandle
+
+class JSHandle {
+  /**
+   * @param {!ExecutionContext} context
+   * @param {Chrome|CRIConnection|CDPSession|Object} client
+   * @param {!Object} remoteObject
+   */
+  constructor (context, client, remoteObject) {
+    this._context = context
+    this._client = client
+    this._remoteObject = remoteObject
+    this._disposed = false
+  }
+
+  /**
+   * @return {!ExecutionContext}
+   */
+  executionContext () {
+    return this._context
+  }
+
+  /**
+   * @param {string} propertyName
+   * @return {Promise&lt;JSHandle&gt;}
+   */
+  async getProperty (propertyName) {
+    const objectHandle = await this._context.evaluateHandle(
+      (object, propertyName) =&gt; {
+        const result = { __proto__: null }
+        result[propertyName] = object[propertyName]
+        return result
+      },
+      this,
+      propertyName
+    )
+    const properties = await objectHandle.getProperties()
+    const result = properties.get(propertyName) || null
+    await objectHandle.dispose()
+    return result
+  }
+
+  /**
+   * @return {Promise&lt;Map&lt;string, !JSHandle&gt;&gt;}
+   */
+  async getProperties () {
+    const response = await this._client.send(&apos;Runtime.getProperties&apos;, {
+      objectId: this._remoteObject.objectId,
+      ownProperties: true
+    })
+    const properties = new Map()
+    const result = response.result
+    for (let i = 0; i &lt; result.length; i++) {
+      const property = result[i]
+      if (!property.enumerable) continue
+      properties.set(
+        property.name,
+        createJSHandle(this._context, property.value)
+      )
+    }
+    return properties
+  }
+
+  /**
+   * @return {Promise&lt;Object&gt;}
+   */
+  async jsonValue () {
+    if (this._remoteObject.objectId) {
+      const response = await this._client.send(&apos;Runtime.callFunctionOn&apos;, {
+        functionDeclaration: &apos;function() { return this; }&apos;,
+        objectId: this._remoteObject.objectId,
+        returnByValue: true,
+        awaitPromise: true
+      })
+      return helper.valueFromRemoteObject(response.result)
+    }
+    return helper.valueFromRemoteObject(this._remoteObject)
+  }
+
+  /**
+   * @return {?ElementHandle}
+   */
+  asElement () {
+    return null
+  }
+
+  async dispose () {
+    if (this._disposed) return
+    this._disposed = true
+    await helper.releaseObject(this._client, this._remoteObject)
+  }
+
+  /**
+   * @override
+   * @return {string}
+   */
+  toString () {
+    if (this._remoteObject.objectId) {
+      const type = this._remoteObject.subtype || this._remoteObject.type
+      return `${this.constructor.name}@${type}`
+    }
+    return `${this.constructor.name}:${helper.valueFromRemoteObject(
+      this._remoteObject
+    )}`
+  }
+
+  /** @ignore */
+  // eslint-disable-next-line space-before-function-paren
+  [util.inspect.custom](depth, options) {
+    return this.toString()
+  }
+}
+
+exports.JSHandle = JSHandle
+
+class ElementHandle extends JSHandle {
+  /**
+   * @param {!ExecutionContext} context
+   * @param {Chrome|CRIConnection|CDPSession|Object} client
+   * @param {!Object} remoteObject
+   * @param {?Page} page
+   * @param {?FrameManager} frameManager
+   */
+  constructor (context, client, remoteObject, page, frameManager) {
+    super(context, client, remoteObject)
+    /**
+     * @type {Chrome|CRIConnection|CDPSession|Object}
+     * @private
+     */
+    this._client = client
+    /**
+     * @type {!Object}
+     * @private
+     */
+    this._remoteObject = remoteObject
+    /**
+     * @type {?Page}
+     * @private
+     */
+    this._page = page
+    /**
+     * @type {?FrameManager}
+     * @private
+     */
+    this._frameManager = frameManager
+    this._disposed = false
+  }
+
+  /**
+   * @override
+   * @return {?ElementHandle}
+   */
+  asElement () {
+    return this
+  }
+
+  /**
+   * @returns {Promise&lt;boolean&gt;}
+   */
+  isIntersectingViewport () {
+    return this.executionContext().evaluate(async element =&gt; {
+      const visibleRatio = await new Promise(resolve =&gt; {
+        const observer = new IntersectionObserver(entries =&gt; {
+          resolve(entries[0].intersectionRatio)
+          observer.disconnect()
+        })
+        observer.observe(element)
+      })
+      return visibleRatio &gt; 0
+    }, this)
+  }
+
+  /**
+   * @param {string} selector
+   * @return {Promise&lt;ElementHandle|undefined&gt;}
+   */
+  querySelector (selector) {
+    return this.$(selector)
+  }
+
+  /**
+   * @param {string} selector
+   * @return {Promise&lt;Array&lt;ElementHandle&gt;&gt;}
+   */
+  querySelectorAll (selector) {
+    return this.$$(selector)
+  }
+
+  /**
+   * @param {string} selector
+   * @param {Function|String} pageFunction
+   * @param {Array&lt;*&gt;} args
+   * @return {Promise&lt;Object|undefined&gt;}
+   */
+  querySelectorEval (selector, pageFunction, ...args) {
+    return this.$eval(selector, pageFunction, ...args)
+  }
+
+  /**
+   * @param {string} selector
+   * @param {Function|String} pageFunction
+   * @param {Array&lt;*&gt;} args
+   * @return {Promise&lt;Object|undefined&gt;}
+   */
+  querySelectorAllEval (selector, pageFunction, ...args) {
+    return this.$$eval(selector, pageFunction, ...args)
+  }
+
+  /**
+   * @param {string} expression
+   * @return {Promise&lt;Array&lt;ElementHandle&gt;&gt;}
+   */
+  xpathQuery (expression) {
+    return this.$x(expression)
+  }
+
+  /**
+   * @return {Promise&lt;?Frame&gt;}
+   */
+  async contentFrame () {
+    const nodeInfo = await this._client.send(&apos;DOM.describeNode&apos;, {
+      objectId: this._remoteObject.objectId
+    })
+    if (typeof nodeInfo.node.frameId !== &apos;string&apos;) return null
+    return this._frameManager.frame(nodeInfo.node.frameId)
+  }
+
+  async hover () {
+    await this._scrollIntoViewIfNeeded()
+    const { x, y } = await this._clickablePoint()
+    await this._page.mouse.move(x, y)
+  }
+
+  /**
+   * @param {!{delay?: number, button?: &quot;left&quot;|&quot;right&quot;|&quot;middle&quot;, clickCount?: number}=} options
+   */
+  async click (options) {
+    await this._scrollIntoViewIfNeeded()
+    const { x, y } = await this._clickablePoint()
+    await this._page.mouse.click(x, y, options)
+  }
+
+  /**
+   * @param {Array&lt;string&gt;} filePaths
+   */
+  async uploadFile (...filePaths) {
+    const files = filePaths.map(filePath =&gt; Path.resolve(filePath))
+    const objectId = this._remoteObject.objectId
+    await this._client.send(&apos;DOM.setFileInputFiles&apos;, { objectId, files })
+  }
+
+  async tap () {
+    await this._scrollIntoViewIfNeeded()
+    const { x, y } = await this._clickablePoint()
+    await this._page.touchscreen.tap(x, y)
+  }
+
+  async focus () {
+    await this.executionContext().evaluate(element =&gt; element.focus(), this)
+  }
+
+  /**
+   * @param {string} text
+   * @param {{delay: (number|undefined)}=} options
+   */
+  async type (text, options) {
+    await this.focus()
+    await this._page.keyboard.type(text, options)
+  }
+
+  /**
+   * @param {string} key
+   * @param {!{delay?: number, text?: string}=} options
+   */
+  async press (key, options) {
+    await this.focus()
+    await this._page.keyboard.press(key, options)
+  }
+
+  /**
+   * @return {Promise&lt;?{x: number, y: number, width: number, height: number}&gt;}
+   */
+  async boundingBox () {
+    const result = await this._getBoxModel()
+
+    if (!result) return null
+
+    const quad = result.model.border
+    const x = Math.min(quad[0], quad[2], quad[4], quad[6])
+    const y = Math.min(quad[1], quad[3], quad[5], quad[7])
+    const width = Math.max(quad[0], quad[2], quad[4], quad[6]) - x
+    const height = Math.max(quad[1], quad[3], quad[5], quad[7]) - y
+
+    return { x, y, width, height }
+  }
+
+  /**
+   * @return {Promise&lt;?BoxModel&gt;}
+   */
+  async boxModel () {
+    const result = await this._getBoxModel()
+
+    if (!result) return null
+
+    const { content, padding, border, margin, width, height } = result.model
+    return {
+      content: this._fromProtocolQuad(content),
+      padding: this._fromProtocolQuad(padding),
+      border: this._fromProtocolQuad(border),
+      margin: this._fromProtocolQuad(margin),
+      width,
+      height
+    }
+  }
+
+  /**
+   *
+   * @param {!Object=} options
+   * @returns {Promise&lt;string|!Buffer&gt;}
+   */
+  async screenshot (options = {}) {
+    let needsViewportReset = false
+
+    let boundingBox = await this.boundingBox()
+    assert(boundingBox, &apos;Node is either not visible or not an HTMLElement&apos;)
+
+    const viewport = this._page.viewport()
+
+    if (
+      viewport &amp;&amp;
+      (boundingBox.width &gt; viewport.width ||
+        boundingBox.height &gt; viewport.height)
+    ) {
+      const newViewport = {
+        width: Math.max(viewport.width, Math.ceil(boundingBox.width)),
+        height: Math.max(viewport.height, Math.ceil(boundingBox.height))
+      }
+      await this._page.setViewport(Object.assign({}, viewport, newViewport))
+
+      needsViewportReset = true
+    }
+
+    await this._scrollIntoViewIfNeeded()
+
+    boundingBox = await this.boundingBox()
+    assert(boundingBox, &apos;Node is either not visible or not an HTMLElement&apos;)
+    assert(boundingBox.width !== 0, &apos;Node has 0 width.&apos;)
+    assert(boundingBox.height !== 0, &apos;Node has 0 height.&apos;)
+
+    const {
+      layoutViewport: { pageX, pageY }
+    } = await this._client.send(&apos;Page.getLayoutMetrics&apos;)
+
+    const clip = Object.assign({}, boundingBox)
+    clip.x += pageX
+    clip.y += pageY
+
+    const imageData = await this._page.screenshot(
+      Object.assign(
+        {},
+        {
+          clip
+        },
+        options
+      )
+    )
+
+    if (needsViewportReset) await this._page.setViewport(viewport)
+
+    return imageData
+  }
+
+  /**
+   * @param {string} selector
+   * @return {Promise&lt;ElementHandle|undefined&gt;}
+   */
+  async $ (selector) {
+    const handle = await this.executionContext().evaluateHandle(
+      (element, selector) =&gt; element.querySelector(selector),
+      this,
+      selector
+    )
+    const element = handle.asElement()
+    if (element) return element
+    await handle.dispose()
+    return null
+  }
+
+  /**
+   * @param {string} selector
+   * @return {Promise&lt;Array&lt;ElementHandle&gt;&gt;}
+   */
+  async $$ (selector) {
+    const arrayHandle = await this.executionContext().evaluateHandle(
+      (element, selector) =&gt; element.querySelectorAll(selector),
+      this,
+      selector
+    )
+    const properties = await arrayHandle.getProperties()
+    await arrayHandle.dispose()
+    const result = []
+    for (const property of properties.values()) {
+      const elementHandle = property.asElement()
+      if (elementHandle) result.push(elementHandle)
+    }
+    return result
+  }
+
+  /**
+   * @param {string} selector
+   * @param {Function|String} pageFunction
+   * @param {Array&lt;*&gt;} args
+   * @return {Promise&lt;Object|undefined&gt;}
+   */
+  async $eval (selector, pageFunction, ...args) {
+    const elementHandle = await this.$(selector)
+    if (!elementHandle) {
+      throw new Error(
+        `Error: failed to find element matching selector &quot;${selector}&quot;`
+      )
+    }
+    const result = await this.executionContext().evaluate(
+      pageFunction,
+      elementHandle,
+      ...args
+    )
+    await elementHandle.dispose()
+    return result
+  }
+
+  /**
+   * @param {string} selector
+   * @param {Function|String} pageFunction
+   * @param {Array&lt;*&gt;} args
+   * @return {Promise&lt;Object|undefined&gt;}
+   */
+  async $$eval (selector, pageFunction, ...args) {
+    const arrayHandle = await this.executionContext().evaluateHandle(
+      (element, selector) =&gt; Array.from(element.querySelectorAll(selector)),
+      this,
+      selector
+    )
+
+    const result = await this.executionContext().evaluate(
+      pageFunction,
+      arrayHandle,
+      ...args
+    )
+    await arrayHandle.dispose()
+    return result
+  }
+
+  /**
+   * @param {string} expression
+   * @return {Promise&lt;Array&lt;ElementHandle&gt;&gt;}
+   */
+  async $x (expression) {
+    const arrayHandle = await this.executionContext().evaluateHandle(
+      (element, expression) =&gt; {
+        const document = element.ownerDocument || element
+        const iterator = document.evaluate(
+          expression,
+          element,
+          null,
+          XPathResult.ORDERED_NODE_ITERATOR_TYPE
+        )
+        const array = []
+        let item
+        while ((item = iterator.iterateNext())) array.push(item)
+        return array
+      },
+      this,
+      expression
+    )
+    const properties = await arrayHandle.getProperties()
+    await arrayHandle.dispose()
+    const result = []
+    for (const property of properties.values()) {
+      const elementHandle = property.asElement()
+      if (elementHandle) result.push(elementHandle)
+    }
+    return result
+  }
+
+  async _scrollIntoViewIfNeeded () {
+    const error = await this.executionContext().evaluate(
+      async (element, pageJavascriptEnabled) =&gt; {
+        if (!element.isConnected) return &apos;Node is detached from document&apos;
+        if (element.nodeType !== Node.ELEMENT_NODE) {
+          return &apos;Node is not of type HTMLElement&apos;
+        }
+        // force-scroll if page&apos;s javascript is disabled.
+        if (!pageJavascriptEnabled) {
+          element.scrollIntoView({
+            block: &apos;center&apos;,
+            inline: &apos;center&apos;,
+            behavior: &apos;instant&apos;
+          })
+          return false
+        }
+        const visibleRatio = await new Promise(resolve =&gt; {
+          const observer = new IntersectionObserver(entries =&gt; {
+            resolve(entries[0].intersectionRatio)
+            observer.disconnect()
+          })
+          observer.observe(element)
+        })
+        if (visibleRatio !== 1.0) {
+          element.scrollIntoView({
+            block: &apos;center&apos;,
+            inline: &apos;center&apos;,
+            behavior: &apos;instant&apos;
+          })
+        }
+        return false
+      },
+      this,
+      this._page.javascriptEnabled
+    )
+    if (error) throw new Error(error)
+  }
+
+  /**
+   * @return {Promise&lt;{x: number, y: number}&gt;}
+   */
+  async _clickablePoint () {
+    const result = await this._client
+      .send(&apos;DOM.getContentQuads&apos;, {
+        objectId: this._remoteObject.objectId
+      })
+      .catch(debugError)
+    if (!result || !result.quads.length) {
+      throw new Error(&apos;Node is either not visible or not an HTMLElement&apos;)
+    }
+    // Filter out quads that have too small area to click into.
+    const quads = []
+    const resultQuads = result.quads
+    for (let i = 0; i &lt; resultQuads.length; i++) {
+      const _quads = this._fromProtocolQuad(resultQuads[i])
+      if (computeQuadArea(_quads) &gt; 1) {
+        quads.push(_quads)
+      }
+    }
+    if (!quads.length) {
+      throw new Error(&apos;Node is either not visible or not an HTMLElement&apos;)
+    }
+    // Return the middle point of the first quad.
+    const quad = quads[0]
+    let x = 0
+    let y = 0
+    for (let i = 0; i &lt; quad.length; i++) {
+      const point = quad[i]
+      x += point.x
+      y += point.y
+    }
+    return {
+      x: x / 4,
+      y: y / 4
+    }
+  }
+
+  /**
+   * @return {Promise&lt;void|Object&gt;}
+   */
+  _getBoxModel () {
+    return this._client
+      .send(&apos;DOM.getBoxModel&apos;, {
+        objectId: this._remoteObject.objectId
+      })
+      .catch(error =&gt; debugError(error))
+  }
+
+  /**
+   * @param {Array&lt;number&gt;} quad
+   * @return {Array&lt;{x: number, y: number}&gt;}
+   */
+  _fromProtocolQuad (quad) {
+    return [
+      { x: quad[0], y: quad[1] },
+      { x: quad[2], y: quad[3] },
+      { x: quad[4], y: quad[5] },
+      { x: quad[6], y: quad[7] }
+    ]
+  }
+}
+
+exports.ElementHandle = ElementHandle
+
+function computeQuadArea (quad) {
+  // Compute sum of all directed areas of adjacent triangles
+  // https://en.wikipedia.org/wiki/Polygon#Simple_polygons
+  let area = 0
+  for (let i = 0; i &lt; quad.length; ++i) {
+    const p1 = quad[i]
+    const p2 = quad[(i + 1) % quad.length]
+    area += (p1.x * p2.y - p2.x * p1.y) / 2
+  }
+  return Math.abs(area)
+}
+
+/**
+ * @typedef {Object} BoxModel
+ * @property {Array&lt;{x: number, y: number}&gt;} content
+ * @property {Array&lt;{x: number, y: number}&gt;} padding
+ * @property {Array&lt;{x: number, y: number}&gt;} border
+ * @property {Array&lt;{x: number, y: number}&gt;} margin
+ * @property {number} width
+ * @property {number} height
+ */
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

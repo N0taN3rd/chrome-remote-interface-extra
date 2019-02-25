@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">lib/EmulationManager.js | chrome-remote-interface-extra</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="The chrome-remote-interface-extra brings a GoogleChrome/puppeteer like api to the chrome-remote-interface, as well as, making many of the full CDP values puppetter hides available"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="chrome-remote-interface-extra"><meta property="twitter:description" content="The chrome-remote-interface-extra brings a GoogleChrome/puppeteer like api to the chrome-remote-interface, as well as, making many of the full CDP values puppetter hides available"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/N0taN3rd/chrome-remote-interface-extra"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/DOMWorld.js~DOMWorld.html">DOMWorld</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/Dialog.js~Dialog.html">Dialog</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/EmulationManager.js~EmulationManager.html">EmulationManager</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/Errors.js~CustomError.html">CustomError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/Errors.js~TimeoutError.html">TimeoutError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/LifecycleWatcher.js~LifecycleWatcher.html">LifecycleWatcher</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/Target.js~Target.html">Target</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/TimeoutSettings.js~TimeoutSettings.html">TimeoutSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/Tracing.js~Tracing.html">Tracing</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/WaitTask.js~WaitTask.html">WaitTask</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/Worker.js~Worker.html">Worker</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-CRIExtra">CRIExtra</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DeviceDescriptors">DeviceDescriptors</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ElementHandle">ElementHandle</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-JSHandle">JSHandle</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-createJSHandle">createJSHandle</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Device">Device</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-DeviceDescriptorViewPort">DeviceDescriptorViewPort</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-DOMRGBA">DOMRGBA</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Viewport">Viewport</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-BoxModel">BoxModel</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#accessibility">accessibility</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/accessibility/AXNode.js~AXNode.html">AXNode</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/accessibility/Accessibility.js~Accessibility.html">Accessibility</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-AXNode">AXNode</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Accessibility">Accessibility</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-SerializedAXNode">SerializedAXNode</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#browser">browser</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/Browser.js~Browser.html">Browser</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/BrowserContext.js~BrowserContext.html">BrowserContext</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Browser">Browser</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-BrowserContext">BrowserContext</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-BrowserInitOptions">BrowserInitOptions</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#connection">connection</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/connection/CDPSession.js~CDPSession.html">CDPSession</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/connection/CRIConnection.js~CRIConnection.html">CRIConnection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-adaptChromeRemoteInterfaceClient">adaptChromeRemoteInterfaceClient</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CRIClientPatched">CRIClientPatched</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CDPSession">CDPSession</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CRIClientPatched">CRIClientPatched</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CRIConnection">CRIConnection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-adaptChromeRemoteInterfaceClient">adaptChromeRemoteInterfaceClient</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ConnectionTypes">ConnectionTypes</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#coverage">coverage</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/coverage/CSSCoverage.js~CSSCoverage.html">CSSCoverage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/coverage/Coverage.js~Coverage.html">Coverage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/coverage/JSCoverage.js~JSCoverage.html">JSCoverage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CSSCoverage">CSSCoverage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Coverage">Coverage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-JSCoverage">JSCoverage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-CoverageEntry">CoverageEntry</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#executioncontext">executionContext</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/executionContext/ExecutionContext.js~ExecutionContext.html">ExecutionContext</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-EVALUATION_SCRIPT_URL">EVALUATION_SCRIPT_URL</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-EVALUATION_SCRIPT_URL">EVALUATION_SCRIPT_URL</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ExecutionContext">ExecutionContext</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#frames">frames</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/frames/Frame.js~Frame.html">Frame</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/frames/FrameManager.js~FrameManager.html">FrameManager</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/frames/FrameResource.js~FrameResource.html">FrameResource</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/frames/FrameResourceTree.js~FrameResourceTree.html">FrameResourceTree</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Frame">Frame</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FrameManager">FrameManager</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FrameResource">FrameResource</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FrameResourceTree">FrameResourceTree</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#input">input</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/input/Keyboard.js~Keyboard.html">Keyboard</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/input/Mouse.js~Mouse.html">Mouse</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/input/Touchscreen.js~Touchscreen.html">Touchscreen</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Keyboard">Keyboard</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Mouse">Mouse</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Touchscreen">Touchscreen</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-USKeyboardLayout">USKeyboardLayout</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-KeyDescription">KeyDescription</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-KeyDefinition">KeyDefinition</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#network">network</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/network/Cookie.js~Cookie.html">Cookie</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/network/NetworkIdleWatcher.js~NetIdleWatcher.html">NetIdleWatcher</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/network/NetworkManager.js~NetworkManager.html">NetworkManager</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/network/Request.js~Request.html">Request</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/network/Response.js~Response.html">Response</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/network/SecurityDetails.js~SecurityDetails.html">SecurityDetails</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Cookie">Cookie</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-NetIdleWatcher">NetIdleWatcher</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-NetworkManager">NetworkManager</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Request">Request</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Response">Response</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-SecurityDetails">SecurityDetails</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-CDPCookie">CDPCookie</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-NetIdleOptions">NetIdleOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-CookieParam">CookieParam</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-CookieToBeDeleted">CookieToBeDeleted</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ModifyCookieParam">ModifyCookieParam</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-NetworkConditions">NetworkConditions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-UserAgentOverride">UserAgentOverride</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#page">page</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/Page.js~Page.html">Page</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ConsoleMessage">ConsoleMessage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Page">Page</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ConsoleMessage.Location">ConsoleMessage.Location</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ExtraDomainsConfig">ExtraDomainsConfig</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Metrics">Metrics</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-PDFOptions">PDFOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-PageInitOptions">PageInitOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ScreenshotOptions">ScreenshotOptions</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">lib/EmulationManager.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">const util = require(&apos;util&apos;)
+const { helper, assert } = require(&apos;./helper&apos;)
+
+/**
+ * @see https://chromedevtools.github.io/devtools-protocol/tot/Emulation
+ */
+class EmulationManager {
+  /**
+   * @param {Chrome|CRIConnection|CDPSession|Object} client
+   */
+  constructor (client) {
+    /**
+     * @type {Chrome|CRIConnection|CDPSession|Object}
+     * @private
+     */
+    this._client = client
+
+    /**
+     * @desc What media type are we emulating
+     * @type {string}
+     * @private
+     */
+    this._emulatingMedia = &apos;&apos;
+
+    /**
+     * @desc Are we emulating mobile?
+     * @type {boolean}
+     * @private
+     */
+    this._emulatingMobile = false
+
+    /**
+     * @desc Can we interact via touches
+     * @type {boolean}
+     * @private
+     */
+    this._hasTouch = false
+
+    /**
+     * @desc Is no script enabled
+     * @type {boolean}
+     * @private
+     */
+    this._scriptExecutionDisabled = false
+  }
+
+  /**
+   * @return {boolean}
+   */
+  isEmulatingMobile () {
+    return this._emulatingMobile
+  }
+
+  /**
+   * @return {boolean}
+   */
+  isEmulatingHasTouch () {
+    return this._hasTouch
+  }
+
+  /**
+   * @return {boolean}
+   */
+  isScriptExecutionDisabled () {
+    return this._scriptExecutionDisabled
+  }
+
+  /**
+   * @desc Clears the overridden device metrics
+   * @return {Promise&lt;void&gt;}
+   */
+  async clearDeviceMetricsOverride () {
+    await this._client.send(&apos;Emulation.clearDeviceMetricsOverride&apos;, {})
+  }
+
+  /**
+   * @desc Clears the overridden Geolocation Position and Error
+   * @return {Promise&lt;void&gt;}
+   */
+  async clearGeolocationOverride () {
+    await this._client.send(&apos;Emulation.clearGeolocationOverride&apos;, {})
+  }
+
+  /**
+   * @param {!Viewport} viewport
+   * @return {Promise&lt;boolean&gt;}
+   */
+  async emulateViewport (viewport) {
+    const mobile = viewport.isMobile || false
+    const width = viewport.width
+    const height = viewport.height
+    const deviceScaleFactor = viewport.deviceScaleFactor || 1
+    /** @type {Object} */
+    const screenOrientation = viewport.isLandscape
+      ? { angle: 90, type: &apos;landscapePrimary&apos; }
+      : { angle: 0, type: &apos;portraitPrimary&apos; }
+    const hasTouch = viewport.hasTouch || false
+
+    await Promise.all([
+      this._client.send(&apos;Emulation.setDeviceMetricsOverride&apos;, {
+        mobile,
+        width,
+        height,
+        deviceScaleFactor,
+        screenOrientation
+      }),
+      await this._client.send(&apos;Emulation.setTouchEmulationEnabled&apos;, {
+        enabled: hasTouch
+      })
+    ])
+
+    const reloadNeeded =
+      this._emulatingMobile !== mobile || this._hasTouch !== hasTouch
+    this._emulatingMobile = mobile
+    return reloadNeeded
+  }
+
+  /**
+   * @desc Overrides the Geolocation Position or Error. Omitting any of the parameters emulates position unavailable
+   * @param {!{longitude: number, latitude: number, accuracy: (number|undefined)}} options
+   * @see https://chromedevtools.github.io/devtools-protocol/tot/Emulation#method-setGeolocationOverride
+   */
+  async setGeolocation (options) {
+    const { longitude, latitude, accuracy = 0 } = options
+    if (longitude &lt; -180 || longitude &gt; 180) {
+      throw new Error(
+        `Invalid longitude &quot;${longitude}&quot;: precondition -180 &lt;= LONGITUDE &lt;= 180 failed.`
+      )
+    }
+    if (latitude &lt; -90 || latitude &gt; 90) {
+      throw new Error(
+        `Invalid latitude &quot;${latitude}&quot;: precondition -90 &lt;= LATITUDE &lt;= 90 failed.`
+      )
+    }
+    if (accuracy &lt; 0) {
+      throw new Error(
+        `Invalid accuracy &quot;${accuracy}&quot;: precondition 0 &lt;= ACCURACY failed.`
+      )
+    }
+    await this._client.send(&apos;Emulation.setGeolocationOverride&apos;, {
+      longitude,
+      latitude,
+      accuracy
+    })
+  }
+
+  /**
+   * Sets or clears an override of the default background color of the frame.
+   * This override is used if the content does not specify one.
+   * @param {DOMRGBA} [color] - RGBA of the default background color. If not specified, any existing override will be cleared
+   * @return {Promise&lt;void&gt;}
+   * @see https://chromedevtools.github.io/devtools-protocol/tot/Emulation#method-setDefaultBackgroundColorOverride
+   */
+  async setDefaultBackgroundColorOverride (color) {
+    if (color) {
+      if (color.r &lt; 0 || color.r &gt; 255) {
+        throw new Error(
+          `Invalid r value &quot;${color.r}&quot;: precondition 0 &lt;= r &lt;= 255 failed.`
+        )
+      }
+      if (color.g &lt; 0 || color.g &gt; 255) {
+        throw new Error(
+          `Invalid g value &quot;${color.g}&quot;: precondition 0 &lt;= g &lt;= 255 failed.`
+        )
+      }
+      if (color.b &lt; 0 || color.b &gt; 255) {
+        throw new Error(
+          `Invalid b value &quot;${color.b}&quot;: precondition 0 &lt;= b &lt;= 255 failed.`
+        )
+      }
+      if (color.a &amp;&amp; (color.a &lt; 0 || color.a &gt; 1)) {
+        throw new Error(
+          `Invalid a value &quot;${color.a}&quot;: precondition 0 &lt;= a &lt;= 1 failed.`
+        )
+      }
+    }
+    await this._client.send(&apos;Emulation.setDefaultBackgroundColorOverride&apos;, {
+      color: color || undefined
+    })
+  }
+
+  /**
+   * Overrides the values of device screen dimensions
+   *  - window.screen.width
+   *  - window.screen.height
+   *  - window.innerWidth
+   *  - window.innerHeight
+   *
+   * and &quot;device-width&quot;/&quot;device-height&quot;-related CSS media query results).
+   * @param {Object} options
+   * @return {Promise&lt;void&gt;}
+   * @see https://chromedevtools.github.io/devtools-protocol/tot/Emulation#method-setDeviceMetricsOverride
+   */
+  async setDeviceMetricsOverride (options) {
+    const MinWH = 0
+    const MaxWH = 10000000
+    helper.assertNumberWithin(options.width, MinWH, MaxWH, &apos;width&apos;)
+    helper.assertNumberWithin(options.height, MinWH, MaxWH, &apos;height&apos;)
+    if (options.screenWidth) {
+      helper.assertNumberWithin(
+        options.screenWidth,
+        MinWH,
+        MaxWH,
+        &apos;screenWidth&apos;
+      )
+    }
+    if (options.screenHeight) {
+      helper.assertNumberWithin(
+        options.screenHeight,
+        MinWH,
+        MaxWH,
+        &apos;screenHeight&apos;
+      )
+    }
+    if (options.positionX) {
+      helper.assertNumberWithin(options.positionX, MinWH, MaxWH, &apos;positionX&apos;)
+    }
+    if (options.positionY) {
+      helper.assertNumberWithin(options.positionY, MinWH, MaxWH, &apos;positionY&apos;)
+    }
+    if (options.screenOrientation) {
+      assert(
+        helper.isNumber(options.screenOrientation.angle),
+        &apos;The screenOrientation angle should be a number&apos;
+      )
+      assert(
+        helper.isString(options.screenOrientation.type),
+        &apos;The screenOrientation type should be a string&apos;
+      )
+      assert(
+        options.screenOrientation.type === &apos;portraitPrimary&apos; ||
+          options.screenOrientation.type === &apos;portraitSecondary&apos; ||
+          options.screenOrientation.type === &apos;landscapePrimary&apos; ||
+          options.screenOrientation.type === &apos;landscapeSecondary&apos;,
+        &apos;The screenOrientation type should be equal to one of: portraitPrimary, portraitSecondary, landscapePrimary, or landscapeSecondary&apos;
+      )
+    }
+    if (options.mobile) {
+      assert(
+        helper.isBoolean(options.mobile),
+        `The mobile override should be a boolean value received ${typeof options.mobile}`
+      )
+    }
+    await this._client.send(&apos;Emulation.setDeviceMetricsOverride&apos;, options)
+    if (options.mobile) {
+      this._emulatingMobile = options.mobile
+    }
+  }
+
+  /**
+   * Enables touch on platforms which do not support them
+   * @param {boolean} enabled - Whether the touch event emulation should be enabled
+   * @param {number} [maxTouchPoints = 1] - Maximum touch points supported. Defaults to one
+   * @return {Promise&lt;void&gt;}
+   * @see https://chromedevtools.github.io/devtools-protocol/tot/Emulation#method-setTouchEmulationEnabled
+   */
+  async setTouchEmulationEnabled (enabled, maxTouchPoints = 1) {
+    assert(
+      helper.isBoolean(enabled),
+      `The value of enable for setTouchEmulationEnabled should be a boolean value received ${typeof enabled}`
+    )
+    const params = { enabled }
+    if (maxTouchPoints) {
+      assert(
+        helper.isNumber(maxTouchPoints),
+        `The value of maxTouchPoints for setTouchEmulationEnabled should be a number received ${typeof maxTouchPoints}`
+      )
+      params.maxTouchPoints = maxTouchPoints
+    }
+    await this._client.send(&apos;Emulation.setTouchEmulationEnabled&apos;, params)
+    this._hasTouch = enabled
+  }
+
+  /**
+   * Emulates the given media for CSS media queries
+   * @param {string} media - Media type to emulate. Empty string disables the override
+   * @return {Promise&lt;void&gt;}
+   * @see https://chromedevtools.github.io/devtools-protocol/tot/Emulation#method-setEmulatedMedia
+   */
+  async setEmulatedMedia (media) {
+    assert(
+      media === &apos;screen&apos; || media === &apos;print&apos; || media === null,
+      &apos;Unsupported media type: &apos; + media
+    )
+    await this._client.send(&apos;Emulation.setEmulatedMedia&apos;, { media })
+    this._emulatingMedia = media
+  }
+
+  /**
+   * Switches script execution in the page.
+   * @param {boolean} disabled - Whether script execution should be disabled in the page
+   * @return {Promise&lt;void&gt;}
+   * @see https://chromedevtools.github.io/devtools-protocol/tot/Emulation#method-setScriptExecutionDisabled
+   */
+  async setScriptExecutionDisabled (disabled) {
+    assert(
+      helper.isBoolean(disabled),
+      `The value of disabled for setScriptExecutionDisabled should be a boolean value received ${typeof disabled}`
+    )
+    await this._client.send(&apos;Emulation.setScriptExecutionDisabled&apos;, {
+      value: disabled
+    })
+    this._scriptExecutionDisabled = disabled
+  }
+
+  /** @ignore */
+  // eslint-disable-next-line space-before-function-paren
+  [util.inspect.custom](depth, options) {
+    if (depth &lt; 0) {
+      return options.stylize(&apos;[EmulationManager]&apos;, &apos;special&apos;)
+    }
+
+    const newOptions = Object.assign({}, options, {
+      depth: options.depth === null ? null : options.depth - 1
+    })
+    const inner = util.inspect(
+      {
+        emulatingMobile: this._emulatingMobile,
+        hasTouch: this._hasTouch,
+        emulatingMedia: this._emulatingMedia,
+        scriptExecutionDisabled: this._scriptExecutionDisabled
+      },
+      newOptions
+    )
+    return `${options.stylize(&apos;EmulationManager&apos;, &apos;special&apos;)} ${inner}`
+  }
+}
+
+/**
+ * @typedef {Object} DOMRGBA
+ * @property {number} r
+ * @property {number} g
+ * @property {number} b
+ * @property {?number} [a]
+ */
+
+/**
+ * @typedef {Object} Viewport
+ * @property {number} width
+ * @property {number} height
+ * @property {number} [deviceScaleFactor]
+ * @property {boolean} [isMobile]
+ * @property {boolean} [isLandscape]
+ * @property {boolean} [hasTouch]
+ */
+
+/**
+ * @type {EmulationManager}
+ */
+module.exports = EmulationManager
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">lib/network/NetworkManager.js | chrome-remote-interface-extra</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="The chrome-remote-interface-extra brings a GoogleChrome/puppeteer like api to the chrome-remote-interface, as well as, making many of the full CDP values puppetter hides available"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="chrome-remote-interface-extra"><meta property="twitter:description" content="The chrome-remote-interface-extra brings a GoogleChrome/puppeteer like api to the chrome-remote-interface, as well as, making many of the full CDP values puppetter hides available"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/N0taN3rd/chrome-remote-interface-extra"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/DOMWorld.js~DOMWorld.html">DOMWorld</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/Dialog.js~Dialog.html">Dialog</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/EmulationManager.js~EmulationManager.html">EmulationManager</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/Errors.js~CustomError.html">CustomError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/Errors.js~TimeoutError.html">TimeoutError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/LifecycleWatcher.js~LifecycleWatcher.html">LifecycleWatcher</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/Target.js~Target.html">Target</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/TimeoutSettings.js~TimeoutSettings.html">TimeoutSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/Tracing.js~Tracing.html">Tracing</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/WaitTask.js~WaitTask.html">WaitTask</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/Worker.js~Worker.html">Worker</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-CRIExtra">CRIExtra</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DeviceDescriptors">DeviceDescriptors</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ElementHandle">ElementHandle</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-JSHandle">JSHandle</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-createJSHandle">createJSHandle</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Device">Device</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-DeviceDescriptorViewPort">DeviceDescriptorViewPort</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-DOMRGBA">DOMRGBA</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Viewport">Viewport</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-BoxModel">BoxModel</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#accessibility">accessibility</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/accessibility/AXNode.js~AXNode.html">AXNode</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/accessibility/Accessibility.js~Accessibility.html">Accessibility</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-AXNode">AXNode</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Accessibility">Accessibility</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-SerializedAXNode">SerializedAXNode</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#browser">browser</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/Browser.js~Browser.html">Browser</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/BrowserContext.js~BrowserContext.html">BrowserContext</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Browser">Browser</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-BrowserContext">BrowserContext</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-BrowserInitOptions">BrowserInitOptions</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#connection">connection</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/connection/CDPSession.js~CDPSession.html">CDPSession</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/connection/CRIConnection.js~CRIConnection.html">CRIConnection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-adaptChromeRemoteInterfaceClient">adaptChromeRemoteInterfaceClient</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CRIClientPatched">CRIClientPatched</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CDPSession">CDPSession</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CRIClientPatched">CRIClientPatched</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CRIConnection">CRIConnection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-adaptChromeRemoteInterfaceClient">adaptChromeRemoteInterfaceClient</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ConnectionTypes">ConnectionTypes</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#coverage">coverage</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/coverage/CSSCoverage.js~CSSCoverage.html">CSSCoverage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/coverage/Coverage.js~Coverage.html">Coverage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/coverage/JSCoverage.js~JSCoverage.html">JSCoverage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CSSCoverage">CSSCoverage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Coverage">Coverage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-JSCoverage">JSCoverage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-CoverageEntry">CoverageEntry</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#executioncontext">executionContext</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/executionContext/ExecutionContext.js~ExecutionContext.html">ExecutionContext</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-EVALUATION_SCRIPT_URL">EVALUATION_SCRIPT_URL</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-EVALUATION_SCRIPT_URL">EVALUATION_SCRIPT_URL</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ExecutionContext">ExecutionContext</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#frames">frames</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/frames/Frame.js~Frame.html">Frame</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/frames/FrameManager.js~FrameManager.html">FrameManager</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/frames/FrameResource.js~FrameResource.html">FrameResource</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/frames/FrameResourceTree.js~FrameResourceTree.html">FrameResourceTree</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Frame">Frame</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FrameManager">FrameManager</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FrameResource">FrameResource</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FrameResourceTree">FrameResourceTree</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#input">input</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/input/Keyboard.js~Keyboard.html">Keyboard</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/input/Mouse.js~Mouse.html">Mouse</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/input/Touchscreen.js~Touchscreen.html">Touchscreen</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Keyboard">Keyboard</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Mouse">Mouse</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Touchscreen">Touchscreen</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-USKeyboardLayout">USKeyboardLayout</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-KeyDescription">KeyDescription</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-KeyDefinition">KeyDefinition</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#network">network</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/network/Cookie.js~Cookie.html">Cookie</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/network/NetworkIdleWatcher.js~NetIdleWatcher.html">NetIdleWatcher</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/network/NetworkManager.js~NetworkManager.html">NetworkManager</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/network/Request.js~Request.html">Request</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/network/Response.js~Response.html">Response</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/network/SecurityDetails.js~SecurityDetails.html">SecurityDetails</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Cookie">Cookie</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-NetIdleWatcher">NetIdleWatcher</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-NetworkManager">NetworkManager</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Request">Request</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Response">Response</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-SecurityDetails">SecurityDetails</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-CDPCookie">CDPCookie</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-NetIdleOptions">NetIdleOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-CookieParam">CookieParam</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-CookieToBeDeleted">CookieToBeDeleted</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ModifyCookieParam">ModifyCookieParam</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-NetworkConditions">NetworkConditions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-UserAgentOverride">UserAgentOverride</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#page">page</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/Page.js~Page.html">Page</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ConsoleMessage">ConsoleMessage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Page">Page</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ConsoleMessage.Location">ConsoleMessage.Location</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ExtraDomainsConfig">ExtraDomainsConfig</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Metrics">Metrics</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-PDFOptions">PDFOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-PageInitOptions">PageInitOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ScreenshotOptions">ScreenshotOptions</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">lib/network/NetworkManager.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">const util = require(&apos;util&apos;)
+const EventEmitter = require(&apos;eventemitter3&apos;)
+const { Multimap } = require(&apos;../Multimap&apos;)
+const Events = require(&apos;../Events&apos;)
+const Cookie = require(&apos;./Cookie&apos;)
+const Request = require(&apos;./Request&apos;)
+const Response = require(&apos;./Response&apos;)
+const NetIdleWatcher = require(&apos;./NetworkIdleWatcher&apos;)
+const { assert, debugError, helper } = require(&apos;../helper&apos;)
+
+class NetworkManager extends EventEmitter {
+  /**
+   * @param {Chrome|CRIConnection|CDPSession|Object} client
+   */
+  constructor (client) {
+    super()
+    /**
+     * @type {Chrome|CRIConnection|CDPSession|Object}
+     * @private
+     */
+    this._client = client
+    /**
+     * @type {?FrameManager}
+     */
+    this._frameManager = null
+    /** @type {Map&lt;string, Request&gt;} */
+    this._requestIdToRequest = new Map()
+    /** @type {Map&lt;string, Object&gt;} */
+    this._requestIdToRequestWillBeSentEvent = new Map()
+    /** @type {Object&lt;string, string&gt;} */
+    this._extraHTTPHeaders = {}
+
+    this._offline = false
+
+    this._cacheEnabledState = true
+
+    /** @type {?{username: string, password: string}} */
+    this._credentials = null
+    /** @type {!Set&lt;string&gt;} */
+    this._attemptedAuthentications = new Set()
+    this._userRequestInterceptionEnabled = false
+    this._protocolRequestInterceptionEnabled = false
+    /** @type {!Multimap&lt;string, string&gt;} */
+    this._requestHashToRequestIds = new Multimap()
+    /** @type {!Multimap&lt;string, string&gt;} */
+    this._requestHashToInterceptionIds = new Multimap()
+
+    this._client.on(
+      &apos;Network.requestWillBeSent&apos;,
+      this._onRequestWillBeSent.bind(this)
+    )
+    this._client.on(
+      &apos;Network.requestIntercepted&apos;,
+      this._onRequestIntercepted.bind(this)
+    )
+    this._client.on(
+      &apos;Network.requestServedFromCache&apos;,
+      this._onRequestServedFromCache.bind(this)
+    )
+    this._client.on(
+      &apos;Network.responseReceived&apos;,
+      this._onResponseReceived.bind(this)
+    )
+    this._client.on(
+      &apos;Network.loadingFinished&apos;,
+      this._onLoadingFinished.bind(this)
+    )
+    this._client.on(&apos;Network.loadingFailed&apos;, this._onLoadingFailed.bind(this))
+  }
+
+  /**
+   * @return {!Object&lt;string, string&gt;}
+   */
+  extraHTTPHeaders () {
+    return Object.assign({}, this._extraHTTPHeaders)
+  }
+
+  /**
+   * @desc Returns a promise that resolves once the network has become idle.
+   * Detection of network idle considers only the number of in-flight HTTP requests
+   * for the Page connected to
+   * @param {NetIdleOptions} [options]
+   * @return {Promise&lt;void&gt;}
+   */
+  networkIdlePromise (options) {
+    return NetIdleWatcher.idlePromise(this, options)
+  }
+
+  /**
+   * @param {!FrameManager} frameManager
+   */
+  setFrameManager (frameManager) {
+    this._frameManager = frameManager
+  }
+
+  /**
+   * @desc Blocks URLs from loading. EXPERIMENTAL
+   * @param {...string} urls - URL patterns to block. Wildcards (&apos;*&apos;) are allowed
+   * @return {Promise&lt;void&gt;}
+   * @see https://chromedevtools.github.io/devtools-protocol/tot/Network#method-setBlockedURLs
+   */
+  async setBlockedURLs (...urls) {
+    if (urls.length === 0) return
+    await this._client.send(&apos;Network.setBlockedURLs&apos;, { urls })
+  }
+
+  /**
+   * @desc Returns the DER-encoded certificate. EXPERIMENTAL
+   * @param {string} origin - Origin to get certificate for
+   * @return {Promise&lt;Array&lt;string&gt;&gt;}
+   * @see https://chromedevtools.github.io/devtools-protocol/tot/Network#method-getCertificate
+   */
+  async getCertificate (origin) {
+    if (!origin) return []
+    const { tableNames } = await this._client.send(&apos;Network.getCertificate&apos;, {
+      origin
+    })
+    return tableNames
+  }
+
+  /**
+   * @desc Toggles ignoring of service worker for each request. EXPERIMENTAL
+   * @param {boolean} bypass - Bypass service worker and load from network
+   * @return {Promise&lt;void&gt;}
+   * @see https://chromedevtools.github.io/devtools-protocol/tot/Network#method-setBypassServiceWorker
+   */
+  async bypassServiceWorker (bypass) {
+    await this._client.send(&apos;Network.setBypassServiceWorker&apos;, { bypass })
+  }
+
+  /**
+   * @param {?{username: string, password: string}} credentials
+   */
+  async authenticate (credentials) {
+    this._credentials = credentials
+    await this._updateProtocolRequestInterception()
+  }
+
+  /**
+   * @param {!Object&lt;string, string&gt;} extraHTTPHeaders
+   */
+  async setExtraHTTPHeaders (extraHTTPHeaders) {
+    this._extraHTTPHeaders = {}
+    const extraHeadersKeys = Object.keys(extraHTTPHeaders)
+    for (let i = 0; i &lt; extraHeadersKeys.length; i++) {
+      const key = extraHeadersKeys[i]
+      const value = extraHTTPHeaders[key]
+      assert(
+        helper.isString(value),
+        `Expected value of header &quot;${key}&quot; to be String, but &quot;${typeof value}&quot; is found.`
+      )
+      this._extraHTTPHeaders[key] = value
+    }
+    await this._client.send(&apos;Network.setExtraHTTPHeaders&apos;, {
+      headers: this._extraHTTPHeaders
+    })
+  }
+
+  /**
+   * @param {boolean} offline - T/F indicating offline status
+   * @see https://chromedevtools.github.io/devtools-protocol/tot/Network#method-emulateNetworkConditions
+   */
+  async setOfflineMode (offline) {
+    if (this._offline === offline) return
+    this._offline = offline
+    await this._client.send(&apos;Network.emulateNetworkConditions&apos;, {
+      offline: this._offline,
+      // values of 0 remove any active throttling. crbug.com/456324#c9
+      latency: 0,
+      downloadThroughput: -1,
+      uploadThroughput: -1
+    })
+  }
+
+  /**
+   * @desc Activates emulation of network conditions
+   * @param {NetworkConditions} networkConditions - The new network conditions
+   * @return {Promise&lt;void&gt;}
+   * @see https://chromedevtools.github.io/devtools-protocol/tot/Network#method-emulateNetworkConditions
+   */
+  async emulateNetworkConditions (networkConditions) {
+    if (!networkConditions) return
+    if (typeof networkConditions.offline === &apos;boolean&apos;) {
+      this._offline = networkConditions.offline
+    }
+    await this._client.send(
+      &apos;Network.emulateNetworkConditions&apos;,
+      networkConditions
+    )
+  }
+
+  /**
+   * @param {string} userAgent - User agent to use
+   * @see https://chromedevtools.github.io/devtools-protocol/tot/Network#method-setUserAgentOverride
+   */
+  async setUserAgent (userAgent) {
+    await this._client.send(&apos;Network.setUserAgentOverride&apos;, { userAgent })
+  }
+
+  /**
+   * @param {string} acceptLanguage - Browser langugage to emulate
+   * @see https://chromedevtools.github.io/devtools-protocol/tot/Network#method-setUserAgentOverride
+   */
+  async setAcceptLanguage (acceptLanguage) {
+    await this._client.send(&apos;Network.setUserAgentOverride&apos;, { acceptLanguage })
+  }
+
+  /**
+   * @param {string} platform - The platform navigator.platform should return
+   * @see https://chromedevtools.github.io/devtools-protocol/tot/Network#method-setUserAgentOverride
+   */
+  async setNavigatorPlatform (platform) {
+    await this._client.send(&apos;Network.setUserAgentOverride&apos;, { platform })
+  }
+
+  /**
+   * @desc Allows overriding user agent with the given string.
+   * @param {UserAgentOverride} overrides
+   * @return {Promise&lt;void&gt;}
+   * @see https://chromedevtools.github.io/devtools-protocol/tot/Network#method-setUserAgentOverride
+   */
+  async setUserAgentOverride ({ userAgent, acceptLanguage, platform }) {
+    assert(
+      !(userAgent == null &amp;&amp; acceptLanguage == null &amp;&amp; platform == null),
+      &apos;Must supply a value for at least one of &quot;userAgent, acceptLanguage, platform&quot;&apos;
+    )
+    await this._client.send(&apos;Network.setUserAgentOverride&apos;, {
+      userAgent: userAgent || undefined,
+      acceptLanguage: acceptLanguage || undefined,
+      platform: platform || undefined
+    })
+  }
+
+  /**
+   * @return {Promise&lt;void&gt;}
+   * @see https://chromedevtools.github.io/devtools-protocol/tot/Network#method-setCacheDisabled
+   */
+  async disableCache () {
+    if (!this._cacheEnabledState) return
+    await this._setCacheDisabled(false)
+  }
+
+  /**
+   * @return {Promise&lt;void&gt;}
+   * @see https://chromedevtools.github.io/devtools-protocol/tot/Network#method-setCacheDisabled
+   */
+  async enableCache () {
+    if (this._cacheEnabledState) return
+    await this._setCacheDisabled(true)
+  }
+
+  /**
+   * @return {Promise&lt;void&gt;}
+   * @see https://chromedevtools.github.io/devtools-protocol/tot/Network#method-clearBrowserCache
+   */
+  async clearBrowserCache () {
+    await this._client.send(&apos;Network.clearBrowserCache&apos;)
+  }
+
+  /**
+   * @desc Clears browser cookies
+   * @return {Promise&lt;void&gt;}
+   * @see https://chromedevtools.github.io/devtools-protocol/tot/Network#method-clearBrowserCookies
+   */
+  async clearBrowserCookies () {
+    await this._client.send(&apos;Network.clearBrowserCookies&apos;)
+  }
+  /**
+   * @desc Deletes the specified browser cookies with matching name and url or domain/path pair.
+   * @param {CDPCookie|CookieToBeDeleted|string|Cookie} cookie - The cookie to be deleted
+   * @param {string} [forURL]
+   * @return {Promise&lt;void&gt;}
+   * @see https://chromedevtools.github.io/devtools-protocol/tot/Network#method-deleteCookies
+   */
+  async deleteCookie (cookie, forURL) {
+    let deleteMe
+    if (typeof cookie === &apos;string&apos;) {
+      deleteMe = { name: cookie, url: forURL || undefined }
+    } else if (cookie instanceof Cookie) {
+      deleteMe = {
+        name: cookie.name() || undefined,
+        path: cookie.path() || undefined,
+        url: forURL || undefined,
+        domain: cookie.domain() || undefined
+      }
+    } else {
+      deleteMe =
+        typeof forURL === &apos;string&apos;
+          ? Object.assign(cookie, { url: forURL })
+          : cookie
+    }
+    await this._client.send(&apos;Network.deleteCookies&apos;, deleteMe)
+  }
+
+  /**
+   * @desc Deletes browser cookies with matching name and url or domain/path pair.
+   * @param {...(CDPCookie|CookieToBeDeleted|string|Cookie)} cookies - The cookies to be deleted
+   * @return {Promise&lt;void&gt;}
+   * @see https://chromedevtools.github.io/devtools-protocol/tot/Network#method-deleteCookies
+   */
+  async deleteCookies (...cookies) {
+    for (let i = 0; i &lt; cookies.length; i++) {
+      await this.deleteCookie(cookies[i])
+    }
+  }
+
+  /**
+   * @desc Returns all browser cookies.
+   * Depending on the backend support, will return detailed cookie information in the cookies field.
+   * @return {Promise&lt;Array&lt;Cookie&gt;&gt;}
+   * @see https://chromedevtools.github.io/devtools-protocol/tot/Network#method-getAllCookies
+   */
+  async getAllCookies () {
+    const { cookies } = await this._client.send(&apos;Network.getAllCookies&apos;)
+    if (cookies.length === 0) return cookies
+    /** @type {Array&lt;Cookie&gt;} */
+    const browserCookies = []
+    const numCookies = cookies.length
+    for (let i = 0; i &lt; numCookies; i++) {
+      browserCookies.push(new Cookie(cookies[i], this))
+    }
+    return browserCookies
+  }
+
+  /**
+   * @desc Returns all browser cookies for the current URL.
+   * Depending on the backend support, will return detailed cookie information in the cookies field.
+   * @param {Array&lt;string&gt;} urls - The list of URLs for which applicable cookies will be fetched
+   * @return {Promise&lt;Array&lt;Cookie&gt;&gt;}
+   * @see https://chromedevtools.github.io/devtools-protocol/tot/Network#method-getCookies
+   */
+  async getCookies (urls) {
+    const { cookies } = await this._client.send(&apos;Network.getCookies&apos;, { urls })
+    if (cookies.length === 0) return cookies
+    /** @type {Array&lt;Cookie&gt;} */
+    const cookiesForURLs = []
+    const numCookies = cookies.length
+    for (let i = 0; i &lt; numCookies; i++) {
+      cookiesForURLs.push(new Cookie(cookies[i], this))
+    }
+    return cookiesForURLs
+  }
+
+  /**
+   * @desc Sets a cookie with the given cookie data; may overwrite equivalent cookies if they exist
+   * @param {CDPCookie|CookieParam|string} cookie - The new cookie to be set
+   * @return {Promise&lt;boolean&gt;} - T/F indicating if the cookie was set
+   * @see https://chromedevtools.github.io/devtools-protocol/tot/Network#method-setCookie
+   */
+  async setCookie (cookie) {
+    let setCookie
+    if (typeof cookie === &apos;string&apos;) {
+      const nameValue = cookie.split(&apos;=&apos;)
+      setCookie = { name: nameValue[0], value: nameValue[1] }
+    } else {
+      setCookie = cookie
+    }
+    const results = await this._client.send(&apos;Network.setCookie&apos;, {
+      cookie: setCookie
+    })
+    return results.success
+  }
+
+  /**
+   * @desc Sets given cookies
+   * @param {...(CDPCookie|CookieParam|string)} cookies
+   * @return {Promise&lt;void&gt;}
+   * @see https://chromedevtools.github.io/devtools-protocol/tot/Network#method-setCookies
+   */
+  async setCookies (...cookies) {
+    const cookiesToBeSet = []
+    for (let i = 0; i &lt; cookies.length; i++) {
+      if (typeof cookies[i] === &apos;string&apos;) {
+        const nameValue = cookies[i].split(&apos;=&apos;)
+        cookiesToBeSet.push({ name: nameValue[0], value: nameValue[1] })
+      } else {
+        cookiesToBeSet.push(cookies[i])
+      }
+    }
+    await this._client.send(&apos;Network.setCookies&apos;, { cookies: cookiesToBeSet })
+  }
+
+  /**
+   * @param {boolean} value
+   */
+  async setRequestInterception (value) {
+    this._userRequestInterceptionEnabled = value
+    await this._updateProtocolRequestInterception()
+  }
+
+  async _updateProtocolRequestInterception () {
+    const enabled = this._userRequestInterceptionEnabled || !!this._credentials
+    if (enabled === this._protocolRequestInterceptionEnabled) return
+    this._protocolRequestInterceptionEnabled = enabled
+    const patterns = enabled ? [{ urlPattern: &apos;*&apos; }] : []
+    await Promise.all([
+      this._setCacheDisabled(enabled),
+      this._client.send(&apos;Network.setRequestInterception&apos;, { patterns })
+    ])
+  }
+
+  /**
+   * @param {boolean} cacheDisabled
+   * @return {Promise&lt;*&gt;}
+   * @private
+   */
+  _setCacheDisabled (cacheDisabled) {
+    this._cacheEnabledState = cacheDisabled
+    return this._client.send(&apos;Network.setCacheDisabled&apos;, {
+      cacheDisabled
+    })
+  }
+
+  /**
+   * @param {!Object} event
+   */
+  _onRequestWillBeSent (event) {
+    // Request interception doesn&apos;t happen for data URLs with Network Service.
+    if (
+      this._protocolRequestInterceptionEnabled &amp;&amp;
+      !event.request.url.startsWith(&apos;data:&apos;)
+    ) {
+      const requestHash = generateRequestHash(event.request)
+      const interceptionId = this._requestHashToInterceptionIds.firstValue(
+        requestHash
+      )
+      if (interceptionId) {
+        this._onRequest(event, interceptionId)
+        this._requestHashToInterceptionIds.delete(requestHash, interceptionId)
+      } else {
+        this._requestHashToRequestIds.set(requestHash, event.requestId)
+        this._requestIdToRequestWillBeSentEvent.set(event.requestId, event)
+      }
+      return
+    }
+    this._onRequest(event, null)
+  }
+
+  /**
+   * @param {!Object} event
+   */
+  _onRequestIntercepted (event) {
+    if (event.authChallenge) {
+      /** @type {&quot;Default&quot;|&quot;CancelAuth&quot;|&quot;ProvideCredentials&quot;} */
+      let response = &apos;Default&apos;
+      if (this._attemptedAuthentications.has(event.interceptionId)) {
+        response = &apos;CancelAuth&apos;
+      } else if (this._credentials) {
+        response = &apos;ProvideCredentials&apos;
+        this._attemptedAuthentications.add(event.interceptionId)
+      }
+      const { username, password } = this._credentials || {
+        username: undefined,
+        password: undefined
+      }
+      this._client
+        .send(&apos;Network.continueInterceptedRequest&apos;, {
+          interceptionId: event.interceptionId,
+          authChallengeResponse: { response, username, password }
+        })
+        .catch(debugError)
+      return
+    }
+    if (
+      !this._userRequestInterceptionEnabled &amp;&amp;
+      this._protocolRequestInterceptionEnabled
+    ) {
+      this._client
+        .send(&apos;Network.continueInterceptedRequest&apos;, {
+          interceptionId: event.interceptionId
+        })
+        .catch(debugError)
+    }
+
+    const requestHash = generateRequestHash(event.request)
+    const requestId = this._requestHashToRequestIds.firstValue(requestHash)
+    if (requestId) {
+      const requestWillBeSentEvent = this._requestIdToRequestWillBeSentEvent.get(
+        requestId
+      )
+      this._onRequest(requestWillBeSentEvent, event.interceptionId)
+      this._requestHashToRequestIds.delete(requestHash, requestId)
+      this._requestIdToRequestWillBeSentEvent.delete(requestId)
+    } else {
+      this._requestHashToInterceptionIds.set(requestHash, event.interceptionId)
+    }
+  }
+
+  /**
+   * @param {!Object} event
+   * @param {?string} interceptionId
+   */
+  _onRequest (event, interceptionId) {
+    let redirectChain = []
+    if (event.redirectResponse) {
+      const request = this._requestIdToRequest.get(event.requestId)
+      // If we connect late to the target, we could have missed the requestWillBeSent event.
+      if (request) {
+        this._handleRequestRedirect(request, event)
+        redirectChain = request._redirectChain
+      }
+    }
+    const frame =
+      event.frameId &amp;&amp; this._frameManager
+        ? this._frameManager.frame(event.frameId)
+        : null
+    const request = new Request(
+      this._client,
+      event,
+      frame,
+      redirectChain,
+      interceptionId,
+      this._userRequestInterceptionEnabled
+    )
+    this._requestIdToRequest.set(event.requestId, request)
+    this.emit(Events.NetworkManager.Request, request)
+  }
+
+  /**
+   * @param {!Object} event
+   */
+  _onRequestServedFromCache (event) {
+    const request = this._requestIdToRequest.get(event.requestId)
+    if (request) request._fromMemoryCache = true
+  }
+
+  /**
+   * @param {!Request} request
+   * @param {!Object} event
+   */
+  _handleRequestRedirect (request, event) {
+    const response = new Response(this._client, request, event)
+    request._response = response
+    request._redirectChain.push(request)
+    response._bodyLoadedPromiseFulfill.call(
+      null,
+      new Error(&apos;Response body is unavailable for redirect responses&apos;)
+    )
+    this._requestIdToRequest.delete(request._requestId)
+    this._attemptedAuthentications.delete(request._interceptionId)
+    this.emit(Events.NetworkManager.Response, response)
+    this.emit(Events.NetworkManager.RequestFinished, request)
+  }
+
+  /**
+   * @param {!Object} event
+   */
+  _onResponseReceived (event) {
+    const request = this._requestIdToRequest.get(event.requestId)
+    // FileUpload sends a response without a matching request.
+    if (!request) return
+    const response = new Response(this._client, request, event)
+    request._response = response
+    this.emit(Events.NetworkManager.Response, response)
+  }
+
+  /**
+   * @param {!Object} event
+   */
+  _onLoadingFinished (event) {
+    const request = this._requestIdToRequest.get(event.requestId)
+    // For certain requestIds we never receive requestWillBeSent event.
+    // @see https://crbug.com/750469
+    if (!request) return
+
+    // Under certain conditions we never get the Network.responseReceived
+    // event from protocol. @see https://crbug.com/883475
+    if (request.response()) {
+      request.response()._bodyLoadedPromiseFulfill.call(null)
+    }
+    this._requestIdToRequest.delete(request._requestId)
+    this._attemptedAuthentications.delete(request._interceptionId)
+    this.emit(Events.NetworkManager.RequestFinished, request)
+  }
+
+  /**
+   * @param {!Object} event
+   */
+  _onLoadingFailed (event) {
+    const request = this._requestIdToRequest.get(event.requestId)
+    // For certain requestIds we never receive requestWillBeSent event.
+    // @see https://crbug.com/750469
+    if (!request) return
+    request._failureText = event.errorText
+    const response = request.response()
+    if (response) {
+      response._bodyLoadedPromiseFulfill.call(null)
+    }
+    this._requestIdToRequest.delete(request._requestId)
+    this._attemptedAuthentications.delete(request._interceptionId)
+    this.emit(Events.NetworkManager.RequestFailed, request)
+  }
+
+  toJSON () {
+    return {
+      extraHTTPHeaders: this._extraHTTPHeaders,
+      ignoreHTTPSErrors: this._ignoreHTTPSErrors,
+      defaultViewport: this._defaultViewport,
+      offline: this._offline,
+      cacheEnabledState: this._cacheEnabledState,
+      credentials: this._credentials,
+      userRequestInterceptionEnabled: this._userRequestInterceptionEnabled,
+      protocolRequestInterceptionEnabled: this
+        ._protocolRequestInterceptionEnabled
+    }
+  }
+
+  /** @ignore */
+  // eslint-disable-next-line space-before-function-paren
+  [util.inspect.custom](depth, options) {
+    if (depth &lt; 0) {
+      return options.stylize(&apos;[NetworkManager]&apos;, &apos;special&apos;)
+    }
+
+    const newOptions = Object.assign({}, options, {
+      depth: options.depth === null ? null : options.depth - 1
+    })
+    const inner = util.inspect(
+      {
+        extraHTTPHeaders: this._extraHTTPHeaders,
+        ignoreHTTPSErrors: this._ignoreHTTPSErrors,
+        defaultViewport: this._defaultViewport,
+        offline: this._offline,
+        cacheEnabledState: this._cacheEnabledState,
+        credentials: this._credentials,
+        userRequestInterceptionEnabled: this._userRequestInterceptionEnabled,
+        protocolRequestInterceptionEnabled: this
+          ._protocolRequestInterceptionEnabled
+      },
+      newOptions
+    )
+    return `${options.stylize(&apos;NetworkManager&apos;, &apos;special&apos;)} ${inner}`
+  }
+}
+
+const IGNORED_HEADERS = new Set([
+  &apos;accept&apos;,
+  &apos;referer&apos;,
+  &apos;x-devtools-emulate-network-conditions-client-id&apos;,
+  &apos;cookie&apos;,
+  &apos;origin&apos;,
+  &apos;content-type&apos;,
+  &apos;intervention&apos;
+])
+
+/**
+ * @param {!Object} request
+ * @return {string}
+ */
+function generateRequestHash (request) {
+  let normalizedURL = request.url
+  try {
+    // Decoding is necessary to normalize URLs. @see crbug.com/759388
+    // The method will throw if the URL is malformed. In this case,
+    // consider URL to be normalized as-is.
+    normalizedURL = decodeURI(request.url)
+  } catch (e) {}
+
+  const hash = {
+    url: normalizedURL,
+    method: request.method,
+    postData: request.postData,
+    headers: {}
+  }
+
+  if (!normalizedURL.startsWith(&apos;data:&apos;)) {
+    const headers = Object.keys(request.headers)
+    headers.sort()
+    for (let i = 0; i &lt; headers.length; i++) {
+      const header = headers[i].toLowerCase()
+      if (IGNORED_HEADERS.has(header)) continue
+      hash.headers[header] = request.headers[header]
+    }
+  }
+  return JSON.stringify(hash)
+}
+
+/**
+ * @type {NetworkManager}
+ */
+module.exports = NetworkManager
+
+/**
+ * @typedef {Object} CookieParam
+ * @property {!string} name
+ * @property {!string} value
+ * @property {?string} [url]
+ * @property {?string} [domain]
+ * @property {?string} [path]
+ * @property {?number} [expires]
+ * @property {?boolean} [httpOnly]
+ * @property {?boolean} [secure]
+ * @property {?string} [sameSite]
+ */
+
+/**
+ * @typedef {Object} ModifyCookieParam
+ * @property {?string} name
+ * @property {?string} value
+ * @property {?string} url
+ * @property {?string} domain
+ * @property {?string} path
+ * @property {?number} expires
+ * @property {?boolean} httpOnly
+ * @property {?boolean} secure
+ * @property {?string} sameSite
+ */
+
+/**
+ * @typedef {Object} CookieToBeDeleted
+ * @property {string} name
+ * @property {?string} [url]
+ * @property {?string} [domain]
+ * @property {?string} [path]
+ */
+
+/**
+ * @typedef {Object} NetworkConditions
+ * @property {boolean} offline
+ * @property {number} latency
+ * @property {number} downloadThroughput
+ * @property {number}uploadThroughput
+ * @property {?string} [connectionType]
+ */
+
+/**
+ * @typedef {Object} UserAgentOverride
+ * @property {string} userAgent
+ * @property {?string} [acceptLanguage]
+ * @property {?string} [platform]
+ */
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

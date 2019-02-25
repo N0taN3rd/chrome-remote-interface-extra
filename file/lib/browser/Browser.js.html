@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">lib/browser/Browser.js | chrome-remote-interface-extra</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="The chrome-remote-interface-extra brings a GoogleChrome/puppeteer like api to the chrome-remote-interface, as well as, making many of the full CDP values puppetter hides available"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="chrome-remote-interface-extra"><meta property="twitter:description" content="The chrome-remote-interface-extra brings a GoogleChrome/puppeteer like api to the chrome-remote-interface, as well as, making many of the full CDP values puppetter hides available"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/N0taN3rd/chrome-remote-interface-extra"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/DOMWorld.js~DOMWorld.html">DOMWorld</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/Dialog.js~Dialog.html">Dialog</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/EmulationManager.js~EmulationManager.html">EmulationManager</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/Errors.js~CustomError.html">CustomError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/Errors.js~TimeoutError.html">TimeoutError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/LifecycleWatcher.js~LifecycleWatcher.html">LifecycleWatcher</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/Target.js~Target.html">Target</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/TimeoutSettings.js~TimeoutSettings.html">TimeoutSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/Tracing.js~Tracing.html">Tracing</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/WaitTask.js~WaitTask.html">WaitTask</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/Worker.js~Worker.html">Worker</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-CRIExtra">CRIExtra</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DeviceDescriptors">DeviceDescriptors</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ElementHandle">ElementHandle</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-JSHandle">JSHandle</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-createJSHandle">createJSHandle</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Device">Device</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-DeviceDescriptorViewPort">DeviceDescriptorViewPort</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-DOMRGBA">DOMRGBA</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Viewport">Viewport</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-BoxModel">BoxModel</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#accessibility">accessibility</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/accessibility/AXNode.js~AXNode.html">AXNode</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/accessibility/Accessibility.js~Accessibility.html">Accessibility</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-AXNode">AXNode</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Accessibility">Accessibility</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-SerializedAXNode">SerializedAXNode</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#browser">browser</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/Browser.js~Browser.html">Browser</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/BrowserContext.js~BrowserContext.html">BrowserContext</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Browser">Browser</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-BrowserContext">BrowserContext</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-BrowserInitOptions">BrowserInitOptions</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#connection">connection</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/connection/CDPSession.js~CDPSession.html">CDPSession</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/connection/CRIConnection.js~CRIConnection.html">CRIConnection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-adaptChromeRemoteInterfaceClient">adaptChromeRemoteInterfaceClient</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CRIClientPatched">CRIClientPatched</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CDPSession">CDPSession</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CRIClientPatched">CRIClientPatched</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CRIConnection">CRIConnection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-adaptChromeRemoteInterfaceClient">adaptChromeRemoteInterfaceClient</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ConnectionTypes">ConnectionTypes</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#coverage">coverage</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/coverage/CSSCoverage.js~CSSCoverage.html">CSSCoverage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/coverage/Coverage.js~Coverage.html">Coverage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/coverage/JSCoverage.js~JSCoverage.html">JSCoverage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CSSCoverage">CSSCoverage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Coverage">Coverage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-JSCoverage">JSCoverage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-CoverageEntry">CoverageEntry</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#executioncontext">executionContext</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/executionContext/ExecutionContext.js~ExecutionContext.html">ExecutionContext</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-EVALUATION_SCRIPT_URL">EVALUATION_SCRIPT_URL</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-EVALUATION_SCRIPT_URL">EVALUATION_SCRIPT_URL</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ExecutionContext">ExecutionContext</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#frames">frames</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/frames/Frame.js~Frame.html">Frame</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/frames/FrameManager.js~FrameManager.html">FrameManager</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/frames/FrameResource.js~FrameResource.html">FrameResource</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/frames/FrameResourceTree.js~FrameResourceTree.html">FrameResourceTree</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Frame">Frame</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FrameManager">FrameManager</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FrameResource">FrameResource</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FrameResourceTree">FrameResourceTree</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#input">input</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/input/Keyboard.js~Keyboard.html">Keyboard</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/input/Mouse.js~Mouse.html">Mouse</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/input/Touchscreen.js~Touchscreen.html">Touchscreen</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Keyboard">Keyboard</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Mouse">Mouse</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Touchscreen">Touchscreen</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-USKeyboardLayout">USKeyboardLayout</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-KeyDescription">KeyDescription</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-KeyDefinition">KeyDefinition</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#network">network</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/network/Cookie.js~Cookie.html">Cookie</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/network/NetworkIdleWatcher.js~NetIdleWatcher.html">NetIdleWatcher</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/network/NetworkManager.js~NetworkManager.html">NetworkManager</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/network/Request.js~Request.html">Request</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/network/Response.js~Response.html">Response</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/network/SecurityDetails.js~SecurityDetails.html">SecurityDetails</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Cookie">Cookie</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-NetIdleWatcher">NetIdleWatcher</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-NetworkManager">NetworkManager</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Request">Request</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Response">Response</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-SecurityDetails">SecurityDetails</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-CDPCookie">CDPCookie</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-NetIdleOptions">NetIdleOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-CookieParam">CookieParam</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-CookieToBeDeleted">CookieToBeDeleted</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ModifyCookieParam">ModifyCookieParam</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-NetworkConditions">NetworkConditions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-UserAgentOverride">UserAgentOverride</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#page">page</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/Page.js~Page.html">Page</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ConsoleMessage">ConsoleMessage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Page">Page</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ConsoleMessage.Location">ConsoleMessage.Location</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ExtraDomainsConfig">ExtraDomainsConfig</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Metrics">Metrics</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-PDFOptions">PDFOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-PageInitOptions">PageInitOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ScreenshotOptions">ScreenshotOptions</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">lib/browser/Browser.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">const util = require(&apos;util&apos;)
+const EventEmitter = require(&apos;eventemitter3&apos;)
+const { helper, assert } = require(&apos;../helper&apos;)
+const Events = require(&apos;../Events&apos;)
+const BrowserContext = require(&apos;./BrowserContext&apos;)
+const Target = require(&apos;../Target&apos;)
+const { TaskQueue } = require(&apos;../TaskQueue&apos;)
+const {
+  adaptChromeRemoteInterfaceClient,
+  CRIConnection
+} = require(&apos;../connection&apos;)
+
+async function dummyCloseCB () {}
+
+class Browser extends EventEmitter {
+  /**
+   * @param {Chrome|CRIConnection|Object} connection
+   * @param {BrowserInitOptions} [initOpts = {}]
+   */
+  static async create (connection, initOpts = {}) {
+    const browser = new Browser(
+      connection instanceof CRIConnection
+        ? connection
+        : adaptChromeRemoteInterfaceClient(connection),
+      Object.assign({ contextIds: [] }, initOpts)
+    )
+    await connection.send(&apos;Target.setDiscoverTargets&apos;, { discover: true })
+    return browser
+  }
+
+  /**
+   * @param {!Chrome|CRIConnection} connection
+   * @param {BrowserInitOptions} initOpts
+   */
+  constructor (
+    connection,
+    {
+      contextIds,
+      ignoreHTTPSErrors,
+      defaultViewport,
+      closeCallback,
+      additionalDomains,
+      process
+    }
+  ) {
+    super()
+    /**
+     * @type {boolean}
+     */
+    this._ignoreHTTPSErrors = ignoreHTTPSErrors
+
+    /**
+     * @type {?Object}
+     */
+    this._defaultViewport = defaultViewport
+
+    /**
+     * @type {?Object}
+     */
+    this._process = process
+
+    /**
+     * @type {TaskQueue}
+     * @private
+     */
+    this._screenshotTaskQueue = new TaskQueue()
+
+    /**
+     * @type {!Chrome|CRIConnection}
+     * @private
+     */
+    this._connection = connection
+
+    /**
+     * @type {*|dummyCloseCB}
+     * @private
+     */
+    this._closeCallback = closeCallback || dummyCloseCB
+
+    /**
+     * @type {?ExtraDomainsConfig}
+     */
+    this._additionalDomains = additionalDomains
+
+    /**
+     * @type {BrowserContext}
+     * @private
+     */
+    this._defaultContext = new BrowserContext(this._connection, this, null)
+
+    /** @type {Map&lt;string, BrowserContext&gt;} */
+    this._contexts = new Map()
+
+    for (let i = 0; i &lt; contextIds.length; i++) {
+      this._contexts.set(
+        contextIds[i],
+        new BrowserContext(this._connection, this, contextIds[i])
+      )
+    }
+
+    /** @type {Map&lt;string, Target&gt;} */
+    this._targets = new Map()
+    this._connection.on(
+      this._connection.$$disconnectEvent || Events.CRIClient.Disconnected,
+      () =&gt; this.emit(Events.Browser.Disconnected)
+    )
+    this._connection.on(&apos;Target.targetCreated&apos;, this._targetCreated.bind(this))
+    this._connection.on(
+      &apos;Target.targetDestroyed&apos;,
+      this._targetDestroyed.bind(this)
+    )
+    this._connection.on(
+      &apos;Target.targetInfoChanged&apos;,
+      this._targetInfoChanged.bind(this)
+    )
+  }
+
+  /**
+   * @return {Array&lt;Target&gt;}
+   */
+  targets () {
+    return Array.from(this._targets.values()).filter(
+      target =&gt; target._isInitialized
+    )
+  }
+
+  /**
+   * @return {!Target}
+   */
+  target () {
+    return this.targets().find(target =&gt; target.type() === &apos;browser&apos;)
+  }
+
+  /**
+   * @desc Disconnect from the browser
+   */
+  disconnect () {
+    this._connection.dispose()
+  }
+
+  /**
+   * @return {Array&lt;BrowserContext&gt;}
+   */
+  browserContexts () {
+    return [this._defaultContext, ...Array.from(this._contexts.values())]
+  }
+
+  /**
+   * @return {!BrowserContext}
+   */
+  defaultBrowserContext () {
+    return this._defaultContext
+  }
+
+  /**
+   * @return {string}
+   */
+  wsEndpoint () {
+    return this._connection.webSocketUrl
+  }
+
+  /**
+   * @desc Returns version information
+   * @return {Promise&lt;{protocolVersion: string, product: string, revision: string, userAgent: string, jsVersion: string}&gt;}
+   * @see https://chromedevtools.github.io/devtools-protocol/tot/Browser#method-getVersion
+   */
+  versionInfo () {
+    return this._connection.send(&apos;Browser.getVersion&apos;, {})
+  }
+
+  /**
+   * Returns all browser contexts created with Target.createBrowserContext method.
+   * EXPERIMENTAL
+   * @return {Promise&lt;Array&lt;string&gt;&gt;} An array of browser context ids
+   * @see https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-getBrowserContexts
+   */
+  async listBrowserContexts () {
+    const { browserContextIds } = await this._connection.send(
+      &apos;Target.getBrowserContexts&apos;,
+      {}
+    )
+    return browserContextIds
+  }
+
+  /**
+   * @desc Retrieves a list of available targets
+   * @return {Promise&lt;Array&lt;Object&gt;&gt;}
+   * @see https://chromedevtools.github.io/devtools-protocol/tot/Target#method-getTargets
+   */
+  async listTargets () {
+    const { targetInfos } = await this._connection.send(&apos;Target.getTargets&apos;)
+    return targetInfos
+  }
+
+  /**
+   * @return {Promise&lt;BrowserContext&gt;}
+   */
+  async createIncognitoBrowserContext () {
+    const { browserContextId } = await this._connection.send(
+      &apos;Target.createBrowserContext&apos;
+    )
+    const context = new BrowserContext(this._connection, this, browserContextId)
+    this._contexts.set(browserContextId, context)
+    return context
+  }
+
+  /**
+   * @param {function(target: Target):boolean} predicate
+   * @param {{timeout?: number}} [options = {}]
+   * @return {Promise&lt;Target&gt;}
+   */
+  async waitForTarget (predicate, options = {}) {
+    const { timeout = 30000 } = options
+    const existingTarget = this.targets().find(predicate)
+    if (existingTarget) return existingTarget
+    let done
+    const targetPromise = new Promise(resolve =&gt; (done = resolve))
+    this.on(Events.Browser.TargetCreated, check)
+    this.on(Events.Browser.TargetChanged, check)
+    try {
+      if (!timeout) return await targetPromise
+      return await helper.waitWithTimeout(targetPromise, &apos;target&apos;, timeout)
+    } finally {
+      this.removeListener(Events.Browser.TargetCreated, check)
+      this.removeListener(Events.Browser.TargetChanged, check)
+    }
+
+    /**
+     * @param {!Target} target
+     */
+    function check (target) {
+      if (predicate(target)) done(target)
+    }
+  }
+
+  /**
+   * @return {Promise&lt;Array&lt;Page&gt;&gt;}
+   */
+  async pages () {
+    const contextPages = await Promise.all(
+      this.browserContexts().map(context =&gt; context.pages())
+    )
+    // Flatten array.
+    return contextPages.reduce((acc, x) =&gt; acc.concat(x), [])
+  }
+
+  /**
+   * @return {Promise&lt;string&gt;}
+   */
+  async version () {
+    const version = await this.versionInfo()
+    return version.product
+  }
+
+  /**
+   * @return {Promise&lt;string&gt;}
+   */
+  async userAgent () {
+    const version = await this.versionInfo()
+    return version.userAgent
+  }
+
+  async close () {
+    await this._closeCallback.call(null)
+    this.disconnect()
+  }
+
+  /**
+   * @return {Promise&lt;Page&gt;}
+   */
+  async newPage () {
+    return this._defaultContext.newPage()
+  }
+
+  /**
+   * @param {?string} contextId
+   */
+  async _disposeContext (contextId) {
+    await this._connection.send(&apos;Target.disposeBrowserContext&apos;, {
+      browserContextId: contextId || undefined
+    })
+    this._contexts.delete(contextId)
+  }
+
+  /**
+   * @param {!Object} event
+   */
+  async _targetCreated (event) {
+    const targetInfo = event.targetInfo
+    const { browserContextId } = targetInfo
+    const context =
+      browserContextId &amp;&amp; this._contexts.has(browserContextId)
+        ? this._contexts.get(browserContextId)
+        : this._defaultContext
+
+    const target = new Target(
+      targetInfo,
+      context,
+      () =&gt; this._connection.createSession(targetInfo),
+      {
+        ignoreHTTPSErrors: this._ignoreHTTPSErrors,
+        defaultViewport: this._defaultViewport,
+        screenshotTaskQueue: this._screenshotTaskQueue,
+        additionalDomains: this._additionalDomains
+      }
+    )
+    assert(
+      !this._targets.has(event.targetInfo.targetId),
+      &apos;Target should not exist before targetCreated&apos;
+    )
+    this._targets.set(event.targetInfo.targetId, target)
+
+    if (await target._initializedPromise) {
+      this.emit(Events.Browser.TargetCreated, target)
+      context.emit(Events.BrowserContext.TargetCreated, target)
+    }
+  }
+
+  /**
+   * @param {{targetId: string}} event
+   */
+  async _targetDestroyed (event) {
+    const target = this._targets.get(event.targetId)
+    target._initializedCallback(false)
+    this._targets.delete(event.targetId)
+    target._closedCallback()
+    if (await target._initializedPromise) {
+      this.emit(Events.Browser.TargetDestroyed, target)
+      target
+        .browserContext()
+        .emit(Events.BrowserContext.TargetDestroyed, target)
+    }
+  }
+
+  /**
+   * @param {?string} contextId
+   * @return {Promise&lt;Page&gt;}
+   */
+  async _createPageInContext (contextId) {
+    const { targetId } = await this._connection.send(&apos;Target.createTarget&apos;, {
+      url: &apos;about:blank&apos;,
+      browserContextId: contextId || undefined
+    })
+    const target = await this._targets.get(targetId)
+    assert(await target._initializedPromise, &apos;Failed to create target for page&apos;)
+    return target.page()
+  }
+
+  /**
+   * @param {!Object} event
+   */
+  _targetInfoChanged (event) {
+    const target = this._targets.get(event.targetInfo.targetId)
+    assert(target, &apos;target should exist before targetInfoChanged&apos;)
+    const previousURL = target.url()
+    const wasInitialized = target._isInitialized
+    target._targetInfoChanged(event.targetInfo)
+    if (wasInitialized &amp;&amp; previousURL !== target.url()) {
+      this.emit(Events.Browser.TargetChanged, target)
+      target.browserContext().emit(Events.BrowserContext.TargetChanged, target)
+    }
+  }
+
+  /** @ignore */
+  // eslint-disable-next-line space-before-function-paren
+  [util.inspect.custom](depth, options) {
+    if (depth &lt; 0) {
+      return options.stylize(&apos;[Browser]&apos;, &apos;special&apos;)
+    }
+
+    const newOptions = Object.assign({}, options, {
+      depth: options.depth === null ? null : options.depth - 1
+    })
+    const inner = util.inspect(
+      {
+        defaultContext: this._defaultContext,
+        contexts: this._contexts,
+        targets: this._targets,
+        ignoreHTTPSErrors: this._ignoreHTTPSErrors,
+        defaultViewport: this._defaultViewport
+      },
+      newOptions
+    )
+    return `${options.stylize(&apos;Browser&apos;, &apos;special&apos;)} ${inner}`
+  }
+}
+
+/**
+ * @type {Browser}
+ */
+module.exports = Browser
+
+/**
+ * @typedef {Object} BrowserInitOptions
+ * @property {Object} [process]
+ * @property {?Array&lt;string&gt;} [contextIds]
+ * @property {?boolean} [ignoreHTTPSErrors]
+ * @property {?Object} [defaultViewport]
+ * @property {?(function():Promise)} [closeCallback]
+ * @property {?ExtraDomainsConfig} [additionalDomains]
+ */
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>
