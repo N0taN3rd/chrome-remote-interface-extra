@@ -28,18 +28,30 @@
   },
   "devDependencies": {
     "@types/fs-extra": "^5.0.5",
+    "ava": "^1.2.1",
+    "commander": "^2.19.0",
     "esdoc": "^1.1.0",
     "esdoc-ecmascript-proposal-plugin": "^1.0.0",
     "esdoc-external-ecmascript-plugin": "^1.0.0",
     "esdoc-node": "^1.0.4",
     "esdoc-standard-plugin": "^1.0.0",
+    "fastify": "^2.0.0",
+    "fastify-plugin": "^1.5.0",
+    "fastify-static": "^2.3.4",
+    "fastparallel": "^2.3.0",
+    "jpeg-js": "^0.3.4",
+    "pixelmatch": "^4.0.2",
+    "pngjs": "^3.3.3",
     "prettier-standard": "^9.1.1",
-    "standard": "^12.0.1"
+    "standard": "^12.0.1",
+    "text-diff": "^1.0.1",
+    "tls-keygen": "^3.7.0"
   },
   "scripts": {
     "build-index": "node generateIndex.js",
     "doc": "esdoc",
-    "publish-docs": "gh-pages -d docs"
+    "publish-docs": "gh-pages -d docs",
+    "test": "ava"
   },
   "resolutions": {
     "*/**/graceful-fs": "~4.1.15",
@@ -53,5 +65,14 @@
       "browser": true,
       "node": true
     }
+  },
+  "ava": {
+    "concurrency": 1,
+    "files": [
+      "test/*.js",
+      "!test/helpers/*",
+      "!test/assests/*",
+      "!test/golden/*"
+    ]
   }
 }
