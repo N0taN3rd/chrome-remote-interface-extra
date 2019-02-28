@@ -122,6 +122,7 @@ typings/
 .next
 
 test
+tests
 docs
 misc
 .travis.yml
