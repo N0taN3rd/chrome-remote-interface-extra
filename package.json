@@ -1,7 +1,7 @@
 {
   "name": "chrome-remote-interface-extra",
   "main": "./index.js",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "license": "Apache-2.0",
   "keywords": [
     "chrome",
@@ -27,6 +27,10 @@
     "ws": "^6.1.4"
   },
   "devDependencies": {
+    "@babel/generator": "^7.3.4",
+    "@babel/parser": "^7.3.4",
+    "@babel/traverse": "^7.3.4",
+    "@babel/types": "^7.3.4",
     "@types/fs-extra": "^5.0.5",
     "ava": "^1.2.1",
     "commander": "^2.19.0",
@@ -36,6 +40,7 @@
     "esdoc-node": "^1.0.4",
     "esdoc-standard-plugin": "^1.0.0",
     "fastify": "^2.0.0",
+    "fastify-favicon": "^2.0.0",
     "fastify-plugin": "^1.5.0",
     "fastify-static": "^2.3.4",
     "fastparallel": "^2.3.0",
@@ -51,7 +56,8 @@
     "build-index": "node generateIndex.js",
     "doc": "esdoc",
     "publish-docs": "gh-pages -d docs",
-    "test": "ava"
+    "test": "ava",
+    "test-only": "ava ./test/accessibility.js"
   },
   "resolutions": {
     "*/**/graceful-fs": "~4.1.15",

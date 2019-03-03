@@ -135,3 +135,4 @@ launchChrome.sh
 yarn.lock
 puppeteer-master
 generateIndex.js
+scripts/*

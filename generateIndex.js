@@ -70,6 +70,8 @@ function formatGeneratedIndex () {
   })
 }
 
+const skipped = new Set(['index.js', '__shared.js', 'helper.js'])
+
 async function gen () {
   const libFiles = await fs.readdir(libPath)
   const numFiles = libFiles.length
@@ -80,8 +82,8 @@ async function gen () {
   let fileFullPath
   let fileExports
   for (; i < numFiles; i++) {
-    if (libFiles[i] !== 'index.js') {
-      file = libFiles[i]
+    file = libFiles[i]
+    if (!skipped.has(file)) {
       switch (file) {
         case 'DeviceDescriptors.js':
         case 'USKeyboardLayout.js':

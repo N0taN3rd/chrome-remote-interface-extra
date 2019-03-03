@@ -79,7 +79,14 @@ Added toJSON to CDP Type classes so that their values can easily be serialized t
  - ability to retrieve the full browser version information
  - ability to list all browser contexts, not just those created by the library
  - ability to list all targets, not just those created by the library
-
+ - browser histograms
+ 
+#### Browser, BrowserContext, Target
+ - expose CDP for some target
+ - manipulate the actual browser window not just the view port 
+ 
+#### Target
+ - Does not require Browser or BrowserContext, can now operate independently
 ## Examples
 
 ```javascript

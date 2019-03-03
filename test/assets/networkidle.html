@@ -1,19 +1,33 @@
+<html>
+<body>
 <script>
-  async function sleep(delay) {
-    return new Promise(resolve => setTimeout(resolve, delay));
+  window.fun = []
+  async function sleep (delay) {
+    return new Promise(resolve => setTimeout(resolve, delay))
   }
 
-  async function main() {
+  async function main () {
     const roundOne = Promise.all([
-      fetch('fetch-request-a.js'),
-      fetch('fetch-request-b.js'),
-      fetch('fetch-request-c.js'),
-    ]);
+      fetch('/fetch-request-1')
+        .then(res => res.json())
+        .then(j => window.fun.push(j)),
+      fetch('/fetch-request-2')
+        .then(res => res.json())
+        .then(j => window.fun.push(j)),
+      fetch('/fetch-request-3')
+        .then(res => res.json())
+        .then(j => window.fun.push(j))
+    ])
 
-    await roundOne;
-    await sleep(50);
-    await fetch('fetch-request-d.js');
+    await roundOne
+    await sleep(50)
+    await fetch('/fetch-request-4')
+      .then(res => res.json())
+      .then(j => window.fun.push(j))
   }
 
-  main();
+  main()
 </script>
+
+</body>
+</html>

@@ -1,12 +1,18 @@
-const cp = require('child_process')
-const os = require('os')
-const path = require('path')
-const fs = require('fs-extra')
-const CRIExtra = require('../../lib/chromeRemoteInterfaceExtra')
+import * as path from 'path'
+import * as cp from 'child_process'
+import * as os from 'os'
+import * as fs from 'fs-extra'
+// const cp = require('child_process')
+// const path = require('path')
+// const os = require('os')
+// const fs = require('fs-extra')
+// const CRIExtra = require('../../lib/chromeRemoteInterfaceExtra')
 
 const CHROME_PROFILE_PATH = path.join(os.tmpdir(), 'criextra_profile-')
 
 const chromeArgs = userDataDir => [
+  '--enable-automation',
+  '--force-color-profile=srgb',
   '--remote-debugging-port=9222',
   '--disable-background-networking',
   '--disable-background-timer-throttling',
@@ -33,7 +39,6 @@ const chromeArgs = userDataDir => [
   '--use-mock-keychain',
   '--mute-audio',
   '--autoplay-policy=no-user-gesture-required',
-  '--enable-automation',
   `--user-data-dir=${userDataDir}`,
   'about:blank'
 ]
@@ -185,28 +190,11 @@ async function findChrome () {
   throw new Error('No Chrome Installations Found')
 }
 
-function delay (to = 3000) {
-  return new Promise(resolve => {
-    setTimeout(resolve, to)
-  })
-}
-
-async function waitForChromeReady () {
-  for (let i = 0; i < 25; ++i) {
-    try {
-      await CRIExtra.List()
-      await delay(3000)
-      return
-    } catch (e) {}
-    await delay(1000)
-  }
-  throw new Error('Failed to connect to chrome')
-}
-
 /**
- * @return {Promise<function(): void>}
+ *
+ * @return {Promise<{chromeProcess: ChildProcess, killChrome: function(): void}>}
  */
-module.exports = async function initChrome () {
+export async function initChrome () {
   const executable = await findChrome()
   const userDataDir = await fs.mkdtemp(CHROME_PROFILE_PATH)
   const chromeArguments = chromeArgs(userDataDir)
@@ -243,6 +231,58 @@ module.exports = async function initChrome () {
   })
   process.once('SIGTERM', killChrome)
   process.once('SIGHUP', killChrome)
-  await waitForChromeReady()
-  return killChrome
+  await waitForWSEndpoint(chromeProcess, 15 * 1000)
+  return { chromeProcess, killChrome }
+}
+
+// module.exports = initChrome
+function waitForWSEndpoint (chromeProcess, timeout) {
+  const readline = require('readline')
+  const { helper } = require('../../lib/helper')
+  return new Promise((resolve, reject) => {
+    const rl = readline.createInterface({ input: chromeProcess.stderr })
+    let stderr = ''
+    const listeners = [
+      helper.addEventListener(rl, 'line', onLine),
+      helper.addEventListener(rl, 'close', onClose),
+      helper.addEventListener(chromeProcess, 'exit', onClose),
+      helper.addEventListener(chromeProcess, 'error', onClose)
+    ]
+    const timeoutId = timeout ? setTimeout(onTimeout, timeout) : 0
+
+    function onClose () {
+      cleanup()
+      reject(new Error(['Failed to launch chrome!', stderr].join('\n')))
+    }
+
+    function onTimeout () {
+      cleanup()
+      reject(
+        new Error(
+          `Timed out after ${timeout} ms while trying to connect to Chrome!`
+        )
+      )
+    }
+
+    /**
+     * @param {string} line
+     */
+    function onLine (line) {
+      stderr += line + '\n'
+      const match = line.match(/^DevTools listening on (ws:\/\/.*)$/)
+      if (!match) {
+        return
+      }
+      cleanup()
+      resolve(match[1])
+    }
+
+    function cleanup () {
+      if (timeoutId) {
+        clearTimeout(timeoutId)
+      }
+      helper.removeEventListeners(listeners)
+      rl.close()
+    }
+  })
 }

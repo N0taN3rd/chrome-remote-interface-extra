@@ -33,7 +33,6 @@ const {
   FrameResource,
   FrameResourceTree
 } = require('./lib/frames')
-const { assert, debugError, helper } = require('./lib/helper')
 const {
   Keyboard,
   Mouse,
@@ -53,7 +52,6 @@ const { ConsoleMessage, Page } = require('./lib/page')
 module.exports = {
   Accessibility,
   adaptChromeRemoteInterfaceClient,
-  assert,
   AXNode,
   Browser,
   BrowserContext,
@@ -66,7 +64,6 @@ module.exports = {
   CRIConnection,
   CRIExtra,
   CSSCoverage,
-  debugError,
   DeviceDescriptors,
   Dialog,
   DOMWorld,
@@ -79,7 +76,6 @@ module.exports = {
   FrameManager,
   FrameResource,
   FrameResourceTree,
-  helper,
   JSCoverage,
   JSHandle,
   Keyboard,

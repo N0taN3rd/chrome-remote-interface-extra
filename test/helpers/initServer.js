@@ -1,8 +1,16 @@
-const path = require('path')
-const url = require('url')
-const fastify = require('fastify')
-const fs = require('fs-extra')
-const WSServer = require('ws').Server
+import * as path from 'path'
+import * as url from 'url'
+import createServer from 'fastify'
+import fastifyStatic from 'fastify-static'
+import * as fs from 'fs-extra'
+import WebSockets from 'ws'
+
+// const url = require('url')
+// const path = require('path')
+// const fastify = require('fastify')
+// const fs = require('fs-extra')
+// const WSServer = require('ws').Server
+// const fastifyStatic = require('fastify-static')
 
 const host = '127.0.0.1'
 const timeout = 10 * 1000
@@ -15,19 +23,14 @@ const shutdownOnSignals = ['SIGINT', 'SIGTERM', 'SIGHUP']
 
 const keyCert = {
   key: path.join(__dirname, 'key.pem'),
-  cert: path.join(__dirname, 'certificate.pem')
+  cert: path.join(__dirname, 'cert.pem')
 }
 
 async function getCerts () {
-  const keyExists = await fs.pathExists(keyCert.key)
-  const certExists = await fs.pathExists(keyCert.cert)
-  if (!keyExists && !certExists) {
-    const { keygen } = require('tls-keygen')
-    await keygen(keyCert)
-  }
   return {
     key: await fs.readFile(keyCert.key),
-    cert: await fs.readFile(keyCert.cert)
+    cert: await fs.readFile(keyCert.cert),
+    passphrase: 'aaaa'
   }
 }
 
@@ -36,7 +39,7 @@ async function getCerts () {
  * @return {fastify.FastifyInstance}
  */
 function setUpServer (config) {
-  const server = fastify(config.fastifyOpts)
+  const fastify = createServer(config.fastifyOpts)
   /** @type {Map<string, {username:string, password:string}>} */
   const auths = new Map()
   /** @type {Map<string, string>} */
@@ -47,33 +50,33 @@ function setUpServer (config) {
   const routes = new Map()
   let wsServerInstance
 
-  server
+  fastify
     .decorate('config', config)
     .decorate('PORT', config.port)
     .decorate('PREFIX', config.prefix)
     .decorate('CROSS_PROCESS_PREFIX', config.crossProcessPrefix)
     .decorate('EMPTY_PAGE', config.emptyPage)
     .decorate('testURL', pathName => `${config.prefix}${pathName}`)
-    .decorate('stop', () => {
-      server.reset()
-      return server.close()
-    })
     .decorate('setAuth', (path, username, password) => {
       auths.set(path, { username, password })
     })
-    .decorate('setCSP', (path, csp) => {
-      csp.set(path, csp)
-    })
-    .decorate('setRoute', (path, handler) => {
-      routes.set(path, handler)
+    .decorate('setCSP', (path, csp_) => {
+      csp.set(path, csp_)
     })
     .decorate('setRedirect', (from, to) => {
-      server.setRoute(from, (request, reply, next) => {
+      fastify.setRoute(from, (request, reply, next) => {
         reply
           .header('location', to)
           .status(302)
           .send()
       })
+    })
+    .decorate('setRoute', (path, handler) => {
+      routes.set(path, handler)
+    })
+    .decorate('stop', () => {
+      fastify.reset()
+      return fastify.close()
     })
     .decorate('reset', () => {
       auths.clear()
@@ -115,13 +118,13 @@ function setUpServer (config) {
         }
       }
       if (requestSubscribers.has(pathName)) {
-        requestSubscribers.get(pathName).resolve(request.raw)
+        requestSubscribers.get(pathName).resolve(request)
         requestSubscribers.delete(pathName)
       }
       const dynamicRouteHandler = routes.get(pathName)
       if (dynamicRouteHandler) {
         // eslint-disable-next-line no-useless-call
-        dynamicRouteHandler.call(null, request, reply, next)
+        dynamicRouteHandler(request, reply, next)
         return
       }
       next()
@@ -131,35 +134,70 @@ function setUpServer (config) {
       if (csp.has(path)) {
         reply.header('Content-Security-Policy', csp.get(path))
       }
+      if (reply.res.statusCode === 304) {
+        reply.status(200)
+      }
       next()
     })
-    .register(require('fastify-static'), {
-      root: config.staticPath
+    .register(fastifyStatic, {
+      root: config.staticPath,
+      send: {
+        etag: false
+      }
+    })
+    .register(require('fastify-favicon'))
+
+  fastify
+    .get('/longTimeJack', async (request, reply) => {
+      if (requestSubscribers.has('/longTimeJack')) {
+        requestSubscribers.get('/longTimeJack').resolve(request.raw)
+        requestSubscribers.delete('/longTimeJack')
+      }
+      await new Promise(resolve => setTimeout(resolve, 5000))
+      reply.status(404).send('boooo')
+    })
+    .get('/endlessVoid', async (request, reply) => {
+      reply.status(204).send()
+    })
+    .get('/infinite-redir', (request, reply) => {
+      reply.redirect('/infinite-redir-1')
+    })
+    .get('/infinite-redir1', (request, reply) => {
+      reply.redirect('/infinite-redir-2')
+    })
+    .get('/infinite-redi2', (request, reply) => {
+      reply.redirect('/infinite-redir')
+    })
+    .get('/fetch-request-:n', async request => {
+      return { n: request.params.n }
     })
 
-  wsServerInstance = new WSServer({ server: server.server })
+  wsServerInstance = new WebSockets.Server({ server: fastify.server })
 
   shutdownOnSignals.forEach(signal => {
     process.once(signal, () => {
       setTimeout(() => {
-        server.log.error(
+        fastify.log.error(
           { signal: signal, timeout: gracefullShutdownTimeout },
           'terminate process after timeout'
         )
-        server.reset()
+        fastify.reset()
         process.exit(1)
       }, gracefullShutdownTimeout).unref()
-      server.log.info(
+      fastify.log.info(
         { signal: signal },
         'received signal triggering close hook'
       )
-      server.stop()
+      fastify.stop()
     })
   })
-  return server
+  return fastify
 }
 
-async function initHTTPServer () {
+/**
+ * @return {Promise<fastify.FastifyInstance>}
+ */
+export async function initHTTPServer () {
   const config = {
     host: host,
     port: portHttp,
@@ -175,7 +213,7 @@ async function initHTTPServer () {
   }
   const server = setUpServer(config)
   const listeningOn = await server.listen(config.port, config.host)
-  console.log(
+  server.log.info(
     `Server listening on\n${
       listeningOn.startsWith('http://127.0.0.1')
         ? listeningOn.replace('http://127.0.0.1', 'http://localhost')
@@ -185,7 +223,10 @@ async function initHTTPServer () {
   return server
 }
 
-async function initHTTPSServer () {
+/**
+ * @return {Promise<fastify.FastifyInstance>}
+ */
+export async function initHTTPSServer () {
   const config = {
     host: host,
     port: portHttps,
@@ -197,13 +238,12 @@ async function initHTTPSServer () {
     fastifyOpts: {
       trustProxy: true,
       logger: enableLogging,
-      http2: true,
       https: await getCerts()
     }
   }
   const server = setUpServer(config)
   const listeningOn = await server.listen(config.port, config.host)
-  console.log(
+  server.log.info(
     `Server listening on\n${
       listeningOn.startsWith('https://127.0.0.1')
         ? listeningOn.replace('https://127.0.0.1', 'https://localhost')
@@ -216,8 +256,14 @@ async function initHTTPSServer () {
 /**
  * @return {Promise<{server: fastify.FastifyInstance, httpsServer: fastify.FastifyInstance}>}
  */
-module.exports = async function initServer () {
+export async function initServers () {
   const server = await initHTTPServer()
   const httpsServer = await initHTTPSServer()
   return { server, httpsServer }
 }
+
+// module.exports = {
+//   initServers,
+//   initHTTPServer,
+//   initHTTPSServer
+// }
