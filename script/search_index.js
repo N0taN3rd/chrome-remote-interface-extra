@@ -432,6 +432,12 @@ window.esdocSearchIndex = [
     "variable"
   ],
   [
+    "chrome-remote-interface-extra/lib/__shared.js~ensurecookie",
+    "function/index.html#static-function-ensureCookie",
+    "<span>ensureCookie</span> <span class=\"search-result-import-path\">chrome-remote-interface-extra/lib/__shared.js</span>",
+    "function"
+  ],
+  [
     "lib/.external-ecmascript.js~array",
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
     "lib/.external-ecmascript.js~Array",
@@ -1098,6 +1104,12 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "lib/emulationmanager.js~emulationmanager#_supportedmedia",
+    "class/lib/EmulationManager.js~EmulationManager.html#instance-member-_supportedMedia",
+    "lib/EmulationManager.js~EmulationManager#_supportedMedia",
+    "member"
+  ],
+  [
     "lib/emulationmanager.js~emulationmanager#cleardevicemetricsoverride",
     "class/lib/EmulationManager.js~EmulationManager.html#instance-method-clearDeviceMetricsOverride",
     "lib/EmulationManager.js~EmulationManager#clearDeviceMetricsOverride",
@@ -1203,6 +1215,12 @@ window.esdocSearchIndex = [
     "lib/events.js",
     "file/lib/Events.js.html",
     "lib/Events.js",
+    "file"
+  ],
+  [
+    "lib/fetch.js",
+    "file/lib/Fetch.js.html",
+    "lib/Fetch.js",
     "file"
   ],
   [
@@ -1434,15 +1452,15 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "lib/target.js~target#[util.inspect.custom]",
-    "class/lib/Target.js~Target.html#instance-method-[util.inspect.custom]",
-    "lib/Target.js~Target#[util.inspect.custom]",
-    "method"
-  ],
-  [
     "lib/target.js~target#_browsercontext",
     "class/lib/Target.js~Target.html#instance-member-_browserContext",
     "lib/Target.js~Target#_browserContext",
+    "member"
+  ],
+  [
+    "lib/target.js~target#_client",
+    "class/lib/Target.js~Target.html#instance-member-_client",
+    "lib/Target.js~Target#_client",
     "member"
   ],
   [
@@ -1512,6 +1530,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/target.js~target#close",
+    "class/lib/Target.js~Target.html#instance-method-close",
+    "lib/Target.js~Target#close",
+    "method"
+  ],
+  [
     "lib/target.js~target#constructor",
     "class/lib/Target.js~Target.html#instance-constructor-constructor",
     "lib/Target.js~Target#constructor",
@@ -1530,9 +1554,39 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/target.js~target#getwindowbounds",
+    "class/lib/Target.js~Target.html#instance-method-getWindowBounds",
+    "lib/Target.js~Target#getWindowBounds",
+    "method"
+  ],
+  [
     "lib/target.js~target#id",
     "class/lib/Target.js~Target.html#instance-method-id",
     "lib/Target.js~Target#id",
+    "method"
+  ],
+  [
+    "lib/target.js~target#isbackgroundpagetarget",
+    "class/lib/Target.js~Target.html#instance-method-isBackgroundPageTarget",
+    "lib/Target.js~Target#isBackgroundPageTarget",
+    "method"
+  ],
+  [
+    "lib/target.js~target#isbrowsertarget",
+    "class/lib/Target.js~Target.html#instance-method-isBrowserTarget",
+    "lib/Target.js~Target#isBrowserTarget",
+    "method"
+  ],
+  [
+    "lib/target.js~target#ispagetarget",
+    "class/lib/Target.js~Target.html#instance-method-isPageTarget",
+    "lib/Target.js~Target#isPageTarget",
+    "method"
+  ],
+  [
+    "lib/target.js~target#isserviceworkertarget",
+    "class/lib/Target.js~Target.html#instance-method-isServiceWorkerTarget",
+    "lib/Target.js~Target#isServiceWorkerTarget",
     "method"
   ],
   [
@@ -1542,9 +1596,21 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/target.js~target#openerid",
+    "class/lib/Target.js~Target.html#instance-method-openerId",
+    "lib/Target.js~Target#openerId",
+    "method"
+  ],
+  [
     "lib/target.js~target#page",
     "class/lib/Target.js~Target.html#instance-method-page",
     "lib/Target.js~Target#page",
+    "method"
+  ],
+  [
+    "lib/target.js~target#setwindowbounds",
+    "class/lib/Target.js~Target.html#instance-method-setWindowBounds",
+    "lib/Target.js~Target#setWindowBounds",
     "method"
   ],
   [
@@ -1564,6 +1630,12 @@ window.esdocSearchIndex = [
     "class/lib/Target.js~Target.html#instance-method-url",
     "lib/Target.js~Target#url",
     "method"
+  ],
+  [
+    "lib/target.js~targetinit",
+    "typedef/index.html#static-typedef-TargetInit",
+    "lib/Target.js~TargetInit",
+    "typedef"
   ],
   [
     "lib/taskqueue.js",
@@ -1830,6 +1902,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/__shared.js",
+    "file/lib/__shared.js.html",
+    "lib/__shared.js",
+    "file"
+  ],
+  [
     "lib/accessibility/axnode.js",
     "file/lib/accessibility/AXNode.js.html",
     "lib/accessibility/AXNode.js",
@@ -2082,6 +2160,12 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "lib/browser/browser.js~browser#_webpermissiontoprotocol",
+    "class/lib/browser/Browser.js~Browser.html#instance-member-_webPermissionToProtocol",
+    "lib/browser/Browser.js~Browser#_webPermissionToProtocol",
+    "member"
+  ],
+  [
     "lib/browser/browser.js~browser#browsercontexts",
     "class/lib/browser/Browser.js~Browser.html#instance-method-browserContexts",
     "lib/browser/Browser.js~Browser#browserContexts",
@@ -2091,6 +2175,12 @@ window.esdocSearchIndex = [
     "lib/browser/browser.js~browser#close",
     "class/lib/browser/Browser.js~Browser.html#instance-method-close",
     "lib/browser/Browser.js~Browser#close",
+    "method"
+  ],
+  [
+    "lib/browser/browser.js~browser#closetarget",
+    "class/lib/browser/Browser.js~Browser.html#instance-method-closeTarget",
+    "lib/browser/Browser.js~Browser#closeTarget",
     "method"
   ],
   [
@@ -2118,6 +2208,42 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/browser/browser.js~browser#gethistogram",
+    "class/lib/browser/Browser.js~Browser.html#instance-method-getHistogram",
+    "lib/browser/Browser.js~Browser#getHistogram",
+    "method"
+  ],
+  [
+    "lib/browser/browser.js~browser#gethistograms",
+    "class/lib/browser/Browser.js~Browser.html#instance-method-getHistograms",
+    "lib/browser/Browser.js~Browser#getHistograms",
+    "method"
+  ],
+  [
+    "lib/browser/browser.js~browser#gettargetbyid",
+    "class/lib/browser/Browser.js~Browser.html#instance-method-getTargetById",
+    "lib/browser/Browser.js~Browser#getTargetById",
+    "method"
+  ],
+  [
+    "lib/browser/browser.js~browser#getwindowbounds",
+    "class/lib/browser/Browser.js~Browser.html#instance-method-getWindowBounds",
+    "lib/browser/Browser.js~Browser#getWindowBounds",
+    "method"
+  ],
+  [
+    "lib/browser/browser.js~browser#getwindowfortarget",
+    "class/lib/browser/Browser.js~Browser.html#instance-method-getWindowForTarget",
+    "lib/browser/Browser.js~Browser#getWindowForTarget",
+    "method"
+  ],
+  [
+    "lib/browser/browser.js~browser#grantpermissions",
+    "class/lib/browser/Browser.js~Browser.html#instance-method-grantPermissions",
+    "lib/browser/Browser.js~Browser#grantPermissions",
+    "method"
+  ],
+  [
     "lib/browser/browser.js~browser#listbrowsercontexts",
     "class/lib/browser/Browser.js~Browser.html#instance-method-listBrowserContexts",
     "lib/browser/Browser.js~Browser#listBrowserContexts",
@@ -2139,6 +2265,24 @@ window.esdocSearchIndex = [
     "lib/browser/browser.js~browser#pages",
     "class/lib/browser/Browser.js~Browser.html#instance-method-pages",
     "lib/browser/Browser.js~Browser#pages",
+    "method"
+  ],
+  [
+    "lib/browser/browser.js~browser#process",
+    "class/lib/browser/Browser.js~Browser.html#instance-method-process",
+    "lib/browser/Browser.js~Browser#process",
+    "method"
+  ],
+  [
+    "lib/browser/browser.js~browser#resetpermissions",
+    "class/lib/browser/Browser.js~Browser.html#instance-method-resetPermissions",
+    "lib/browser/Browser.js~Browser#resetPermissions",
+    "method"
+  ],
+  [
+    "lib/browser/browser.js~browser#setwindowbounds",
+    "class/lib/browser/Browser.js~Browser.html#instance-method-setWindowBounds",
+    "lib/browser/Browser.js~Browser#setWindowBounds",
     "method"
   ],
   [
@@ -2184,15 +2328,33 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/browser/browser.js~browser.connect",
+    "class/lib/browser/Browser.js~Browser.html#static-method-connect",
+    "lib/browser/Browser.js~Browser.connect",
+    "method"
+  ],
+  [
     "lib/browser/browser.js~browser.create",
     "class/lib/browser/Browser.js~Browser.html#static-method-create",
     "lib/browser/Browser.js~Browser.create",
     "method"
   ],
   [
+    "lib/browser/browser.js~browserhistogramquery",
+    "typedef/index.html#static-typedef-BrowserHistogramQuery",
+    "lib/browser/Browser.js~BrowserHistogramQuery",
+    "typedef"
+  ],
+  [
     "lib/browser/browser.js~browserinitoptions",
     "typedef/index.html#static-typedef-BrowserInitOptions",
     "lib/browser/Browser.js~BrowserInitOptions",
+    "typedef"
+  ],
+  [
+    "lib/browser/browser.js~windowbounds",
+    "typedef/index.html#static-typedef-WindowBounds",
+    "lib/browser/Browser.js~WindowBounds",
     "typedef"
   ],
   [
@@ -2238,9 +2400,45 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/browser/browsercontext.js~browsercontext#closetarget",
+    "class/lib/browser/BrowserContext.js~BrowserContext.html#instance-method-closeTarget",
+    "lib/browser/BrowserContext.js~BrowserContext#closeTarget",
+    "method"
+  ],
+  [
     "lib/browser/browsercontext.js~browsercontext#constructor",
     "class/lib/browser/BrowserContext.js~BrowserContext.html#instance-constructor-constructor",
     "lib/browser/BrowserContext.js~BrowserContext#constructor",
+    "method"
+  ],
+  [
+    "lib/browser/browsercontext.js~browsercontext#exposecdpontarget",
+    "class/lib/browser/BrowserContext.js~BrowserContext.html#instance-method-exposeCDPOnTarget",
+    "lib/browser/BrowserContext.js~BrowserContext#exposeCDPOnTarget",
+    "method"
+  ],
+  [
+    "lib/browser/browsercontext.js~browsercontext#gethistogram",
+    "class/lib/browser/BrowserContext.js~BrowserContext.html#instance-method-getHistogram",
+    "lib/browser/BrowserContext.js~BrowserContext#getHistogram",
+    "method"
+  ],
+  [
+    "lib/browser/browsercontext.js~browsercontext#gethistograms",
+    "class/lib/browser/BrowserContext.js~BrowserContext.html#instance-method-getHistograms",
+    "lib/browser/BrowserContext.js~BrowserContext#getHistograms",
+    "method"
+  ],
+  [
+    "lib/browser/browsercontext.js~browsercontext#getwindowbounds",
+    "class/lib/browser/BrowserContext.js~BrowserContext.html#instance-method-getWindowBounds",
+    "lib/browser/BrowserContext.js~BrowserContext#getWindowBounds",
+    "method"
+  ],
+  [
+    "lib/browser/browsercontext.js~browsercontext#getwindowfortarget",
+    "class/lib/browser/BrowserContext.js~BrowserContext.html#instance-method-getWindowForTarget",
+    "lib/browser/BrowserContext.js~BrowserContext#getWindowForTarget",
     "method"
   ],
   [
@@ -2265,6 +2463,12 @@ window.esdocSearchIndex = [
     "lib/browser/browsercontext.js~browsercontext#pages",
     "class/lib/browser/BrowserContext.js~BrowserContext.html#instance-method-pages",
     "lib/browser/BrowserContext.js~BrowserContext#pages",
+    "method"
+  ],
+  [
+    "lib/browser/browsercontext.js~browsercontext#setwindowbounds",
+    "class/lib/browser/BrowserContext.js~BrowserContext.html#instance-method-setWindowBounds",
+    "lib/browser/BrowserContext.js~BrowserContext#setWindowBounds",
     "method"
   ],
   [
@@ -2346,6 +2550,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/connection/cdpsession.js~cdpsession#createsession",
+    "class/lib/connection/CDPSession.js~CDPSession.html#instance-method-createSession",
+    "lib/connection/CDPSession.js~CDPSession#createSession",
+    "method"
+  ],
+  [
     "lib/connection/cdpsession.js~cdpsession#detach",
     "class/lib/connection/CDPSession.js~CDPSession.html#instance-method-detach",
     "lib/connection/CDPSession.js~CDPSession#detach",
@@ -2382,9 +2592,21 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/connection/criconnection.js~criconnection#_criecallbacks",
+    "class/lib/connection/CRIConnection.js~CRIConnection.html#instance-member-_crieCallbacks",
+    "lib/connection/CRIConnection.js~CRIConnection#_crieCallbacks",
+    "member"
+  ],
+  [
     "lib/connection/criconnection.js~criconnection#_handlemessage",
     "class/lib/connection/CRIConnection.js~CRIConnection.html#instance-method-_handleMessage",
     "lib/connection/CRIConnection.js~CRIConnection#_handleMessage",
+    "method"
+  ],
+  [
+    "lib/connection/criconnection.js~criconnection#_interopsend",
+    "class/lib/connection/CRIConnection.js~CRIConnection.html#instance-method-_interopSend",
+    "lib/connection/CRIConnection.js~CRIConnection#_interopSend",
     "method"
   ],
   [
@@ -2394,9 +2616,9 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "lib/connection/criconnection.js~criconnection#_sessionsend",
-    "class/lib/connection/CRIConnection.js~CRIConnection.html#instance-method-_sessionSend",
-    "lib/connection/CRIConnection.js~CRIConnection#_sessionSend",
+    "lib/connection/criconnection.js~criconnection#_rawsend",
+    "class/lib/connection/CRIConnection.js~CRIConnection.html#instance-method-_rawSend",
+    "lib/connection/CRIConnection.js~CRIConnection#_rawSend",
     "method"
   ],
   [
@@ -2406,15 +2628,15 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "lib/connection/criconnection.js~criconnection#_start",
+    "class/lib/connection/CRIConnection.js~CRIConnection.html#instance-method-_start",
+    "lib/connection/CRIConnection.js~CRIConnection#_start",
+    "method"
+  ],
+  [
     "lib/connection/criconnection.js~criconnection#_ws",
     "class/lib/connection/CRIConnection.js~CRIConnection.html#instance-member-_ws",
     "lib/connection/CRIConnection.js~CRIConnection#_ws",
-    "member"
-  ],
-  [
-    "lib/connection/criconnection.js~criconnection#addcriapitosessions",
-    "class/lib/connection/CRIConnection.js~CRIConnection.html#instance-member-addCRIApiToSessions",
-    "lib/connection/CRIConnection.js~CRIConnection#addCRIApiToSessions",
     "member"
   ],
   [
@@ -2433,6 +2655,12 @@ window.esdocSearchIndex = [
     "lib/connection/criconnection.js~criconnection#dispose",
     "class/lib/connection/CRIConnection.js~CRIConnection.html#instance-method-dispose",
     "lib/connection/CRIConnection.js~CRIConnection#dispose",
+    "method"
+  ],
+  [
+    "lib/connection/criconnection.js~criconnection#send",
+    "class/lib/connection/CRIConnection.js~CRIConnection.html#instance-method-send",
+    "lib/connection/CRIConnection.js~CRIConnection#send",
     "method"
   ],
   [
@@ -2458,12 +2686,6 @@ window.esdocSearchIndex = [
     "class/lib/connection/CRIConnection.js~CRIConnection.html#static-method-fromSession",
     "lib/connection/CRIConnection.js~CRIConnection.fromSession",
     "method"
-  ],
-  [
-    "lib/connection/_shared.js",
-    "file/lib/connection/_shared.js.html",
-    "lib/connection/_shared.js",
-    "file"
   ],
   [
     "lib/connection/adaptor.js",
@@ -2686,12 +2908,6 @@ window.esdocSearchIndex = [
     "class/lib/coverage/JSCoverage.js~JSCoverage.html#instance-method-stop",
     "lib/coverage/JSCoverage.js~JSCoverage#stop",
     "method"
-  ],
-  [
-    "lib/coverage/_shared.js",
-    "file/lib/coverage/_shared.js.html",
-    "lib/coverage/_shared.js",
-    "file"
   ],
   [
     "lib/coverage/index.js",
@@ -4356,6 +4572,12 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "lib/network/request.js~request#_checkredonormalization",
+    "class/lib/network/Request.js~Request.html#instance-member-_checkRedoNormalization",
+    "lib/network/Request.js~Request#_checkRedoNormalization",
+    "member"
+  ],
+  [
     "lib/network/request.js~request#_client",
     "class/lib/network/Request.js~Request.html#instance-member-_client",
     "lib/network/Request.js~Request#_client",
@@ -4413,6 +4635,12 @@ window.esdocSearchIndex = [
     "lib/network/request.js~request#_headers",
     "class/lib/network/Request.js~Request.html#instance-member-_headers",
     "lib/network/Request.js~Request#_headers",
+    "member"
+  ],
+  [
+    "lib/network/request.js~request#_headerslower",
+    "class/lib/network/Request.js~Request.html#instance-member-_headersLower",
+    "lib/network/Request.js~Request#_headersLower",
     "member"
   ],
   [
@@ -4614,6 +4842,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/network/request.js~request#header",
+    "class/lib/network/Request.js~Request.html#instance-method-header",
+    "lib/network/Request.js~Request#header",
+    "method"
+  ],
+  [
     "lib/network/request.js~request#headers",
     "class/lib/network/Request.js~Request.html#instance-method-headers",
     "lib/network/Request.js~Request#headers",
@@ -4668,6 +4902,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/network/request.js~request#normalizedheaders",
+    "class/lib/network/Request.js~Request.html#instance-method-normalizedHeaders",
+    "lib/network/Request.js~Request#normalizedHeaders",
+    "method"
+  ],
+  [
     "lib/network/request.js~request#parsedurl",
     "class/lib/network/Request.js~Request.html#instance-method-parsedURL",
     "lib/network/Request.js~Request#parsedURL",
@@ -4713,6 +4953,12 @@ window.esdocSearchIndex = [
     "lib/network/request.js~request#requestlineandheaders",
     "class/lib/network/Request.js~Request.html#instance-method-requestLineAndHeaders",
     "lib/network/Request.js~Request#requestLineAndHeaders",
+    "method"
+  ],
+  [
+    "lib/network/request.js~request#resourcetype",
+    "class/lib/network/Request.js~Request.html#instance-method-resourceType",
+    "lib/network/Request.js~Request#resourceType",
     "method"
   ],
   [
@@ -4827,6 +5073,12 @@ window.esdocSearchIndex = [
     "lib/network/response.js~response#_headers",
     "class/lib/network/Response.js~Response.html#instance-member-_headers",
     "lib/network/Response.js~Response#_headers",
+    "member"
+  ],
+  [
+    "lib/network/response.js~response#_headerslower",
+    "class/lib/network/Response.js~Response.html#instance-member-_headersLower",
+    "lib/network/Response.js~Response#_headersLower",
     "member"
   ],
   [
@@ -4986,6 +5238,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/network/response.js~response#fromcache",
+    "class/lib/network/Response.js~Response.html#instance-method-fromCache",
+    "lib/network/Response.js~Response#fromCache",
+    "method"
+  ],
+  [
     "lib/network/response.js~response#fromdiskcache",
     "class/lib/network/Response.js~Response.html#instance-method-fromDiskCache",
     "lib/network/Response.js~Response#fromDiskCache",
@@ -4995,6 +5253,12 @@ window.esdocSearchIndex = [
     "lib/network/response.js~response#fromserviceworker",
     "class/lib/network/Response.js~Response.html#instance-method-fromServiceWorker",
     "lib/network/Response.js~Response#fromServiceWorker",
+    "method"
+  ],
+  [
+    "lib/network/response.js~response#header",
+    "class/lib/network/Response.js~Response.html#instance-method-header",
+    "lib/network/Response.js~Response#header",
     "method"
   ],
   [
@@ -5028,6 +5292,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/network/response.js~response#normalizedheaders",
+    "class/lib/network/Response.js~Response.html#instance-method-normalizedHeaders",
+    "lib/network/Response.js~Response#normalizedHeaders",
+    "method"
+  ],
+  [
     "lib/network/response.js~response#ok",
     "class/lib/network/Response.js~Response.html#instance-method-ok",
     "lib/network/Response.js~Response#ok",
@@ -5043,6 +5313,12 @@ window.esdocSearchIndex = [
     "lib/network/response.js~response#protocol",
     "class/lib/network/Response.js~Response.html#instance-method-protocol",
     "lib/network/Response.js~Response#protocol",
+    "method"
+  ],
+  [
+    "lib/network/response.js~response#remoteaddress",
+    "class/lib/network/Response.js~Response.html#instance-method-remoteAddress",
+    "lib/network/Response.js~Response#remoteAddress",
     "method"
   ],
   [
@@ -5295,6 +5571,18 @@ window.esdocSearchIndex = [
     "lib/page/page.js~metrics",
     "typedef/index.html#static-typedef-Metrics",
     "lib/page/Page.js~Metrics",
+    "typedef"
+  ],
+  [
+    "lib/page/page.js~metrics",
+    "typedef/index.html#static-typedef-Metrics",
+    "lib/page/Page.js~Metrics",
+    "typedef"
+  ],
+  [
+    "lib/page/page.js~pdfoptions",
+    "typedef/index.html#static-typedef-PDFOptions",
+    "lib/page/Page.js~PDFOptions",
     "typedef"
   ],
   [
@@ -6225,6 +6513,12 @@ window.esdocSearchIndex = [
     "lib/page/page.js~pageinitoptions",
     "typedef/index.html#static-typedef-PageInitOptions",
     "lib/page/Page.js~PageInitOptions",
+    "typedef"
+  ],
+  [
+    "lib/page/page.js~screenshotoptions",
+    "typedef/index.html#static-typedef-ScreenshotOptions",
+    "lib/page/Page.js~ScreenshotOptions",
     "typedef"
   ],
   [

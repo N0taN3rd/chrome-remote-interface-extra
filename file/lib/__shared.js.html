@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">lib/__shared.js | chrome-remote-interface-extra</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="The chrome-remote-interface-extra brings a GoogleChrome/puppeteer like api to the chrome-remote-interface, as well as, making many of the full CDP values puppetter hides available"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="chrome-remote-interface-extra"><meta property="twitter:description" content="The chrome-remote-interface-extra brings a GoogleChrome/puppeteer like api to the chrome-remote-interface, as well as, making many of the full CDP values puppetter hides available"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/N0taN3rd/chrome-remote-interface-extra"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/DOMWorld.js~DOMWorld.html">DOMWorld</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/Dialog.js~Dialog.html">Dialog</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/EmulationManager.js~EmulationManager.html">EmulationManager</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/Errors.js~CustomError.html">CustomError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/Errors.js~TimeoutError.html">TimeoutError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/LifecycleWatcher.js~LifecycleWatcher.html">LifecycleWatcher</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/Target.js~Target.html">Target</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/TimeoutSettings.js~TimeoutSettings.html">TimeoutSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/Tracing.js~Tracing.html">Tracing</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/WaitTask.js~WaitTask.html">WaitTask</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/Worker.js~Worker.html">Worker</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-ensureCookie">ensureCookie</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-CRIExtra">CRIExtra</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DeviceDescriptors">DeviceDescriptors</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ElementHandle">ElementHandle</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-JSHandle">JSHandle</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-createJSHandle">createJSHandle</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Device">Device</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-DeviceDescriptorViewPort">DeviceDescriptorViewPort</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-DOMRGBA">DOMRGBA</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Viewport">Viewport</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-BoxModel">BoxModel</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TargetInit">TargetInit</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#accessibility">accessibility</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/accessibility/AXNode.js~AXNode.html">AXNode</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/accessibility/Accessibility.js~Accessibility.html">Accessibility</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-AXNode">AXNode</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Accessibility">Accessibility</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-SerializedAXNode">SerializedAXNode</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#browser">browser</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/Browser.js~Browser.html">Browser</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/BrowserContext.js~BrowserContext.html">BrowserContext</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Browser">Browser</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-BrowserContext">BrowserContext</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-BrowserHistogramQuery">BrowserHistogramQuery</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-BrowserInitOptions">BrowserInitOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-WindowBounds">WindowBounds</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#connection">connection</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/connection/CDPSession.js~CDPSession.html">CDPSession</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/connection/CRIConnection.js~CRIConnection.html">CRIConnection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-adaptChromeRemoteInterfaceClient">adaptChromeRemoteInterfaceClient</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CRIClientPatched">CRIClientPatched</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CDPSession">CDPSession</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CRIClientPatched">CRIClientPatched</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CRIConnection">CRIConnection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-adaptChromeRemoteInterfaceClient">adaptChromeRemoteInterfaceClient</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ConnectionTypes">ConnectionTypes</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#coverage">coverage</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/coverage/CSSCoverage.js~CSSCoverage.html">CSSCoverage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/coverage/Coverage.js~Coverage.html">Coverage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/coverage/JSCoverage.js~JSCoverage.html">JSCoverage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CSSCoverage">CSSCoverage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Coverage">Coverage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-JSCoverage">JSCoverage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-CoverageEntry">CoverageEntry</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#executioncontext">executionContext</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/executionContext/ExecutionContext.js~ExecutionContext.html">ExecutionContext</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-EVALUATION_SCRIPT_URL">EVALUATION_SCRIPT_URL</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-EVALUATION_SCRIPT_URL">EVALUATION_SCRIPT_URL</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ExecutionContext">ExecutionContext</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#frames">frames</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/frames/Frame.js~Frame.html">Frame</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/frames/FrameManager.js~FrameManager.html">FrameManager</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/frames/FrameResource.js~FrameResource.html">FrameResource</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/frames/FrameResourceTree.js~FrameResourceTree.html">FrameResourceTree</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Frame">Frame</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FrameManager">FrameManager</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FrameResource">FrameResource</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FrameResourceTree">FrameResourceTree</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#input">input</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/input/Keyboard.js~Keyboard.html">Keyboard</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/input/Mouse.js~Mouse.html">Mouse</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/input/Touchscreen.js~Touchscreen.html">Touchscreen</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Keyboard">Keyboard</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Mouse">Mouse</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Touchscreen">Touchscreen</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-USKeyboardLayout">USKeyboardLayout</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-KeyDescription">KeyDescription</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-KeyDefinition">KeyDefinition</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#network">network</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/network/Cookie.js~Cookie.html">Cookie</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/network/NetworkIdleWatcher.js~NetIdleWatcher.html">NetIdleWatcher</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/network/NetworkManager.js~NetworkManager.html">NetworkManager</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/network/Request.js~Request.html">Request</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/network/Response.js~Response.html">Response</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/network/SecurityDetails.js~SecurityDetails.html">SecurityDetails</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Cookie">Cookie</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-NetIdleWatcher">NetIdleWatcher</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-NetworkManager">NetworkManager</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Request">Request</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Response">Response</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-SecurityDetails">SecurityDetails</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-CDPCookie">CDPCookie</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-NetIdleOptions">NetIdleOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-CookieParam">CookieParam</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-CookieToBeDeleted">CookieToBeDeleted</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ModifyCookieParam">ModifyCookieParam</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-NetworkConditions">NetworkConditions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-UserAgentOverride">UserAgentOverride</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#page">page</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/Page.js~Page.html">Page</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ConsoleMessage">ConsoleMessage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Page">Page</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ConsoleMessage.Location">ConsoleMessage.Location</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ExtraDomainsConfig">ExtraDomainsConfig</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Metrics">Metrics</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Metrics">Metrics</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-PDFOptions">PDFOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-PDFOptions">PDFOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-PageInitOptions">PageInitOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ScreenshotOptions">ScreenshotOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ScreenshotOptions">ScreenshotOptions</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">lib/__shared.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">const { helper, assert } = require(&apos;./helper&apos;)
+const Cookie = require(&apos;./network/Cookie&apos;)
+
+/**
+ * @ignore
+ * @param {Chrome|CDPSession|CRIConnection} client
+ * @param {string} targetId - The id of the target to be closed
+ * @param {boolean} [throwOnError] - If true and the command was un-successful the caught error is thrown
+ * @return {Promise&lt;boolean&gt;}
+ */
+exports.closeTarget = async function closeTarget (
+  client,
+  targetId,
+  throwOnError
+) {
+  let success = true
+  try {
+    await client.send(&apos;Target.closeTarget&apos;, {
+      targetId
+    })
+  } catch (e) {
+    if (throwOnError) throw e
+    success = false
+  }
+  return success
+}
+
+/**
+ * @ignore
+ * @desc Inject object to the target&apos;s main frame that provides a communication channel with browser target.
+ *
+ * Injected object will be available as window[bindingName].
+ *
+ * The object has the following API:
+ *  * binding.send(json) - a method to send messages over the remote debugging protocol
+ *  * binding.onmessage = json =&gt; handleMessage(json) - a callback that will be called for the protocol notifications and command responses.
+ *
+ * EXPERIMENTAL
+ * @param {Chrome|CDPSession|CRIConnection} client
+ * @param {string} targetId
+ * @param {string} [bindingName] - Binding name, &apos;cdp&apos; if not specified
+ * @return {Promise&lt;void&gt;}
+ * @see https://chromedevtools.github.io/devtools-protocol/tot/Target#method-exposeDevToolsProtocol
+ */
+exports.exposeCDPOnTarget = async function exposeCDPOnTarget (
+  client,
+  targetId,
+  bindingName
+) {
+  await client.send(&apos;Target.exposeDevToolsProtocol&apos;, {
+    targetId: targetId,
+    bindingName: bindingName || undefined
+  })
+}
+
+/**
+ * @ignore
+ * @desc Get the browser window that contains the target. EXPERIMENTAL
+ * @param {Chrome|CDPSession|CRIConnection} client
+ * @param {string} [targetId] - Optional target id of the target to receive the window id and its bound for.
+ * If called as a part of the session, associated targetId is used.
+ * @return {Promise&lt;{bounds: WindowBounds, windowId: number}&gt;}
+ * @see https://chromedevtools.github.io/devtools-protocol/tot/Browser#method-getWindowForTarget
+ */
+exports.getWindowForTarget = function getWindowForTarget (client, targetId) {
+  return client.send(&apos;Browser.getWindowForTarget&apos;, {
+    targetId: targetId || undefined
+  })
+}
+
+/**
+ * @ignore
+ * @desc Get position and size of the browser window. EXPERIMENTAL
+ * @param {Chrome|CDPSession|CRIConnection} client
+ * @param {number} windowId
+ * @return {Promise&lt;WindowBounds&gt;}
+ * @see https://chromedevtools.github.io/devtools-protocol/tot/Browser#method-getWindowBounds
+ */
+exports.getWindowBounds = function getWindowBounds (client, windowId) {
+  assert(
+    helper.isNumber(windowId),
+    `The windowId param must be of type &quot;Number&quot;, received type ${typeof windowId}`
+  )
+  return client.send(&apos;Browser.getWindowBounds&apos;, { windowId })
+}
+
+/**
+ * @ignore
+ * @desc Set position and/or size of the browser window. EXPERIMENTAL
+ * @param {Chrome|CDPSession|CRIConnection} client
+ * @param {number} windowId - An browser window id
+ * @param {WindowBounds} bounds - New window bounds. The &apos;minimized&apos;, &apos;maximized&apos; and &apos;fullscreen&apos; states cannot be combined with &apos;left&apos;, &apos;top&apos;, &apos;width&apos; or &apos;height&apos;. Leaves unspecified fields unchanged.
+ * @return {Promise&lt;void&gt;}
+ * @see https://chromedevtools.github.io/devtools-protocol/tot/Browser#method-setWindowBounds
+ */
+exports.setWindowBounds = async function setWindowBounds (
+  client,
+  windowId,
+  bounds
+) {
+  assert(
+    helper.isNumber(windowId),
+    `The windowId param must be of type &quot;Number&quot;, received type ${typeof windowId}`
+  )
+  await client.send(&apos;Browser.setWindowBounds&apos;, { windowId, bounds })
+}
+
+/**
+ * @ignore
+ * @param {Error} error
+ * @param {string} message
+ * @return {Error}
+ */
+function rewriteError (error, message) {
+  error.message = message
+  return error
+}
+
+/**
+ * @ignore
+ * @param {Error} error
+ * @param {string} method
+ * @param {Object} object
+ * @return {Error}
+ */
+exports.createProtocolError = function createProtocolError (
+  error,
+  method,
+  object
+) {
+  const extra = &apos;data&apos; in object.error ? ` ${object.error.data}` : &apos;&apos;
+  const message = `Protocol error (${method}): ${object.error.message}${extra}`
+  return rewriteError(error, message)
+}
+
+/** @ignore */
+exports.rewriteError = rewriteError
+
+/**
+ * @param {Array&lt;{startOffset:number, endOffset:number, count:number}&gt;} nestedRanges
+ * @return {Array&lt;{start:number, end:number}&gt;}
+ * @ignore
+ */
+exports.convertToDisjointRanges = function convertToDisjointRanges (
+  nestedRanges
+) {
+  const points = []
+  for (const range of nestedRanges) {
+    points.push({ offset: range.startOffset, type: 0, range })
+    points.push({ offset: range.endOffset, type: 1, range })
+  }
+  // Sort points to form a valid parenthesis sequence.
+  points.sort((a, b) =&gt; {
+    // Sort with increasing offsets.
+    if (a.offset !== b.offset) return a.offset - b.offset
+    // All &quot;end&quot; points should go before &quot;start&quot; points.
+    if (a.type !== b.type) return b.type - a.type
+    const aLength = a.range.endOffset - a.range.startOffset
+    const bLength = b.range.endOffset - b.range.startOffset
+    // For two &quot;start&quot; points, the one with longer range goes first.
+    if (a.type === 0) return bLength - aLength
+    // For two &quot;end&quot; points, the one with shorter range goes first.
+    return aLength - bLength
+  })
+
+  const hitCountStack = []
+  const results = []
+  let lastOffset = 0
+  // Run scanning line to intersect all ranges.
+  for (const point of points) {
+    if (
+      hitCountStack.length &amp;&amp;
+      lastOffset &lt; point.offset &amp;&amp;
+      hitCountStack[hitCountStack.length - 1] &gt; 0
+    ) {
+      const lastResult = results.length ? results[results.length - 1] : null
+      if (lastResult &amp;&amp; lastResult.end === lastOffset)
+        lastResult.end = point.offset
+      else results.push({ start: lastOffset, end: point.offset })
+    }
+    lastOffset = point.offset
+    if (point.type === 0) hitCountStack.push(point.range.count)
+    else hitCountStack.pop()
+  }
+  // Filter out empty ranges.
+  return results.filter(range =&gt; range.end - range.start &gt; 1)
+}
+
+/** @ignore */
+function addCommand (connection, domainName, command) {
+  const fullCommand = `${domainName}.${command.name}`
+  const handler = (params, callback) =&gt; {
+    return connection._interopSend(fullCommand, params, callback)
+  }
+  const ohandler = connection[domainName][command.name]
+  const existingDecorations = Object.keys(ohandler)
+  for (let i = 0; i &lt; existingDecorations.length; i++) {
+    handler[existingDecorations[i]] = ohandler[existingDecorations[i]]
+  }
+  connection[domainName][command.name] = handler
+}
+
+/** @ignore */
+exports.interopCRIApi = function interopCRIApi (connection) {
+  if (connection.protocol.domains) {
+    const domains = connection.protocol.domains
+    const numDomains = domains.length
+    let numCommands
+    let i = 0
+    let j = 0
+    let domain
+    let domainName
+    for (; i &lt; numDomains; i++) {
+      domain = domains[i]
+      if (domain.commands) {
+        domainName = domain.domain
+        numCommands = domain.commands.length
+        for (j = 0; j &lt; numCommands; j++) {
+          addCommand(connection, domainName, domain.commands[j])
+        }
+      }
+    }
+  }
+}
+
+/**
+ *
+ * @param {CDPCookie|Cookie|string} cookie
+ * @param {string} url
+ * @param {boolean} setURLIfMissing
+ * @return {CDPCookie}
+ */
+exports.ensureCookie = function ensureCookie (cookie, url, setURLIfMissing) {
+  let ensuredCookie
+  if (typeof cookie === &apos;string&apos;) {
+    if (cookie.includes(&apos;=&apos;)) {
+      const nameValue = cookie.split(&apos;=&apos;)
+      ensuredCookie = { name: nameValue[0], value: nameValue[1] }
+    } else {
+      ensuredCookie = { name: cookie }
+    }
+  } else if (cookie instanceof Cookie) {
+    ensuredCookie = cookie.toJSON()
+  } else {
+    ensuredCookie = Object.assign({}, cookie)
+  }
+  if (!ensuredCookie.url &amp;&amp; setURLIfMissing) {
+    ensuredCookie.url = url
+  }
+  return ensuredCookie
+}
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

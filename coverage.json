@@ -1,7 +1,7 @@
 {
-  "coverage": "80.52%",
-  "expectCount": 1063,
-  "actualCount": 856,
+  "coverage": "81.94%",
+  "expectCount": 1113,
+  "actualCount": 912,
   "files": {
     "lib/DOMWorld.js": {
       "expectCount": 42,
@@ -34,9 +34,11 @@
       ]
     },
     "lib/EmulationManager.js": {
-      "expectCount": 20,
+      "expectCount": 21,
       "actualCount": 20,
-      "undocumentLines": []
+      "undocumentLines": [
+        45
+      ]
     },
     "lib/Errors.js": {
       "expectCount": 4,
@@ -44,6 +46,13 @@
       "undocumentLines": [
         1,
         2,
+        4
+      ]
+    },
+    "lib/Fetch.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
         4
       ]
     },
@@ -93,14 +102,11 @@
       ]
     },
     "lib/Target.js": {
-      "expectCount": 23,
-      "actualCount": 18,
+      "expectCount": 36,
+      "actualCount": 34,
       "undocumentLines": [
-        5,
-        44,
-        56,
-        59,
-        187
+        106,
+        109
       ]
     },
     "lib/TaskQueue.js": {
@@ -159,28 +165,33 @@
         26
       ]
     },
+    "lib/__shared.js": {
+      "expectCount": 12,
+      "actualCount": 12,
+      "undocumentLines": []
+    },
     "lib/accessibility/AXNode.js": {
       "expectCount": 21,
       "actualCount": 11,
       "undocumentLines": [
         3,
-        28,
+        26,
+        31,
+        32,
         33,
         34,
         35,
         36,
-        37,
-        38,
-        39,
-        273
+        252,
+        263
       ]
     },
     "lib/accessibility/Accessibility.js": {
       "expectCount": 7,
       "actualCount": 5,
       "undocumentLines": [
-        37,
-        42
+        35,
+        40
       ]
     },
     "lib/accessibility/index.js": {
@@ -189,21 +200,20 @@
       "undocumentLines": []
     },
     "lib/browser/Browser.js": {
-      "expectCount": 36,
-      "actualCount": 33,
+      "expectCount": 48,
+      "actualCount": 45,
       "undocumentLines": [
-        13,
-        15,
-        263
+        20,
+        22,
+        459
       ]
     },
     "lib/browser/BrowserContext.js": {
-      "expectCount": 15,
-      "actualCount": 12,
+      "expectCount": 22,
+      "actualCount": 20,
       "undocumentLines": [
-        5,
-        123,
-        129
+        6,
+        190
       ]
     },
     "lib/browser/index.js": {
@@ -217,38 +227,26 @@
       "undocumentLines": []
     },
     "lib/connection/CDPSession.js": {
-      "expectCount": 12,
-      "actualCount": 8,
+      "expectCount": 13,
+      "actualCount": 10,
       "undocumentLines": [
-        6,
-        8,
-        106,
-        119
+        7,
+        82,
+        115
       ]
     },
     "lib/connection/CRIConnection.js": {
-      "expectCount": 17,
-      "actualCount": 11,
+      "expectCount": 20,
+      "actualCount": 12,
       "undocumentLines": [
-        38,
-        72,
-        89,
-        91,
-        162,
-        164
-      ]
-    },
-    "lib/connection/_shared.js": {
-      "expectCount": 9,
-      "actualCount": 2,
-      "undocumentLines": [
-        10,
-        18,
-        23,
-        29,
-        44,
-        57,
-        72
+        39,
+        67,
+        84,
+        96,
+        98,
+        187,
+        189,
+        214
       ]
     },
     "lib/connection/adaptor.js": {
@@ -294,11 +292,6 @@
         33,
         60
       ]
-    },
-    "lib/coverage/_shared.js": {
-      "expectCount": 1,
-      "actualCount": 1,
-      "undocumentLines": []
     },
     "lib/coverage/index.js": {
       "expectCount": 3,
@@ -423,30 +416,32 @@
       "expectCount": 54,
       "actualCount": 46,
       "undocumentLines": [
-        636,
+        642,
         11,
         33,
         35,
         41,
         42,
-        391,
-        594
+        394,
+        600
       ]
     },
     "lib/network/Request.js": {
-      "expectCount": 72,
-      "actualCount": 69,
+      "expectCount": 77,
+      "actualCount": 72,
       "undocumentLines": [
-        13,
-        30,
-        503
+        14,
+        31,
+        217,
+        415,
+        543
       ]
     },
     "lib/network/Response.js": {
-      "expectCount": 66,
-      "actualCount": 64,
+      "expectCount": 71,
+      "actualCount": 69,
       "undocumentLines": [
-        12,
+        13,
         191
       ]
     },
@@ -459,8 +454,8 @@
       ]
     },
     "lib/network/_shared.js": {
-      "expectCount": 10,
-      "actualCount": 10,
+      "expectCount": 11,
+      "actualCount": 11,
       "undocumentLines": []
     },
     "lib/network/index.js": {
@@ -469,46 +464,46 @@
       "undocumentLines": []
     },
     "lib/page/Page.js": {
-      "expectCount": 160,
-      "actualCount": 123,
+      "expectCount": 159,
+      "actualCount": 122,
       "undocumentLines": [
-        1907,
-        1918,
-        52,
-        125,
-        132,
+        1904,
+        1915,
+        53,
+        126,
         133,
         134,
         135,
         136,
-        148,
+        137,
         149,
-        152,
+        150,
         153,
         154,
-        158,
-        160,
-        530,
+        155,
+        159,
+        161,
         534,
         538,
         542,
-        830,
-        919,
-        923,
-        927,
-        931,
-        950,
-        963,
-        970,
-        977,
-        984,
-        991,
-        998,
-        1206,
-        1612,
-        1635,
-        1642,
-        1748
+        546,
+        854,
+        943,
+        947,
+        951,
+        955,
+        974,
+        987,
+        994,
+        1001,
+        1008,
+        1015,
+        1022,
+        1227,
+        1630,
+        1653,
+        1660,
+        1766
       ]
     },
     "lib/page/index.js": {
