@@ -1,11 +1,11 @@
 import test from 'ava'
-import TestHelper from './helpers/testHelper'
+import { TestHelper } from './helpers/testHelper'
 import { TimeoutError } from '../lib/Errors'
 
 /** @type {TestHelper} */
 let helper
 
-test.before(async t => {
+test.serial.before(async t => {
   helper = await TestHelper.withHTTP(t)
 })
 
@@ -208,7 +208,7 @@ test.serial('JSHandle.asElement should work with nullified Node', async t => {
     document.querySelector('section')
   )
   const element = handle.asElement()
-  t.true(element != null)
+  t.truthy(element)
 })
 
 test.serial('JSHandle.toString should work for primitives', async t => {

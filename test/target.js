@@ -1,6 +1,6 @@
 import test from 'ava'
 import * as utils from './helpers/utils'
-import TestHelper from './helpers/testHelper'
+import { TestHelper } from './helpers/testHelper'
 import { TimeoutError } from '../lib/Errors'
 
 const { waitEvent } = utils
@@ -8,7 +8,7 @@ const { waitEvent } = utils
 /** @type {TestHelper} */
 let helper
 
-test.before(async t => {
+test.serial.before(async t => {
   helper = await TestHelper.withHTTP(t)
 })
 
@@ -16,7 +16,7 @@ test.serial.beforeEach(async t => {
   /** @type {Page} */
   t.context.page = await helper.newPage()
   t.context.server = helper.server()
-  /**  @type {Browser} */
+  /** @type {Browser} */
   t.context.browser = helper.browser()
   t.context.context = await helper.context()
 })
@@ -211,7 +211,7 @@ test.serial('Target should have an opener', async t => {
   ])
   t.is((await createdTarget.page()).url(), server.PREFIX + '/popup/popup.html')
   t.is(createdTarget.opener(), page.target())
-  t.is(page.target().opener(), null)
+  t.falsy(page.target().opener())
 })
 
 test.serial('Browser.waitForTarget should wait for a target', async t => {

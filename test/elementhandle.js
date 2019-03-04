@@ -1,12 +1,12 @@
 import test from 'ava'
 import * as utils from './helpers/utils'
-import TestHelper from './helpers/testHelper'
+import { TestHelper } from './helpers/testHelper'
 import { TimeoutError } from '../lib/Errors'
 
 /** @type {TestHelper} */
 let helper
 
-test.before(async t => {
+test.serial.before(async t => {
   helper = await TestHelper.withHTTP(t)
 })
 
@@ -68,7 +68,7 @@ test.serial(
     const { page, server } = t.context
     await page.setContent('<div style="display:none">hi</div>')
     const element = await page.$('div')
-    t.is(await element.boundingBox(), null)
+    t.falsy(await element.boundingBox())
   }
 )
 
@@ -177,7 +177,7 @@ test.serial(
     const { page, server } = t.context
     await page.setContent('<div style="display:none">hi</div>')
     const element = await page.$('div')
-    t.is(await element.boxModel(), null)
+    t.falsy(await element.boxModel())
   }
 )
 

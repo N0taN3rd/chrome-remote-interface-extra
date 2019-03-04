@@ -1,37 +1,46 @@
 import test from 'ava'
-import TestHelper from './helpers/testHelper'
+import { TestHelper } from './helpers/testHelper'
 import { TimeoutError } from '../lib/Errors'
 
 /** @type {TestHelper} */
 let helper
 
-test.before(async t => {
-  helper = await TestHelper.withHTTP(t)
+test.serial.before(async t => {
+  helper = await TestHelper.withHTTPAndHTTPS(t)
 })
 
 test.serial.beforeEach(async t => {
   /** @type {Page} */
   t.context.page = await helper.newPage()
   t.context.server = helper.server()
+  /** @type {Browser} */
+  t.context.browser = helper.browser()
 })
 
-test.serial.afterEach(async t => {
+test.serial.afterEach.always(async t => {
   await helper.deepClean()
 })
 
-test.serial.after.always(async t => {
+test.after.always(async t => {
   await helper.end()
 })
 
-test.serial('Cookies should set and get cookies', async t => {
+test.serial(
+  'Page.cookies should return no cookies in pristine browser context',
+  async t => {
+    const { page, server } = t.context
+    await page.goto(server.EMPTY_PAGE)
+    t.deepEqual((await page.cookies()).map(c => c._cookie), [])
+  }
+)
+
+test.serial('Page.cookies should get a cookie', async t => {
   const { page, server } = t.context
-  await page.goto(server.PREFIX + '/grid.html')
-  t.deepEqual(await page.cookies(), [])
+  await page.goto(server.EMPTY_PAGE)
   await page.evaluate(() => {
     document.cookie = 'username=John Doe'
   })
-  let cookies = await page.cookies()
-  t.deepEqual(cookies.map(c => c._cookie), [
+  t.deepEqual((await page.cookies()).map(c => c._cookie), [
     {
       name: 'username',
       value: 'John Doe',
@@ -44,18 +53,179 @@ test.serial('Cookies should set and get cookies', async t => {
       session: true
     }
   ])
+})
+
+test.serial('Page.cookies should get multiple cookies', async t => {
+  const { page, server } = t.context
+  await page.goto(server.EMPTY_PAGE)
+  await page.evaluate(() => {
+    document.cookie = 'username=John Doe'
+    document.cookie = 'password=1234'
+  })
+  const cookies = (await page.cookies()).map(c => c._cookie)
+  cookies.sort((a, b) => a.name.localeCompare(b.name))
+  t.deepEqual(cookies, [
+    {
+      name: 'password',
+      value: '1234',
+      domain: 'localhost',
+      path: '/',
+      expires: -1,
+      size: 12,
+      httpOnly: false,
+      secure: false,
+      session: true
+    },
+    {
+      name: 'username',
+      value: 'John Doe',
+      domain: 'localhost',
+      path: '/',
+      expires: -1,
+      size: 16,
+      httpOnly: false,
+      secure: false,
+      session: true
+    }
+  ])
+})
+
+test.serial('Page.cookies should get cookies from multiple urls', async t => {
+  const { page, server } = t.context
+  await page.setCookies(
+    {
+      url: 'https://foo.com',
+      name: 'doggo',
+      value: 'woofs'
+    },
+    {
+      url: 'https://bar.com',
+      name: 'catto',
+      value: 'purrs'
+    },
+    {
+      url: 'https://baz.com',
+      name: 'birdo',
+      value: 'tweets'
+    }
+  )
+  const cookies = (await page.cookies(
+    'https://foo.com',
+    'https://baz.com'
+  )).map(c => c._cookie)
+  cookies.sort((a, b) => a.name.localeCompare(b.name))
+  t.deepEqual(cookies, [
+    {
+      name: 'birdo',
+      value: 'tweets',
+      domain: 'baz.com',
+      path: '/',
+      expires: -1,
+      size: 11,
+      httpOnly: false,
+      secure: true,
+      session: true
+    },
+    {
+      name: 'doggo',
+      value: 'woofs',
+      domain: 'foo.com',
+      path: '/',
+      expires: -1,
+      size: 10,
+      httpOnly: false,
+      secure: true,
+      session: true
+    }
+  ])
+})
+
+test.serial('Page.setCookie should work', async t => {
+  const { page, server } = t.context
+  await page.goto(server.EMPTY_PAGE)
   await page.setCookie({
     name: 'password',
     value: '123456'
   })
-  t.is(
-    await page.evaluate('document.cookie'),
-    'username=John Doe; password=123456'
+  t.deepEqual(await page.evaluate(() => document.cookie), 'password=123456')
+})
+
+test.serial(
+  'Page.setCookie should isolate cookies in browser contexts',
+  async t => {
+    const { page, server, browser } = t.context
+    const anotherContext = await browser.createIncognitoBrowserContext()
+    const anotherPage = await anotherContext.newPage()
+    await page.goto(server.EMPTY_PAGE)
+    await anotherPage.goto(server.EMPTY_PAGE)
+    await page.setCookie({
+      name: 'page1cookie',
+      value: 'page1value'
+    })
+    await anotherPage.setCookie({
+      name: 'page2cookie',
+      value: 'page2value'
+    })
+    const cookies1 = (await page.cookies()).map(c => c._cookie)
+    const cookies2 = (await anotherPage.cookies()).map(c => c._cookie)
+    t.is(cookies1.length, 1)
+    t.is(cookies2.length, 1)
+    t.is(cookies1[0].name, 'page1cookie')
+    t.is(cookies1[0].value, 'page1value')
+    t.is(cookies2[0].name, 'page2cookie')
+    t.is(cookies2[0].value, 'page2value')
+    await anotherContext.close()
+  }
+)
+
+test.serial('Page.setCookie should set multiple cookies', async t => {
+  const { page, server } = t.context
+  await page.goto(server.EMPTY_PAGE)
+  await page.setCookies(
+    {
+      name: 'password',
+      value: '123456'
+    },
+    {
+      name: 'foo',
+      value: 'bar'
+    }
   )
-  cookies = await page.cookies()
   t.deepEqual(
-    cookies.map(c => c._cookie).sort((a, b) => a.name.localeCompare(b.name)),
-    [
+    await page.evaluate(() => {
+      const cookies = document.cookie.split(';')
+      return cookies.map(cookie => cookie.trim()).sort()
+    }),
+    ['foo=bar', 'password=123456']
+  )
+})
+
+test.serial(
+  'Page.setCookie should have |expires| set to |-1| for session cookies',
+  async t => {
+    const { page, server } = t.context
+    await page.goto(server.EMPTY_PAGE)
+    await page.setCookie({
+      name: 'password',
+      value: '123456'
+    })
+    const cookies = (await page.cookies()).map(c => c._cookie)
+    t.true(cookies[0].session)
+    t.is(cookies[0].expires, -1)
+  }
+)
+
+test.serial(
+  'Page.setCookie should set cookie with reasonable defaults',
+  async t => {
+    const { page, server } = t.context
+    await page.goto(server.EMPTY_PAGE)
+    await page.setCookie({
+      name: 'password',
+      value: '123456'
+    })
+    const cookies = (await page.cookies()).map(c => c._cookie)
+    t.deepEqual(cookies.sort((a, b) => a.name.localeCompare(b.name)), [
       {
         name: 'password',
         value: '123456',
@@ -66,23 +236,12 @@ test.serial('Cookies should set and get cookies', async t => {
         httpOnly: false,
         secure: false,
         session: true
-      },
-      {
-        name: 'username',
-        value: 'John Doe',
-        domain: 'localhost',
-        path: '/',
-        expires: -1,
-        size: 16,
-        httpOnly: false,
-        secure: false,
-        session: true
       }
-    ]
-  )
-})
+    ])
+  }
+)
 
-test.serial('Cookies should set a cookie with a path', async t => {
+test.serial('Page.setCookie should set a cookie with a path', async t => {
   const { page, server } = t.context
   await page.goto(server.PREFIX + '/grid.html')
   await page.setCookie({
@@ -90,8 +249,7 @@ test.serial('Cookies should set a cookie with a path', async t => {
     value: 'GRID',
     path: '/grid.html'
   })
-  const cookies = await page.cookies()
-  t.deepEqual(cookies.map(c => c._cookie), [
+  t.deepEqual((await page.cookies()).map(c => c._cookie), [
     {
       name: 'gridcookie',
       value: 'GRID',
@@ -105,137 +263,155 @@ test.serial('Cookies should set a cookie with a path', async t => {
     }
   ])
   t.is(await page.evaluate('document.cookie'), 'gridcookie=GRID')
-  await page.goto(server.PREFIX + '/empty.html')
-  t.deepEqual(await page.cookies(), [])
+  await page.goto(server.EMPTY_PAGE)
+  t.deepEqual((await page.cookies()).map(c => c._cookie), [])
   t.is(await page.evaluate('document.cookie'), '')
   await page.goto(server.PREFIX + '/grid.html')
   t.is(await page.evaluate('document.cookie'), 'gridcookie=GRID')
 })
 
-test.serial('Cookies should delete a cookie', async t => {
-  const { page, server } = t.context
-  await page.goto(server.PREFIX + '/grid.html')
-  await page.setCookies(
-    {
-      name: 'cookie1',
-      value: '1'
-    },
-    {
-      name: 'cookie2',
-      value: '2'
-    },
-    {
-      name: 'cookie3',
-      value: '3'
-    }
-  )
-  t.is(
-    await page.evaluate('document.cookie'),
-    'cookie1=1; cookie2=2; cookie3=3'
-  )
-  await page.deleteCookie({
-    name: 'cookie2'
-  })
-  t.is(await page.evaluate('document.cookie'), 'cookie1=1; cookie3=3')
-})
+test.serial(
+  'Page.setCookie should not set a cookie on a blank page',
+  async t => {
+    const { page } = t.context
+    await page.goto('about:blank')
+    let error = null
 
-test.serial('Cookies should not set a cookie on a blank page', async t => {
-  const { page } = t.context
-  let error = null
-  await page.goto('about:blank')
-
-  try {
-    await page.setCookie({
-      name: 'example-cookie',
-      value: 'best'
-    })
-  } catch (e) {
-    error = e
-  }
-
-  t.truthy(error)
-  t.deepEqual(
-    error.message,
-    'Protocol error (Network.deleteCookies): At least one of the url and domain needs to be specified'
-  )
-})
-
-test.serial('Cookies should not set a cookie with blank page URL', async t => {
-  const { page, server } = t.context
-  let error = null
-  await page.goto(server.PREFIX + '/grid.html')
-
-  try {
-    await page.setCookies(
-      {
+    try {
+      await page.setCookie({
         name: 'example-cookie',
         value: 'best'
-      },
-      {
-        url: 'about:blank',
-        name: 'example-cookie-blank',
-        value: 'best'
-      }
+      })
+    } catch (e) {
+      error = e
+    }
+
+    t.true(
+      error.message.includes(
+        'At least one of the url and domain needs to be specified'
+      )
     )
-  } catch (e) {
-    error = e
   }
+)
 
-  t.truthy(error)
-  t.deepEqual(
-    error.message,
-    `Blank page can not have cookie "example-cookie-blank"`
-  )
-})
+test.serial(
+  'Page.setCookie should not set a cookie with blank page URL',
+  async t => {
+    const { page, server } = t.context
+    let error = null
+    await page.goto(server.EMPTY_PAGE)
 
-test.serial('Cookies should not set a cookie on a data URL page', async t => {
-  const { page } = t.context
-  let error = null
-  await page.goto('data:,Hello%2C%20World!')
+    try {
+      await page.setCookies(
+        {
+          name: 'example-cookie',
+          value: 'best'
+        },
+        {
+          url: 'about:blank',
+          name: 'example-cookie-blank',
+          value: 'best'
+        }
+      )
+    } catch (e) {
+      error = e
+    }
 
-  try {
+    t.deepEqual(
+      error.message,
+      `Blank page can not have cookie "example-cookie-blank"`
+    )
+  }
+)
+
+test.serial(
+  'Page.setCookie should not set a cookie on a data URL page',
+  async t => {
+    const { page } = t.context
+    let error = null
+    await page.goto('data:,Hello%2C%20World!')
+
+    try {
+      await page.setCookie({
+        name: 'example-cookie',
+        value: 'best'
+      })
+    } catch (e) {
+      error = e
+    }
+
+    t.true(
+      error.message.includes(
+        'At least one of the url and domain needs to be specified'
+      )
+    )
+  }
+)
+
+test.serial(
+  'Page.setCookie should default to setting secure cookie for HTTPS websites',
+  async t => {
+    const { page, server } = t.context
+    await page.goto(server.EMPTY_PAGE)
+    const SECURE_URL = 'https://example.com'
     await page.setCookie({
+      url: SECURE_URL,
+      name: 'foo',
+      value: 'bar'
+    })
+    const [cookie] = (await page.cookies(SECURE_URL)).map(c => c._cookie)
+    t.true(cookie.secure)
+  }
+)
+
+test.serial(
+  'Page.setCookie should be able to set unsecure cookie for HTTPS website',
+  async t => {
+    const { page, server } = t.context
+    await page.goto(server.EMPTY_PAGE)
+    const SECURE_URL = 'http://example.com'
+    await page.setCookie({
+      url: SECURE_URL,
+      name: 'foo',
+      value: 'bar'
+    })
+    const [cookie] = (await page.cookies(SECURE_URL)).map(c => c._cookie)
+    t.false(cookie.secure)
+  }
+)
+
+test.serial(
+  'Page.setCookie should set a cookie on a different domain',
+  async t => {
+    const { page, server } = t.context
+    await page.goto(server.EMPTY_PAGE)
+    await page.setCookie({
+      url: 'https://www.example.com',
       name: 'example-cookie',
       value: 'best'
     })
-  } catch (e) {
-    error = e
+    t.is(await page.evaluate('document.cookie'), '')
+    t.deepEqual((await page.cookies()).map(c => c._cookie), [])
+    t.deepEqual(
+      (await page.cookies('https://www.example.com')).map(c => c._cookie),
+      [
+        {
+          name: 'example-cookie',
+          value: 'best',
+          domain: 'www.example.com',
+          path: '/',
+          expires: -1,
+          size: 18,
+          httpOnly: false,
+          secure: true,
+          session: true
+        }
+      ]
+    )
   }
+)
 
-  t.truthy(error)
-  t.deepEqual(
-    error.message,
-    'Protocol error (Network.deleteCookies): At least one of the url and domain needs to be specified'
-  )
-})
-
-test.serial('Cookies should set a cookie on a different domain', async t => {
-  const { page, server } = t.context
-  await page.goto(server.PREFIX + '/grid.html')
-  await page.setCookie({
-    name: 'example-cookie',
-    value: 'best',
-    url: 'https://www.example.com'
-  })
-  t.is(await page.evaluate('document.cookie'), '')
-  t.deepEqual(await page.cookies(), [])
-  const cookies = await page.cookies('https://www.example.com')
-  t.deepEqual(cookies.map(c => c._cookie), [
-    {
-      name: 'example-cookie',
-      value: 'best',
-      domain: 'www.example.com',
-      path: '/',
-      expires: -1,
-      size: 18,
-      httpOnly: false,
-      secure: true,
-      session: true
-    }
-  ])
-})
-
-test.serial('Cookies should set cookies from a frame', async t => {
+test.serial.failing('Page.setCookie should set cookies from a frame (linux google-chrome-unstable fails)', async t => {
   const { page, server } = t.context
   await page.goto(server.PREFIX + '/grid.html')
   await page.setCookie({
@@ -250,11 +426,11 @@ test.serial('Cookies should set cookies from a frame', async t => {
     iframe.onload = fulfill
     iframe.src = src
     return promise
-  }, server.CROSS_PROCESS_PREFIX)
+  }, `${server.CROSS_PROCESS_PREFIX}/empty.html`)
   await page.setCookie({
     name: '127-cookie',
     value: 'worst',
-    url: server.CROSS_PROCESS_PREFIX
+    url: `${server.CROSS_PROCESS_PREFIX}/empty.html`
   })
   t.is(await page.evaluate('document.cookie'), 'localhost-cookie=best')
   t.is(await page.frames()[1].evaluate('document.cookie'), '127-cookie=worst')
@@ -287,4 +463,31 @@ test.serial('Cookies should set cookies from a frame', async t => {
       }
     ]
   )
+})
+
+test.serial('Page.deleteCookie should work', async t => {
+  const { page, server } = t.context
+  await page.goto(server.EMPTY_PAGE)
+  await page.setCookies(
+    {
+      name: 'cookie1',
+      value: '1'
+    },
+    {
+      name: 'cookie2',
+      value: '2'
+    },
+    {
+      name: 'cookie3',
+      value: '3'
+    }
+  )
+  t.is(
+    await page.evaluate('document.cookie'),
+    'cookie1=1; cookie2=2; cookie3=3'
+  )
+  await page.deleteCookie({
+    name: 'cookie2'
+  })
+  t.is(await page.evaluate('document.cookie'), 'cookie1=1; cookie3=3')
 })

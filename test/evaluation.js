@@ -1,13 +1,13 @@
 import test from 'ava'
 import * as utils from './helpers/utils'
-import TestHelper from './helpers/testHelper'
+import { TestHelper } from './helpers/testHelper'
 import { TimeoutError } from '../lib/Errors'
 
 /** @type {TestHelper} */
 let helper
 
-test.before(async t => {
-  helper = await TestHelper.withHTTP(t)
+test.serial.before(async t => {
+  helper = await TestHelper.withHTTPAndHTTPS(t)
 })
 
 test.serial.beforeEach(async t => {
@@ -85,7 +85,7 @@ test.serial(
   'Page.evaluate should return undefined for objects with symbols',
   async t => {
     const { page, server } = t.context
-    t.is(await page.evaluate(() => [Symbol('foo4')]), undefined)
+    t.falsy(await page.evaluate(() => [Symbol('foo4')]))
   }
 )
 
@@ -252,7 +252,7 @@ test.serial(
   'Page.evaluate should return undefined for non-serializable objects',
   async t => {
     const { page, server } = t.context
-    t.is(await page.evaluate(() => window), undefined)
+    t.falsy(await page.evaluate(() => window))
   }
 )
 
@@ -266,7 +266,7 @@ test.serial('Page.evaluate should fail for circular object', async t => {
     a.b = b
     return a
   })
-  t.is(result, undefined)
+  t.falsy(result)
 })
 
 test.serial('Page.evaluate should accept a string', async t => {
@@ -379,7 +379,7 @@ test.serial('Page.evaluateOnNewDocument should work with CSP', async t => {
       content: 'window.e = 10;'
     })
     .catch(e => void e)
-  t.is(await page.evaluate(() => window.e), undefined)
+  t.falsy(await page.evaluate(() => window.e))
 })
 
 test.serial(
@@ -402,6 +402,7 @@ test.serial(
     const { page, server } = t.context
     await page.goto(server.PREFIX + '/frames/one-frame.html')
     t.is(page.frames().length, 2)
+    t.log(await page.frames()[1].content())
     t.is(
       await page.frames()[0].evaluate(() => document.body.textContent.trim()),
       ''
@@ -413,7 +414,7 @@ test.serial(
   }
 )
 
-test.serial(
+test.serial.only(
   'Frame.evaluate should execute after cross-site navigation',
   async t => {
     const { page, server } = t.context

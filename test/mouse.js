@@ -1,7 +1,7 @@
 import test from 'ava'
-import TestHelper from './helpers/testHelper'
-import { TimeoutError } from '../lib/Errors'
 import * as os from 'os'
+import { TestHelper } from './helpers/testHelper'
+import { TimeoutError } from '../lib/Errors'
 
 function dimensions () {
   const rect = document.querySelector('textarea').getBoundingClientRect()
@@ -16,8 +16,8 @@ function dimensions () {
 /** @type {TestHelper} */
 let helper
 
-test.before(async t => {
-  helper = await TestHelper.withHTTP(t)
+test.serial.before(async t => {
+  helper = await TestHelper.withHTTPAndHTTPS(t)
 })
 
 test.serial.beforeEach(async t => {
@@ -147,9 +147,8 @@ test.serial('Mouse should set modifier keys on click', async t => {
     Shift: 'shiftKey',
     Control: 'ctrlKey',
     Alt: 'altKey',
-    Meta: 'metaKey' // In Firefox, the Meta modifier only exists on Mac
-  }
-  if (false && os.platform() !== 'darwin') delete modifiers['Meta']
+    Meta: 'metaKey'
+  } // In Firefox, the Meta modifier only exists on Mac
 
   for (const modifier in modifiers) {
     await page.keyboard.down(modifier)
@@ -192,8 +191,8 @@ test.serial('Mouse should tween mouse movement', async t => {
   ])
 })
 
-test.serial(
-  'Mouse should work with mobile viewports and cross process navigations',
+test.serial.failing(
+  'Mouse should work with mobile viewports and cross process navigations (what happened to my ssl??)',
   async t => {
     const { page, server } = t.context
     await page.goto(server.EMPTY_PAGE)

@@ -1,12 +1,12 @@
 import test from 'ava'
 import { waitEvent } from './helpers/utils'
-import TestHelper from './helpers/testHelper'
+import { TestHelper } from './helpers/testHelper'
 import { TimeoutError } from '../lib/Errors'
 
 /** @type {TestHelper} */
 let helper
 
-test.before(async t => {
+test.serial.before(async t => {
   helper = await TestHelper.withHTTP(t)
 })
 
@@ -93,3 +93,15 @@ test.serial(
     t.true(error.message.includes('Session closed.'))
   }
 )
+
+test.serial('Target.createCDPSession should throw nice errors', async t => {
+  const { page } = t.context
+  const client = await page.target().createCDPSession()
+  const error = await theSourceOfTheProblems().catch(error => error)
+  t.true(error.stack.includes('theSourceOfTheProblems'))
+  t.true(error.message.includes('ThisCommand.DoesNotExist'))
+
+  async function theSourceOfTheProblems () {
+    await client.send('ThisCommand.DoesNotExist')
+  }
+})

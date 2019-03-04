@@ -1,12 +1,12 @@
 import test from 'ava'
 import * as utils from './helpers/utils'
-import TestHelper from './helpers/testHelper'
+import { TestHelper } from './helpers/testHelper'
 import { TimeoutError } from '../lib/Errors'
 
 /** @type {TestHelper} */
 let helper
 
-test.before(async t => {
+test.serial.before(async t => {
   helper = await TestHelper.withHTTPAndHTTPS(t)
 })
 
@@ -18,42 +18,12 @@ test.serial.beforeEach(async t => {
   t.context.context = await helper.context()
 })
 
-test.serial.afterEach.always(async t => {
+test.serial.afterEach(async t => {
   await helper.cleanup()
 })
 
 test.after.always(async t => {
   await helper.end()
-})
-
-test.serial('Page.goBack should work', async t => {
-  const { page, server } = t.context
-  await page.goto(server.EMPTY_PAGE)
-  await page.goto(server.PREFIX + '/grid.html')
-  let response = await page.goBack()
-  t.true(response.ok())
-  t.true(response.url().includes(server.EMPTY_PAGE))
-  response = await page.goForward()
-  t.true(response.ok())
-  t.true(response.url().includes('/grid.html'))
-  response = await page.goForward()
-  t.is(response, null)
-})
-
-test.serial('Page.goBack should work with HistoryAPI', async t => {
-  const { page, server } = t.context
-  await page.goto(server.EMPTY_PAGE)
-  await page.evaluate(() => {
-    history.pushState({}, '', '/first.html')
-    history.pushState({}, '', '/second.html')
-  })
-  t.is(page.url(), server.PREFIX + '/second.html')
-  await page.goBack()
-  t.is(page.url(), server.PREFIX + '/first.html')
-  await page.goBack()
-  t.is(page.url(), server.EMPTY_PAGE)
-  await page.goForward()
-  t.is(page.url(), server.PREFIX + '/first.html')
 })
 
 test.serial('Page.goto should work', async t => {
@@ -81,7 +51,7 @@ test.serial('Page.goto should work with redirects', async t => {
 test.serial('Page.goto should navigate to about:blank', async t => {
   const { page, server } = t.context
   const response = await page.goto('about:blank')
-  t.is(response, null)
+  t.falsy(response)
 })
 
 test.serial(
@@ -153,8 +123,7 @@ test.serial('Page.goto should fail when navigating to bad url', async t => {
   const { page, server } = t.context
   let error = null
   await page.goto('asdfasdf').catch(e => (error = e))
-  if (true) t.true(error.message.includes('Cannot navigate to invalid URL'))
-  else t.true(error.message.includes('Invalid url'))
+  t.true(error.message.includes('Cannot navigate to invalid URL'))
 })
 
 test.serial('Page.goto should fail when navigating to bad SSL', async t => {
@@ -166,7 +135,7 @@ test.serial('Page.goto should fail when navigating to bad SSL', async t => {
   page.on('requestfailed', request => t.truthy(request))
   let error = null
   await page.goto(httpsServer.EMPTY_PAGE).catch(e => (error = e))
-  t.truthy(error)
+  t.true(error.message.includes('net::ERR_CERT_AUTHORITY_INVALID'))
 })
 
 test.serial(
@@ -177,7 +146,23 @@ test.serial(
     await page
       .goto(httpsServer.PREFIX + '/redirect/1.html')
       .catch(e => (error = e))
-    t.truthy(error)
+    t.true(error.message.includes('net::ERR_CERT_AUTHORITY_INVALID'))
+  }
+)
+
+test.serial.failing(
+  '(This will use the new[ish] realy network idle soon) Page.goto should throw if networkidle is passed as an option',
+  async t => {
+    const { page, server } = t.context
+    let error = null
+    await page
+      .goto(server.EMPTY_PAGE, {
+        waitUntil: 'networkidle'
+      })
+      .catch(err => (error = err))
+    t.true(
+      error.message.includes('"networkidle" option is no longer supported')
+    )
   }
 )
 
@@ -189,7 +174,7 @@ test.serial(
     await page
       .goto('http://localhost:44123/non-existing-url')
       .catch(e => (error = e))
-    t.truthy(error)
+    t.true(error.message.includes('net::ERR_CONNECTION_REFUSED'))
   }
 )
 
@@ -260,7 +245,7 @@ test.serial('Page.goto should disable timeout when its set to 0', async t => {
       waitUntil: ['load']
     })
     .catch(e => (error = e))
-  t.is(error, null)
+  t.falsy(error)
   t.true(loaded)
 })
 
@@ -324,7 +309,7 @@ test.serial(
     for (let i = 0; i < 20; ++i) await page.goto(server.EMPTY_PAGE)
 
     process.removeListener('warning', warningHandler)
-    t.is(warning, null)
+    t.falsy(warning)
   }
 )
 
@@ -344,7 +329,7 @@ test.serial(
       })
 
     process.removeListener('warning', warningHandler)
-    t.is(warning, null)
+    t.falsy(warning)
   }
 )
 
@@ -365,7 +350,7 @@ test.serial(
       })
     )
     process.removeListener('warning', warningHandler)
-    t.is(warning, null)
+    t.falsy(warning)
   }
 )
 
@@ -387,38 +372,6 @@ test.serial(
 )
 
 test.serial(
-  'Page.goto should fail when navigating and show the url at the error message',
-  async t => {
-    const { page, server, httpsServer } = t.context
-    const url = httpsServer.PREFIX + '/infinite-redir'
-    let error = null
-
-    try {
-      await page.goto(url)
-    } catch (e) {
-      error = e
-    }
-
-    t.true(error.message.includes(url))
-  }
-)
-
-test.serial('Page.reload should work', async t => {
-  const { page, server } = t.context
-  await page.goto(server.EMPTY_PAGE)
-  await page.evaluate(() => (window._foo = 10))
-  await page.reload()
-  t.is(await page.evaluate(() => window._foo), undefined)
-})
-
-test.serial('Page.goto should work with self requesting page', async t => {
-  const { page, server } = t.context
-  const response = await page.goto(server.PREFIX + '/self-request.html')
-  t.is(response.status(), 200)
-  t.true(response.url().includes('self-request.html'))
-})
-
-test.serial(
   'Page.goto should navigate to URL with hash and fire requests with hash',
   async t => {
     const { page, server } = t.context
@@ -435,81 +388,42 @@ test.serial(
   }
 )
 
-test.serial('Page.goto should fail when server returns 204', async t => {
+test.serial('Page.goto should work with self requesting page', async t => {
   const { page, server } = t.context
-  let error = null
-  await page.goto(server.PREFIX + '/endlessVoid').catch(e => (error = e))
-  t.true(error != null)
-})
-
-test.serial('Frame.goto should navigate subframes', async t => {
-  const { page, server } = t.context
-  await page.goto(server.PREFIX + '/frames/one-frame.html')
-  t.true(
-    page
-      .frames()[0]
-      .url()
-      .includes('/frames/one-frame.html')
-  )
-  t.true(
-    page
-      .frames()[1]
-      .url()
-      .includes('/frames/frame.html')
-  )
-  const response = await page.frames()[1].goto(server.EMPTY_PAGE)
-  t.true(response.ok())
-  t.is(response.frame(), page.frames()[1])
-})
-
-test.serial('Frame.waitForNavigation should work', async t => {
-  const { page, server } = t.context
-  await page.goto(server.PREFIX + '/frames/nested-frames.html')
-  const frame = page.frames()[1]
-  const [response] = await Promise.all([
-    frame.waitForNavigation(),
-    frame.evaluate(
-      url => (window.location.href = url),
-      server.PREFIX + '/grid.html'
-    )
-  ])
-  t.true(response.ok())
-  t.true(response.url().includes('grid.html'))
-  t.is(response.frame(), frame)
-  t.true(page.url().includes('/frames/one-frame.html'))
+  const response = await page.goto(server.PREFIX + '/self-request.html')
+  t.is(response.status(), 200)
+  t.true(response.url().includes('self-request.html'))
 })
 
 test.serial(
-  'Frame.waitForNavigation should resolve when frame detaches',
+  'Page.goto should fail when navigating and show the url at the error message',
   async t => {
-    const { page, server } = t.context
-    await page.goto(server.PREFIX + '/frames/nested-frames.html')
-    const frame = page.frames()[1]
-    const navigationPromise = frame.waitForNavigation()
-    await Promise.all([
-      server.waitForRequest('/longTimeJack'),
-      frame.evaluate(() => (window.location = '/longTimeJack'))
-    ])
-    await page.$eval('iframe', frame => frame.remove())
-    await navigationPromise
-    t.pass()
+    const { page, server, httpsServer } = t.context
+    const url = httpsServer.PREFIX + '/redirect/1.html'
+    let error = null
+
+    try {
+      await page.goto(url)
+    } catch (e) {
+      error = e
+    }
+
+    t.true(error.message.includes(url))
   }
 )
 
-test.serial('Frame.goto should reject when frame detaches', async t => {
+test.serial('Page.goto should send referer', async t => {
   const { page, server } = t.context
-  await page.goto(server.PREFIX + '/frames/nested-frames.html')
-  const frames = page.frames()
-  t.log(frames.length)
-  t.true(frames.length > 0)
-  const navigationPromise = frames[1]
-    .goto(server.PREFIX + '/longTimeJack')
-    .catch(e => e)
-  await new Promise(resolve => setTimeout(resolve, 1000))
-  // await server.waitForRequest('/longTimeJack')
-  await page.$eval('iframe', frame => frame.remove())
-  const error = await navigationPromise
-  t.is(error.message, 'Navigating frame was detached')
+  const [request1, request2] = await Promise.all([
+    server.waitForRequest('/grid.html'),
+    server.waitForRequest('/digits/1.png'),
+    page.goto(server.PREFIX + '/grid.html', {
+      referer: 'http://google.com/'
+    })
+  ])
+  t.is(request1.headers['referer'], 'http://google.com/') // Make sure subresources do not inherit referer.
+
+  t.is(request2.headers['referer'], server.PREFIX + '/grid.html')
 })
 
 test.serial('Page.waitForNavigation should work', async t => {
@@ -558,7 +472,7 @@ test.serial(
       page.waitForNavigation(),
       page.click('a')
     ])
-    t.is(response, null)
+    t.falsy(response)
     t.is(page.url(), server.EMPTY_PAGE + '#foobar')
   }
 )
@@ -578,7 +492,7 @@ test.serial(
       page.waitForNavigation(),
       page.click('a')
     ])
-    t.is(response, null)
+    t.falsy(response)
     t.is(page.url(), server.PREFIX + '/wow.html')
   }
 )
@@ -598,7 +512,7 @@ test.serial(
       page.waitForNavigation(),
       page.click('a')
     ])
-    t.is(response, null)
+    t.falsy(response)
     t.is(page.url(), server.PREFIX + '/replaced.html')
   }
 )
@@ -623,13 +537,13 @@ test.serial(
       page.waitForNavigation(),
       page.click('a#back')
     ])
-    t.is(backResponse, null)
+    t.falsy(backResponse)
     t.is(page.url(), server.PREFIX + '/first.html')
     const [forwardResponse] = await Promise.all([
       page.waitForNavigation(),
       page.click('a#forward')
     ])
-    t.is(forwardResponse, null)
+    t.falsy(forwardResponse)
     t.is(page.url(), server.PREFIX + '/second.html')
   }
 )
@@ -651,3 +565,145 @@ test.serial(
     t.pass()
   }
 )
+
+test.serial('Page.goBack should work', async t => {
+  const { page, server } = t.context
+  await page.goto(server.EMPTY_PAGE)
+  await page.goto(server.PREFIX + '/grid.html')
+  let response = await page.goBack()
+  t.true(response.ok())
+  t.true(response.url().includes(server.EMPTY_PAGE))
+  response = await page.goForward()
+  t.true(response.ok())
+  t.true(response.url().includes('/grid.html'))
+  response = await page.goForward()
+  t.falsy(response)
+})
+
+test.serial('Page.goBack should work with HistoryAPI', async t => {
+  const { page, server } = t.context
+  await page.goto(server.EMPTY_PAGE)
+  await page.evaluate(() => {
+    history.pushState({}, '', '/first.html')
+    history.pushState({}, '', '/second.html')
+  })
+  t.is(page.url(), server.PREFIX + '/second.html')
+  await page.goBack()
+  t.is(page.url(), server.PREFIX + '/first.html')
+  await page.goBack()
+  t.is(page.url(), server.EMPTY_PAGE)
+  await page.goForward()
+  t.is(page.url(), server.PREFIX + '/first.html')
+})
+
+test.serial('Frame.goto should navigate subframes', async t => {
+  const { page, server } = t.context
+  await page.goto(server.PREFIX + '/frames/one-frame.html')
+  t.true(
+    page
+      .frames()[0]
+      .url()
+      .includes('/frames/one-frame.html')
+  )
+  t.true(
+    page
+      .frames()[1]
+      .url()
+      .includes('/frames/frame.html')
+  )
+  const response = await page.frames()[1].goto(server.EMPTY_PAGE)
+  t.true(response.ok())
+  t.is(response.frame(), page.frames()[1])
+})
+
+test.serial('Frame.goto should reject when frame detaches', async t => {
+  const { page, server } = t.context
+  await page.goto(server.PREFIX + '/frames/nested-frames.html')
+  const frames = page.frames()
+  t.log(frames.length)
+  t.true(frames.length > 0)
+  const navigationPromise = frames[1]
+    .goto(server.PREFIX + '/longTimeJack')
+    .catch(e => e)
+  await new Promise(resolve => setTimeout(resolve, 1000))
+  // await server.waitForRequest('/longTimeJack')
+  await page.$eval('iframe', frame => frame.remove())
+  const error = await navigationPromise
+  t.is(error.message, 'Navigating frame was detached')
+})
+
+test.serial.skip(
+  '(convert) Frame.goto should return matching responses',
+  async t => {
+    const { page, server } = t.context
+    // Disable cache: otherwise, chromium will cache similar requests.
+    await page.setCacheEnabled(false)
+    await page.goto(server.EMPTY_PAGE) // Attach three frames.
+
+    const frames = await Promise.all([
+      utils.attachFrame(page, 'frame1', server.EMPTY_PAGE),
+      utils.attachFrame(page, 'frame2', server.EMPTY_PAGE),
+      utils.attachFrame(page, 'frame3', server.EMPTY_PAGE)
+    ]) // Navigate all frames to the same URL.
+
+    const serverResponses = []
+    server.setRoute('/one-style.html', (req, res) => serverResponses.push(res))
+    const navigations = []
+
+    for (let i = 0; i < 3; ++i) {
+      navigations.push(frames[i].goto(server.PREFIX + '/one-style.html'))
+      await server.waitForRequest('/one-style.html')
+    } // Respond from server out-of-order.
+
+    const serverResponseTexts = ['AAA', 'BBB', 'CCC']
+
+    for (const i of [1, 2, 0]) {
+      serverResponses[i].end(serverResponseTexts[i])
+      const response = await navigations[i]
+      t.is(response.frame(), frames[i])
+      t.is(await response.text(), serverResponseTexts[i])
+    }
+  }
+)
+
+test.serial('Frame.waitForNavigation should work', async t => {
+  const { page, server } = t.context
+  await page.goto(server.PREFIX + '/frames/one-frame.html')
+  const frame = page.frames()[1]
+  const [response] = await Promise.all([
+    frame.waitForNavigation(),
+    frame.evaluate(
+      url => (window.location.href = url),
+      server.PREFIX + '/grid.html'
+    )
+  ])
+  t.true(response.ok())
+  t.true(response.url().includes('grid.html'))
+  t.is(response.frame(), frame)
+  t.true(page.url().includes('/frames/one-frame.html'))
+})
+
+test.serial(
+  'Frame.waitForNavigation should resolve when frame detaches',
+  async t => {
+    const { page, server } = t.context
+    await page.goto(server.PREFIX + '/frames/nested-frames.html')
+    const frame = page.frames()[1]
+    const navigationPromise = frame.waitForNavigation()
+    await Promise.all([
+      server.waitForRequest('/longTimeJack'),
+      frame.evaluate(() => (window.location = '/longTimeJack'))
+    ])
+    await page.$eval('iframe', frame => frame.remove())
+    await navigationPromise
+    t.pass()
+  }
+)
+
+test.serial('Page.reload should work', async t => {
+  const { page, server } = t.context
+  await page.goto(server.EMPTY_PAGE)
+  await page.evaluate(() => (window._foo = 10))
+  await page.reload()
+  t.falsy(await page.evaluate(() => window._foo))
+})

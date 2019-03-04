@@ -1,11 +1,11 @@
 import test from 'ava'
-import TestHelper from './helpers/testHelper'
+import { TestHelper } from './helpers/testHelper'
 import { TimeoutError } from '../lib/Errors'
 
 /** @type {TestHelper} */
 let helper
 
-test.before(async t => {
+test.serial.before(async t => {
   helper = await TestHelper.withHTTP(t)
 })
 
@@ -79,7 +79,7 @@ test.serial('Page.$ should query existing element', async t => {
 test.serial('Page.$ should return null for non-existing element', async t => {
   const { page, server } = t.context
   const element = await page.$('non-existing-element')
-  t.is(element, null)
+  t.falsy(element)
 })
 
 test.serial('Page.$$ should query existing elements', async t => {
@@ -149,7 +149,7 @@ test.serial(
     )
     const html = await page.$('html')
     const second = await html.$('.third')
-    t.is(second, null)
+    t.falsy(second)
   }
 )
 

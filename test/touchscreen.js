@@ -1,11 +1,16 @@
 import test from 'ava'
-import TestHelper from './helpers/testHelper'
+import { TestHelper } from './helpers/testHelper'
+import { requireRoot } from './helpers/utils'
 import { TimeoutError } from '../lib/Errors'
+
+const DeviceDescriptors = requireRoot('DeviceDescriptors.js')
+
+const iPhone = DeviceDescriptors['iPhone 6']
 
 /** @type {TestHelper} */
 let helper
 
-test.before(async t => {
+test.serial.before(async t => {
   helper = await TestHelper.withHTTP(t)
 })
 
@@ -25,6 +30,7 @@ test.after.always(async t => {
 
 test.serial('Touchscreen should tap the button', async t => {
   const { page, server } = t.context
+  await page.emulate(iPhone)
   await page.goto(server.PREFIX + '/input/button.html')
   await page.tap('button')
   t.is(await page.evaluate(() => result), 'Clicked')
@@ -32,6 +38,7 @@ test.serial('Touchscreen should tap the button', async t => {
 
 test.serial('Touchscreen should report touches', async t => {
   const { page, server } = t.context
+  await page.emulate(iPhone)
   await page.goto(server.PREFIX + '/input/touches.html')
   const button = await page.$('button')
   await button.tap()

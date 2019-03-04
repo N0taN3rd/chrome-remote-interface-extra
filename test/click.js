@@ -1,6 +1,6 @@
 import test from 'ava'
 import * as utils from './helpers/utils'
-import TestHelper from './helpers/testHelper'
+import { TestHelper } from './helpers/testHelper'
 import { TimeoutError } from '../lib/Errors'
 
 const DeviceDescriptors = utils.requireRoot('DeviceDescriptors')
@@ -10,7 +10,7 @@ const iPhone = DeviceDescriptors['iPhone 6']
 /** @type {TestHelper} */
 let helper
 
-test.before(async t => {
+test.serial.before(async t => {
   helper = await TestHelper.withHTTP(t)
 })
 
@@ -126,7 +126,7 @@ test.serial('Page.click should click wrapped links', async t => {
 test.serial('Page.click should click on checkbox input and toggle', async t => {
   const { page, server } = t.context
   await page.goto(server.PREFIX + '/input/checkbox.html')
-  t.is(await page.evaluate(() => result.check), null)
+  t.falsy(await page.evaluate(() => result.check))
   await page.click('input#agree')
   t.true(await page.evaluate(() => result.check))
   t.deepEqual(await page.evaluate(() => result.events), [
@@ -146,7 +146,7 @@ test.serial('Page.click should click on checkbox input and toggle', async t => {
 test.serial('Page.click should click on checkbox label and toggle', async t => {
   const { page, server } = t.context
   await page.goto(server.PREFIX + '/input/checkbox.html')
-  t.is(await page.evaluate(() => result.check), null)
+  t.falsy(await page.evaluate(() => result.check))
   await page.click('label[for="agree"]')
   t.true(await page.evaluate(() => result.check))
   t.deepEqual(await page.evaluate(() => result.events), [

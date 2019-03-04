@@ -267,6 +267,8 @@ const inverseExpectToAva = {
 const describingWhat = path => path.node.arguments[0].value
 const isDescribe = path => describes.has(path.node.callee.name)
 const isIt = path => its.has(path.node.callee.name)
+const isBeforeEach = path => path.node.callee.name === 'beforeEach'
+const isAfterEach = path => path.node.callee.name === 'afterEach'
 
 const isExpect = path =>
   btypes.isMemberExpression(path.node.callee) &&
@@ -429,6 +431,38 @@ function extractIt ({ fnPath, itPath, collector, parentDescribe, describing }) {
     // to indicate failure if no assertions are used, ava not so much (good on ya)
     // so we need explicitly pass this test if we did not timeout :)
     fnPath.node.body.body.push(makeTPass())
+  }
+  // lets be extra sure an server or httpsServer was not sneakily added introduced here
+  // for most tests we dont need both an http and https server
+  let rp
+  if (fnPath.scope.hasOwnBinding('server')) {
+    const serverBinding = fnPath.scope.getOwnBinding('server')
+    for (let i = 0; i < serverBinding.referencePaths.length; i++) {
+      rp = serverBinding.referencePaths[i]
+      if (
+        btypes.isIdentifier(rp.parentPath.node.property, {
+          name: 'CROSS_PROCESS_PREFIX'
+        })
+      ) {
+        collector.requiredContexts.add('server')
+        break
+      }
+    }
+  }
+
+  if (fnPath.scope.hasOwnBinding('httpsServer')) {
+    const serverBinding = fnPath.scope.getOwnBinding('httpsServer')
+    for (let i = 0; i < serverBinding.referencePaths.length; i++) {
+      rp = serverBinding.referencePaths[i]
+      if (
+        btypes.isIdentifier(rp.parentPath.node.property, {
+          name: 'CROSS_PROCESS_PREFIX'
+        })
+      ) {
+        collector.requiredContexts.add('httpsServer')
+        break
+      }
+    }
   }
   // replace the original context with the correct ava one
   fnPath.node.body.body.unshift(createTContext(fnPath.node.params[0]))
@@ -649,6 +683,47 @@ async function createTest (pTestPath, crieTestPath) {
       }
     }
   })
+
+  if (pTestPath.includes('cookies')) {
+    // lets be nice to ourselves and ensuring our fundamental changes to cookies
+    // can be tested using original code easily. I dont want to convert by hand again
+    const cookiesId = { name: 'cookies' }
+    const setCookie = { name: 'setCookie' }
+    traverse.default(ast, {
+      AwaitExpression (aep) {
+        if (
+          btypes.isCallExpression(aep.node.argument) &&
+          btypes.isMemberExpression(aep.node.argument.callee) &&
+          btypes.isIdentifier(aep.node.argument.callee.property, cookiesId) &&
+          !generator(aep.parentPath.node, genOpts).code.includes(')).map')
+        ) {
+          const newAwait = btypes.cloneDeep(aep.node)
+          aep.replaceWith(
+            btypes.callExpression(
+              btypes.memberExpression(newAwait, btypes.identifier('map')),
+              [
+                btypes.arrowFunctionExpression(
+                  [btypes.identifier('c')],
+                  btypes.memberExpression(
+                    btypes.identifier('c'),
+                    btypes.identifier('_cookie')
+                  )
+                )
+              ]
+            )
+          )
+        } else if (
+          btypes.isCallExpression(aep.node.argument) &&
+          btypes.isMemberExpression(aep.node.argument.callee) &&
+          btypes.isIdentifier(aep.node.argument.callee.property, setCookie) &&
+          aep.node.argument.arguments.length > 1
+        ) {
+          // I change set cookie to only set a single cookie so lets fix that
+          aep.node.argument.callee.property.name = 'setCookies'
+        }
+      }
+    })
+  }
 
   const imports = [`import test from 'ava'`]
   const codeParts = []

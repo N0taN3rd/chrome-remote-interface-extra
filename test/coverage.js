@@ -1,11 +1,11 @@
 import test from 'ava'
-import TestHelper from './helpers/testHelper'
+import { TestHelper } from './helpers/testHelper'
 import { TimeoutError } from '../lib/Errors'
 
 /** @type {TestHelper} */
 let helper
 
-test.before(async t => {
+test.serial.before(async t => {
   helper = await TestHelper.withHTTP(t)
 })
 
@@ -74,7 +74,7 @@ test.serial(
     })
     await page.goto(server.PREFIX + '/jscoverage/eval.html')
     const coverage = await page.coverage.stopJSCoverage()
-    t.true(coverage.find(entry => entry.url.startsWith('debugger://')) != null)
+    t.truthy(coverage.find(entry => entry.url.startsWith('debugger://')))
     t.is(coverage.length, 2)
   }
 )
@@ -170,19 +170,15 @@ test.serial(
   }
 )
 
-test.serial.skip(
+test.serial(
   'JSCoverage should not hang when there is a debugger statement',
   async t => {
-    t.log('what')
     const { page, server } = t.context
-    t.log('starting js coverage')
     await page.coverage.startJSCoverage()
-    t.log('navigating to page')
     await page.goto(server.EMPTY_PAGE)
-    t.log('navigated to page, evaluating debugger')
-    await page.evaluate(() => {
+    await page.evaluate(`() => {
       debugger // eslint-disable-line no-debugger
-    })
+    }`)
     await page.coverage.stopJSCoverage()
     t.pass()
   }

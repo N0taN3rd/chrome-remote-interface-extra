@@ -1,13 +1,13 @@
 import test from 'ava'
 import * as utils from './helpers/utils'
 import * as os from 'os'
-import TestHelper from './helpers/testHelper'
+import { TestHelper } from './helpers/testHelper'
 import { TimeoutError } from '../lib/Errors'
 
 /** @type {TestHelper} */
 let helper
 
-test.before(async t => {
+test.serial.before(async t => {
   helper = await TestHelper.withHTTP(t)
 })
 
@@ -146,7 +146,6 @@ test.serial('Keyboard should report shiftKey', async t => {
   const codeForKey = {
     Shift: 16,
     Alt: 18,
-    Meta: 91,
     Control: 17
   }
 
@@ -155,14 +154,14 @@ test.serial('Keyboard should report shiftKey', async t => {
     t.is(
       await page.evaluate(() => getResult()),
       'Keydown: ' +
-        modifierKey +
-        ' ' +
-        modifierKey +
-        'Left ' +
-        codeForKey[modifierKey] +
-        ' [' +
-        modifierKey +
-        ']'
+      modifierKey +
+      ' ' +
+      modifierKey +
+      'Left ' +
+      codeForKey[modifierKey] +
+      ' [' +
+      modifierKey +
+      ']'
     )
     await keyboard.down('!') // Shift+! will generate a keypress
 
@@ -170,10 +169,10 @@ test.serial('Keyboard should report shiftKey', async t => {
       t.is(
         await page.evaluate(() => getResult()),
         'Keydown: ! Digit1 49 [' +
-          modifierKey +
-          ']\nKeypress: ! Digit1 33 33 [' +
-          modifierKey +
-          ']'
+        modifierKey +
+        ']\nKeypress: ! Digit1 33 33 [' +
+        modifierKey +
+        ']'
       )
     else
       t.is(
@@ -189,12 +188,12 @@ test.serial('Keyboard should report shiftKey', async t => {
     t.is(
       await page.evaluate(() => getResult()),
       'Keyup: ' +
-        modifierKey +
-        ' ' +
-        modifierKey +
-        'Left ' +
-        codeForKey[modifierKey] +
-        ' []'
+      modifierKey +
+      ' ' +
+      modifierKey +
+      'Left ' +
+      codeForKey[modifierKey] +
+      ' []'
     )
   }
 })
@@ -208,28 +207,28 @@ test.serial('Keyboard should report multiple modifiers', async t => {
     await page.evaluate(() => getResult()),
     'Keydown: Control ControlLeft 17 [Control]'
   )
-  await keyboard.down('Meta')
+  await keyboard.down('Alt')
   t.is(
     await page.evaluate(() => getResult()),
-    'Keydown: Meta MetaLeft 91 [Control Meta]'
+    'Keydown: Alt AltLeft 18 [Alt Control]'
   )
   await keyboard.down(';')
   t.is(
     await page.evaluate(() => getResult()),
-    'Keydown: ; Semicolon 186 [Control Meta]'
+    'Keydown: ; Semicolon 186 [Alt Control]'
   )
   await keyboard.up(';')
   t.is(
     await page.evaluate(() => getResult()),
-    'Keyup: ; Semicolon 186 [Control Meta]'
+    'Keyup: ; Semicolon 186 [Alt Control]'
   )
   await keyboard.up('Control')
   t.is(
     await page.evaluate(() => getResult()),
-    'Keyup: Control ControlLeft 17 [Meta]'
+    'Keyup: Control ControlLeft 17 [Alt]'
   )
-  await keyboard.up('Meta')
-  t.is(await page.evaluate(() => getResult()), 'Keyup: Meta MetaLeft 91 []')
+  await keyboard.up('Alt')
+  t.is(await page.evaluate(() => getResult()), 'Keyup: Alt AltLeft 18 []')
 })
 
 test.serial('Keyboard should send proper codes while typing', async t => {
@@ -383,4 +382,19 @@ test.serial('Keyboard should type emoji into an iframe', async t => {
     await frame.$eval('textarea', textarea => textarea.value),
     '👹 Tokyo street Japan 🇯🇵'
   )
+})
+
+test.serial('Keyboard should press the meta key', async t => {
+  const { page } = t.context
+  await page.evaluate(() => {
+    window.result = null
+    document.addEventListener('keydown', event => {
+      window.result = [event.key, event.code, event.metaKey]
+    })
+  })
+  await page.keyboard.press('Meta')
+  const [key, code, metaKey] = await page.evaluate('result')
+  t.is(key, 'Meta')
+  t.is(code, 'MetaLeft')
+  t.true(metaKey)
 })

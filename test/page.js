@@ -2,7 +2,7 @@ import test from 'ava'
 import * as fs from 'fs'
 import * as path from 'path'
 import * as utils from './helpers/utils'
-import TestHelper from './helpers/testHelper'
+import { TestHelper } from './helpers/testHelper'
 import { TimeoutError } from '../lib/Errors'
 
 const { waitEvent } = utils
@@ -10,20 +10,20 @@ const { waitEvent } = utils
 /** @type {TestHelper} */
 let helper
 
-test.before(async t => {
+test.serial.before(async t => {
   helper = await TestHelper.withHTTP(t)
 })
 
 test.serial.beforeEach(async t => {
   t.context.context = await helper.context()
-  /**  @type {Browser} */
+  /** @type {Browser} */
   t.context.browser = helper.browser()
   t.context.server = helper.server()
   /** @type {Page} */
   t.context.page = await helper.newPage()
 })
 
-test.serial.afterEach(async t => {
+test.serial.afterEach.always(async t => {
   await helper.cleanup()
 })
 
@@ -31,9 +31,8 @@ test.after.always(async t => {
   await helper.end()
 })
 
-async function theSourceOfTheProblems () {
-  await page._client.send('ThisCommand.DoesNotExist')
-}
+const _expectedOutput =
+  '<html><head></head><body><div>hello</div></body></html>'
 
 function getPermission (page, name) {
   return page.evaluate(
@@ -82,12 +81,7 @@ test.serial('Page.close should run beforeunload if asked for', async t => {
   const dialog = await waitEvent(newPage, 'dialog')
   t.is(dialog.type(), 'beforeunload')
   t.is(dialog.defaultValue(), '')
-  if (true) t.is(dialog.message(), '')
-  else
-    t.is(
-      dialog.message(),
-      'This page is asking you to confirm that you want to leave - data you have entered may not be saved.'
-    )
+  t.is(dialog.message(), '')
   await dialog.accept()
   await pageClosingPromise
 })
@@ -494,8 +488,7 @@ test.serial('Page.Events.Console should trigger correct Log', async t => {
     page.evaluate(async url => fetch(url).catch(e => {}), server.EMPTY_PAGE)
   ])
   t.true(message.text().includes('Access-Control-Allow-Origin'))
-  if (CHROME) t.deepEqual(message.type(), 'error')
-  else t.deepEqual(message.type(), 'warn')
+  t.deepEqual(message.type(), 'error')
 })
 
 test.serial(
@@ -774,7 +767,7 @@ test.serial('Page.exposeFunction should support throwing "null"', async t => {
       return e
     }
   })
-  t.is(thrown, null)
+  t.falsy(thrown)
 })
 
 test.serial(
@@ -888,7 +881,7 @@ test.serial('Page.setContent should work', async t => {
   const { page, server } = t.context
   await page.setContent('<div>hello</div>')
   const result = await page.content()
-  t.is(result, expectedOutput)
+  t.is(result, _expectedOutput)
 })
 
 test.serial('Page.setContent should work with doctype', async t => {
@@ -896,7 +889,7 @@ test.serial('Page.setContent should work with doctype', async t => {
   const doctype = '<!DOCTYPE html>'
   await page.setContent(`${doctype}<div>hello</div>`)
   const result = await page.content()
-  t.is(result, `${doctype}${expectedOutput}`)
+  t.is(result, `${doctype}${_expectedOutput}`)
 })
 
 test.serial('Page.setContent should work with HTML 4 doctype', async t => {
@@ -906,7 +899,7 @@ test.serial('Page.setContent should work with HTML 4 doctype', async t => {
     '"http://www.w3.org/TR/html4/strict.dtd">'
   await page.setContent(`${doctype}<div>hello</div>`)
   const result = await page.content()
-  t.is(result, `${doctype}${expectedOutput}`)
+  t.is(result, `${doctype}${_expectedOutput}`)
 })
 
 test.serial('Page.setContent should respect timeout', async t => {
@@ -964,7 +957,7 @@ test.serial('Page.setBypassCSP should bypass CSP meta tag', async t => {
       content: 'window.__injected = 42;'
     })
     .catch(e => void e)
-  t.is(await page.evaluate(() => window.__injected), undefined) // By-pass CSP and try one more time.
+  t.falsy(await page.evaluate(() => window.__injected)) // By-pass CSP and try one more time.
 
   await page.setBypassCSP(true)
   await page.reload()
@@ -983,7 +976,7 @@ test.serial('Page.setBypassCSP should bypass CSP header', async t => {
       content: 'window.__injected = 42;'
     })
     .catch(e => void e)
-  t.is(await page.evaluate(() => window.__injected), undefined) // By-pass CSP and try one more time.
+  t.falsy(await page.evaluate(() => window.__injected)) // By-pass CSP and try one more time.
 
   await page.setBypassCSP(true)
   await page.reload()
@@ -1326,13 +1319,13 @@ test.serial(
       page.reload()
     ]) // Rely on "if-modified-since" caching in our test server.
 
-    t.true(cachedRequest.headers['if-modified-since'] != undefined)
+    t.truthy(cachedRequest.headers['if-modified-since'])
     await page.setCacheEnabled(false)
     const [nonCachedRequest] = await Promise.all([
       server.waitForRequest('/cached/one-style.html'),
       page.reload()
     ])
-    t.is(nonCachedRequest.headers['if-modified-since'], undefined)
+    t.falsy(nonCachedRequest.headers['if-modified-since'])
   }
 )
 
@@ -1491,17 +1484,6 @@ test.serial(
     t.deepEqual(await page.evaluate(() => result.onChange), ['blue'])
   }
 )
-
-test.serial('Connection should throw nice errors', async t => {
-  const { page } = t.context
-  const error = await theSourceOfTheProblems().catch(error => error)
-  t.true(error.stack.includes('theSourceOfTheProblems'))
-  t.true(error.message.includes('ThisCommand.DoesNotExist'))
-
-  async function theSourceOfTheProblems () {
-    await page._client.send('ThisCommand.DoesNotExist')
-  }
-})
 
 test.serial('Page.Events.Close should work with window.close', async t => {
   const { page, context, server } = t.context

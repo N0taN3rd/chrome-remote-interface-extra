@@ -1,12 +1,12 @@
 import test from 'ava'
 import * as utils from './helpers/utils'
-import TestHelper from './helpers/testHelper'
+import { TestHelper } from './helpers/testHelper'
 import { TimeoutError } from '../lib/Errors'
 
 /** @type {TestHelper} */
 let helper
 
-test.before(async t => {
+test.serial.before(async t => {
   helper = await TestHelper.withHTTP(t)
 })
 
@@ -23,6 +23,12 @@ test.serial.afterEach(async t => {
 test.after.always(async t => {
   await helper.end()
 })
+
+const _addElement2 = tag =>
+  document.body.appendChild(document.createElement(tag))
+
+const _addElement = tag =>
+  document.body.appendChild(document.createElement(tag))
 
 test.serial('Page.waitFor should wait for selector', async t => {
   const { page, server } = t.context
@@ -185,7 +191,7 @@ test.serial(
         .catch(e => (error = e)),
       page.evaluate(() => (window.__FOO = 'hit'))
     ])
-    t.is(error, null)
+    t.falsy(error)
   }
 )
 
@@ -339,7 +345,7 @@ test.serial(
     await page.goto(server.EMPTY_PAGE)
     const frame = page.mainFrame()
     await frame.waitForSelector('*')
-    await frame.evaluate(addElement, 'div')
+    await frame.evaluate(_addElement, 'div')
     await frame.waitForSelector('div')
     t.pass()
   }
@@ -365,8 +371,8 @@ test.serial(
     await page.goto(server.EMPTY_PAGE)
     const frame = page.mainFrame()
     const watchdog = frame.waitForSelector('div')
-    await frame.evaluate(addElement, 'br')
-    await frame.evaluate(addElement, 'div')
+    await frame.evaluate(_addElement, 'br')
+    await frame.evaluate(_addElement, 'div')
     const eHandle = await watchdog
     const tagName = await eHandle
       .getProperty('tagName')
@@ -381,7 +387,7 @@ test.serial(
     const { page, server } = t.context
     await page.goto(server.EMPTY_PAGE)
     const watchdog = page.waitForSelector('h3 div')
-    await page.evaluate(addElement, 'span')
+    await page.evaluate(_addElement, 'span')
     await page.evaluate(
       () => (document.querySelector('span').innerHTML = '<h3><div></div></h3>')
     )
@@ -398,8 +404,8 @@ test.serial(
     await utils.attachFrame(page, 'frame1', server.EMPTY_PAGE)
     const otherFrame = page.frames()[1]
     const watchdog = page.waitForSelector('div')
-    await otherFrame.evaluate(addElement, 'div')
-    await page.evaluate(addElement, 'div')
+    await otherFrame.evaluate(_addElement, 'div')
+    await page.evaluate(_addElement, 'div')
     const eHandle = await watchdog
     t.is(eHandle.executionContext().frame(), page.mainFrame())
   }
@@ -412,8 +418,8 @@ test.serial('Frame.waitForSelector should run in specified frame', async t => {
   const frame1 = page.frames()[1]
   const frame2 = page.frames()[2]
   const waitForSelectorPromise = frame2.waitForSelector('div')
-  await frame1.evaluate(addElement, 'div')
-  await frame2.evaluate(addElement, 'div')
+  await frame1.evaluate(_addElement, 'div')
+  await frame2.evaluate(_addElement, 'div')
   const eHandle = await waitForSelectorPromise
   t.is(eHandle.executionContext().frame(), frame2)
 })
@@ -572,7 +578,7 @@ test.serial(
     const handle = await page.waitForSelector('non-existing', {
       hidden: true
     })
-    t.is(handle, null)
+    t.falsy(handle)
   }
 )
 
@@ -638,7 +644,9 @@ test.serial(
       'anything'
     )
   }
-)(asyncawait ? it : xit)(
+)
+
+test.serial(
   'Frame.waitForSelector should have correct stack trace for timeout',
   async t => {
     const { page, server } = t.context
@@ -648,7 +656,7 @@ test.serial(
         timeout: 10
       })
       .catch(e => (error = e))
-    t.true(error.stack.includes('waittask.spec.js'))
+    t.true(error.stack.includes('waittask.js'))
   }
 )
 
@@ -684,8 +692,8 @@ test.serial('Frame.waitForXPath should run in specified frame', async t => {
   const frame1 = page.frames()[1]
   const frame2 = page.frames()[2]
   const waitForXPathPromise = frame2.waitForXPath('//div')
-  await frame1.evaluate(addElement, 'div')
-  await frame2.evaluate(addElement, 'div')
+  await frame1.evaluate(_addElement2, 'div')
+  await frame2.evaluate(_addElement2, 'div')
   const eHandle = await waitForXPathPromise
   t.is(eHandle.executionContext().frame(), frame2)
 })

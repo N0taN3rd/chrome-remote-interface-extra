@@ -1,13 +1,13 @@
 import test from 'ava'
-import * as fs from 'fs'
+import * as fs from 'fs-extra'
 import * as path from 'path'
-import TestHelper from './helpers/testHelper'
+import { TestHelper } from './helpers/testHelper'
 import { TimeoutError } from '../lib/Errors'
 
 /** @type {TestHelper} */
 let helper
 
-test.before(async t => {
+test.serial.before(async t => {
   helper = await TestHelper.withHTTP(t)
 })
 
@@ -16,12 +16,14 @@ test.serial.beforeEach(async t => {
   t.context.page = await helper.newPage()
   t.context.server = helper.server()
 
-  /**  @type {Browser} */
+  /** @type {Browser} */
   t.context.browser = helper.browser()
+  t.context.outputFile = path.join(__dirname, 'assets', `trace-0.json`)
 })
 
-test.serial.afterEach(async t => {
+test.serial.afterEach.always(async t => {
   await helper.cleanup()
+  await fs.remove(t.context.outputFile)
 })
 
 test.after.always(async t => {
@@ -48,7 +50,7 @@ test.serial(
       categories: ['disabled-by-default-v8.cpu_profiler.hires']
     })
     await page.tracing.stop()
-    const traceJson = JSON.parse(fs.readFileSync(outputFile))
+    const traceJson = JSON.parse(fs.readFileSync(outputFile, 'utf-8'))
     t.true(
       traceJson.metadata['trace-config'].includes(
         'disabled-by-default-v8.cpu_profiler.hires'
