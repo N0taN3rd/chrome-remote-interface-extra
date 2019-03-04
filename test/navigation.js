@@ -74,8 +74,6 @@ test.serial('Page.goto should work with anchor navigation', async t => {
 
 test.serial('Page.goto should work with redirects', async t => {
   const { page, server } = t.context
-  server.setRedirect('/redirect/1.html', '/redirect/2.html')
-  server.setRedirect('/redirect/2.html', '/empty.html')
   await page.goto(server.PREFIX + '/redirect/1.html')
   t.is(page.url(), server.EMPTY_PAGE)
 })
@@ -175,8 +173,6 @@ test.serial(
   'Page.goto should fail when navigating to bad SSL after redirects',
   async t => {
     const { page, server, httpsServer } = t.context
-    server.setRedirect('/redirect/1.html', '/redirect/2.html')
-    server.setRedirect('/redirect/2.html', '/empty.html')
     let error = null
     await page
       .goto(httpsServer.PREFIX + '/redirect/1.html')
@@ -291,10 +287,7 @@ test.serial(
   'Page.goto should return last response in redirect chain',
   async t => {
     const { page, server } = t.context
-    server.setRedirect('/redirect/1.html', '/redirect/2.html')
-    server.setRedirect('/redirect/2.html', '/redirect/3.html')
-    server.setRedirect('/redirect/3.html', server.EMPTY_PAGE)
-    const response = await page.goto(server.PREFIX + '/redirect/1.html')
+    const response = await page.goto(server.PREFIX + '/redirect2/1.html')
     t.true(response.ok())
     t.is(response.url(), server.EMPTY_PAGE)
   }

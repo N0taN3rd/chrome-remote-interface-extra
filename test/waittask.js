@@ -175,8 +175,7 @@ test.serial(
   'Frame.waitForFunction should work with strict CSP policy',
   async t => {
     const { page, server } = t.context
-    server.setCSP('/empty.html', 'script-src ' + server.PREFIX)
-    await page.goto(server.EMPTY_PAGE)
+    await page.goto(server.EMPTY_CSP)
     let error = null
     await Promise.all([
       page
@@ -350,7 +349,7 @@ test.serial(
   'Frame.waitForSelector should work with removed MutationObserver',
   async t => {
     const { page, server } = t.context
-    await page.evaluate(() => delete window.MutationObserver)
+    await page.evaluate('() => delete window.MutationObserver')
     const [handle] = await Promise.all([
       page.waitForSelector('.zombo'),
       page.setContent(`<div class='zombo'>anything</div>`)

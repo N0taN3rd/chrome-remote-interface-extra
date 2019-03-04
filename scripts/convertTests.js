@@ -49,6 +49,7 @@ t.true(results.pass, results.message)
 
 const FFID = { name: 'FFOX' }
 const isIdExpectOpts = { name: 'expect' }
+const describeID = { name: 'describe' }
 const describes = new Set(['describe', 'describe_fails_ffox'])
 const its = new Set(['it', 'fit', 'xit', 'it_fails_ffox'])
 
@@ -59,7 +60,8 @@ const skipped = new Set([
   'ignorehttpserrors.spec.js',
   'puppeteer.spec.js',
   'chromiumonly.spec.js',
-  'firefoxonly.spec.js'
+  'firefoxonly.spec.js',
+  'headful.spec.js'
 ])
 
 function printNode (node) {
@@ -296,6 +298,22 @@ const isInverseExpect = path =>
   btypes.isCallExpression(path.node.callee.object.object) &&
   btypes.isIdentifier(path.node.callee.object.object.callee, isIdExpectOpts)
 
+const isVariableDeclarInnerChildOfDescribe = vdPath =>
+  vdPath.parentPath &&
+  vdPath.parentPath.parentPath &&
+  vdPath.parentPath.parentPath.parentPath &&
+  btypes.isCallExpression(vdPath.parentPath.parentPath.parentPath.node) &&
+  btypes.isIdentifier(
+    vdPath.parentPath.parentPath.parentPath.node.callee,
+    describeID
+  )
+
+const isImportantTopLevelThingy = init =>
+  btypes.isMemberExpression(init) &&
+  btypes.isIdentifier(init.object.object, {
+    name: 'DeviceDescriptors'
+  })
+
 const createTContext = context =>
   btypes.variableDeclaration('const', [
     btypes.variableDeclarator(
@@ -474,8 +492,26 @@ function transformAndExtractDescribe (path, { collector, parentDescribe }) {
           parentDescribe: describing
         })
       } else if (isNode6InterOpIt(somePath)) {
+        somePath.node.callee = somePath.node.callee.consequent
         // node 6 (asyncawait ? it : xit)(imple) of some describe
         traveseIt(somePath, collector, describing, parentDescribe)
+      }
+    },
+    VariableDeclaration (vdPath) {
+      // printNode(vdPath.parentPath.parentPath.parentPath.node)
+      if (isVariableDeclarInnerChildOfDescribe(vdPath)) {
+        // we found an inner helper for some describe
+        // there will be duplicates so lets help ourselves out by
+        // by just renaming the inner helper to an unique name
+        // and then changing all its references to the new name because we
+        // are hoisting this helper to our global scope
+        const name = vdPath.node.declarations[0].id.name
+        const vd = btypes.cloneDeep(vdPath.node)
+        const declar = vd.declarations[0]
+        const id = path.scope.generateUidIdentifierBasedOnNode(declar)
+        declar.id = id
+        vdPath.parentPath.scope.rename(name, id.name)
+        collector.tests.unshift(vd)
       }
     },
     FunctionDeclaration (fnd) {
@@ -544,7 +580,7 @@ function buildBefore (requiredContexts) {
   return `/** @type {TestHelper} */
 let helper
 
-test.before(async t => {
+test.serial.before(async t => {
   ${beforeStrings.join('\n')}
 })`
 }
@@ -563,10 +599,23 @@ async function createTest (pTestPath, crieTestPath) {
   const setupImports = []
   traverse.default(ast, {
     IfStatement (path) {
+      // I really do not want to do this by hand so lets check
+      // for chrome vs ff if statements and put the good path (chrome)
+      // before the if statement then remote entire if statement
       if (btypes.isIdentifier(path.node.test, cID)) {
-        path.node.test = btypes.booleanLiteral(true)
+        path.insertBefore(btypes.clone(path.node.consequent))
+        path.remove()
       } else if (btypes.isIdentifier(path.node.test, FFID)) {
-        path.node.test = btypes.booleanLiteral(false)
+        path.insertBefore(btypes.clone(path.node.alternate))
+        path.remove()
+      } else if (btypes.isLogicalExpression(path.node.test)) {
+        if (btypes.isIdentifier(path.node.test.left, FFID)) {
+          path.insertBefore(btypes.clone(path.node.alternate))
+          path.remove()
+        } else if (btypes.isIdentifier(path.node.test.left, cID)) {
+          path.insertBefore(btypes.clone(path.node.consequent))
+          path.remove()
+        }
       }
     },
     VariableDeclaration (path) {
@@ -607,7 +656,7 @@ async function createTest (pTestPath, crieTestPath) {
     imports.push(generator(setupImports[i], genOpts).code)
   }
   imports.push(
-    `import TestHelper from './helpers/testHelper'`,
+    `import { TestHelper } from './helpers/testHelper'`,
     `import { TimeoutError } from '../lib/Errors'`
   )
   codeParts.push(imports.join('\n'))
@@ -632,15 +681,19 @@ async function doIt () {
     const testFile = testFiles[i]
     if (!testFile.endsWith('spec.js') || skipped.has(testFile)) continue
     const ptp = Path.join(pTestPath, testFile)
-    await createTest(ptp, `./test/${testFile.replace('.spec', '')}`)
+    console.log(testFile)
+    await createTest(ptp, `./tempTests/${testFile.replace('.spec', '')}`)
   }
   await new Promise((resolve, reject) => {
-    cp.exec(`node ./node_modules/.bin/prettier-standard ./test/*.js`, error => {
-      if (error) {
-        return reject(error)
+    cp.exec(
+      `node ./node_modules/.bin/prettier-standard ./tempTests/*.js`,
+      error => {
+        if (error) {
+          return reject(error)
+        }
+        resolve()
       }
-      resolve()
-    })
+    )
   })
 }
 

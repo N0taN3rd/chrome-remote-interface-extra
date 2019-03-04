@@ -1,7 +1,7 @@
 self.addEventListener('fetch', event => {
-  event.respondWith(fetch(event.request));
-});
+  event.respondWith(fetch(event.request))
+})
 
 self.addEventListener('activate', event => {
-  event.waitUntil(clients.claim());
-});
+  event.waitUntil(clients.claim())
+})

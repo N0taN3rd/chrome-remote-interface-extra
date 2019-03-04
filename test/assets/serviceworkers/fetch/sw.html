@@ -1,5 +1,17 @@
-<link rel="stylesheet" href="style.css">
-<script>
-  window.registrationPromise = navigator.serviceWorker.register('sw.js');
-  window.activationPromise = new Promise(resolve => navigator.serviceWorker.oncontrollerchange = resolve);
-</script>
+<html>
+  <head>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <script>
+      window.activationPromise = Promise.all([
+        navigator.serviceWorker.register('sw.js', {
+          scope: '/serviceworkers/fetch/'
+        }),
+        new Promise(
+          resolve => (navigator.serviceWorker.oncontrollerchange = resolve)
+        )
+      ])
+    </script>
+  </body>
+</html>

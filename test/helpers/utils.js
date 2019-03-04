@@ -1,15 +1,17 @@
-import * as path from 'path'
+const path = require('path')
 
 const PROJECT_ROOT = path.join(__dirname, '..', '..', 'lib')
 
-export const projectRoot = () => PROJECT_ROOT
-export const requireRoot = name => require(path.join(PROJECT_ROOT, name))
+// export const projectRoot = () => PROJECT_ROOT
+// export const requireRoot = name => require(path.join(PROJECT_ROOT, name))
+exports.projectRoot = () => PROJECT_ROOT
+exports.requireRoot = name => require(path.join(PROJECT_ROOT, name))
 
 /**
  * @param {Request} request
  * @return {boolean}
  */
-export function isFavicon (request) {
+exports.isFavicon = function isFavicon (request) {
   return request.url().includes('favicon.ico')
 }
 
@@ -17,25 +19,19 @@ export function isFavicon (request) {
  * @param {Page} page
  * @param {string} frameId
  * @param {string} url
- * @return {?Frame}
+ * @return {Promise<?Frame>}
  */
-export async function attachFrame (page, frameId, url) {
-  const handle = await page.evaluateHandle(
-    async (fid, furl) => {
-      const frame = document.createElement('iframe')
-      frame.src = furl
-      frame.id = fid
-      document.body.appendChild(frame)
-      await new Promise(resolve => {
-        frame.onload = resolve
-      })
-      return frame
-    },
-    frameId,
-    url
-  )
-  const frameElem = handle.asElement()
-  return frameElem.contentFrame()
+exports.attachFrame = async function attachFrame (page, frameId, url) {
+  const handle = await page.evaluateHandle(doAttach, frameId, url)
+  return handle.asElement().contentFrame()
+  async function doAttach (frameId, url) {
+    const frame = document.createElement('iframe')
+    frame.src = url
+    frame.id = frameId
+    document.body.appendChild(frame)
+    await new Promise(resolve => (frame.onload = resolve))
+    return frame
+  }
 }
 
 /**
@@ -43,11 +39,12 @@ export async function attachFrame (page, frameId, url) {
  * @param {string} frameId
  * @return {Promise<void>}
  */
-export async function detachFrame (page, frameId) {
-  await page.evaluate(fid => {
-    const frame = document.getElementById(fid)
+exports.detachFrame = async function detachFrame (page, frameId) {
+  await page.evaluate(doDetachFrame, frameId)
+  function doDetachFrame (frameId) {
+    const frame = document.getElementById(frameId)
     frame.remove()
-  }, frameId)
+  }
 }
 
 /**
@@ -55,18 +52,13 @@ export async function detachFrame (page, frameId) {
  * @param {string} frameId
  * @param {string} url
  */
-export async function navigateFrame (page, frameId, url) {
-  await page.evaluate(
-    (fid, furl) => {
-      const frame = document.getElementById(fid)
-      frame.src = furl
-      return new Promise(resolve => {
-        frame.onload = resolve
-      })
-    },
-    frameId,
-    url
-  )
+exports.navigateFrame = async function navigateFrame (page, frameId, url) {
+  await page.evaluate(doNavigateFrame, frameId, url)
+  function doNavigateFrame (frameId, url) {
+    const frame = document.getElementById(frameId)
+    frame.src = url
+    return new Promise(resolve => (frame.onload = resolve))
+  }
 }
 
 /**
@@ -75,7 +67,7 @@ export async function navigateFrame (page, frameId, url) {
  * @param {string} [indentation = '']
  * @return {Array<string>}
  */
-export function dumpFrames (frame, indentation = '') {
+function dumpFrames (frame, indentation = '') {
   let description = frame.url().replace(/:\d{4}\//, ':<PORT>/')
   if (frame.name()) description += ' (' + frame.name() + ')'
   const result = [indentation + description]
@@ -86,13 +78,19 @@ export function dumpFrames (frame, indentation = '') {
   return result
 }
 
+exports.dumpFrames = dumpFrames
+
 /**
  * @param {EventEmitter} emitter
  * @param {string} eventName
  * @param {function (event: Object): boolean} predicate
  * @return {Promise<Object>}
  */
-export function waitEvent (emitter, eventName, predicate = () => true) {
+exports.waitEvent = function waitEvent (
+  emitter,
+  eventName,
+  predicate = () => true
+) {
   return new Promise(resolve => {
     emitter.on(eventName, function listener (event) {
       if (!predicate(event)) return
@@ -101,3 +99,5 @@ export function waitEvent (emitter, eventName, predicate = () => true) {
     })
   })
 }
+
+exports.delay = howMuch => new Promise(resolve => setTimeout(resolve, howMuch))

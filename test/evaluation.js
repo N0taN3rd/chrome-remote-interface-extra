@@ -368,11 +368,10 @@ test.serial(
 
 test.serial('Page.evaluateOnNewDocument should work with CSP', async t => {
   const { page, server } = t.context
-  server.setCSP('/empty.html', 'script-src ' + server.PREFIX)
   await page.evaluateOnNewDocument(function () {
     window.injected = 123
   })
-  await page.goto(server.PREFIX + '/empty.html')
+  await page.goto(server.EMPTY_CSP)
   t.is(await page.evaluate(() => window.injected), 123) // Make sure CSP works.
 
   await page

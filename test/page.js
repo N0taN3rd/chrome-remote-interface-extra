@@ -82,7 +82,7 @@ test.serial('Page.close should run beforeunload if asked for', async t => {
   const dialog = await waitEvent(newPage, 'dialog')
   t.is(dialog.type(), 'beforeunload')
   t.is(dialog.defaultValue(), '')
-  if (CHROME) t.is(dialog.message(), '')
+  if (true) t.is(dialog.message(), '')
   else
     t.is(
       dialog.message(),
@@ -911,9 +911,7 @@ test.serial('Page.setContent should work with HTML 4 doctype', async t => {
 
 test.serial('Page.setContent should respect timeout', async t => {
   const { page, server } = t.context
-  const imgPath = '/img.png' // stall for image
-
-  server.setRoute(imgPath, (req, res) => {})
+  const imgPath = '/neverImage.png' // stall for image
   let error = null
   await page
     .setContent(`<img src="${server.PREFIX + imgPath}"></img>`, {
@@ -928,9 +926,7 @@ test.serial(
   async t => {
     const { page, server } = t.context
     page.setDefaultNavigationTimeout(1)
-    const imgPath = '/img.png' // stall for image
-
-    server.setRoute(imgPath, (req, res) => {})
+    const imgPath = '/neverImage.png' // stall for image
     let error = null
     await page
       .setContent(`<img src="${server.PREFIX + imgPath}"></img>`)
@@ -941,16 +937,13 @@ test.serial(
 
 test.serial('Page.setContent should await resources to load', async t => {
   const { page, server } = t.context
-  const imgPath = '/img.png'
-  let imgResponse = null
-  server.setRoute(imgPath, (req, res) => (imgResponse = res))
+  const imgPath = '/longTimeImage.png'
   let loaded = false
   const contentPromise = page
     .setContent(`<img src="${server.PREFIX + imgPath}"></img>`)
     .then(() => (loaded = true))
   await server.waitForRequest(imgPath)
   t.false(loaded)
-  imgResponse.end()
   await contentPromise
 })
 
@@ -984,8 +977,7 @@ test.serial('Page.setBypassCSP should bypass CSP meta tag', async t => {
 test.serial('Page.setBypassCSP should bypass CSP header', async t => {
   const { page, server } = t.context
   // Make sure CSP prohibits addScriptTag.
-  server.setCSP('/empty.html', 'default-src "self"')
-  await page.goto(server.EMPTY_PAGE)
+  await page.goto(server.EMPTY_CSP_SELF)
   await page
     .addScriptTag({
       content: 'window.__injected = 42;'

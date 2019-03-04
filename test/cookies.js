@@ -271,17 +271,20 @@ test.serial('Cookies should set cookies from a frame', async t => {
       session: true
     }
   ])
-  t.deepEqual((await page.cookies(server.CROSS_PROCESS_PREFIX)).map(c => c._cookie), [
-    {
-      name: '127-cookie',
-      value: 'worst',
-      domain: '127.0.0.1',
-      path: '/',
-      expires: -1,
-      size: 15,
-      httpOnly: false,
-      secure: false,
-      session: true
-    }
-  ])
+  t.deepEqual(
+    (await page.cookies(server.CROSS_PROCESS_PREFIX)).map(c => c._cookie),
+    [
+      {
+        name: '127-cookie',
+        value: 'worst',
+        domain: '127.0.0.1',
+        path: '/',
+        expires: -1,
+        size: 15,
+        httpOnly: false,
+        secure: false,
+        session: true
+      }
+    ]
+  )
 })

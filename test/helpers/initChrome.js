@@ -1,14 +1,12 @@
-import * as path from 'path'
-import * as cp from 'child_process'
-import * as os from 'os'
-import * as fs from 'fs-extra'
-// const cp = require('child_process')
-// const path = require('path')
-// const os = require('os')
-// const fs = require('fs-extra')
-// const CRIExtra = require('../../lib/chromeRemoteInterfaceExtra')
+const cp = require('child_process')
+const path = require('path')
+const os = require('os')
+const fs = require('fs-extra')
+const readline = require('readline')
+const { helper } = require('../../lib/helper')
 
 const CHROME_PROFILE_PATH = path.join(os.tmpdir(), 'criextra_profile-')
+const winPos = !process.env.NO_MOVE_WINDOW ? '--window-position=2000,0' : ''
 
 const chromeArgs = userDataDir => [
   '--enable-automation',
@@ -40,6 +38,7 @@ const chromeArgs = userDataDir => [
   '--mute-audio',
   '--autoplay-policy=no-user-gesture-required',
   `--user-data-dir=${userDataDir}`,
+  winPos,
   'about:blank'
 ]
 
@@ -194,7 +193,7 @@ async function findChrome () {
  *
  * @return {Promise<{chromeProcess: ChildProcess, killChrome: function(): void}>}
  */
-export async function initChrome () {
+exports.initChrome = async function initChrome () {
   const executable = await findChrome()
   const userDataDir = await fs.mkdtemp(CHROME_PROFILE_PATH)
   const chromeArguments = chromeArgs(userDataDir)
@@ -237,8 +236,6 @@ export async function initChrome () {
 
 // module.exports = initChrome
 function waitForWSEndpoint (chromeProcess, timeout) {
-  const readline = require('readline')
-  const { helper } = require('../../lib/helper')
   return new Promise((resolve, reject) => {
     const rl = readline.createInterface({ input: chromeProcess.stderr })
     let stderr = ''

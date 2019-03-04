@@ -179,23 +179,19 @@ test.serial(
   'Target should not crash while redirecting if original request was missed',
   async t => {
     const { page, server, context } = t.context
-    let serverResponse = null
-    server.setRoute('/one-style.css', (req, res) => (serverResponse = res)) // Open a new page. Use window.open to connect to the page later.
 
     await Promise.all([
-      page.evaluate(url => window.open(url), server.PREFIX + '/one-style.html'),
-      server.waitForRequest('/one-style.css')
+      page.evaluate(
+        url => window.open(url),
+        server.PREFIX + '/one-style-redir.html'
+      ),
+      server.waitForRequest('/one-style-redir.css')
     ]) // Connect to the opened page.
 
     const target = await context.waitForTarget(target =>
-      target.url().includes('one-style.html')
+      target.url().includes('one-style-redir.html')
     )
     const newPage = await target.page() // Issue a redirect.
-
-    serverResponse.writeHead(302, {
-      location: '/injectedstyle.css'
-    })
-    serverResponse.end() // Wait for the new page to load.
 
     await waitEvent(newPage, 'load') // Cleanup.
 

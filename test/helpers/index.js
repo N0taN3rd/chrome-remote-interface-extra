@@ -10,4 +10,4 @@ export {
   projectRoot,
   requireRoot
 } from './utils'
-export { default as TestHelper } from './testHelper'
+export { TestHelper } from './testHelper'

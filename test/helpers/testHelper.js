@@ -1,9 +1,10 @@
-import * as path from 'path'
-import * as fs from 'fs-extra'
-import { initChrome } from './initChrome'
-import { initHTTPServer, initHTTPSServer, initServers } from './initServer'
-import compare from './goldenHelper'
-import { CRIExtra, Browser } from '../../index'
+const path = require('path')
+const fs = require('fs-extra')
+const { initChrome } = require('./initChrome')
+const { initHTTPServer, initHTTPSServer, initServers } = require('./initServer')
+const compare = require('./goldenHelper')
+const { CRIExtra, Browser } = require('../../index')
+const { delay } = require('./utils')
 
 /**
  * @typedef {Object} TestHelperInit
@@ -38,7 +39,13 @@ async function cleanUpCookies (page) {
   }
 }
 
-export default class TestHelper {
+/**
+ * @type {TestHelper}
+ */
+exports.TestHelper = class TestHelper {
+  static onlyServer () {
+    return initHTTPServer()
+  }
   /**
    * @param {*} t
    * @return {Promise<TestHelper>}
@@ -204,14 +211,15 @@ export default class TestHelper {
     this.resetServers()
     let i
     for (i = 0; i < this._pages.length; i++) {
-      await this._pages[i].close()
+      try {
+        await this._pages[i].close()
+      } catch (e) {}
     }
-    this._pages = []
-
+    this._pages.length = 0
     for (i = 0; i < this._contexts.length; i++) {
       await this._contexts[i].close()
     }
-    this._contexts = []
+    this._contexts.length = 0
   }
 
   async deepClean () {
@@ -221,12 +229,12 @@ export default class TestHelper {
       await cleanUpCookies(this._pages[i])
       await this._pages[i].close()
     }
-    this._pages = []
+    this._pages.length = 0
 
     for (i = 0; i < this._contexts.length; i++) {
       await this._contexts[i].close()
     }
-    this._contexts = []
+    this._contexts.length = 0
   }
 
   async end () {

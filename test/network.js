@@ -1,22 +1,20 @@
+/* global fetch */
 import test from 'ava'
 import * as fs from 'fs'
 import * as path from 'path'
+import fileUrl from 'file-url'
 import * as utils from './helpers/utils'
-import TestHelper from './helpers/testHelper'
-import { TimeoutError } from '../lib/Errors'
+import { TestHelper } from './helpers/testHelper'
 
 function pathToFileURL (path) {
-  let pathName = path.replace(/\\/g, '/') // Windows drive letter must be prefixed with a slash.
-
-  if (!pathName.startsWith('/')) pathName = '/' + pathName
-  return 'file://' + pathName
+  return fileUrl(path)
 }
 
 /** @type {TestHelper} */
 let helper
 
 test.before(async t => {
-  helper = await TestHelper.withHTTP(t)
+  helper = await TestHelper.withHTTPAndHTTPS(t)
 })
 
 test.serial.beforeEach(async t => {
@@ -75,450 +73,6 @@ test.serial('Page.Events.Request should fire for fetches', async t => {
   t.is(requests.length, 2)
 })
 
-test.serial(
-  'Request.frame should work for main frame navigation request',
-  async t => {
-    const { page, server } = t.context
-    const requests = []
-    page.on(
-      'request',
-      request => !utils.isFavicon(request) && requests.push(request)
-    )
-    await page.goto(server.EMPTY_PAGE)
-    t.is(requests.length, 1)
-    t.is(requests[0].frame(), page.mainFrame())
-  }
-)
-
-test.serial(
-  'Request.frame should work for subframe navigation request',
-  async t => {
-    const { page, server } = t.context
-    await page.goto(server.EMPTY_PAGE)
-    const requests = []
-    page.on(
-      'request',
-      request => !utils.isFavicon(request) && requests.push(request)
-    )
-    await utils.attachFrame(page, 'frame1', server.EMPTY_PAGE)
-    t.is(requests.length, 1)
-    t.is(requests[0].frame(), page.frames()[1])
-  }
-)
-
-test.serial('Request.frame should work for fetch requests', async t => {
-  const { page, server } = t.context
-  await page.goto(server.EMPTY_PAGE)
-  let requests = []
-  page.on(
-    'request',
-    request => !utils.isFavicon(request) && requests.push(request)
-  )
-  await page.evaluate(() => fetch('/digits/1.png'))
-  requests = requests.filter(request => !request.url().includes('favicon'))
-  t.is(requests.length, 1)
-  t.is(requests[0].frame(), page.mainFrame())
-})
-
-test.serial('Request.headers should work', async t => {
-  const { page, server } = t.context
-  const response = await page.goto(server.EMPTY_PAGE)
-  if (CHROME)
-    t.true(
-      response
-        .request()
-        .headers()
-        ['user-agent'].includes('Chrome')
-    )
-  else
-    t.true(
-      response
-        .request()
-        .headers()
-        ['user-agent'].includes('Firefox')
-    )
-})
-
-test.serial('Response.headers should work', async t => {
-  const { page, server } = t.context
-  server.setRoute('/empty.html', (req, res) => {
-    res.setHeader('foo', 'bar')
-    res.end()
-  })
-  const response = await page.goto(server.EMPTY_PAGE)
-  t.is(response.headers()['foo'], 'bar')
-})
-
-test.serial(
-  'Response.fromCache should return |false| for non-cached content',
-  async t => {
-    const { page, server } = t.context
-    const response = await page.goto(server.EMPTY_PAGE)
-    t.false(response.fromCache())
-  }
-)
-
-test.serial('Response.fromCache should work', async t => {
-  const { page, server } = t.context
-  const responses = new Map()
-  page.on(
-    'response',
-    r =>
-      !utils.isFavicon(r.request()) &&
-      responses.set(
-        r
-          .url()
-          .split('/')
-          .pop(),
-        r
-      )
-  ) // Load and re-load to make sure it's cached.
-
-  await page.goto(server.PREFIX + '/cached/one-style.html')
-  await page.waitFor(1000)
-  await page.reload()
-  t.is(responses.size, 2)
-  t.is(responses.get('one-style.css').status(), 200)
-  t.true(responses.get('one-style.css').fromCache())
-  t.is(responses.get('one-style.html').status(), 304)
-  t.false(responses.get('one-style.html').fromCache())
-})
-
-test.serial(
-  'Response.fromServiceWorker should return |false| for non-service-worker content',
-  async t => {
-    const { page, server } = t.context
-    const response = await page.goto(server.EMPTY_PAGE)
-    t.false(response.fromServiceWorker())
-  }
-)
-
-test.serial(
-  'Response.fromServiceWorker Response.fromServiceWorker',
-  async t => {
-    const { page, server } = t.context
-    const responses = new Map()
-    page.on('response', r =>
-      responses.set(
-        r
-          .url()
-          .split('/')
-          .pop(),
-        r
-      )
-    ) // Load and re-load to make sure serviceworker is installed and running.
-
-    await page.goto(server.PREFIX + '/serviceworkers/fetch/sw.html', {
-      waitUntil: 'networkidle2'
-    })
-    await page.evaluate(async () => await window.activationPromise)
-    await page.reload()
-    t.is(responses.size, 2)
-    t.is(responses.get('sw.html').status(), 200)
-    t.true(responses.get('sw.html').fromServiceWorker())
-    t.is(responses.get('style.css').status(), 200)
-    t.true(responses.get('style.css').fromServiceWorker())
-  }
-)
-
-test.serial('Request.postData should work', async t => {
-  const { page, server } = t.context
-  await page.goto(server.EMPTY_PAGE)
-  server.setRoute('/post', (req, res) => res.end())
-  let request = null
-  page.on('request', r => (request = r))
-  await page.evaluate(() =>
-    fetch('./post', {
-      method: 'POST',
-      body: JSON.stringify({
-        foo: 'bar'
-      })
-    })
-  )
-  t.truthy(request)
-  t.is(request.postData(), '{"foo":"bar"}')
-})
-
-test.serial(
-  'Request.postData should be |undefined| when there is no post data',
-  async t => {
-    const { page, server } = t.context
-    const response = await page.goto(server.EMPTY_PAGE)
-    t.is(response.request().postData(), undefined)
-  }
-)
-
-test.serial('Response.text should work', async t => {
-  const { page, server } = t.context
-  const response = await page.goto(server.PREFIX + '/simple.json')
-  t.is(await response.text(), '{"foo": "bar"}\n')
-})
-
-test.serial('Response.text should return uncompressed text', async t => {
-  const { page, server } = t.context
-  server.enableGzip('/simple.json')
-  const response = await page.goto(server.PREFIX + '/simple.json')
-  t.is(response.headers()['content-encoding'], 'gzip')
-  t.is(await response.text(), '{"foo": "bar"}\n')
-})
-
-test.serial(
-  'Response.text should throw when requesting body of redirected response',
-  async t => {
-    const { page, server } = t.context
-    server.setRedirect('/foo.html', '/empty.html')
-    const response = await page.goto(server.PREFIX + '/foo.html')
-    const redirectChain = response.request().redirectChain()
-    t.is(redirectChain.length, 1)
-    const redirected = redirectChain[0].response()
-    t.is(redirected.status(), 302)
-    let error = null
-    await redirected.text().catch(e => (error = e))
-    t.true(
-      error.message.includes(
-        'Response body is unavailable for redirect responses'
-      )
-    )
-  }
-)
-
-test.serial('Response.text should wait until response completes', async t => {
-  const { page, server } = t.context
-  await page.goto(server.EMPTY_PAGE) // Setup server to trap request.
-
-  let serverResponse = null
-  server.setRoute('/get', (req, res) => {
-    serverResponse = res // In Firefox, |fetch| will be hanging until it receives |Content-Type| header
-    // from server.
-
-    res.setHeader('Content-Type', 'text/plain; charset=utf-8')
-    res.write('hello ')
-  }) // Setup page to trap response.
-
-  let requestFinished = false
-  page.on(
-    'requestfinished',
-    r => (requestFinished = requestFinished || r.url().includes('/get'))
-  ) // send request and wait for server response
-
-  const [pageResponse] = await Promise.all([
-    page.waitForResponse(r => !utils.isFavicon(r.request())),
-    page.evaluate(() =>
-      fetch('./get', {
-        method: 'GET'
-      })
-    ),
-    server.waitForRequest('/get')
-  ])
-  t.truthy(serverResponse)
-  t.truthy(pageResponse)
-  t.is(pageResponse.status(), 200)
-  t.false(requestFinished)
-  const responseText = pageResponse.text() // Write part of the response and wait for it to be flushed.
-
-  await new Promise(x => serverResponse.write('wor', x)) // Finish response.
-
-  await new Promise(x => serverResponse.end('ld!', x))
-  t.is(await responseText, 'hello world!')
-})
-
-test.serial('Response.json should work', async t => {
-  const { page, server } = t.context
-  const response = await page.goto(server.PREFIX + '/simple.json')
-  t.deepEqual(await response.json(), {
-    foo: 'bar'
-  })
-})
-
-test.serial('Response.buffer should work', async t => {
-  const { page, server } = t.context
-  const response = await page.goto(server.PREFIX + '/pptr.png')
-  const imageBuffer = fs.readFileSync(
-    path.join(__dirname, 'assets', 'pptr.png')
-  )
-  const responseBuffer = await response.buffer()
-  t.true(responseBuffer.equals(imageBuffer))
-})
-
-test.serial('Response.buffer should work with compression', async t => {
-  const { page, server } = t.context
-  server.enableGzip('/pptr.png')
-  const response = await page.goto(server.PREFIX + '/pptr.png')
-  const imageBuffer = fs.readFileSync(
-    path.join(__dirname, 'assets', 'pptr.png')
-  )
-  const responseBuffer = await response.buffer()
-  t.true(responseBuffer.equals(imageBuffer))
-})
-
-test.serial('Network Events Page.Events.Request', async t => {
-  const { page, server } = t.context
-  const requests = []
-  page.on('request', request => requests.push(request))
-  await page.goto(server.EMPTY_PAGE)
-  t.is(requests.length, 1)
-  t.is(requests[0].url(), server.EMPTY_PAGE)
-  t.is(requests[0].resourceType(), 'document')
-  t.is(requests[0].method(), 'GET')
-  t.truthy(requests[0].response())
-  t.true(requests[0].frame() === page.mainFrame())
-  t.is(requests[0].frame().url(), server.EMPTY_PAGE)
-})
-
-test.serial('Network Events Page.Events.Response', async t => {
-  const { page, server } = t.context
-  const responses = []
-  page.on('response', response => responses.push(response))
-  await page.goto(server.EMPTY_PAGE)
-  t.is(responses.length, 1)
-  t.is(responses[0].url(), server.EMPTY_PAGE)
-  t.is(responses[0].status(), 200)
-  t.true(responses[0].ok())
-  t.truthy(responses[0].request())
-  const remoteAddress = responses[0].remoteAddress() // Either IPv6 or IPv4, depending on environment.
-
-  t.true(remoteAddress.ip.includes('::1') || remoteAddress.ip === '127.0.0.1')
-  t.is(remoteAddress.port, server.PORT)
-})
-
-test.serial('Network Events Response.statusText', async t => {
-  const { page, server } = t.context
-  server.setRoute('/cool', (req, res) => {
-    res.writeHead(200, 'cool!')
-    res.end()
-  })
-  const response = await page.goto(server.PREFIX + '/cool')
-  t.is(response.statusText(), 'cool!')
-})
-
-test.serial('Network Events Page.Events.RequestFailed', async t => {
-  const { page, server } = t.context
-  await page.setRequestInterception(true)
-  page.on('request', request => {
-    if (request.url().endsWith('css')) request.abort()
-    else request.continue()
-  })
-  const failedRequests = []
-  page.on('requestfailed', request => failedRequests.push(request))
-  await page.goto(server.PREFIX + '/one-style.html')
-  t.is(failedRequests.length, 1)
-  t.true(failedRequests[0].url().includes('one-style.css'))
-  t.is(failedRequests[0].response(), null)
-  t.is(failedRequests[0].resourceType(), 'stylesheet')
-  if (CHROME) t.is(failedRequests[0].failure().errorText, 'net::ERR_FAILED')
-  else t.is(failedRequests[0].failure().errorText, 'NS_ERROR_FAILURE')
-  t.truthy(failedRequests[0].frame())
-})
-
-test.serial('Network Events Page.Events.RequestFinished', async t => {
-  const { page, server } = t.context
-  const requests = []
-  page.on('requestfinished', request => requests.push(request))
-  await page.goto(server.EMPTY_PAGE)
-  t.is(requests.length, 1)
-  t.is(requests[0].url(), server.EMPTY_PAGE)
-  t.truthy(requests[0].response())
-  t.true(requests[0].frame() === page.mainFrame())
-  t.is(requests[0].frame().url(), server.EMPTY_PAGE)
-})
-
-test.serial('Network Events should fire events in proper order', async t => {
-  const { page, server } = t.context
-  const events = []
-  page.on('request', request => events.push('request'))
-  page.on('response', response => events.push('response'))
-  page.on('requestfinished', request => events.push('requestfinished'))
-  await page.goto(server.EMPTY_PAGE)
-  t.deepEqual(events, ['request', 'response', 'requestfinished'])
-})
-
-test.serial('Network Events should support redirects', async t => {
-  const { page, server } = t.context
-  const events = []
-  page.on('request', request =>
-    events.push(`${request.method()} ${request.url()}`)
-  )
-  page.on('response', response =>
-    events.push(`${response.status()} ${response.url()}`)
-  )
-  page.on('requestfinished', request => events.push(`DONE ${request.url()}`))
-  page.on('requestfailed', request => events.push(`FAIL ${request.url()}`))
-  server.setRedirect('/foo.html', '/empty.html')
-  const FOO_URL = server.PREFIX + '/foo.html'
-  const response = await page.goto(FOO_URL)
-  t.deepEqual(events, [
-    `GET ${FOO_URL}`,
-    `302 ${FOO_URL}`,
-    `DONE ${FOO_URL}`,
-    `GET ${server.EMPTY_PAGE}`,
-    `200 ${server.EMPTY_PAGE}`,
-    `DONE ${server.EMPTY_PAGE}`
-  ]) // Check redirect chain
-
-  const redirectChain = response.request().redirectChain()
-  t.is(redirectChain.length, 1)
-  t.true(redirectChain[0].url().includes('/foo.html'))
-  t.is(redirectChain[0].response().remoteAddress().port, server.PORT)
-})
-
-test.serial('Request.isNavigationRequest should work', async t => {
-  const { page, server } = t.context
-  const requests = new Map()
-  page.on('request', request =>
-    requests.set(
-      request
-        .url()
-        .split('/')
-        .pop(),
-      request
-    )
-  )
-  server.setRedirect('/rrredirect', '/frames/one-frame.html')
-  await page.goto(server.PREFIX + '/rrredirect')
-  t.true(requests.get('rrredirect').isNavigationRequest())
-  t.true(requests.get('one-frame.html').isNavigationRequest())
-  t.true(requests.get('frame.html').isNavigationRequest())
-  t.false(requests.get('script.js').isNavigationRequest())
-  t.false(requests.get('style.css').isNavigationRequest())
-})
-
-test.serial(
-  'Request.isNavigationRequest should work with request interception',
-  async t => {
-    const { page, server } = t.context
-    const requests = new Map()
-    page.on('request', request => {
-      requests.set(
-        request
-          .url()
-          .split('/')
-          .pop(),
-        request
-      )
-      request.continue()
-    })
-    await page.setRequestInterception(true)
-    server.setRedirect('/rrredirect', '/frames/one-frame.html')
-    await page.goto(server.PREFIX + '/rrredirect')
-    t.true(requests.get('rrredirect').isNavigationRequest())
-    t.true(requests.get('one-frame.html').isNavigationRequest())
-    t.true(requests.get('frame.html').isNavigationRequest())
-    t.false(requests.get('script.js').isNavigationRequest())
-    t.false(requests.get('style.css').isNavigationRequest())
-  }
-)
-
-test.serial(
-  'Request.isNavigationRequest should work when navigating to image',
-  async t => {
-    const { page, server } = t.context
-    const requests = []
-    page.on('request', request => requests.push(request))
-    await page.goto(server.PREFIX + '/pptr.png')
-    t.true(requests[0].isNavigationRequest())
-  }
-)
-
 test.serial('Page.setRequestInterception should intercept', async t => {
   const { page, server } = t.context
   await page.setRequestInterception(true)
@@ -529,7 +83,7 @@ test.serial('Page.setRequestInterception should intercept', async t => {
     }
 
     t.true(request.url().includes('empty.html'))
-    t.truthy(request.headers()['user-agent'])
+    t.truthy(request.normalizedHeaders()['user-agent'])
     t.is(request.method(), 'GET')
     t.is(request.postData(), undefined)
     t.true(request.isNavigationRequest())
@@ -547,7 +101,6 @@ test.serial(
   'Page.setRequestInterception should work when POST is redirected with 302',
   async t => {
     const { page, server } = t.context
-    server.setRedirect('/rredirect', '/empty.html')
     await page.goto(server.EMPTY_PAGE)
     await page.setRequestInterception(true)
     page.on('request', request => request.continue())
@@ -576,7 +129,7 @@ test.serial(
     })
     await page.goto(server.PREFIX + '/one-style.html')
     t.true(requests[1].url().includes('/one-style.css'))
-    t.true(requests[1].headers().referer.includes('/one-style.html'))
+    t.true(requests[1].normalizedHeaders().referer.includes('/one-style.html'))
   }
 )
 
@@ -717,8 +270,7 @@ test.serial(
     let error = null
     await page.goto(server.EMPTY_PAGE).catch(e => (error = e))
     t.truthy(error)
-    if (CHROME) t.true(error.message.includes('net::ERR_FAILED'))
-    else t.true(error.message.includes('NS_ERROR_FAILURE'))
+    t.true(error.message.includes('net::ERR_FAILED'))
   }
 )
 
@@ -732,10 +284,6 @@ test.serial(
       request.continue()
       requests.push(request)
     })
-    server.setRedirect('/non-existing-page.html', '/non-existing-page-2.html')
-    server.setRedirect('/non-existing-page-2.html', '/non-existing-page-3.html')
-    server.setRedirect('/non-existing-page-3.html', '/non-existing-page-4.html')
-    server.setRedirect('/non-existing-page-4.html', '/empty.html')
     const response = await page.goto(server.PREFIX + '/non-existing-page.html')
     t.is(response.status(), 200)
     t.true(response.url().includes('empty.html'))
@@ -765,23 +313,17 @@ test.serial(
       request.continue()
       if (!utils.isFavicon(request)) requests.push(request)
     })
-    server.setRedirect('/one-style.css', '/two-style.css')
-    server.setRedirect('/two-style.css', '/three-style.css')
-    server.setRedirect('/three-style.css', '/four-style.css')
-    server.setRoute('/four-style.css', (req, res) =>
-      res.end('body {box-sizing: border-box; }')
-    )
-    const response = await page.goto(server.PREFIX + '/one-style.html')
+    const response = await page.goto(server.PREFIX + '/redir-css.html')
     t.is(response.status(), 200)
-    t.true(response.url().includes('one-style.html'))
+    t.true(response.url().includes('redir-css.html'))
     t.is(requests.length, 5)
     t.is(requests[0].resourceType(), 'document')
     t.is(requests[1].resourceType(), 'stylesheet') // Check redirect chain
 
     const redirectChain = requests[1].redirectChain()
     t.is(redirectChain.length, 3)
-    t.true(redirectChain[0].url().includes('/one-style.css'))
-    t.true(redirectChain[2].url().includes('/three-style.css'))
+    t.true(redirectChain[0].url().includes('/style-redir-1.css'))
+    t.true(redirectChain[2].url().includes('/style-redir-3.css'))
   }
 )
 
@@ -790,8 +332,6 @@ test.serial(
   async t => {
     const { page, server } = t.context
     await page.setRequestInterception(true)
-    server.setRedirect('/non-existing.json', '/non-existing-2.json')
-    server.setRedirect('/non-existing-2.json', '/simple.html')
     page.on('request', request => {
       if (request.url().includes('non-existing-2')) request.abort()
       else request.continue()
@@ -804,8 +344,7 @@ test.serial(
         return e.message
       }
     })
-    if (CHROME) t.true(result.includes('Failed to fetch'))
-    else t.true(result.includes('NetworkError'))
+    t.true(result.includes('Failed to fetch'))
   }
 )
 
@@ -814,8 +353,6 @@ test.serial(
   async t => {
     const { page, server } = t.context
     await page.goto(server.EMPTY_PAGE)
-    let responseCount = 1
-    server.setRoute('/zzz', (req, res) => res.end(responseCount++ * 11 + ''))
     await page.setRequestInterception(true)
     let spinner = false // Cancel 2nd request.
 
@@ -841,7 +378,7 @@ test.serial(
           .catch(e => 'FAILED')
       ])
     )
-    t.deepEqual(results, ['11', 'FAILED', '22'])
+    t.deepEqual(results, ['zzz', 'FAILED', 'zzz'])
   }
 )
 
@@ -864,7 +401,7 @@ test.serial(
 )
 
 test.serial(
-  'Page.setRequestInterception should navigate to URL with hash and and fire requests without hash',
+  'Page.setRequestInterception should navigate to URL with hash and and fire requests with hash',
   async t => {
     const { page, server } = t.context
     await page.setRequestInterception(true)
@@ -877,7 +414,7 @@ test.serial(
     t.is(response.status(), 200)
     t.is(response.url(), server.EMPTY_PAGE)
     t.is(requests.length, 1)
-    t.is(requests[0].url(), server.EMPTY_PAGE)
+    t.is(requests[0].url(), server.EMPTY_PAGE + '#hash')
   }
 )
 
@@ -899,7 +436,6 @@ test.serial(
   async t => {
     const { page, server } = t.context
     await page.setRequestInterception(true)
-    server.setRoute('/malformed?rnd=%911', (req, res) => res.end())
     page.on('request', request => request.continue())
     const response = await page.goto(server.PREFIX + '/malformed?rnd=%911')
     t.is(response.status(), 200)
@@ -936,9 +472,9 @@ test.serial(
     await page.setContent('<iframe></iframe>')
     await page.setRequestInterception(true)
     let request = null
-    page.on('request', async r => (request = r))
-    page.$eval('iframe', (frame, url) => (frame.src = url), server.EMPTY_PAGE), // Wait for request interception.
-      await utils.waitEvent(page, 'request') // Delete frame to cause request to be canceled.
+    page.on('request', r => (request = r))
+    page.$eval('iframe', (frame, url) => (frame.src = url), server.EMPTY_PAGE) // Wait for request interception.
+    await utils.waitEvent(page, 'request') // Delete frame to cause request to be canceled.
 
     await page.$eval('iframe', frame => frame.remove())
     let error = null
@@ -988,6 +524,504 @@ test.serial(
   }
 )
 
+test.serial('Page.setExtraHTTPHeaders should work', async t => {
+  const { page, server } = t.context
+  await page.setExtraHTTPHeaders({
+    foo: 'bar'
+  })
+  const [request] = await Promise.all([
+    page.waitForRequest(server.EMPTY_PAGE),
+    page.goto(server.EMPTY_PAGE)
+  ])
+  t.is(request.headers()['foo'], 'bar')
+})
+
+test.serial(
+  'Page.setExtraHTTPHeaders should throw for non-string header values',
+  async t => {
+    const { page, server } = t.context
+    let error = null
+
+    try {
+      await page.setExtraHTTPHeaders({
+        foo: 1
+      })
+    } catch (e) {
+      error = e
+    }
+
+    t.is(
+      error.message,
+      'Expected value of header "foo" to be String, but "number" is found.'
+    )
+  }
+)
+
+test.serial('Page.authenticate should work', async t => {
+  t.timeout(10000)
+  const { page, server } = t.context
+  await page.authenticate({
+    username: 'user',
+    password: 'pass'
+  })
+  let response = await page.goto(server.AUTH_EMPTY_PAGE)
+  t.is(response.status(), 200)
+})
+
+test.serial('Page.authenticate should fail if wrong credentials', async t => {
+  const { page, server } = t.context
+  // Use unique user/password since Chrome caches credentials per origin.
+  await page.authenticate({
+    username: 'foo',
+    password: 'bar'
+  })
+  const response = await page.goto(server.AUTH_EMPTY_PAGE_2)
+  t.is(response.status(), 401)
+})
+
+test.serial.skip(
+  'Page.authenticate should allow disable authentication',
+  async t => {
+    const { page, server } = t.context
+    // Use unique user/password since Chrome caches credentials per origin.
+    await page.authenticate({
+      username: 'user3',
+      password: 'pass3'
+    })
+    let response = await page.goto(server.AUTH_EMPTY_PAGE_3)
+    t.is(response.status(), 200)
+    await page.authenticate(null) // Navigate to a different origin to bust Chrome's credential caching.
+
+    response = await page.goto(server.CROSS_PROCESS_PREFIX + '/empty.html')
+    t.is(response.status(), 401)
+  }
+)
+
+test.serial(
+  'Request.frame should work for main frame navigation request',
+  async t => {
+    const { page, server } = t.context
+    const requests = []
+    page.on(
+      'request',
+      request => !utils.isFavicon(request) && requests.push(request)
+    )
+    await page.goto(server.EMPTY_PAGE)
+    t.is(requests.length, 1)
+    t.is(requests[0].frame(), page.mainFrame())
+  }
+)
+
+test.serial(
+  'Request.frame should work for subframe navigation request',
+  async t => {
+    const { page, server } = t.context
+    await page.goto(server.EMPTY_PAGE)
+    const requests = []
+    page.on(
+      'request',
+      request => !utils.isFavicon(request) && requests.push(request)
+    )
+    await utils.attachFrame(page, 'frame1', server.EMPTY_PAGE)
+    t.is(requests.length, 1)
+    t.is(requests[0].frame(), page.frames()[1])
+  }
+)
+
+test.serial('Request.frame should work for fetch requests', async t => {
+  const { page, server } = t.context
+  await page.goto(server.EMPTY_PAGE)
+  let requests = []
+  page.on(
+    'request',
+    request => !utils.isFavicon(request) && requests.push(request)
+  )
+  await page.evaluate(() => fetch('/digits/1.png'))
+  requests = requests.filter(request => !request.url().includes('favicon'))
+  t.is(requests.length, 1)
+  t.is(requests[0].frame(), page.mainFrame())
+})
+
+test.serial('Request.headers should work', async t => {
+  const { page, server } = t.context
+  const response = await page.goto(server.EMPTY_PAGE)
+  const headers = response.request().headers()
+  t.true((headers['user-agent'] || headers['User-Agent']).includes('Chrome'))
+})
+
+test.serial('Request.header should work', async t => {
+  const { page, server } = t.context
+  const response = await page.goto(server.EMPTY_PAGE)
+  const request = response.request()
+  t.true(request.header('user-agent').includes('Chrome'))
+  t.true(request.header('USER-AGENT').includes('Chrome'))
+})
+
+test.serial('Response.headers should work', async t => {
+  const { page, server } = t.context
+  const response = await page.goto(server.EMPTY_FOO_BAR_HEADERS_PAGE)
+  t.is(response.headers()['foo'], 'bar')
+})
+
+test.serial('Response.header should work', async t => {
+  const { page, server } = t.context
+  const response = await page.goto(server.EMPTY_FOO_BAR_HEADERS_PAGE)
+  t.is(response.header('foo'), 'bar')
+  t.is(response.header('FOO'), 'bar')
+})
+
+test.serial(
+  'Response.fromCache should return |false| for non-cached content',
+  async t => {
+    const { page, server } = t.context
+    const response = await page.goto(server.EMPTY_PAGE)
+    t.false(response.fromCache())
+  }
+)
+
+test.serial('Response.fromCache should work', async t => {
+  const { page, server } = t.context
+  const responses = new Map()
+  page.on(
+    'response',
+    r =>
+      !utils.isFavicon(r.request()) &&
+      responses.set(
+        r
+          .url()
+          .split('/')
+          .pop(),
+        r
+      )
+  ) // Load and re-load to make sure it's cached.
+
+  await page.goto(server.PREFIX + '/cached/one-style.html')
+  await page.waitFor(1000)
+  await page.reload()
+  t.is(responses.size, 2)
+  t.is(responses.get('one-style.css').status(), 200)
+  t.true(responses.get('one-style.css').fromCache())
+  t.is(responses.get('one-style.html').status(), 304)
+  t.false(responses.get('one-style.html').fromCache())
+})
+
+test.serial(
+  'Response.fromServiceWorker should return |false| for non-service-worker content',
+  async t => {
+    const { page, server } = t.context
+    const response = await page.goto(server.EMPTY_PAGE)
+    t.false(response.fromServiceWorker())
+  }
+)
+
+test.serial(
+  'Response.fromServiceWorker Response.fromServiceWorker',
+  async t => {
+    const { page, server } = t.context
+    await page.clearBrowserCache()
+    const responses = new Map()
+    page.on('response', r =>
+      responses.set(
+        r
+          .url()
+          .split('/')
+          .pop(),
+        r
+      )
+    ) // Load and re-load to make sure serviceworker is installed and running.
+
+    await page.goto(server.PREFIX + '/serviceworkers/fetch/sw.html', {
+      waitUntil: 'networkidle2'
+    })
+    await page.evaluate(() => window.activationPromise)
+    await page.reload()
+    t.is(responses.size, 2)
+    t.is(responses.get('sw.html').status(), 200)
+    t.true(responses.get('sw.html').fromServiceWorker())
+  }
+)
+
+test.serial('Request.postData should work', async t => {
+  const { page, server } = t.context
+  await page.goto(server.EMPTY_PAGE)
+  let request = null
+  page.on('request', r => (request = r))
+  await page.evaluate(() =>
+    fetch('./post', {
+      method: 'POST',
+      body: JSON.stringify({
+        foo: 'bar'
+      })
+    })
+  )
+  t.truthy(request)
+  t.is(request.postData(), '{"foo":"bar"}')
+})
+
+test.serial(
+  'Request.postData should be |undefined| when there is no post data',
+  async t => {
+    const { page, server } = t.context
+    const response = await page.goto(server.EMPTY_PAGE)
+    t.is(response.request().postData(), undefined)
+  }
+)
+
+test.serial('Response.text should work', async t => {
+  const { page, server } = t.context
+  const response = await page.goto(server.PREFIX + '/simple.json')
+  t.is(await response.text(), '{"foo": "bar"}\n')
+})
+
+test.serial('Response.text should return uncompressed text', async t => {
+  const { page, server } = t.context
+  await page.goto(server.EMPTY_PAGE)
+  const [response] = await Promise.all([
+    page.waitForResponse(server.PREFIX + '/simple.json.gz'),
+    page.evaluate(url => fetch(url), server.PREFIX + '/simple.json.gz')
+  ])
+  t.is(response.headers()['content-encoding'], 'gzip')
+  t.is(await response.text(), '{"foo": "bar"}\n')
+})
+
+test.serial(
+  'Response.text should throw when requesting body of redirected response',
+  async t => {
+    const { page, server } = t.context
+    const response = await page.goto(server.PREFIX + '/foo.html')
+    const redirectChain = response.request().redirectChain()
+    t.is(redirectChain.length, 1)
+    const redirected = redirectChain[0].response()
+    t.is(redirected.status(), 302)
+    let error = null
+    await redirected.text().catch(e => (error = e))
+    t.true(
+      error.message.includes(
+        'Response body is unavailable for redirect responses'
+      )
+    )
+  }
+)
+
+test.serial('Response.text should wait until response completes', async t => {
+  const { page, server } = t.context
+  await page.goto(server.EMPTY_PAGE) // Setup server to trap request.
+  server.slowStreamSpeed(300)
+
+  const [pageResponse] = await Promise.all([
+    page.waitForResponse(r => !utils.isFavicon(r.request())),
+    page.evaluate(() =>
+      fetch('./get-slow', {
+        method: 'GET'
+      })
+    ),
+    server.waitForRequest('/get-slow')
+  ])
+  t.truthy(pageResponse)
+  t.is(pageResponse.status(), 200)
+  t.is(await pageResponse.text(), 'hello world!')
+})
+
+test.serial('Response.json should work', async t => {
+  const { page, server } = t.context
+  await page.goto(server.EMPTY_PAGE)
+  const [response] = await Promise.all([
+    page.waitForResponse(server.PREFIX + '/simple.json'),
+    page.evaluate(url => fetch(url), server.PREFIX + '/simple.json')
+  ])
+  t.deepEqual(await response.json(), {
+    foo: 'bar'
+  })
+})
+
+test.serial('Response.buffer should work', async t => {
+  const { page, server } = t.context
+  await page.goto(server.EMPTY_PAGE)
+  const [response] = await Promise.all([
+    page.waitForResponse(server.PREFIX + '/pptr.png'),
+    page.evaluate(url => fetch(url), server.PREFIX + '/pptr.png')
+  ])
+  const imageBuffer = fs.readFileSync(
+    path.join(__dirname, 'assets', 'pptr.png')
+  )
+  const responseBuffer = await response.buffer()
+  t.true(responseBuffer.equals(imageBuffer))
+})
+
+test.serial('Response.buffer should work with compression', async t => {
+  const { page, server } = t.context
+  await page.goto(server.EMPTY_PAGE)
+  const [response] = await Promise.all([
+    page.waitForResponse(server.PREFIX + '/pptr.png.gz'),
+    page.evaluate(url => fetch(url), server.PREFIX + '/pptr.png.gz')
+  ])
+  const imageBuffer = fs.readFileSync(
+    path.join(__dirname, 'assets', 'pptr.png.gz')
+  )
+  const responseBuffer = await response.buffer()
+  t.true(responseBuffer.equals(imageBuffer))
+})
+
+test.serial('Network Events Page.Events.Request', async t => {
+  const { page, server } = t.context
+  const requests = []
+  page.on('request', request => requests.push(request))
+  await page.goto(server.EMPTY_PAGE)
+  t.is(requests.length, 1)
+  t.is(requests[0].url(), server.EMPTY_PAGE)
+  t.is(requests[0].resourceType(), 'document')
+  t.is(requests[0].method(), 'GET')
+  t.truthy(requests[0].response())
+  t.true(requests[0].frame() === page.mainFrame())
+  t.is(requests[0].frame().url(), server.EMPTY_PAGE)
+})
+
+test.serial('Network Events Page.Events.Response', async t => {
+  const { page, server } = t.context
+  const responses = []
+  page.on('response', response => responses.push(response))
+  await page.goto(server.EMPTY_PAGE)
+  t.is(responses.length, 1)
+  t.is(responses[0].url(), server.EMPTY_PAGE)
+  t.is(responses[0].status(), 200)
+  t.true(responses[0].ok())
+  t.truthy(responses[0].request())
+  const remoteAddress = responses[0].remoteAddress() // Either IPv6 or IPv4, depending on environment.
+
+  t.true(remoteAddress.ip.includes('::1') || remoteAddress.ip === '127.0.0.1')
+  t.is(remoteAddress.port, server.PORT)
+})
+
+test.serial('Network Events Response.statusText', async t => {
+  const { page, server } = t.context
+  const response = await page.goto(server.PREFIX + '/cool')
+  t.is(await response.text(), 'cool!')
+})
+
+test.serial('Network Events Page.Events.RequestFailed', async t => {
+  const { page, server } = t.context
+  await page.setRequestInterception(true)
+  page.on('request', request => {
+    if (request.url().endsWith('css')) request.abort()
+    else request.continue()
+  })
+  const failedRequests = []
+  page.on('requestfailed', request => failedRequests.push(request))
+  await page.goto(server.PREFIX + '/one-style.html')
+  t.is(failedRequests.length, 1)
+  t.true(failedRequests[0].url().includes('one-style.css'))
+  t.is(failedRequests[0].response(), null)
+  t.is(failedRequests[0].resourceType(), 'stylesheet')
+  t.is(failedRequests[0].failure().errorText, 'net::ERR_FAILED')
+  t.truthy(failedRequests[0].frame())
+})
+
+test.serial('Network Events Page.Events.RequestFinished', async t => {
+  const { page, server } = t.context
+  const requests = []
+  page.on('requestfinished', request => requests.push(request))
+  await page.goto(server.EMPTY_PAGE)
+  t.is(requests.length, 1)
+  t.is(requests[0].url(), server.EMPTY_PAGE)
+  t.truthy(requests[0].response())
+  t.true(requests[0].frame() === page.mainFrame())
+  t.is(requests[0].frame().url(), server.EMPTY_PAGE)
+})
+
+test.serial('Network Events should fire events in proper order', async t => {
+  const { page, server } = t.context
+  const events = []
+  page.on('request', request => events.push('request'))
+  page.on('response', response => events.push('response'))
+  page.on('requestfinished', request => events.push('requestfinished'))
+  await page.goto(server.EMPTY_PAGE)
+  t.deepEqual(events, ['request', 'response', 'requestfinished'])
+})
+
+test.serial('Network Events should support redirects', async t => {
+  const { page, server } = t.context
+  const events = []
+  page.on('request', request =>
+    events.push(`${request.method()} ${request.url()}`)
+  )
+  page.on('response', response =>
+    events.push(`${response.status()} ${response.url()}`)
+  )
+  page.on('requestfinished', request => events.push(`DONE ${request.url()}`))
+  page.on('requestfailed', request => events.push(`FAIL ${request.url()}`))
+  const FOO_URL = server.PREFIX + '/foo.html'
+  const response = await page.goto(FOO_URL)
+  t.deepEqual(events, [
+    `GET ${FOO_URL}`,
+    `302 ${FOO_URL}`,
+    `DONE ${FOO_URL}`,
+    `GET ${server.EMPTY_PAGE}`,
+    `200 ${server.EMPTY_PAGE}`,
+    `DONE ${server.EMPTY_PAGE}`
+  ]) // Check redirect chain
+
+  const redirectChain = response.request().redirectChain()
+  t.is(redirectChain.length, 1)
+  t.true(redirectChain[0].url().includes('/foo.html'))
+  t.is(redirectChain[0].response().remoteAddress().port, server.PORT)
+})
+
+test.serial('Request.isNavigationRequest should work', async t => {
+  const { page, server } = t.context
+  const requests = new Map()
+  page.on('request', request =>
+    requests.set(
+      request
+        .url()
+        .split('/')
+        .pop(),
+      request
+    )
+  )
+  await page.goto(server.PREFIX + '/rrredirect')
+  t.true(requests.get('rrredirect').isNavigationRequest())
+  t.true(requests.get('one-frame.html').isNavigationRequest())
+  t.true(requests.get('frame.html').isNavigationRequest())
+  t.false(requests.get('script.js').isNavigationRequest())
+  t.false(requests.get('style.css').isNavigationRequest())
+})
+
+test.serial(
+  'Request.isNavigationRequest should work with request interception',
+  async t => {
+    const { page, server } = t.context
+    const requests = new Map()
+    page.on('request', request => {
+      requests.set(
+        request
+          .url()
+          .split('/')
+          .pop(),
+        request
+      )
+      request.continue()
+    })
+    await page.setRequestInterception(true)
+    await page.goto(server.PREFIX + '/rrredirect')
+    t.true(requests.get('rrredirect').isNavigationRequest())
+    t.true(requests.get('one-frame.html').isNavigationRequest())
+    t.true(requests.get('frame.html').isNavigationRequest())
+    t.false(requests.get('script.js').isNavigationRequest())
+    t.false(requests.get('style.css').isNavigationRequest())
+  }
+)
+
+test.serial(
+  'Request.isNavigationRequest should work when navigating to image',
+  async t => {
+    const { page, server } = t.context
+    const requests = []
+    page.on('request', request => requests.push(request))
+    await page.goto(server.PREFIX + '/pptr.png')
+    t.true(requests[0].isNavigationRequest())
+  }
+)
+
 test.serial('Request.respond should work', async t => {
   const { page, server } = t.context
   await page.setRequestInterception(true)
@@ -1028,82 +1062,5 @@ test.serial(
     }, server.PREFIX)
     const img = await page.$('img')
     t.context.toBeGolden(t, await img.screenshot(), 'mock-binary-response.png')
-  }
-)
-
-test.serial('Page.setExtraHTTPHeaders should work', async t => {
-  const { page, server } = t.context
-  await page.setExtraHTTPHeaders({
-    foo: 'bar'
-  })
-  const [request] = await Promise.all([
-    server.waitForRequest('/empty.html'),
-    page.goto(server.EMPTY_PAGE)
-  ])
-  t.is(request.headers['foo'], 'bar')
-})
-
-test.serial(
-  'Page.setExtraHTTPHeaders should throw for non-string header values',
-  async t => {
-    const { page, server } = t.context
-    let error = null
-
-    try {
-      await page.setExtraHTTPHeaders({
-        foo: 1
-      })
-    } catch (e) {
-      error = e
-    }
-
-    t.is(
-      error.message,
-      'Expected value of header "foo" to be String, but "number" is found.'
-    )
-  }
-)
-
-test.serial('Page.authenticate should work', async t => {
-  const { page, server } = t.context
-  server.setAuth('/empty.html', 'user', 'pass')
-  let response = await page.goto(server.EMPTY_PAGE)
-  t.is(response.status(), 401)
-  await page.authenticate({
-    username: 'user',
-    password: 'pass'
-  })
-  response = await page.reload()
-  t.is(response.status(), 200)
-})
-
-test.serial('Page.authenticate should fail if wrong credentials', async t => {
-  const { page, server } = t.context
-  // Use unique user/password since Chrome caches credentials per origin.
-  server.setAuth('/empty.html', 'user2', 'pass2')
-  await page.authenticate({
-    username: 'foo',
-    password: 'bar'
-  })
-  const response = await page.goto(server.EMPTY_PAGE)
-  t.is(response.status(), 401)
-})
-
-test.serial(
-  'Page.authenticate should allow disable authentication',
-  async t => {
-    const { page, server } = t.context
-    // Use unique user/password since Chrome caches credentials per origin.
-    server.setAuth('/empty.html', 'user3', 'pass3')
-    await page.authenticate({
-      username: 'user3',
-      password: 'pass3'
-    })
-    let response = await page.goto(server.EMPTY_PAGE)
-    t.is(response.status(), 200)
-    await page.authenticate(null) // Navigate to a different origin to bust Chrome's credential caching.
-
-    response = await page.goto(server.CROSS_PROCESS_PREFIX + '/empty.html')
-    t.is(response.status(), 401)
   }
 )

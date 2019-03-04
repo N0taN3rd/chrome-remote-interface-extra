@@ -40,10 +40,13 @@
     "esdoc-node": "^1.0.4",
     "esdoc-standard-plugin": "^1.0.0",
     "fastify": "^2.0.0",
+    "fastify-basic-auth": "^0.3.1",
     "fastify-favicon": "^2.0.0",
+    "fastify-formbody": "^3.1.0",
     "fastify-plugin": "^1.5.0",
     "fastify-static": "^2.3.4",
     "fastparallel": "^2.3.0",
+    "file-url": "^2.0.2",
     "jpeg-js": "^0.3.4",
     "pixelmatch": "^4.0.2",
     "pngjs": "^3.3.3",
@@ -70,6 +73,9 @@
     "env": {
       "browser": true,
       "node": true
+    },
+    "globals": {
+      "fetch": true
     }
   },
   "ava": {

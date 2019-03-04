@@ -1,10 +1,10 @@
-import * as path from 'path'
-import * as fs from 'fs-extra'
-import Diff from 'text-diff'
-import mime from 'mime'
-import { PNG } from 'pngjs'
-import jpeg from 'jpeg-js'
-import pixelmatch from 'pixelmatch'
+const path = require('path')
+const fs = require('fs-extra')
+const Diff = require('text-diff')
+const mime = require('mime')
+const { PNG } = require('pngjs')
+const jpeg = require('jpeg-js')
+const pixelmatch = require('pixelmatch')
 
 const GoldenComparators = {
   'image/png': compareImages,
@@ -86,7 +86,7 @@ function compareText (actual, expectedBuffer) {
   }
 }
 
-export default function compare (goldenPath, outputPath, actual, goldenName) {
+module.exports = function compare (goldenPath, outputPath, actual, goldenName) {
   goldenPath = path.normalize(goldenPath)
   outputPath = path.normalize(outputPath)
   const expectedPath = path.join(goldenPath, goldenName)
