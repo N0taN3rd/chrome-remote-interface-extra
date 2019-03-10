@@ -16,7 +16,7 @@ test.serial.beforeEach(async t => {
   t.context.server = helper.server()
 })
 
-test.serial.afterEach(async t => {
+test.serial.afterEach.always(async t => {
   await helper.cleanup()
 })
 
@@ -414,7 +414,7 @@ test.serial(
   }
 )
 
-test.serial.only(
+test.serial(
   'Frame.evaluate should execute after cross-site navigation',
   async t => {
     const { page, server } = t.context

@@ -18,7 +18,7 @@ test.serial.beforeEach(async t => {
   t.context.context = await helper.context()
 })
 
-test.serial.afterEach(async t => {
+test.serial.afterEach.always(async t => {
   await helper.cleanup()
 })
 

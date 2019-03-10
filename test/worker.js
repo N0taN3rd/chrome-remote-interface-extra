@@ -1,7 +1,8 @@
 import test from 'ava'
 import * as utils from './helpers/utils'
-import { TestHelper } from './helpers/testHelper'
+import TestHelper from './helpers/testHelper'
 import { TimeoutError } from '../lib/Errors'
+import Events from '../lib/Events'
 
 const { waitEvent } = utils
 
@@ -18,7 +19,7 @@ test.serial.beforeEach(async t => {
   t.context.server = helper.server()
 })
 
-test.serial.afterEach(async t => {
+test.serial.afterEach.always(async t => {
   await helper.cleanup()
 })
 
@@ -29,7 +30,7 @@ test.after.always(async t => {
 test.serial('Workers Page.workers', async t => {
   const { page, server } = t.context
   await Promise.all([
-    new Promise(x => page.once('workercreated', x)),
+    new Promise(x => page.once(Events.Page.WorkerCreated, x)),
     page.goto(server.PREFIX + '/worker/worker.html')
   ])
   const worker = page.workers()[0]
@@ -44,7 +45,9 @@ test.serial('Workers Page.workers', async t => {
 
 test.serial('Workers should emit created and destroyed events', async t => {
   const { page } = t.context
-  const workerCreatedPromise = new Promise(x => page.once('workercreated', x))
+  const workerCreatedPromise = new Promise(x =>
+    page.once(Events.Page.WorkerCreated, x)
+  )
   const workerObj = await page.evaluateHandle(
     () => new Worker('data:text/javascript,1')
   )
@@ -87,7 +90,9 @@ test.serial('Workers should have JSHandles for console logs', async t => {
 
 test.serial('Workers should have an execution context', async t => {
   const { page } = t.context
-  const workerCreatedPromise = new Promise(x => page.once('workercreated', x))
+  const workerCreatedPromise = new Promise(x =>
+    page.once(Events.Page.WorkerCreated, x)
+  )
   await page.evaluate(() => new Worker(`data:text/javascript,console.log(1)`))
   const worker = await workerCreatedPromise
   t.is(await (await worker.executionContext()).evaluate('1+1'), 2)
@@ -95,7 +100,7 @@ test.serial('Workers should have an execution context', async t => {
 
 test.serial('Workers should report errors', async t => {
   const { page } = t.context
-  const errorPromise = new Promise(x => page.on('pageerror', x))
+  const errorPromise = new Promise(x => page.on(Events.Page.Error, x))
   await page.evaluate(
     () =>
       new Worker(`data:text/javascript, throw new Error('this is my error');`)

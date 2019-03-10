@@ -13,15 +13,13 @@ test.serial.before(async t => {
 })
 
 test.serial.beforeEach(async t => {
-  /** @type {Page} */
-  t.context.page = await helper.newPage()
-  t.context.server = helper.server()
-  /** @type {Browser} */
-  t.context.browser = helper.browser()
   t.context.context = await helper.context()
+  t.context.page = await helper.contextPage()
+  t.context.server = helper.server()
+  t.context.browser = helper.browser()
 })
 
-test.serial.afterEach(async t => {
+test.serial.afterEach.always(async t => {
   await helper.cleanup()
 })
 

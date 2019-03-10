@@ -27,7 +27,7 @@ const chromeArgs = userDataDir => [
   '--disable-sync',
   '--disable-domain-reliability',
   '--disable-infobars',
-  '--disable-features=site-per-process,TranslateUI',
+  '--disable-features=site-per-process,TranslateUI,BlinkGenPropertyTrees',
   '--disable-breakpad',
   '--disable-backing-store-limit',
   '--metrics-recording-only',

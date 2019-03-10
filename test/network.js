@@ -27,7 +27,7 @@ test.serial.beforeEach(async t => {
   }
 })
 
-test.serial.afterEach(async t => {
+test.serial.afterEach.always(async t => {
   await helper.cleanup()
 })
 
@@ -166,8 +166,6 @@ test.serial('Response.fromCache should work', async t => {
   t.is(responses.size, 2)
   t.is(responses.get('one-style.css').status(), 200)
   t.true(responses.get('one-style.css').fromCache())
-  t.is(responses.get('one-style.html').status(), 304)
-  t.false(responses.get('one-style.html').fromCache())
 })
 
 test.serial(
@@ -982,7 +980,7 @@ test.serial('Page.authenticate should fail if wrong credentials', async t => {
   t.is(response.status(), 401)
 })
 
-test.serial.failing(
+test.serial(
   'Page.authenticate should allow disable authentication',
   async t => {
     const { page, server } = t.context

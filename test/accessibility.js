@@ -14,7 +14,7 @@ test.serial.beforeEach(async t => {
   t.context.page = await helper.newPage()
 })
 
-test.serial.afterEach(async t => {
+test.serial.afterEach.always(async t => {
   await helper.cleanup()
 })
 

@@ -16,7 +16,7 @@ test.serial.beforeEach(async t => {
   t.context.server = helper.server()
 })
 
-test.serial.afterEach(async t => {
+test.serial.afterEach.always(async t => {
   await helper.cleanup()
 })
 
@@ -121,8 +121,8 @@ test.serial(
   }
 )
 
-test.serial.failing(
-  'Frame Management should persist mainFrame on cross-process navigation (what happened to my key and cert??)',
+test.serial(
+  'Frame Management should persist mainFrame on cross-process navigation',
   async t => {
     const { page, server } = t.context
     await page.goto(server.EMPTY_PAGE)

@@ -19,7 +19,7 @@ test.serial.beforeEach(async t => {
   }
 })
 
-test.serial.afterEach(async t => {
+test.serial.afterEach.always(async t => {
   await helper.cleanup()
 })
 

@@ -7,7 +7,7 @@ import { TimeoutError } from '../lib/Errors'
 let helper
 
 test.serial.before(async t => {
-  helper = await TestHelper.withHTTP(t)
+  helper = await TestHelper.withHTTPAndHTTPS(t)
 })
 
 test.serial.beforeEach(async t => {
@@ -16,7 +16,7 @@ test.serial.beforeEach(async t => {
   t.context.server = helper.server()
 })
 
-test.serial.afterEach(async t => {
+test.serial.afterEach.always(async t => {
   await helper.cleanup()
 })
 

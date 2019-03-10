@@ -17,6 +17,21 @@ const keyCert = {
   key: path.join(__dirname, 'key.pem'),
   cert: path.join(__dirname, 'cert.pem')
 }
+
+async function getCerts () {
+  const keyExists = await fs.pathExists(keyCert.key)
+  const certExists = await fs.pathExists(keyCert.cert)
+  if (!keyExists && !certExists) {
+    const { keygen } = require('tls-keygen')
+    await keygen(keyCert)
+  }
+  return {
+    allowHTTP1: true,
+    key: await fs.readFile(keyCert.key),
+    cert: await fs.readFile(keyCert.cert)
+  }
+}
+
 const decoratingHeaderPaths = {
   emptyFooBar: '/emptyFooBarHeaders.html',
   emptyCSP: '/emptyCSP.html',
@@ -27,7 +42,7 @@ const decoratingHeaderPaths = {
 
 const makePaths = (port, https = false) => ({
   PREFIX: `http${https ? 's' : ''}://localhost:${port}`,
-  CROSS_PROCESS_PREFIX: `http${https ? '' : 's'}://127.0.0.1:${port}`,
+  CROSS_PROCESS_PREFIX: `http${https ? 's' : ''}://127.0.0.1:${port}`,
   EMPTY_PAGE: `http${https ? 's' : ''}://localhost:${port}/empty.html`,
   EMPTY_FOO_BAR_HEADERS_PAGE: `http${https ? 's' : ''}://localhost:${port}${
     decoratingHeaderPaths.emptyFooBar
@@ -126,15 +141,6 @@ function setUpServer (config) {
       checkReqSubscribers('/endlessVoid', request, reply)
       reply.status(204).send()
     })
-    .get('/infinite-redir', (request, reply) => {
-      reply.redirect('/infinite-redir-1')
-    })
-    .get('/infinite-redir-1', (request, reply) => {
-      reply.redirect('/infinite-redir-2')
-    })
-    .get('/infinite-redir-2', (request, reply) => {
-      reply.redirect('/infinite-redir')
-    })
     .get('/fetch-request-:n', (request, reply) => {
       reply.send({ n: request.params.n })
     })
@@ -161,6 +167,18 @@ function setUpServer (config) {
       checkReqSubscribers('/get-slow', request, reply)
       reply.type('text/plain; charset=utf-8')
       return new SlowStream({ contents: 'hello world!', delay: slowSteamSpeed })
+    })
+    .get('/plzredirect', (request, reply) => {
+      reply.redirect('/empty.html')
+    })
+    .get('/infinite-redir', (request, reply) => {
+      reply.redirect('/infinite-redir-1')
+    })
+    .get('/infinite-redir-1', (request, reply) => {
+      reply.redirect('/infinite-redir-2')
+    })
+    .get('/infinite-redir-2', (request, reply) => {
+      reply.redirect('/infinite-redir')
     })
     .get('/redirect/1.html', (request, reply) => {
       reply.redirect('/redirect/2.html')
@@ -206,7 +224,7 @@ function setUpServer (config) {
     })
     .get('/style-redir-4.css', (request, reply) => {
       reply
-        .header('Content-Type', 'text/css; charset=utf-8')
+        .type('text/css; charset=utf-8')
         .status(200)
         .send('body {box-sizing: border-box; }')
     })
@@ -216,16 +234,22 @@ function setUpServer (config) {
     .get('/non-existing-2.json', (request, reply) => {
       reply.redirect('/simple.html')
     })
+    .get('/one-style-redir.css', (request, reply) => {
+      checkReqSubscribers('/one-style-redir.css', request, reply)
+      reply.redirect('/injectedstyle.css')
+    })
     .get('/zzz', (request, reply) => {
       reply.status(200).send('zzz')
     })
     .get('/sleep.zzz', (request, reply) => {
-      checkReqSubscribers('/get', request, reply)
+      checkReqSubscribers('/sleep.zzz', request, reply)
       reply.status(200).send('zzz')
     })
-    .get('/one-style-redir.css', (request, reply) => {
-      checkReqSubscribers('/one-style-redir.css', request, reply)
-      reply.redirect('/injectedstyle.css')
+    .get('/mixedcontent.html', (request, reply) => {
+      reply
+        .type('text/html; charset=utf-8')
+        .status(200)
+        .send(`<iframe src=${fastify.EMPTY_PAGE}></iframe>`)
     })
     .post('/post', (request, reply) => {
       checkReqSubscribers('/post', request, reply)
@@ -260,7 +284,8 @@ function setUpServer (config) {
       lastModified: false
     })
     .addHook('onClose', (fastify, done) => wsServerInstance.close(done))
-    .addHook('onRequest', async function (request, reply, next) {
+    .addHook('onRequest', async (request, reply, next) => {
+      // console.log(request.req.url)
       const pathName = request.req.url
       switch (pathName) {
         case decoratingHeaderPaths.emptyFooBar:
@@ -372,11 +397,7 @@ async function initHTTPSServer () {
       trustProxy: true,
       logger: enableLogging,
       ignoreTrailingSlash: true,
-      https: {
-        key: await fs.readFile(keyCert.key),
-        cert: await fs.readFile(keyCert.cert),
-        passphrase: 'aaaa'
-      }
+      https: await getCerts()
     },
     paths: makePaths(portHttps, true)
   }

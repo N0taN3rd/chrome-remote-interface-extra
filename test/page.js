@@ -1,9 +1,9 @@
 import test from 'ava'
-import * as fs from 'fs'
 import * as path from 'path'
 import * as utils from './helpers/utils'
 import { TestHelper } from './helpers/testHelper'
 import { TimeoutError } from '../lib/Errors'
+import Events from '../lib/Events'
 
 const { waitEvent } = utils
 
@@ -114,7 +114,7 @@ test.serial('Page.Events.Load should fire when expected', async t => {
 test.serial('Page.Events.error should throw when page crashes', async t => {
   const { page } = t.context
   let error = null
-  page.on('error', err => (error = err))
+  page.on(Events.Page.Error, err => (error = err))
   page.goto('chrome://crash').catch(e => {})
   await waitEvent(page, 'error')
   t.is(error.message, 'Page crashed!')
@@ -123,7 +123,7 @@ test.serial('Page.Events.error should throw when page crashes', async t => {
 test.serial('Page.Events.Popup should work', async t => {
   const { page } = t.context
   const [popup] = await Promise.all([
-    new Promise(x => page.once('popup', x)),
+    new Promise(x => page.once(Events.Page.Popup, x)),
     page.evaluate(() => window.open('about:blank'))
   ])
   t.false(await page.evaluate(() => !!window.opener))
@@ -412,7 +412,7 @@ test.serial(
 test.serial('Page.Events.Console should work', async t => {
   const { page, server } = t.context
   let message = null
-  page.once('console', m => (message = m))
+  page.once(Events.Page.Console, m => (message = m))
   await Promise.all([
     page.evaluate(() =>
       console.log('hello', 5, {
@@ -435,7 +435,7 @@ test.serial(
   async t => {
     const { page, server } = t.context
     const messages = []
-    page.on('console', msg => messages.push(msg)) // All console events will be reported before `page.evaluate` is finished.
+    page.on(Events.Page.Console, msg => messages.push(msg)) // All console events will be reported before `page.evaluate` is finished.
 
     await page.evaluate(() => {
       // A pair of time/timeEnd generates only one Console API call.
@@ -471,10 +471,10 @@ test.serial(
   async t => {
     const { page, server } = t.context
     let message = null
-    page.once('console', msg => (message = msg))
+    page.once(Events.Page.Console, msg => (message = msg))
     await Promise.all([
       page.evaluate(() => console.error(window)),
-      waitEvent(page, 'console')
+      waitEvent(page, Events.Page.Console)
     ])
     t.is(message.text(), 'JSHandle@object')
   }
@@ -484,7 +484,7 @@ test.serial('Page.Events.Console should trigger correct Log', async t => {
   const { page, server } = t.context
   await page.goto('about:blank')
   const [message] = await Promise.all([
-    waitEvent(page, 'console'),
+    waitEvent(page, Events.Page.Console),
     page.evaluate(async url => fetch(url).catch(e => {}), server.EMPTY_PAGE)
   ])
   t.true(message.text().includes('Access-Control-Allow-Origin'))
@@ -497,7 +497,7 @@ test.serial(
     const { page, server } = t.context
     await page.goto(server.EMPTY_PAGE)
     const [message] = await Promise.all([
-      waitEvent(page, 'console'),
+      waitEvent(page, Events.Page.Console),
       page.setContent(`<script>fetch('http://wat');</script>`)
     ])
     t.true(message.text().includes(`ERR_NAME_NOT_RESOLVED`))
@@ -515,7 +515,7 @@ test.serial(
     const { page, server } = t.context
     await page.goto(server.EMPTY_PAGE)
     const [message] = await Promise.all([
-      waitEvent(page, 'console'),
+      waitEvent(page, Events.Page.Console),
       page.goto(server.PREFIX + '/consolelog.html')
     ])
     t.is(message.text(), 'yellow')
@@ -523,7 +523,7 @@ test.serial(
     t.deepEqual(message.location(), {
       url: server.PREFIX + '/consolelog.html',
       lineNumber: 7,
-      columnNumber: CHROME ? 14 : 6 // console.|log vs |console.log
+      columnNumber: 14 // console.|log vs |console.log
     })
   }
 )
@@ -574,6 +574,29 @@ test.serial('Page.metrics should get metrics from a page', async t => {
   const metrics = await page.metrics()
   checkMetrics(metrics)
   t.pass()
+  function checkMetrics (metrics) {
+    const metricsToCheck = new Set([
+      'Timestamp',
+      'Documents',
+      'Frames',
+      'JSEventListeners',
+      'Nodes',
+      'LayoutCount',
+      'RecalcStyleCount',
+      'LayoutDuration',
+      'RecalcStyleDuration',
+      'ScriptDuration',
+      'TaskDuration',
+      'JSHeapUsedSize',
+      'JSHeapTotalSize'
+    ])
+    for (const name in metrics) {
+      t.true(metricsToCheck.has(name))
+      t.true(metrics[name] > 0)
+      metricsToCheck.delete(name)
+    }
+    t.is(metricsToCheck.size, 0)
+  }
 })
 
 test.serial(
@@ -585,6 +608,29 @@ test.serial(
     const metrics = await metricsPromise
     t.is(metrics.title, 'test42')
     checkMetrics(metrics.metrics)
+    function checkMetrics (metrics) {
+      const metricsToCheck = new Set([
+        'Timestamp',
+        'Documents',
+        'Frames',
+        'JSEventListeners',
+        'Nodes',
+        'LayoutCount',
+        'RecalcStyleCount',
+        'LayoutDuration',
+        'RecalcStyleDuration',
+        'ScriptDuration',
+        'TaskDuration',
+        'JSHeapUsedSize',
+        'JSHeapTotalSize'
+      ])
+      for (const name in metrics) {
+        t.true(metricsToCheck.has(name))
+        t.true(metrics[name] > 0)
+        metricsToCheck.delete(name)
+      }
+      t.is(metricsToCheck.size, 0)
+    }
   }
 )
 

@@ -1,6 +1,5 @@
 import test from 'ava'
 import { TestHelper } from './helpers/testHelper'
-import { TimeoutError } from '../lib/Errors'
 
 /** @type {TestHelper} */
 let helper
@@ -411,7 +410,7 @@ test.serial(
   }
 )
 
-test.serial.failing('Page.setCookie should set cookies from a frame (linux google-chrome-unstable fails)', async t => {
+test.serial('Page.setCookie should set cookies from a frame', async t => {
   const { page, server } = t.context
   await page.goto(server.PREFIX + '/grid.html')
   await page.setCookie({

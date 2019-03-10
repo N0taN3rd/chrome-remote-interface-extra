@@ -117,3 +117,5 @@ fabric.properties
 
 !lib/coverage
 docs
+puppeteer-master
+tempTests

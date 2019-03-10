@@ -26,7 +26,7 @@ test.serial.beforeEach(async t => {
   t.context.server = helper.server()
 })
 
-test.serial.afterEach(async t => {
+test.serial.afterEach.always(async t => {
   await helper.cleanup()
 })
 
@@ -191,8 +191,8 @@ test.serial('Mouse should tween mouse movement', async t => {
   ])
 })
 
-test.serial.failing(
-  'Mouse should work with mobile viewports and cross process navigations (what happened to my ssl??)',
+test.serial(
+  'Mouse should work with mobile viewports and cross process navigations',
   async t => {
     const { page, server } = t.context
     await page.goto(server.EMPTY_PAGE)

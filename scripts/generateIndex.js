@@ -2,7 +2,8 @@ const CP = require('child_process')
 const Path = require('path')
 const fs = require('fs-extra')
 
-const libPath = Path.join(__dirname, 'lib')
+const libPath = Path.join(__dirname, '..', 'lib')
+const generatedIndexPath = Path.join(__dirname, '..', 'index.js')
 const stringSort = (s1, s2) => s1.trim().localeCompare(s2.trim())
 
 /**
@@ -61,7 +62,7 @@ async function isPathToFile (filePath) {
 
 function formatGeneratedIndex () {
   return new Promise((resolve, reject) => {
-    CP.exec(`yarn run prettier-standard 'index.js'`, error => {
+    CP.exec(`yarn run prettier-standard '${generatedIndexPath}'`, error => {
       if (error) {
         return reject(error)
       }
@@ -70,7 +71,41 @@ function formatGeneratedIndex () {
   })
 }
 
-const skipped = new Set(['index.js', '__shared.js', 'helper.js'])
+const skipped = new Set(['__typeDefs.js', '__shared.js', 'helper.js'])
+
+/**
+ * @param {string} id
+ */
+function makeIndexExport (id) {
+  if (id[0].toLowerCase() === id[0]) {
+    return `exports.${id} = ${id}
+`
+  }
+  switch (id) {
+    case 'CRIExtra':
+    case 'createJSHandle':
+      return `exports.${id} = ${id}
+`
+  }
+  let type = id
+  switch (id) {
+    case 'CRIClientPatched':
+      type = 'symbol'
+      break
+    case 'EVALUATION_SCRIPT_URL':
+      type = 'string'
+      break
+    case 'USKeyboardLayout':
+    case 'DeviceDescriptors':
+      type = 'Object'
+      break
+  }
+  return `/**
+ * @type {${type}}
+ */
+exports.${id} = ${id}
+`
+}
 
 async function gen () {
   const libFiles = await fs.readdir(libPath)
@@ -88,16 +123,20 @@ async function gen () {
         case 'DeviceDescriptors.js':
         case 'USKeyboardLayout.js':
         case 'Events.js':
+        case 'Multimap.js':
+        case 'TaskQueue.js':
           indexContents.push(
-            `const ${Path.basename(file, '.js')} = require('${fileRequirePath(file)}')`
+            `const ${Path.basename(file, '.js')} = require('${fileRequirePath(
+              file
+            )}')`
           )
-          indexExports.push(`  ${Path.basename(file, '.js')}`)
+          indexExports.push(`${Path.basename(file, '.js')}`)
           break
         case 'chromeRemoteInterfaceExtra.js':
           indexContents.push(
             `const CRIExtra = require('${fileRequirePath(file)}')`
           )
-          indexExports.push('  CRIExtra')
+          indexExports.push('CRIExtra')
           break
         default:
           fileFullPath = joinPathWithLibRoot(file)
@@ -125,8 +164,9 @@ async function gen () {
     }
   }
   indexExports.sort(stringSort)
-  indexContents.push(`\nmodule.exports = {\n${indexExports.join(',\n')}\n}\n`)
-  await fs.writeFile('./index.js', indexContents.join('\n'), 'utf8')
+  indexContents.push('\n')
+  indexContents.push(indexExports.map(makeIndexExport).join('\n'))
+  await fs.writeFile(generatedIndexPath, indexContents.join('\n'), 'utf8')
   await formatGeneratedIndex()
 }
 

@@ -14,7 +14,7 @@ test.serial.beforeEach(async t => {
   t.context.browser = helper.browser()
 })
 
-test.serial.afterEach(async t => {
+test.serial.afterEach.always(async t => {
   await helper.cleanup()
 })
 
@@ -50,4 +50,3 @@ test.serial('Browser.process should return child_process instance', async t => {
   const process = await browser.process()
   t.true(process.pid > 0)
 })
-

@@ -3,7 +3,8 @@ const fs = require('fs-extra')
 const { initChrome } = require('./initChrome')
 const { initHTTPServer, initHTTPSServer, initServers } = require('./initServer')
 const compare = require('./goldenHelper')
-const { CRIExtra, Browser } = require('../../index')
+const CRIExtra = require('../../lib/chromeRemoteInterfaceExtra')
+const Browser = require('../../lib/browser/Browser')
 const { delay } = require('./utils')
 
 /**
@@ -39,25 +40,31 @@ async function cleanUpCookies (page) {
   }
 }
 
-/**
- * @type {TestHelper}
- */
-exports.TestHelper = class TestHelper {
+async function ensureCleanOutputDir () {
+  const exists = await fs.pathExists(OUTPUT_DIR)
+  if (exists) {
+    await fs.remove(OUTPUT_DIR)
+  }
+}
+
+class TestHelper {
   static onlyServer () {
     return initHTTPServer()
   }
   /**
    * @param {*} t
+   * @param {boolean} [ignoreHTTPSErrors = false]
    * @return {Promise<TestHelper>}
    */
-  static async withHTTP (t) {
-    if (fs.pathExistsSync(OUTPUT_DIR)) fs.removeSync(OUTPUT_DIR)
+  static async withHTTP (t, ignoreHTTPSErrors = false) {
+    await ensureCleanOutputDir()
     const { killChrome, chromeProcess } = await initChrome()
     const server = await initHTTPServer()
     const { webSocketDebuggerUrl } = await CRIExtra.Version()
     // aint the chrome-remote-interface by cyrus-and the best <3
     const client = await CRIExtra({ target: webSocketDebuggerUrl })
     const browser = await Browser.create(client, {
+      ignoreHTTPSErrors,
       defaultViewport,
       process: chromeProcess,
       additionalDomains: testDomains,
@@ -71,16 +78,18 @@ exports.TestHelper = class TestHelper {
 
   /**
    * @param {*} t
+   * @param {boolean} [ignoreHTTPSErrors = false]
    * @return {Promise<TestHelper>}
    */
-  static async withHTTPS (t) {
-    if (fs.pathExistsSync(OUTPUT_DIR)) fs.removeSync(OUTPUT_DIR)
+  static async withHTTPS (t, ignoreHTTPSErrors = false) {
+    await ensureCleanOutputDir()
     const { killChrome, chromeProcess } = await initChrome()
     const httpsServer = await initHTTPSServer()
     const { webSocketDebuggerUrl } = await CRIExtra.Version()
     // aint the chrome-remote-interface by cyrus-and the best <3
     const client = await CRIExtra({ target: webSocketDebuggerUrl })
     const browser = await Browser.create(client, {
+      ignoreHTTPSErrors,
       defaultViewport,
       process: chromeProcess,
       additionalDomains: testDomains,
@@ -94,16 +103,18 @@ exports.TestHelper = class TestHelper {
 
   /**
    * @param {*} t
+   * @param {boolean} [ignoreHTTPSErrors = false]
    * @return {Promise<TestHelper>}
    */
-  static async withHTTPAndHTTPS (t) {
-    if (fs.pathExistsSync(OUTPUT_DIR)) fs.removeSync(OUTPUT_DIR)
+  static async withHTTPAndHTTPS (t, ignoreHTTPSErrors = false) {
+    await ensureCleanOutputDir()
     const { killChrome, chromeProcess } = await initChrome()
     const { server, httpsServer } = await initServers()
     const { webSocketDebuggerUrl } = await CRIExtra.Version()
     // aint the chrome-remote-interface by cyrus-and the best <3
     const client = await CRIExtra({ target: webSocketDebuggerUrl })
     const browser = await Browser.create(client, {
+      ignoreHTTPSErrors,
       defaultViewport,
       process: chromeProcess,
       additionalDomains: testDomains,
@@ -252,3 +263,13 @@ exports.TestHelper = class TestHelper {
     }
   }
 }
+
+/**
+ * @type {TestHelper}
+ */
+module.exports = TestHelper
+
+/**
+ * @type {TestHelper}
+ */
+module.exports.TestHelper = TestHelper

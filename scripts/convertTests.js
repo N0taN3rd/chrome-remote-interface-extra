@@ -25,7 +25,7 @@ const parseOptions = {
   sourceType: 'script'
 }
 
-const cleanUpString = `test.serial.afterEach(async t => {
+const cleanUpString = `test.serial.afterEach.always(async t => {
   await helper.cleanup()
 })
 
@@ -34,12 +34,10 @@ test.after.always(async t => {
 })`
 
 const contextStrings = {
-  page: `/** @type {Page} */
-    t.context.page = await helper.newPage()`,
+  page: `  t.context.page = await helper.newPage()`,
   server: '  t.context.server = helper.server()',
   httpsServer: '  t.context.httpsServer = helper.httpsServer()',
-  browser: `/** @type {Browser} */
-    t.context.browser = helper.browser()`,
+  browser: `  t.context.browser = helper.browser()`,
   context: '  t.context.context = await helper.context()',
   toBeGolden: `  t.context.toBeGolden = (t, what, filePath) => {
 const results = helper.toBeGolden(what, filePath)
@@ -48,6 +46,7 @@ t.true(results.pass, results.message)
 }
 
 const FFID = { name: 'FFOX' }
+const ChromeID = { name: 'CHROME' }
 const isIdExpectOpts = { name: 'expect' }
 const describeID = { name: 'describe' }
 const describes = new Set(['describe', 'describe_fails_ffox'])
@@ -57,11 +56,11 @@ const its = new Set(['it', 'fit', 'xit', 'it_fails_ffox'])
 // if you want that use puppeteer :)
 const skipped = new Set([
   'launcher.spec.js',
-  'ignorehttpserrors.spec.js',
   'puppeteer.spec.js',
   'chromiumonly.spec.js',
   'firefoxonly.spec.js',
-  'headful.spec.js'
+  'headful.spec.js',
+  'fixtures.spec.js'
 ])
 
 function printNode (node) {
@@ -354,6 +353,15 @@ function makeImportTestUtils (declaration) {
   )
 }
 
+function remapModuleSpecifier (id) {
+  switch (id.value) {
+    case 'fs':
+      id.value = 'fs-extra'
+      break
+  }
+  return id
+}
+
 function makeImport (declaration) {
   if (btypes.isObjectPattern(declaration.id)) {
     return btypes.importDeclaration(
@@ -363,12 +371,12 @@ function makeImport (declaration) {
           btypes.identifier(prop.key.name)
         )
       ),
-      declaration.init.arguments[0]
+      remapModuleSpecifier(declaration.init.arguments[0])
     )
   }
   return btypes.importDeclaration(
     [btypes.importNamespaceSpecifier(declaration.id)],
-    declaration.init.arguments[0]
+    remapModuleSpecifier(declaration.init.arguments[0])
   )
 }
 
@@ -431,38 +439,6 @@ function extractIt ({ fnPath, itPath, collector, parentDescribe, describing }) {
     // to indicate failure if no assertions are used, ava not so much (good on ya)
     // so we need explicitly pass this test if we did not timeout :)
     fnPath.node.body.body.push(makeTPass())
-  }
-  // lets be extra sure an server or httpsServer was not sneakily added introduced here
-  // for most tests we dont need both an http and https server
-  let rp
-  if (fnPath.scope.hasOwnBinding('server')) {
-    const serverBinding = fnPath.scope.getOwnBinding('server')
-    for (let i = 0; i < serverBinding.referencePaths.length; i++) {
-      rp = serverBinding.referencePaths[i]
-      if (
-        btypes.isIdentifier(rp.parentPath.node.property, {
-          name: 'CROSS_PROCESS_PREFIX'
-        })
-      ) {
-        collector.requiredContexts.add('server')
-        break
-      }
-    }
-  }
-
-  if (fnPath.scope.hasOwnBinding('httpsServer')) {
-    const serverBinding = fnPath.scope.getOwnBinding('httpsServer')
-    for (let i = 0; i < serverBinding.referencePaths.length; i++) {
-      rp = serverBinding.referencePaths[i]
-      if (
-        btypes.isIdentifier(rp.parentPath.node.property, {
-          name: 'CROSS_PROCESS_PREFIX'
-        })
-      ) {
-        collector.requiredContexts.add('httpsServer')
-        break
-      }
-    }
   }
   // replace the original context with the correct ava one
   fnPath.node.body.body.unshift(createTContext(fnPath.node.params[0]))
@@ -619,8 +595,6 @@ test.serial.before(async t => {
 })`
 }
 
-const cID = { name: 'CHROME' }
-
 async function createTest (pTestPath, crieTestPath) {
   // console.log(pTestPath, crieTestPath)
   const contents = await fs.readFile(pTestPath, 'utf-8')
@@ -636,7 +610,7 @@ async function createTest (pTestPath, crieTestPath) {
       // I really do not want to do this by hand so lets check
       // for chrome vs ff if statements and put the good path (chrome)
       // before the if statement then remote entire if statement
-      if (btypes.isIdentifier(path.node.test, cID)) {
+      if (btypes.isIdentifier(path.node.test, ChromeID)) {
         path.insertBefore(btypes.clone(path.node.consequent))
         path.remove()
       } else if (btypes.isIdentifier(path.node.test, FFID)) {
@@ -646,7 +620,7 @@ async function createTest (pTestPath, crieTestPath) {
         if (btypes.isIdentifier(path.node.test.left, FFID)) {
           path.insertBefore(btypes.clone(path.node.alternate))
           path.remove()
-        } else if (btypes.isIdentifier(path.node.test.left, cID)) {
+        } else if (btypes.isIdentifier(path.node.test.left, ChromeID)) {
           path.insertBefore(btypes.clone(path.node.consequent))
           path.remove()
         }
@@ -750,18 +724,19 @@ async function createTest (pTestPath, crieTestPath) {
 }
 
 async function doIt () {
-  const pTestPath = Path.join(process.cwd(), 'tests')
+  const pTestPath = Path.join(__dirname, '..', 'puppeteer-master', 'test')
+  const tempTestPath = Path.join(__dirname, '..', 'tempTests')
   const testFiles = await fs.readdir(pTestPath)
   for (let i = 0; i < testFiles.length; i++) {
     const testFile = testFiles[i]
     if (!testFile.endsWith('spec.js') || skipped.has(testFile)) continue
     const ptp = Path.join(pTestPath, testFile)
     console.log(testFile)
-    await createTest(ptp, `./tempTests/${testFile.replace('.spec', '')}`)
+    await createTest(ptp, Path.join(tempTestPath, testFile.replace('.spec', '')))
   }
   await new Promise((resolve, reject) => {
     cp.exec(
-      `node ./node_modules/.bin/prettier-standard ./tempTests/*.js`,
+      `node ${Path.join(__dirname, '..', 'node_modules', '.bin', 'prettier-standard')} ${tempTestPath}/*.js`,
       error => {
         if (error) {
           return reject(error)
