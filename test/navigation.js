@@ -11,14 +11,13 @@ test.serial.before(async t => {
 })
 
 test.serial.beforeEach(async t => {
-  /** @type {Page} */
   t.context.page = await helper.newPage()
   t.context.server = helper.server()
   t.context.httpsServer = helper.httpsServer()
   t.context.context = await helper.context()
 })
 
-test.serial.afterEach(async t => {
+test.serial.afterEach.always(async t => {
   await helper.cleanup()
 })
 
@@ -67,6 +66,14 @@ test.serial('Page.goto should work with subframes return 204', async t => {
   const { page, server } = t.context
   await page.goto(server.PREFIX + '/frames/subFrameNoContent.html')
   t.pass()
+})
+
+test.serial('Page.goto should fail when server returns 204', async t => {
+  const { page, server } = t.context
+  let error = null
+  await page.goto(server.PREFIX + '/endlessVoid').catch(e => (error = e))
+  t.truthy(error)
+  t.true(error.message.includes('net::ERR_ABORTED'))
 })
 
 test.serial(
@@ -150,18 +157,14 @@ test.serial(
   }
 )
 
-test.serial.failing(
-  '(This will use the new[ish] realy network idle soon) Page.goto should throw if networkidle is passed as an option',
+test.serial(
+  'Page.goto should throw if networkidle is passed as an option',
   async t => {
     const { page, server } = t.context
-    let error = null
-    await page
-      .goto(server.EMPTY_PAGE, {
+    await t.throwsAsync(
+      page.goto(server.EMPTY_PAGE, {
         waitUntil: 'networkidle'
       })
-      .catch(err => (error = err))
-    t.true(
-      error.message.includes('"networkidle" option is no longer supported')
     )
   }
 )
@@ -620,7 +623,6 @@ test.serial('Frame.goto should reject when frame detaches', async t => {
   const { page, server } = t.context
   await page.goto(server.PREFIX + '/frames/nested-frames.html')
   const frames = page.frames()
-  t.log(frames.length)
   t.true(frames.length > 0)
   const navigationPromise = frames[1]
     .goto(server.PREFIX + '/longTimeJack')
@@ -632,8 +634,8 @@ test.serial('Frame.goto should reject when frame detaches', async t => {
   t.is(error.message, 'Navigating frame was detached')
 })
 
-test.serial.skip(
-  '(convert) Frame.goto should return matching responses',
+test.serial(
+  'Frame.goto should return matching responses',
   async t => {
     const { page, server } = t.context
     // Disable cache: otherwise, chromium will cache similar requests.
@@ -646,19 +648,14 @@ test.serial.skip(
       utils.attachFrame(page, 'frame3', server.EMPTY_PAGE)
     ]) // Navigate all frames to the same URL.
 
-    const serverResponses = []
-    server.setRoute('/one-style.html', (req, res) => serverResponses.push(res))
     const navigations = []
-
-    for (let i = 0; i < 3; ++i) {
-      navigations.push(frames[i].goto(server.PREFIX + '/one-style.html'))
-      await server.waitForRequest('/one-style.html')
-    } // Respond from server out-of-order.
-
     const serverResponseTexts = ['AAA', 'BBB', 'CCC']
-
+    for (let i = 0; i < 3; ++i) {
+      navigations.push(
+        frames[i].goto(`${server.PREFIX}/${serverResponseTexts[i]}`)
+      )
+    }
     for (const i of [1, 2, 0]) {
-      serverResponses[i].end(serverResponseTexts[i])
       const response = await navigations[i]
       t.is(response.frame(), frames[i])
       t.is(await response.text(), serverResponseTexts[i])

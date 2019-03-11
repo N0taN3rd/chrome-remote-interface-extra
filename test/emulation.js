@@ -1,7 +1,6 @@
 import test from 'ava'
 import * as utils from './helpers/utils'
 import { TestHelper } from './helpers/testHelper'
-import { TimeoutError } from '../lib/Errors'
 
 const DeviceDescriptors = utils.requireRoot('DeviceDescriptors')
 
@@ -17,31 +16,17 @@ test.serial.before(async t => {
 })
 
 test.serial.beforeEach(async t => {
-  /** @type {Page} */
   t.context.page = await helper.newPage()
   t.context.server = helper.server()
 })
 
-test.serial.afterEach(async t => {
+test.serial.afterEach.always(async t => {
   await helper.cleanup()
 })
 
 test.after.always(async t => {
   await helper.end()
 })
-
-function dispatchTouch () {
-  let fulfill
-  const promise = new Promise(x => (fulfill = x))
-
-  window.ontouchstart = function (e) {
-    fulfill('Received touch')
-  }
-
-  window.dispatchEvent(new Event('touchstart'))
-  fulfill('Did not receive touch')
-  return promise
-}
 
 test.serial('Page.viewport should get the proper viewport size', async t => {
   const { page, server } = t.context

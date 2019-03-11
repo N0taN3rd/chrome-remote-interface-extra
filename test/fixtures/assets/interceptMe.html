@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Intercept Me</title>
+  </head>
+  <body>
+    <script>
+      window.results = () =>
+        fetch('/redirectToEmpty')
+          .then(res => ({ res: res.url, error: false }))
+          .catch(error => ({ res: null, error: true }))
+    </script>
+  </body>
+</html>

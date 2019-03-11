@@ -1,6 +1,6 @@
 import test from 'ava'
 import { TestHelper } from './helpers/testHelper'
-import { TimeoutError } from '../lib/Errors'
+import Browser from '../lib/browser/Browser'
 
 /** @type {TestHelper} */
 let helper
@@ -10,11 +10,10 @@ test.serial.before(async t => {
 })
 
 test.serial.beforeEach(async t => {
-  /** @type {Browser} */
   t.context.browser = helper.browser()
 })
 
-test.serial.afterEach(async t => {
+test.serial.afterEach.always(async t => {
   await helper.cleanup()
 })
 
@@ -51,3 +50,13 @@ test.serial('Browser.process should return child_process instance', async t => {
   t.true(process.pid > 0)
 })
 
+test.serial(
+  'Browser.process should not return child_process for remote browser',
+  async t => {
+    const { browser } = t.context
+    const browserWSEndpoint = browser.wsEndpoint()
+    const remoteBrowser = await Browser.connect(browserWSEndpoint)
+    t.falsy(remoteBrowser.process())
+    await remoteBrowser.disconnect()
+  }
+)

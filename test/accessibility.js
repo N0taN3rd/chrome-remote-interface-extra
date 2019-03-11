@@ -1,6 +1,5 @@
 import test from 'ava'
 import { TestHelper } from './helpers/testHelper'
-import { TimeoutError } from '../lib/Errors'
 
 /** @type {TestHelper} */
 let helper
@@ -14,7 +13,7 @@ test.serial.beforeEach(async t => {
   t.context.page = await helper.newPage()
 })
 
-test.serial.afterEach(async t => {
+test.serial.afterEach.always(async t => {
   await helper.cleanup()
 })
 
@@ -283,7 +282,7 @@ test.serial(
 )
 
 test.serial(
-  'filtering children of leaf nodes - plaintext contenteditable: plain text field with role should not have children',
+  'Accessibility - filtering children of leaf nodes plaintext contenteditable: plain text field with role should not have children',
   async t => {
     const { page } = t.context
     await page.setContent(`
@@ -298,7 +297,7 @@ test.serial(
 )
 
 test.serial(
-  'filtering children of leaf nodes - plaintext contenteditable: plain text field without role should not have content',
+  'Accessibility - filtering children of leaf nodes - plaintext contenteditable: plain text field without role should not have content',
   async t => {
     const { page } = t.context
     await page.setContent(`
@@ -312,7 +311,7 @@ test.serial(
 )
 
 test.serial(
-  'filtering children of leaf nodes - plaintext contenteditable: plain text field with tabindex and without role should not have content',
+  'Accessibility - filtering children of leaf nodes - plaintext contenteditable: plain text field with tabindex and without role should not have content',
   async t => {
     const { page } = t.context
     await page.setContent(`
@@ -326,7 +325,7 @@ test.serial(
 )
 
 test.serial(
-  'Accessibility - filtering children of leaf nodes: non editable textbox with role and tabIndex and label should not have children',
+  'Accessibility - Accessibility - filtering children of leaf nodes: non editable textbox with role and tabIndex and label should not have children',
   async t => {
     const { page } = t.context
     await page.setContent(`

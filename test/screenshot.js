@@ -1,6 +1,5 @@
 import test from 'ava'
 import { TestHelper } from './helpers/testHelper'
-import { TimeoutError } from '../lib/Errors'
 
 /** @type {TestHelper} */
 let helper
@@ -14,13 +13,12 @@ test.serial.beforeEach(async t => {
     const results = helper.toBeGolden(what, filePath)
     t.true(results.pass, results.message)
   }
-  /** @type {Page} */
   t.context.page = await helper.newPage()
   t.context.server = helper.server()
   t.context.context = await helper.context()
 })
 
-test.serial.afterEach(async t => {
+test.serial.afterEach.always(async t => {
   await helper.cleanup()
 })
 

@@ -3,20 +3,35 @@ const fs = require('fs-extra')
 const ws = require('ws')
 const createServer = require('fastify')
 const SlowStream = require('./slowStream')
-const { delay } = require('./utils')
+const { delay, promiseResolveReject } = require('./utils')
 
+const cachedPrefix = '/cached'
 const host = '127.0.0.1'
 const timeout = 10 * 1000
 const gracefullShutdownTimeout = 50000
 const portHttp = 3030
 const portHttps = portHttp + 1
 const enableLogging = process.env.LOG != null || false
-const staticPath = path.join(__dirname, '..', 'assets')
+const staticPath = path.join(__dirname, '..', 'fixtures', 'assets')
 const shutdownOnSignals = ['SIGINT', 'SIGTERM', 'SIGHUP']
 const keyCert = {
   key: path.join(__dirname, 'key.pem'),
   cert: path.join(__dirname, 'cert.pem')
 }
+
+async function getCerts () {
+  const keyExists = await fs.pathExists(keyCert.key)
+  const certExists = await fs.pathExists(keyCert.cert)
+  if (!keyExists && !certExists) {
+    throw new Error('No certs!')
+  }
+  return {
+    key: await fs.readFile(keyCert.key),
+    cert: await fs.readFile(keyCert.cert),
+    passphrase: 'aaaa'
+  }
+}
+
 const decoratingHeaderPaths = {
   emptyFooBar: '/emptyFooBarHeaders.html',
   emptyCSP: '/emptyCSP.html',
@@ -27,7 +42,7 @@ const decoratingHeaderPaths = {
 
 const makePaths = (port, https = false) => ({
   PREFIX: `http${https ? 's' : ''}://localhost:${port}`,
-  CROSS_PROCESS_PREFIX: `http${https ? '' : 's'}://127.0.0.1:${port}`,
+  CROSS_PROCESS_PREFIX: `http${https ? 's' : ''}://127.0.0.1:${port}`,
   EMPTY_PAGE: `http${https ? 's' : ''}://localhost:${port}/empty.html`,
   EMPTY_FOO_BAR_HEADERS_PAGE: `http${https ? 's' : ''}://localhost:${port}${
     decoratingHeaderPaths.emptyFooBar
@@ -47,13 +62,14 @@ const makePaths = (port, https = false) => ({
   }://localhost:${port}/authEmpty3.html`
 })
 
-function promiseResolveReject () {
-  const prr = { promise: null, resolve: null, reject: null }
-  prr.promise = new Promise((resolve, reject) => {
-    prr.resolve = resolve
-    prr.reject = reject
-  })
-  return prr
+const debug = false
+
+function rng () {
+  let rando = Math.floor(Math.random() * 1000)
+  while (rando === 0) {
+    rando = Math.floor(Math.random() * 1000)
+  }
+  return rando
 }
 
 /**
@@ -126,15 +142,6 @@ function setUpServer (config) {
       checkReqSubscribers('/endlessVoid', request, reply)
       reply.status(204).send()
     })
-    .get('/infinite-redir', (request, reply) => {
-      reply.redirect('/infinite-redir-1')
-    })
-    .get('/infinite-redir-1', (request, reply) => {
-      reply.redirect('/infinite-redir-2')
-    })
-    .get('/infinite-redir-2', (request, reply) => {
-      reply.redirect('/infinite-redir')
-    })
     .get('/fetch-request-:n', (request, reply) => {
       reply.send({ n: request.params.n })
     })
@@ -148,7 +155,8 @@ function setUpServer (config) {
       reply.redirect('/empty.html')
     })
     .get('/cool', (request, reply) => {
-      reply.status(200).send('cool!')
+      reply.res.writeHead(200, 'cool!')
+      reply.send('cool beans!')
     })
     .get('/get', (request, reply) => {
       checkReqSubscribers('/get', request, reply)
@@ -161,6 +169,18 @@ function setUpServer (config) {
       checkReqSubscribers('/get-slow', request, reply)
       reply.type('text/plain; charset=utf-8')
       return new SlowStream({ contents: 'hello world!', delay: slowSteamSpeed })
+    })
+    .get('/plzredirect', (request, reply) => {
+      reply.redirect('/empty.html')
+    })
+    .get('/infinite-redir', (request, reply) => {
+      reply.redirect('/infinite-redir-1')
+    })
+    .get('/infinite-redir-1', (request, reply) => {
+      reply.redirect('/infinite-redir-2')
+    })
+    .get('/infinite-redir-2', (request, reply) => {
+      reply.redirect('/infinite-redir')
     })
     .get('/redirect/1.html', (request, reply) => {
       reply.redirect('/redirect/2.html')
@@ -182,6 +202,9 @@ function setUpServer (config) {
     })
     .get('/rrredirect', (request, reply) => {
       reply.redirect('/frames/one-frame.html')
+    })
+    .get('/redirectToEmpty', (request, reply) => {
+      reply.redirect('/empty.html')
     })
     .get('/non-existing-page.html', (request, reply) => {
       reply.redirect('/non-existing-page-2.html')
@@ -206,7 +229,7 @@ function setUpServer (config) {
     })
     .get('/style-redir-4.css', (request, reply) => {
       reply
-        .header('Content-Type', 'text/css; charset=utf-8')
+        .type('text/css; charset=utf-8')
         .status(200)
         .send('body {box-sizing: border-box; }')
     })
@@ -216,19 +239,47 @@ function setUpServer (config) {
     .get('/non-existing-2.json', (request, reply) => {
       reply.redirect('/simple.html')
     })
-    .get('/zzz', (request, reply) => {
-      reply.status(200).send('zzz')
-    })
-    .get('/sleep.zzz', (request, reply) => {
-      checkReqSubscribers('/get', request, reply)
-      reply.status(200).send('zzz')
-    })
     .get('/one-style-redir.css', (request, reply) => {
       checkReqSubscribers('/one-style-redir.css', request, reply)
       reply.redirect('/injectedstyle.css')
     })
+    .get('/zzz', (request, reply) => {
+      checkReqSubscribers('/zzz', request, reply)
+      reply.status(200).send('zzz')
+    })
+    .get('/sleep.zzz', (request, reply) => {
+      checkReqSubscribers('/sleep.zzz', request, reply)
+      reply.status(200).send('zzz')
+    })
+    .get('/mixedcontent.html', (request, reply) => {
+      reply
+        .type('text/html; charset=utf-8')
+        .status(200)
+        .send(`<iframe src=${fastify.EMPTY_PAGE}></iframe>`)
+    })
+    .get('/AAA', async (request, reply) => {
+      checkReqSubscribers('/AAA', request, reply)
+      await delay(rng())
+      reply.status(200)
+      return 'AAA'
+    })
+    .get('/BBB', async (request, reply) => {
+      checkReqSubscribers('/BBB', request, reply)
+      await delay(rng())
+      reply.status(200)
+      return 'BBB'
+    })
+    .get('/CCC', async (request, reply) => {
+      checkReqSubscribers('/CCC', request, reply)
+      await delay(rng())
+      reply.status(200)
+      return 'CCC'
+    })
     .post('/post', (request, reply) => {
       checkReqSubscribers('/post', request, reply)
+      reply.status(200).send(request.body)
+    })
+    .post('/sleep.zzz', (request, reply) => {
       reply.status(200).send(request.body)
     })
     .register(require('fastify-favicon'))
@@ -260,7 +311,7 @@ function setUpServer (config) {
       lastModified: false
     })
     .addHook('onClose', (fastify, done) => wsServerInstance.close(done))
-    .addHook('onRequest', async function (request, reply, next) {
+    .addHook('onRequest', async (request, reply, next) => {
       const pathName = request.req.url
       switch (pathName) {
         case decoratingHeaderPaths.emptyFooBar:
@@ -276,7 +327,8 @@ function setUpServer (config) {
           reply.header('Content-Security-Policy', 'default-src "self"')
           break
         case decoratingHeaderPaths.jsonGzip:
-          reply.header('content-encoding', 'gzip')
+        case decoratingHeaderPaths.pngGzip:
+          reply.header('Content-Encoding', 'gzip')
           break
       }
       checkReqSubscribers(pathName, request, reply)
@@ -309,6 +361,18 @@ function setUpServer (config) {
         })
     })
 
+  if (debug) {
+    fastify
+      .addHook('onRequest', (request, reply, next) => {
+        console.log(`get ${request.req.url}`)
+        next()
+      })
+      .addHook('onResponse', (request, reply, next) => {
+        console.log(`sent ${request.req.url} ${reply.res._header}`)
+        next()
+      })
+  }
+
   wsServerInstance = new ws.Server({ server: fastify.server })
 
   shutdownOnSignals.forEach(signal => {
@@ -340,6 +404,7 @@ async function initHTTPServer () {
     port: portHttp,
     timeout: timeout,
     staticPath,
+    cachedPrefix,
     fastifyOpts: {
       trustProxy: true,
       logger: enableLogging,
@@ -367,16 +432,13 @@ async function initHTTPSServer () {
     host: host,
     port: portHttps,
     timeout: timeout,
+    cachedPrefix,
     staticPath,
     fastifyOpts: {
       trustProxy: true,
       logger: enableLogging,
       ignoreTrailingSlash: true,
-      https: {
-        key: await fs.readFile(keyCert.key),
-        cert: await fs.readFile(keyCert.cert),
-        passphrase: 'aaaa'
-      }
+      https: await getCerts()
     },
     paths: makePaths(portHttps, true)
   }

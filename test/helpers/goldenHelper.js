@@ -6,6 +6,8 @@ const { PNG } = require('pngjs')
 const jpeg = require('jpeg-js')
 const pixelmatch = require('pixelmatch')
 
+const GoldernDir = path.join(__dirname, '..', 'fixtures', 'golden')
+
 const GoldenComparators = {
   'image/png': compareImages,
   'image/jpeg': compareImages,
@@ -78,7 +80,7 @@ function compareText (actual, expectedBuffer) {
   const result = diff.main(expected, actual)
   diff.cleanupSemantic(result)
   let html = diff.prettyHtml(result)
-  const diffStylePath = path.join(__dirname, 'diffstyle.css')
+  const diffStylePath = path.join(GoldernDir, 'diffstyle.css')
   html = `<link rel="stylesheet" href="file://${diffStylePath}">` + html
   return {
     diff: html,
@@ -93,7 +95,7 @@ module.exports = function compare (goldenPath, outputPath, actual, goldenName) {
   const actualPath = path.join(outputPath, goldenName)
 
   const messageSuffix =
-    'Output is saved in "' + path.basename(outputPath + '" directory')
+    `Output is saved in "${outputPath}" directory`
 
   if (!fs.existsSync(expectedPath)) {
     fs.ensureDirSync(outputPath)

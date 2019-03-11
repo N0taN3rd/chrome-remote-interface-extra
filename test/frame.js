@@ -1,7 +1,6 @@
 import test from 'ava'
 import * as utils from './helpers/utils'
 import { TestHelper } from './helpers/testHelper'
-import { TimeoutError } from '../lib/Errors'
 
 /** @type {TestHelper} */
 let helper
@@ -11,12 +10,11 @@ test.serial.before(async t => {
 })
 
 test.serial.beforeEach(async t => {
-  /** @type {Page} */
   t.context.page = await helper.newPage()
   t.context.server = helper.server()
 })
 
-test.serial.afterEach(async t => {
+test.serial.afterEach.always(async t => {
   await helper.cleanup()
 })
 
@@ -121,8 +119,8 @@ test.serial(
   }
 )
 
-test.serial.failing(
-  'Frame Management should persist mainFrame on cross-process navigation (what happened to my key and cert??)',
+test.serial(
+  'Frame Management should persist mainFrame on cross-process navigation',
   async t => {
     const { page, server } = t.context
     await page.goto(server.EMPTY_PAGE)

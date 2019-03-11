@@ -1,7 +1,6 @@
 import test from 'ava'
 import * as utils from './helpers/utils'
 import { TestHelper } from './helpers/testHelper'
-import { TimeoutError } from '../lib/Errors'
 
 /** @type {TestHelper} */
 let helper
@@ -11,12 +10,11 @@ test.serial.before(async t => {
 })
 
 test.serial.beforeEach(async t => {
-  /** @type {Page} */
   t.context.page = await helper.newPage()
   t.context.server = helper.server()
 })
 
-test.serial.afterEach(async t => {
+test.serial.afterEach.always(async t => {
   await helper.cleanup()
 })
 
@@ -214,7 +212,10 @@ test.serial('ElementHandle.click should work for TextNodes', async t => {
   )
   let error = null
   await buttonTextNode.click().catch(err => (error = err))
-  t.is(error.message, 'Node is not of type HTMLElement')
+  t.is(
+    error.message,
+    'Node is not of type Element or does not have the scrollIntoView function'
+  )
 })
 
 test.serial('ElementHandle.click should throw for detached nodes', async t => {

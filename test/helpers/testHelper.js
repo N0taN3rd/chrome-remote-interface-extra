@@ -3,7 +3,8 @@ const fs = require('fs-extra')
 const { initChrome } = require('./initChrome')
 const { initHTTPServer, initHTTPSServer, initServers } = require('./initServer')
 const compare = require('./goldenHelper')
-const { CRIExtra, Browser } = require('../../index')
+const CRIExtra = require('../../lib/chromeRemoteInterfaceExtra')
+const Browser = require('../../lib/browser/Browser')
 const { delay } = require('./utils')
 
 /**
@@ -15,8 +16,8 @@ const { delay } = require('./utils')
  * @property {*} t
  */
 
-const GOLDEN_DIR = path.join(__dirname, '..', '/golden')
-const OUTPUT_DIR = path.join(__dirname, '..', '/golden-output')
+const GOLDEN_DIR = path.join(__dirname, '..', 'fixtures', 'golden')
+const OUTPUT_DIR = path.join(__dirname, '..', 'fixtures', 'golden-output')
 
 const testDomains = {
   workers: true,
@@ -39,25 +40,31 @@ async function cleanUpCookies (page) {
   }
 }
 
-/**
- * @type {TestHelper}
- */
-exports.TestHelper = class TestHelper {
+async function ensureCleanOutputDir () {
+  const exists = await fs.pathExists(OUTPUT_DIR)
+  if (exists) {
+    await fs.remove(OUTPUT_DIR)
+  }
+}
+
+class TestHelper {
   static onlyServer () {
     return initHTTPServer()
   }
   /**
    * @param {*} t
+   * @param {boolean} [ignoreHTTPSErrors = false]
    * @return {Promise<TestHelper>}
    */
-  static async withHTTP (t) {
-    if (fs.pathExistsSync(OUTPUT_DIR)) fs.removeSync(OUTPUT_DIR)
+  static async withHTTP (t, ignoreHTTPSErrors = false) {
+    await ensureCleanOutputDir()
     const { killChrome, chromeProcess } = await initChrome()
     const server = await initHTTPServer()
     const { webSocketDebuggerUrl } = await CRIExtra.Version()
     // aint the chrome-remote-interface by cyrus-and the best <3
     const client = await CRIExtra({ target: webSocketDebuggerUrl })
     const browser = await Browser.create(client, {
+      ignoreHTTPSErrors,
       defaultViewport,
       process: chromeProcess,
       additionalDomains: testDomains,
@@ -71,16 +78,18 @@ exports.TestHelper = class TestHelper {
 
   /**
    * @param {*} t
+   * @param {boolean} [ignoreHTTPSErrors = false]
    * @return {Promise<TestHelper>}
    */
-  static async withHTTPS (t) {
-    if (fs.pathExistsSync(OUTPUT_DIR)) fs.removeSync(OUTPUT_DIR)
+  static async withHTTPS (t, ignoreHTTPSErrors = false) {
+    await ensureCleanOutputDir()
     const { killChrome, chromeProcess } = await initChrome()
     const httpsServer = await initHTTPSServer()
     const { webSocketDebuggerUrl } = await CRIExtra.Version()
     // aint the chrome-remote-interface by cyrus-and the best <3
     const client = await CRIExtra({ target: webSocketDebuggerUrl })
     const browser = await Browser.create(client, {
+      ignoreHTTPSErrors,
       defaultViewport,
       process: chromeProcess,
       additionalDomains: testDomains,
@@ -94,16 +103,18 @@ exports.TestHelper = class TestHelper {
 
   /**
    * @param {*} t
+   * @param {boolean} [ignoreHTTPSErrors = false]
    * @return {Promise<TestHelper>}
    */
-  static async withHTTPAndHTTPS (t) {
-    if (fs.pathExistsSync(OUTPUT_DIR)) fs.removeSync(OUTPUT_DIR)
+  static async withHTTPAndHTTPS (t, ignoreHTTPSErrors = false) {
+    await ensureCleanOutputDir()
     const { killChrome, chromeProcess } = await initChrome()
     const { server, httpsServer } = await initServers()
     const { webSocketDebuggerUrl } = await CRIExtra.Version()
     // aint the chrome-remote-interface by cyrus-and the best <3
     const client = await CRIExtra({ target: webSocketDebuggerUrl })
     const browser = await Browser.create(client, {
+      ignoreHTTPSErrors,
       defaultViewport,
       process: chromeProcess,
       additionalDomains: testDomains,
@@ -125,6 +136,9 @@ exports.TestHelper = class TestHelper {
     this._httpsServer = httpsServer
     /** @type {CRIConnection} */
     this._client = client
+    /**
+     * @type {Browser}
+     */
     this._browser = browser
 
     /** @type {*} */
@@ -156,6 +170,10 @@ exports.TestHelper = class TestHelper {
    */
   browser () {
     return this._browser
+  }
+
+  browserContext () {
+    return this._browser.defaultBrowserContext()
   }
 
   toBeGolden (what, filePath) {
@@ -209,32 +227,30 @@ exports.TestHelper = class TestHelper {
 
   async cleanup () {
     this.resetServers()
-    let i
-    for (i = 0; i < this._pages.length; i++) {
+    for (let i = 0; i < this._pages.length; i++) {
       try {
         await this._pages[i].close()
       } catch (e) {}
     }
-    this._pages.length = 0
-    for (i = 0; i < this._contexts.length; i++) {
+    this._pages = []
+    for (let i = 0; i < this._contexts.length; i++) {
       await this._contexts[i].close()
     }
-    this._contexts.length = 0
+    this._contexts = []
   }
 
   async deepClean () {
     this.resetServers()
-    let i
-    for (i = 0; i < this._pages.length; i++) {
+    for (let i = 0; i < this._pages.length; i++) {
       await cleanUpCookies(this._pages[i])
       await this._pages[i].close()
     }
-    this._pages.length = 0
+    this._pages = []
 
-    for (i = 0; i < this._contexts.length; i++) {
+    for (let i = 0; i < this._contexts.length; i++) {
       await this._contexts[i].close()
     }
-    this._contexts.length = 0
+    this._contexts = []
   }
 
   async end () {
@@ -252,3 +268,13 @@ exports.TestHelper = class TestHelper {
     }
   }
 }
+
+/**
+ * @type {TestHelper}
+ */
+module.exports = TestHelper
+
+/**
+ * @type {TestHelper}
+ */
+module.exports.TestHelper = TestHelper

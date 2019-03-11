@@ -1,11 +1,14 @@
 const path = require('path')
 
 const PROJECT_ROOT = path.join(__dirname, '..', '..', 'lib')
+const assetRootPath = path.join(__dirname, '..', 'fixtures', 'assets')
+const rootDir = path.join(__dirname, '..', '..')
 
-// export const projectRoot = () => PROJECT_ROOT
-// export const requireRoot = name => require(path.join(PROJECT_ROOT, name))
 exports.projectRoot = () => PROJECT_ROOT
 exports.requireRoot = name => require(path.join(PROJECT_ROOT, name))
+exports.assetPath = (...args) => path.join(assetRootPath, ...args)
+exports.relativeAssetPath = (...args) =>
+  path.relative(rootDir, path.join(assetRootPath, ...args))
 
 /**
  * @param {Request} request
@@ -101,3 +104,12 @@ exports.waitEvent = function waitEvent (
 }
 
 exports.delay = howMuch => new Promise(resolve => setTimeout(resolve, howMuch))
+
+exports.promiseResolveReject = function promiseResolveReject () {
+  const prr = { promise: null, resolve: null, reject: null }
+  prr.promise = new Promise((resolve, reject) => {
+    prr.resolve = resolve
+    prr.reject = reject
+  })
+  return prr
+}

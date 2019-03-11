@@ -1,22 +1,21 @@
 import test from 'ava'
 import * as utils from './helpers/utils'
-import { TestHelper } from './helpers/testHelper'
+import TestHelper from './helpers/testHelper'
 import { TimeoutError } from '../lib/Errors'
 
 /** @type {TestHelper} */
 let helper
 
 test.serial.before(async t => {
-  helper = await TestHelper.withHTTP(t)
+  helper = await TestHelper.withHTTPAndHTTPS(t)
 })
 
 test.serial.beforeEach(async t => {
-  /** @type {Page} */
   t.context.page = await helper.newPage()
   t.context.server = helper.server()
 })
 
-test.serial.afterEach(async t => {
+test.serial.afterEach.always(async t => {
   await helper.cleanup()
 })
 
