@@ -11,9 +11,9 @@ const genOpts = {
     quotes: 'single',
     wrap: true
   },
-  sourceMaps: false
+  sourceMaps: false,
+  retainLines: true
 }
-
 const parseOptions = {
   plugins: [
     'bigInt',
@@ -24,6 +24,11 @@ const parseOptions = {
   strictMode: false,
   sourceType: 'script'
 }
+const postProcessingParseOpts = Object.assign({}, parseOptions, {
+  sourceType: 'module'
+})
+const pTestPath = Path.join(__dirname, '..', 'puppeteer-master', 'test')
+const tempTestPath = Path.join(__dirname, '..', 'tempTests')
 
 const cleanUpString = `test.serial.afterEach.always(async t => {
   await helper.cleanup()
@@ -49,6 +54,7 @@ const FFID = { name: 'FFOX' }
 const ChromeID = { name: 'CHROME' }
 const isIdExpectOpts = { name: 'expect' }
 const describeID = { name: 'describe' }
+const avaTId = { name: 't' }
 const describes = new Set(['describe', 'describe_fails_ffox'])
 const its = new Set(['it', 'fit', 'xit', 'it_fails_ffox'])
 
@@ -650,7 +656,7 @@ async function createTest (pTestPath, crieTestPath) {
         setupDeclars.push(path.node)
       }
     },
-    CallExpression: function (dPath) {
+    CallExpression (dPath) {
       if (isDescribe(dPath)) {
         // found a describe scope so lets descend into it
         transformAndExtractDescribe(dPath, { collector })
@@ -705,7 +711,7 @@ async function createTest (pTestPath, crieTestPath) {
     imports.push(generator(setupImports[i], genOpts).code)
   }
   imports.push(
-    `import { TestHelper } from './helpers/testHelper'`,
+    `import TestHelper from './helpers/testHelper'`,
     `import { TimeoutError } from '../lib/Errors'`
   )
   codeParts.push(imports.join('\n'))
@@ -723,20 +729,103 @@ async function createTest (pTestPath, crieTestPath) {
   await fs.writeFile(crieTestPath, codeParts.join('\n\n'), 'utf-8')
 }
 
+const isTTestAwaitSomething = path =>
+  btypes.isIdentifier(path.node.callee.object, avaTId) &&
+  path.node.arguments.length > 0 &&
+  (btypes.isAwaitExpression(path.node.arguments[0]) ||
+    (btypes.isMemberExpression(path.node.arguments[0]) &&
+      btypes.isAwaitExpression(path.node.arguments[0].object)))
+async function postProcessing () {
+  const tempTestFiles = await fs.readdir(tempTestPath)
+  // const tempTestFiles = await fs.readdir('/home/john/WebstormProjects/chrome-remote-interface-extra/test')
+  for (let i = 0; i < tempTestFiles.length; i++) {
+    const testFile = tempTestFiles[i]
+    if (!testFile.endsWith('.js')) continue
+    const ttp = Path.join(tempTestPath, testFile)
+    // const ttp = Path.join('/home/john/WebstormProjects/chrome-remote-interface-extra/test', testFile)
+    console.log(testFile, ttp)
+    const contents = await fs.readFile(ttp, 'utf-8')
+    const ast = parser.parse(contents, postProcessingParseOpts)
+    let wasChange = false
+    let resultCount = 0
+    let lastParentFn
+    traverse.default(ast, {
+      CallExpression (path) {
+        if (isTTestAwaitSomething(path)) {
+          const clonedPath = btypes.clone(path.node)
+          const awaitexpr = btypes.clone(path.node.arguments[0])
+          const curParentFn = path.getFunctionParent()
+          let result
+          if (lastParentFn == null) {
+            lastParentFn = curParentFn
+            resultCount = 0
+          } else if (lastParentFn !== curParentFn) {
+            lastParentFn = curParentFn
+            resultCount = 0
+          } else {
+            resultCount += 1
+          }
+          if (resultCount > 0) {
+            result = btypes.identifier(`testResult${resultCount}`)
+          } else {
+            result = btypes.identifier(`testResult`)
+          }
+          clonedPath.arguments[0] = result
+          path.insertBefore(
+            btypes.variableDeclaration('const', [
+              btypes.variableDeclarator(result, awaitexpr)
+            ])
+          )
+          path.replaceWith(clonedPath)
+          wasChange = true
+          // printNode(path.node)
+        }
+      }
+    })
+    if (wasChange) {
+      await fs.writeFile(ttp, generator(ast, genOpts).code, 'utf-8')
+    }
+  }
+  await new Promise((resolve, reject) => {
+    cp.exec(
+      `node ${Path.join(
+        __dirname,
+        '..',
+        'node_modules',
+        '.bin',
+        'prettier-standard'
+      )} ${tempTestPath}/*.js`,
+      error => {
+        if (error) {
+          return reject(error)
+        }
+        resolve()
+      }
+    )
+  })
+}
+
 async function doIt () {
-  const pTestPath = Path.join(__dirname, '..', 'puppeteer-master', 'test')
-  const tempTestPath = Path.join(__dirname, '..', 'tempTests')
   const testFiles = await fs.readdir(pTestPath)
   for (let i = 0; i < testFiles.length; i++) {
     const testFile = testFiles[i]
     if (!testFile.endsWith('spec.js') || skipped.has(testFile)) continue
     const ptp = Path.join(pTestPath, testFile)
-    console.log(testFile)
-    await createTest(ptp, Path.join(tempTestPath, testFile.replace('.spec', '')))
+    console.log(testFile, ptp)
+    await createTest(
+      ptp,
+      Path.join(tempTestPath, testFile.replace('.spec', ''))
+    )
   }
   await new Promise((resolve, reject) => {
     cp.exec(
-      `node ${Path.join(__dirname, '..', 'node_modules', '.bin', 'prettier-standard')} ${tempTestPath}/*.js`,
+      `node ${Path.join(
+        __dirname,
+        '..',
+        'node_modules',
+        '.bin',
+        'prettier-standard'
+      )} ${tempTestPath}/*.js`,
       error => {
         if (error) {
           return reject(error)

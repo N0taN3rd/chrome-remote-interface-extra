@@ -3,15 +3,16 @@ const fs = require('fs-extra')
 const ws = require('ws')
 const createServer = require('fastify')
 const SlowStream = require('./slowStream')
-const { delay } = require('./utils')
+const { delay, promiseResolveReject } = require('./utils')
 
+const cachedPrefix = '/cached'
 const host = '127.0.0.1'
 const timeout = 10 * 1000
 const gracefullShutdownTimeout = 50000
 const portHttp = 3030
 const portHttps = portHttp + 1
 const enableLogging = process.env.LOG != null || false
-const staticPath = path.join(__dirname, '..', 'assets')
+const staticPath = path.join(__dirname, '..', 'fixtures', 'assets')
 const shutdownOnSignals = ['SIGINT', 'SIGTERM', 'SIGHUP']
 const keyCert = {
   key: path.join(__dirname, 'key.pem'),
@@ -22,13 +23,12 @@ async function getCerts () {
   const keyExists = await fs.pathExists(keyCert.key)
   const certExists = await fs.pathExists(keyCert.cert)
   if (!keyExists && !certExists) {
-    const { keygen } = require('tls-keygen')
-    await keygen(keyCert)
+    throw new Error('No certs!')
   }
   return {
-    allowHTTP1: true,
     key: await fs.readFile(keyCert.key),
-    cert: await fs.readFile(keyCert.cert)
+    cert: await fs.readFile(keyCert.cert),
+    passphrase: 'aaaa'
   }
 }
 
@@ -62,13 +62,14 @@ const makePaths = (port, https = false) => ({
   }://localhost:${port}/authEmpty3.html`
 })
 
-function promiseResolveReject () {
-  const prr = { promise: null, resolve: null, reject: null }
-  prr.promise = new Promise((resolve, reject) => {
-    prr.resolve = resolve
-    prr.reject = reject
-  })
-  return prr
+const debug = false
+
+function rng () {
+  let rando = Math.floor(Math.random() * 1000)
+  while (rando === 0) {
+    rando = Math.floor(Math.random() * 1000)
+  }
+  return rando
 }
 
 /**
@@ -154,7 +155,8 @@ function setUpServer (config) {
       reply.redirect('/empty.html')
     })
     .get('/cool', (request, reply) => {
-      reply.status(200).send('cool!')
+      reply.res.writeHead(200, 'cool!')
+      reply.send('cool beans!')
     })
     .get('/get', (request, reply) => {
       checkReqSubscribers('/get', request, reply)
@@ -201,6 +203,9 @@ function setUpServer (config) {
     .get('/rrredirect', (request, reply) => {
       reply.redirect('/frames/one-frame.html')
     })
+    .get('/redirectToEmpty', (request, reply) => {
+      reply.redirect('/empty.html')
+    })
     .get('/non-existing-page.html', (request, reply) => {
       reply.redirect('/non-existing-page-2.html')
     })
@@ -239,6 +244,7 @@ function setUpServer (config) {
       reply.redirect('/injectedstyle.css')
     })
     .get('/zzz', (request, reply) => {
+      checkReqSubscribers('/zzz', request, reply)
       reply.status(200).send('zzz')
     })
     .get('/sleep.zzz', (request, reply) => {
@@ -251,8 +257,29 @@ function setUpServer (config) {
         .status(200)
         .send(`<iframe src=${fastify.EMPTY_PAGE}></iframe>`)
     })
+    .get('/AAA', async (request, reply) => {
+      checkReqSubscribers('/AAA', request, reply)
+      await delay(rng())
+      reply.status(200)
+      return 'AAA'
+    })
+    .get('/BBB', async (request, reply) => {
+      checkReqSubscribers('/BBB', request, reply)
+      await delay(rng())
+      reply.status(200)
+      return 'BBB'
+    })
+    .get('/CCC', async (request, reply) => {
+      checkReqSubscribers('/CCC', request, reply)
+      await delay(rng())
+      reply.status(200)
+      return 'CCC'
+    })
     .post('/post', (request, reply) => {
       checkReqSubscribers('/post', request, reply)
+      reply.status(200).send(request.body)
+    })
+    .post('/sleep.zzz', (request, reply) => {
       reply.status(200).send(request.body)
     })
     .register(require('fastify-favicon'))
@@ -285,7 +312,6 @@ function setUpServer (config) {
     })
     .addHook('onClose', (fastify, done) => wsServerInstance.close(done))
     .addHook('onRequest', async (request, reply, next) => {
-      // console.log(request.req.url)
       const pathName = request.req.url
       switch (pathName) {
         case decoratingHeaderPaths.emptyFooBar:
@@ -301,7 +327,8 @@ function setUpServer (config) {
           reply.header('Content-Security-Policy', 'default-src "self"')
           break
         case decoratingHeaderPaths.jsonGzip:
-          reply.header('content-encoding', 'gzip')
+        case decoratingHeaderPaths.pngGzip:
+          reply.header('Content-Encoding', 'gzip')
           break
       }
       checkReqSubscribers(pathName, request, reply)
@@ -334,6 +361,18 @@ function setUpServer (config) {
         })
     })
 
+  if (debug) {
+    fastify
+      .addHook('onRequest', (request, reply, next) => {
+        console.log(`get ${request.req.url}`)
+        next()
+      })
+      .addHook('onResponse', (request, reply, next) => {
+        console.log(`sent ${request.req.url} ${reply.res._header}`)
+        next()
+      })
+  }
+
   wsServerInstance = new ws.Server({ server: fastify.server })
 
   shutdownOnSignals.forEach(signal => {
@@ -365,6 +404,7 @@ async function initHTTPServer () {
     port: portHttp,
     timeout: timeout,
     staticPath,
+    cachedPrefix,
     fastifyOpts: {
       trustProxy: true,
       logger: enableLogging,
@@ -392,6 +432,7 @@ async function initHTTPSServer () {
     host: host,
     port: portHttps,
     timeout: timeout,
+    cachedPrefix,
     staticPath,
     fastifyOpts: {
       trustProxy: true,

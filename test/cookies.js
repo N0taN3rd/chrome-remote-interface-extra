@@ -9,10 +9,8 @@ test.serial.before(async t => {
 })
 
 test.serial.beforeEach(async t => {
-  /** @type {Page} */
   t.context.page = await helper.newPage()
   t.context.server = helper.server()
-  /** @type {Browser} */
   t.context.browser = helper.browser()
 })
 

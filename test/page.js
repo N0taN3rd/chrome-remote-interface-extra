@@ -4,8 +4,10 @@ import * as utils from './helpers/utils'
 import { TestHelper } from './helpers/testHelper'
 import { TimeoutError } from '../lib/Errors'
 import Events from '../lib/Events'
+import DeviceDescriptors from '../lib/DeviceDescriptors'
 
 const { waitEvent } = utils
+const iPhone = DeviceDescriptors['iPhone 6']
 
 /** @type {TestHelper} */
 let helper
@@ -15,11 +17,9 @@ test.serial.before(async t => {
 })
 
 test.serial.beforeEach(async t => {
-  t.context.context = await helper.context()
-  /** @type {Browser} */
+  t.context.context = helper.browserContext()
   t.context.browser = helper.browser()
   t.context.server = helper.server()
-  /** @type {Page} */
   t.context.page = await helper.newPage()
 })
 
@@ -248,36 +248,25 @@ test.serial(
   async t => {
     const { page, server, context } = t.context
     await page.goto(server.EMPTY_PAGE)
-    await page.evaluate(() => {
-      window.events = []
-      return navigator.permissions
-        .query({
-          name: 'geolocation'
-        })
-        .then(function (result) {
-          window.events.push(result.state)
-
-          result.onchange = function () {
-            window.events.push(result.state)
-          }
-        })
-    })
-    t.deepEqual(await page.evaluate(() => window.events), ['prompt'])
+    const testFn = async () => {
+      window.navPermissions = window.navPermissions || []
+      const result = await navigator.permissions.query({
+        name: 'geolocation'
+      })
+      window.navPermissions.push(result.state)
+      return window.navPermissions
+    }
+    let navPermissions = await page.evaluate(testFn)
+    t.deepEqual(navPermissions, ['prompt'])
     await context.overridePermissions(server.EMPTY_PAGE, [])
-    t.deepEqual(await page.evaluate(() => window.events), ['prompt', 'denied'])
+    navPermissions = await page.evaluate(testFn)
+    t.deepEqual(navPermissions, ['prompt', 'denied'])
     await context.overridePermissions(server.EMPTY_PAGE, ['geolocation'])
-    t.deepEqual(await page.evaluate(() => window.events), [
-      'prompt',
-      'denied',
-      'granted'
-    ])
+    navPermissions = await page.evaluate(testFn)
+    t.deepEqual(navPermissions, ['prompt', 'denied', 'granted'])
     await context.clearPermissionOverrides()
-    t.deepEqual(await page.evaluate(() => window.events), [
-      'prompt',
-      'denied',
-      'granted',
-      'prompt'
-    ])
+    navPermissions = await page.evaluate(testFn)
+    t.deepEqual(navPermissions, ['prompt', 'denied', 'granted', 'prompt'])
   }
 )
 
@@ -354,7 +343,7 @@ test.serial('Page.setOfflineMode should work', async t => {
   t.truthy(error)
   await page.setOfflineMode(false)
   const response = await page.reload()
-  t.is(response.status(), 200)
+  t.true([200, 304].includes(response.status()))
 })
 
 test.serial('Page.setOfflineMode should emulate navigator.onLine', async t => {
@@ -480,11 +469,11 @@ test.serial(
   }
 )
 
-test.serial('Page.Events.Console should trigger correct Log', async t => {
+test.serial('Page.Events.LogEntry should trigger correct Log', async t => {
   const { page, server } = t.context
   await page.goto('about:blank')
   const [message] = await Promise.all([
-    waitEvent(page, Events.Page.Console),
+    waitEvent(page, Events.Page.LogEntry),
     page.evaluate(async url => fetch(url).catch(e => {}), server.EMPTY_PAGE)
   ])
   t.true(message.text().includes('Access-Control-Allow-Origin'))
@@ -492,20 +481,17 @@ test.serial('Page.Events.Console should trigger correct Log', async t => {
 })
 
 test.serial(
-  'Page.Events.Console should have location when fetch fails',
+  'Page.Events.LogEntry should have location when fetch fails',
   async t => {
     const { page, server } = t.context
     await page.goto(server.EMPTY_PAGE)
     const [message] = await Promise.all([
-      waitEvent(page, Events.Page.Console),
+      waitEvent(page, Events.Page.LogEntry),
       page.setContent(`<script>fetch('http://wat');</script>`)
     ])
-    t.true(message.text().includes(`ERR_NAME_NOT_RESOLVED`))
+    t.true(message.text().includes(`net::ERR_NAME_RESOLUTION_FAILED`))
     t.deepEqual(message.type(), 'error')
-    t.deepEqual(message.location(), {
-      url: 'http://wat/',
-      lineNumber: undefined
-    })
+    t.is(message.url(), 'http://wat/')
   }
 )
 
@@ -568,35 +554,27 @@ test.serial(
   }
 )
 
+const metricsToCheck = [
+  'Timestamp',
+  'Documents',
+  'Frames',
+  'JSEventListeners',
+  'Nodes',
+  'LayoutCount',
+  'RecalcStyleCount',
+  'LayoutDuration',
+  'RecalcStyleDuration',
+  'ScriptDuration',
+  'TaskDuration',
+  'JSHeapUsedSize',
+  'JSHeapTotalSize'
+]
+
 test.serial('Page.metrics should get metrics from a page', async t => {
   const { page, server } = t.context
   await page.goto('about:blank')
   const metrics = await page.metrics()
-  checkMetrics(metrics)
-  t.pass()
-  function checkMetrics (metrics) {
-    const metricsToCheck = new Set([
-      'Timestamp',
-      'Documents',
-      'Frames',
-      'JSEventListeners',
-      'Nodes',
-      'LayoutCount',
-      'RecalcStyleCount',
-      'LayoutDuration',
-      'RecalcStyleDuration',
-      'ScriptDuration',
-      'TaskDuration',
-      'JSHeapUsedSize',
-      'JSHeapTotalSize'
-    ])
-    for (const name in metrics) {
-      t.true(metricsToCheck.has(name))
-      t.true(metrics[name] > 0)
-      metricsToCheck.delete(name)
-    }
-    t.is(metricsToCheck.size, 0)
-  }
+  t.true(metricsToCheck.every(metric => metric in metrics))
 })
 
 test.serial(
@@ -607,30 +585,7 @@ test.serial(
     await page.evaluate(() => console.timeStamp('test42'))
     const metrics = await metricsPromise
     t.is(metrics.title, 'test42')
-    checkMetrics(metrics.metrics)
-    function checkMetrics (metrics) {
-      const metricsToCheck = new Set([
-        'Timestamp',
-        'Documents',
-        'Frames',
-        'JSEventListeners',
-        'Nodes',
-        'LayoutCount',
-        'RecalcStyleCount',
-        'LayoutDuration',
-        'RecalcStyleDuration',
-        'ScriptDuration',
-        'TaskDuration',
-        'JSHeapUsedSize',
-        'JSHeapTotalSize'
-      ])
-      for (const name in metrics) {
-        t.true(metricsToCheck.has(name))
-        t.true(metrics[name] > 0)
-        metricsToCheck.delete(name)
-      }
-      t.is(metricsToCheck.size, 0)
-    }
+    t.true(metricsToCheck.every(metric => metric in metrics.metrics))
   }
 )
 
@@ -1098,7 +1053,7 @@ test.serial(
     const { page, server } = t.context
     await page.goto(server.EMPTY_PAGE)
     await page.addScriptTag({
-      path: path.join(__dirname, 'assets/es6/es6pathimport.js'),
+      path: utils.assetPath('/es6/es6pathimport.js'),
       type: 'module'
     })
     await page.waitForFunction('window.__es6injected')
@@ -1143,7 +1098,7 @@ test.serial('Page.addScriptTag should work with a path', async t => {
   const { page, server } = t.context
   await page.goto(server.EMPTY_PAGE)
   const scriptHandle = await page.addScriptTag({
-    path: path.join(__dirname, 'assets/injectedfile.js')
+    path: utils.assetPath('injectedfile.js')
   })
   t.truthy(scriptHandle.asElement())
   t.is(await page.evaluate(() => __injected), 42)
@@ -1155,10 +1110,10 @@ test.serial(
     const { page, server } = t.context
     await page.goto(server.EMPTY_PAGE)
     await page.addScriptTag({
-      path: path.join(__dirname, 'assets/injectedfile.js')
+      path: utils.assetPath('injectedfile.js')
     })
     const result = await page.evaluate(() => __injectedError.stack)
-    t.true(result.includes(path.join('assets', 'injectedfile.js')))
+    t.true(result.includes(utils.assetPath('injectedfile.js')))
   }
 )
 
@@ -1259,7 +1214,7 @@ test.serial('Page.addStyleTag should work with a path', async t => {
   const { page, server } = t.context
   await page.goto(server.EMPTY_PAGE)
   const styleHandle = await page.addStyleTag({
-    path: path.join(__dirname, 'assets/injectedstyle.css')
+    path: utils.assetPath('injectedstyle.css')
   })
   t.truthy(styleHandle.asElement())
   t.is(
@@ -1276,14 +1231,14 @@ test.serial(
     const { page, server } = t.context
     await page.goto(server.EMPTY_PAGE)
     await page.addStyleTag({
-      path: path.join(__dirname, 'assets/injectedstyle.css')
+      path: utils.assetPath('injectedstyle.css')
     })
     const styleHandle = await page.$('style')
     const styleContent = await page.evaluate(
       style => style.innerHTML,
       styleHandle
     )
-    t.true(styleContent.includes(path.join('assets', 'injectedstyle.css')))
+    t.true(styleContent.includes(utils.assetPath('injectedstyle.css')))
   }
 )
 
@@ -1361,17 +1316,16 @@ test.serial(
     const { page, server } = t.context
     await page.goto(server.PREFIX + '/cached/one-style.html')
     const [cachedRequest] = await Promise.all([
-      server.waitForRequest('/cached/one-style.html'),
-      page.reload()
-    ]) // Rely on "if-modified-since" caching in our test server.
-
-    t.truthy(cachedRequest.headers['if-modified-since'])
-    await page.setCacheEnabled(false)
-    const [nonCachedRequest] = await Promise.all([
-      server.waitForRequest('/cached/one-style.html'),
+      page.waitForRequest(req => req.url().includes('/cached/one-style.html')),
       page.reload()
     ])
-    t.falsy(nonCachedRequest.headers['if-modified-since'])
+    t.false(cachedRequest.fromMemoryCache())
+    await page.setCacheEnabled(false)
+    const [nonCachedRequest] = await Promise.all([
+      page.waitForRequest(req => req.url().includes('/cached/one-style.html')),
+      page.reload()
+    ])
+    t.false(nonCachedRequest.fromMemoryCache())
   }
 )
 

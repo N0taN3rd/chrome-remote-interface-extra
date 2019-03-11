@@ -1,7 +1,6 @@
 import test from 'ava'
 import * as utils from './helpers/utils'
 import { TestHelper } from './helpers/testHelper'
-import { TimeoutError } from '../lib/Errors'
 
 /** @type {TestHelper} */
 let helper
@@ -11,7 +10,6 @@ test.serial.before(async t => {
 })
 
 test.serial.beforeEach(async t => {
-  /** @type {Page} */
   t.context.page = await helper.newPage()
   t.context.server = helper.server()
 })
@@ -402,7 +400,6 @@ test.serial(
     const { page, server } = t.context
     await page.goto(server.PREFIX + '/frames/one-frame.html')
     t.is(page.frames().length, 2)
-    t.log(await page.frames()[1].content())
     t.is(
       await page.frames()[0].evaluate(() => document.body.textContent.trim()),
       ''

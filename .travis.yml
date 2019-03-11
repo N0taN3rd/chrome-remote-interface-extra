@@ -1,0 +1,15 @@
+language: node_js
+node_js: 11.11.0
+dist: xenial
+services: xvfb
+addons:
+  apt:
+    update: true
+    sources:
+      - sourceline: "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main"
+        key_url: https://dl-ssl.google.com/linux/linux_signing_key.pub
+    packages:
+      - google-chrome-unstable  # this is canary or dev
+before_install:
+  - "sysctl kernel.unprivileged_userns_clone=1"
+script: ./scripts/run-tests.sh

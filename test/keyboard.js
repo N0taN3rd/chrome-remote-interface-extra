@@ -2,7 +2,6 @@ import test from 'ava'
 import * as utils from './helpers/utils'
 import * as os from 'os'
 import { TestHelper } from './helpers/testHelper'
-import { TimeoutError } from '../lib/Errors'
 
 /** @type {TestHelper} */
 let helper
@@ -12,7 +11,6 @@ test.serial.before(async t => {
 })
 
 test.serial.beforeEach(async t => {
-  /** @type {Page} */
   t.context.page = await helper.newPage()
   t.context.server = helper.server()
 })
@@ -360,10 +358,11 @@ test.serial('Keyboard should throw on unknown keys', async t => {
 test.serial('Keyboard should type emoji', async t => {
   const { page, server } = t.context
   await page.goto(server.PREFIX + '/input/textarea.html')
-  await page.type('textarea', '👹 Tokyo street Japan 🇯🇵')
+  const emojis = '☣⌨️️'
+  await page.type('textarea', emojis)
   t.is(
     await page.$eval('textarea', textarea => textarea.value),
-    '👹 Tokyo street Japan 🇯🇵'
+    emojis
   )
 })
 
@@ -377,10 +376,11 @@ test.serial('Keyboard should type emoji into an iframe', async t => {
   )
   const frame = page.frames()[1]
   const textarea = await frame.$('textarea')
-  await textarea.type('👹 Tokyo street Japan 🇯🇵')
+  const emojis = '☣⌨️️'
+  await textarea.type(emojis)
   t.is(
     await frame.$eval('textarea', textarea => textarea.value),
-    '👹 Tokyo street Japan 🇯🇵'
+    emojis
   )
 })
 

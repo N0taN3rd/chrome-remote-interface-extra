@@ -16,8 +16,8 @@ const { delay } = require('./utils')
  * @property {*} t
  */
 
-const GOLDEN_DIR = path.join(__dirname, '..', '/golden')
-const OUTPUT_DIR = path.join(__dirname, '..', '/golden-output')
+const GOLDEN_DIR = path.join(__dirname, '..', 'fixtures', 'golden')
+const OUTPUT_DIR = path.join(__dirname, '..', 'fixtures', 'golden-output')
 
 const testDomains = {
   workers: true,
@@ -136,6 +136,9 @@ class TestHelper {
     this._httpsServer = httpsServer
     /** @type {CRIConnection} */
     this._client = client
+    /**
+     * @type {Browser}
+     */
     this._browser = browser
 
     /** @type {*} */
@@ -167,6 +170,10 @@ class TestHelper {
    */
   browser () {
     return this._browser
+  }
+
+  browserContext () {
+    return this._browser.defaultBrowserContext()
   }
 
   toBeGolden (what, filePath) {
@@ -220,32 +227,30 @@ class TestHelper {
 
   async cleanup () {
     this.resetServers()
-    let i
-    for (i = 0; i < this._pages.length; i++) {
+    for (let i = 0; i < this._pages.length; i++) {
       try {
         await this._pages[i].close()
       } catch (e) {}
     }
-    this._pages.length = 0
-    for (i = 0; i < this._contexts.length; i++) {
+    this._pages = []
+    for (let i = 0; i < this._contexts.length; i++) {
       await this._contexts[i].close()
     }
-    this._contexts.length = 0
+    this._contexts = []
   }
 
   async deepClean () {
     this.resetServers()
-    let i
-    for (i = 0; i < this._pages.length; i++) {
+    for (let i = 0; i < this._pages.length; i++) {
       await cleanUpCookies(this._pages[i])
       await this._pages[i].close()
     }
-    this._pages.length = 0
+    this._pages = []
 
-    for (i = 0; i < this._contexts.length; i++) {
+    for (let i = 0; i < this._contexts.length; i++) {
       await this._contexts[i].close()
     }
-    this._contexts.length = 0
+    this._contexts = []
   }
 
   async end () {

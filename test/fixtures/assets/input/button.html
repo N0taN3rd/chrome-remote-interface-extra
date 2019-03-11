@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Button test</title>
+  </head>
+  <body>
+    <script src="mouse-helper.js"></script>
+    <button>Was not clicked</button>
+    <script>
+      window.result = 'Was not clicked';
+      const button = document.querySelector('button');
+      button.addEventListener('click', function () {
+        console.log('clicked')
+        window.result = 'Clicked';
+        button.innerText = 'Clicked';
+      });
+    </script>
+  </body>
+</html>

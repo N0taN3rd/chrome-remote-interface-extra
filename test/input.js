@@ -1,7 +1,6 @@
 import test from 'ava'
-import * as path from 'path'
+import { relativeAssetPath } from './helpers/utils'
 import { TestHelper } from './helpers/testHelper'
-import { TimeoutError } from '../lib/Errors'
 
 /** @type {TestHelper} */
 let helper
@@ -27,10 +26,7 @@ test.after.always(async t => {
 test.serial('input should upload the file', async t => {
   const { page, server } = t.context
   await page.goto(server.PREFIX + '/input/fileupload.html')
-  const filePath = path.relative(
-    process.cwd(),
-    __dirname + '/assets/file-to-upload.txt'
-  )
+  const filePath = relativeAssetPath('file-to-upload.txt')
   const input = await page.$('input')
   await input.uploadFile(filePath)
   t.is(await page.evaluate(e => e.files[0].name, input), 'file-to-upload.txt')
@@ -43,17 +39,4 @@ test.serial('input should upload the file', async t => {
     }, input),
     'contents of the file'
   )
-})
-
-test.serial('input keyboard.modifiers()', async t => {
-  const { page, server } = t.context
-  const keyboard = page.keyboard
-  t.is(keyboard._modifiers, 0)
-  await keyboard.down('Shift')
-  t.is(keyboard._modifiers, 8)
-  await keyboard.down('Alt')
-  t.is(keyboard._modifiers, 9)
-  await keyboard.up('Shift')
-  await keyboard.up('Alt')
-  t.is(keyboard._modifiers, 0)
 })

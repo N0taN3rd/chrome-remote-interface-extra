@@ -30,11 +30,11 @@ test.serial(
     const { page, httpsServer } = t.context
     const response = await page.goto(httpsServer.EMPTY_PAGE)
     const securityDetails = response.securityDetails()
-    t.is(securityDetails.issuer(), 'localhost')
+    t.is(securityDetails.issuer(), 'puppeteer-tests')
     t.is(securityDetails.protocol(), 'TLS 1.2')
-    t.is(securityDetails.subjectName(), 'localhost')
-    t.is(securityDetails.validFrom(), 1551718186)
-    t.is(securityDetails.validTo(), 1583254186)
+    t.is(securityDetails.subjectName(), 'puppeteer-tests')
+    t.is(securityDetails.validFrom(), 1550084863)
+    t.is(securityDetails.validTo(), 33086084863)
   }
 )
 

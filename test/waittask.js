@@ -1,6 +1,6 @@
 import test from 'ava'
 import * as utils from './helpers/utils'
-import { TestHelper } from './helpers/testHelper'
+import TestHelper from './helpers/testHelper'
 import { TimeoutError } from '../lib/Errors'
 
 /** @type {TestHelper} */
@@ -11,7 +11,6 @@ test.serial.before(async t => {
 })
 
 test.serial.beforeEach(async t => {
-  /** @type {Page} */
   t.context.page = await helper.newPage()
   t.context.server = helper.server()
 })

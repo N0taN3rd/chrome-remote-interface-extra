@@ -176,23 +176,20 @@ test.serial('Target should not report uninitialized pages', async t => {
 test.serial(
   'Target should not crash while redirecting if original request was missed',
   async t => {
+    t.timeout(15000)
     const { page, server, context } = t.context
-
-    await Promise.all([
+    const [target] = await Promise.all([
+      context.waitForTarget(target =>
+        target.url().includes('one-style-redir.html')
+      ),
       page.evaluate(
         url => window.open(url),
         server.PREFIX + '/one-style-redir.html'
       ),
       server.waitForRequest('/one-style-redir.css')
     ]) // Connect to the opened page.
-
-    const target = await context.waitForTarget(target =>
-      target.url().includes('one-style-redir.html')
-    )
     const newPage = await target.page() // Issue a redirect.
-
-    await waitEvent(newPage, 'load') // Cleanup.
-
+    await newPage.waitForXPath('/html/body/div[contains(text(), "hello, world!")]')
     await newPage.close()
     t.pass()
   }

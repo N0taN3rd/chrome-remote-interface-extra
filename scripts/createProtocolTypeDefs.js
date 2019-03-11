@@ -219,7 +219,7 @@ async function doIt () {
     }
   }
   typeDefs.push('\n')
-  await fs.writeFile('typedefs.js', typeDefs.join('\n\n'), 'utf-8')
+  await fs.writeFile('typedefs.txt', typeDefs.join('\n\n'), 'utf-8')
 }
 
 doIt().catch(error => {

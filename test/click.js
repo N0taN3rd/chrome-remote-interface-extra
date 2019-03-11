@@ -1,7 +1,6 @@
 import test from 'ava'
 import * as utils from './helpers/utils'
 import { TestHelper } from './helpers/testHelper'
-import { TimeoutError } from '../lib/Errors'
 
 const DeviceDescriptors = utils.requireRoot('DeviceDescriptors')
 
@@ -15,7 +14,6 @@ test.serial.before(async t => {
 })
 
 test.serial.beforeEach(async t => {
-  /** @type {Page} */
   t.context.page = await helper.newPage()
   t.context.server = helper.server()
 })
@@ -40,7 +38,7 @@ test.serial(
   async t => {
     const { page, server } = t.context
     await page.goto(server.PREFIX + '/input/button.html')
-    await page.evaluate(() => delete window.Node)
+    await page.evaluate(() => `delete window.Node`)
     await page.click('button')
     t.is(await page.evaluate(() => result), 'Clicked')
   }
@@ -270,6 +268,31 @@ test.serial('Page.click should click the button inside an iframe', async t => {
   await button.click()
   t.is(await frame.evaluate(() => window.result), 'Clicked')
 })
+
+test.serial(
+  'Page.click should click the button with fixed position inside an iframe',
+  async t => {
+    const { page, server } = t.context
+    await page.goto(server.EMPTY_PAGE)
+    await page.setViewport({
+      width: 500,
+      height: 500
+    })
+    await page.setContent('<div style="width:100px;height:2000px">spacer</div>')
+    await utils.attachFrame(
+      page,
+      'button-test',
+      server.CROSS_PROCESS_PREFIX + '/input/button.html'
+    )
+    const frame = page.frames()[1]
+    await (await page.getElementById('button-test')).scrollIntoView()
+    await frame.$eval('button', button =>
+      button.style.setProperty('position', 'fixed')
+    )
+    await frame.click('button')
+    t.is(await frame.evaluate(() => window.result), 'Clicked')
+  }
+)
 
 test.serial(
   'Page.click should click the button with deviceScaleFactor set',
