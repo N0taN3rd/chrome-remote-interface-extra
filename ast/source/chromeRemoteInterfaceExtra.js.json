@@ -1,28 +1,28 @@
 {
   "type": "File",
   "start": 0,
-  "end": 727,
+  "end": 2178,
   "loc": {
     "start": {
       "line": 1,
       "column": 0
     },
     "end": {
-      "line": 27,
+      "line": 44,
       "column": 0
     }
   },
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 727,
+    "end": 2178,
     "loc": {
       "start": {
         "line": 1,
         "column": 0
       },
       "end": {
-        "line": 27,
+        "line": 44,
         "column": 0
       }
     },
@@ -170,16 +170,32 @@
         "trailingComments": [
           {
             "type": "CommentBlock",
-            "value": "*\n * @param {Object} [options]\n * @return {Promise<CRIConnection>}\n ",
+            "value": "*\n * @typedef {Object} CRIOptions\n * @property {?string} [host] - HTTP frontend host. Defaults to localhost\n * @property {?number} [port] - HTTP frontend port. Defaults to 9222\n * @property {?boolean} [secure] - HTTPS/WSS frontend. Defaults to false\n * @property {?boolean} [useHostName] - do not perform a DNS lookup of the host. Defaults to false\n * @property {?(function|object|string)} [target] - determines which target this client should attach to. The behavior changes according to the type\n * - a function that takes the array returned by the List method and returns a target or its numeric index relative to the array\n * - a target object like those returned by the New and List methods\n * - a string representing the raw WebSocket URL, in this case host and port are not used to fetch the target list, yet they are used to complete the URL if relative\n * - a string representing the target id\n *\n * Defaults to a function which returns the first available target according to the implementation (note that at most one connection can be established to the same target)\n * @property {?Object} [protocol] - Chrome Debugging Protocol descriptor object. Defaults to use the protocol chosen according to the local option\n * @property {?boolean} [local] -  boolean indicating whether the protocol must be fetched remotely or if the local version must be used. It has no effect if the protocol option is set. Defaults to false\n ",
             "start": 116,
-            "end": 188,
+            "end": 1550,
             "loc": {
               "start": {
                 "line": 4,
                 "column": 0
               },
               "end": {
-                "line": 7,
+                "line": 19,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @param {?CRIOptions} [options]\n * @return {Promise<CRIConnection>}\n ",
+            "start": 1552,
+            "end": 1629,
+            "loc": {
+              "start": {
+                "line": 21,
+                "column": 0
+              },
+              "end": {
+                "line": 24,
                 "column": 3
               }
             }
@@ -188,29 +204,29 @@
       },
       {
         "type": "Identifier",
-        "start": 189,
-        "end": 260,
+        "start": 1630,
+        "end": 1701,
         "loc": {
           "start": {
-            "line": 8,
+            "line": 25,
             "column": 0
           },
           "end": {
-            "line": 10,
+            "line": 27,
             "column": 1
           }
         },
         "id": {
           "type": "Identifier",
-          "start": 198,
-          "end": 206,
+          "start": 1639,
+          "end": 1647,
           "loc": {
             "start": {
-              "line": 8,
+              "line": 25,
               "column": 9
             },
             "end": {
-              "line": 8,
+              "line": 25,
               "column": 17
             },
             "identifierName": "CRIExtra"
@@ -224,15 +240,15 @@
         "params": [
           {
             "type": "Identifier",
-            "start": 208,
-            "end": 215,
+            "start": 1649,
+            "end": 1656,
             "loc": {
               "start": {
-                "line": 8,
+                "line": 25,
                 "column": 19
               },
               "end": {
-                "line": 8,
+                "line": 25,
                 "column": 26
               },
               "identifierName": "options"
@@ -242,72 +258,72 @@
         ],
         "body": {
           "type": "BlockStatement",
-          "start": 217,
-          "end": 260,
+          "start": 1658,
+          "end": 1701,
           "loc": {
             "start": {
-              "line": 8,
+              "line": 25,
               "column": 28
             },
             "end": {
-              "line": 10,
+              "line": 27,
               "column": 1
             }
           },
           "body": [
             {
               "type": "ReturnStatement",
-              "start": 221,
-              "end": 258,
+              "start": 1662,
+              "end": 1699,
               "loc": {
                 "start": {
-                  "line": 9,
+                  "line": 26,
                   "column": 2
                 },
                 "end": {
-                  "line": 9,
+                  "line": 26,
                   "column": 39
                 }
               },
               "argument": {
                 "type": "CallExpression",
-                "start": 228,
-                "end": 258,
+                "start": 1669,
+                "end": 1699,
                 "loc": {
                   "start": {
-                    "line": 9,
+                    "line": 26,
                     "column": 9
                   },
                   "end": {
-                    "line": 9,
+                    "line": 26,
                     "column": 39
                   }
                 },
                 "callee": {
                   "type": "MemberExpression",
-                  "start": 228,
-                  "end": 249,
+                  "start": 1669,
+                  "end": 1690,
                   "loc": {
                     "start": {
-                      "line": 9,
+                      "line": 26,
                       "column": 9
                     },
                     "end": {
-                      "line": 9,
+                      "line": 26,
                       "column": 30
                     }
                   },
                   "object": {
                     "type": "Identifier",
-                    "start": 228,
-                    "end": 241,
+                    "start": 1669,
+                    "end": 1682,
                     "loc": {
                       "start": {
-                        "line": 9,
+                        "line": 26,
                         "column": 9
                       },
                       "end": {
-                        "line": 9,
+                        "line": 26,
                         "column": 22
                       },
                       "identifierName": "CRIConnection"
@@ -316,15 +332,15 @@
                   },
                   "property": {
                     "type": "Identifier",
-                    "start": 242,
-                    "end": 249,
+                    "start": 1683,
+                    "end": 1690,
                     "loc": {
                       "start": {
-                        "line": 9,
+                        "line": 26,
                         "column": 23
                       },
                       "end": {
-                        "line": 9,
+                        "line": 26,
                         "column": 30
                       },
                       "identifierName": "connect"
@@ -336,15 +352,15 @@
                 "arguments": [
                   {
                     "type": "Identifier",
-                    "start": 250,
-                    "end": 257,
+                    "start": 1691,
+                    "end": 1698,
                     "loc": {
                       "start": {
-                        "line": 9,
+                        "line": 26,
                         "column": 31
                       },
                       "end": {
-                        "line": 9,
+                        "line": 26,
                         "column": 38
                       },
                       "identifierName": "options"
@@ -364,58 +380,58 @@
       },
       {
         "type": "ExpressionStatement",
-        "start": 314,
-        "end": 350,
+        "start": 1765,
+        "end": 1801,
         "loc": {
           "start": {
-            "line": 15,
+            "line": 32,
             "column": 0
           },
           "end": {
-            "line": 15,
+            "line": 32,
             "column": 36
           }
         },
         "expression": {
           "type": "AssignmentExpression",
-          "start": 314,
-          "end": 350,
+          "start": 1765,
+          "end": 1801,
           "loc": {
             "start": {
-              "line": 15,
+              "line": 32,
               "column": 0
             },
             "end": {
-              "line": 15,
+              "line": 32,
               "column": 36
             }
           },
           "operator": "=",
           "left": {
             "type": "MemberExpression",
-            "start": 314,
-            "end": 326,
+            "start": 1765,
+            "end": 1777,
             "loc": {
               "start": {
-                "line": 15,
+                "line": 32,
                 "column": 0
               },
               "end": {
-                "line": 15,
+                "line": 32,
                 "column": 12
               }
             },
             "object": {
               "type": "Identifier",
-              "start": 314,
-              "end": 322,
+              "start": 1765,
+              "end": 1773,
               "loc": {
                 "start": {
-                  "line": 15,
+                  "line": 32,
                   "column": 0
                 },
                 "end": {
-                  "line": 15,
+                  "line": 32,
                   "column": 8
                 },
                 "identifierName": "CRIExtra"
@@ -425,15 +441,15 @@
             },
             "property": {
               "type": "Identifier",
-              "start": 323,
-              "end": 326,
+              "start": 1774,
+              "end": 1777,
               "loc": {
                 "start": {
-                  "line": 15,
+                  "line": 32,
                   "column": 9
                 },
                 "end": {
-                  "line": 15,
+                  "line": 32,
                   "column": 12
                 },
                 "identifierName": "CDP"
@@ -445,15 +461,15 @@
           },
           "right": {
             "type": "Identifier",
-            "start": 329,
-            "end": 350,
+            "start": 1780,
+            "end": 1801,
             "loc": {
               "start": {
-                "line": 15,
+                "line": 32,
                 "column": 15
               },
               "end": {
-                "line": 15,
+                "line": 32,
                 "column": 36
               },
               "identifierName": "ChromeRemoteInterface"
@@ -465,16 +481,16 @@
         "leadingComments": [
           {
             "type": "CommentBlock",
-            "value": "*\n * @type {function(opts: *, cb: *): Chrome}\n ",
-            "start": 262,
-            "end": 313,
+            "value": "*\n * @type {function(opts: ?CRIOptions, cb: *): Chrome}\n ",
+            "start": 1703,
+            "end": 1764,
             "loc": {
               "start": {
-                "line": 12,
+                "line": 29,
                 "column": 0
               },
               "end": {
-                "line": 14,
+                "line": 31,
                 "column": 3
               }
             }
@@ -483,58 +499,58 @@
       },
       {
         "type": "ExpressionStatement",
-        "start": 351,
-        "end": 401,
+        "start": 1802,
+        "end": 1852,
         "loc": {
           "start": {
-            "line": 16,
+            "line": 33,
             "column": 0
           },
           "end": {
-            "line": 16,
+            "line": 33,
             "column": 50
           }
         },
         "expression": {
           "type": "AssignmentExpression",
-          "start": 351,
-          "end": 401,
+          "start": 1802,
+          "end": 1852,
           "loc": {
             "start": {
-              "line": 16,
+              "line": 33,
               "column": 0
             },
             "end": {
-              "line": 16,
+              "line": 33,
               "column": 50
             }
           },
           "operator": "=",
           "left": {
             "type": "MemberExpression",
-            "start": 351,
-            "end": 368,
+            "start": 1802,
+            "end": 1819,
             "loc": {
               "start": {
-                "line": 16,
+                "line": 33,
                 "column": 0
               },
               "end": {
-                "line": 16,
+                "line": 33,
                 "column": 17
               }
             },
             "object": {
               "type": "Identifier",
-              "start": 351,
-              "end": 359,
+              "start": 1802,
+              "end": 1810,
               "loc": {
                 "start": {
-                  "line": 16,
+                  "line": 33,
                   "column": 0
                 },
                 "end": {
-                  "line": 16,
+                  "line": 33,
                   "column": 8
                 },
                 "identifierName": "CRIExtra"
@@ -543,15 +559,15 @@
             },
             "property": {
               "type": "Identifier",
-              "start": 360,
-              "end": 368,
+              "start": 1811,
+              "end": 1819,
               "loc": {
                 "start": {
-                  "line": 16,
+                  "line": 33,
                   "column": 9
                 },
                 "end": {
-                  "line": 16,
+                  "line": 33,
                   "column": 17
                 },
                 "identifierName": "Protocol"
@@ -562,29 +578,29 @@
           },
           "right": {
             "type": "MemberExpression",
-            "start": 371,
-            "end": 401,
+            "start": 1822,
+            "end": 1852,
             "loc": {
               "start": {
-                "line": 16,
+                "line": 33,
                 "column": 20
               },
               "end": {
-                "line": 16,
+                "line": 33,
                 "column": 50
               }
             },
             "object": {
               "type": "Identifier",
-              "start": 371,
-              "end": 392,
+              "start": 1822,
+              "end": 1843,
               "loc": {
                 "start": {
-                  "line": 16,
+                  "line": 33,
                   "column": 20
                 },
                 "end": {
-                  "line": 16,
+                  "line": 33,
                   "column": 41
                 },
                 "identifierName": "ChromeRemoteInterface"
@@ -593,15 +609,15 @@
             },
             "property": {
               "type": "Identifier",
-              "start": 393,
-              "end": 401,
+              "start": 1844,
+              "end": 1852,
               "loc": {
                 "start": {
-                  "line": 16,
+                  "line": 33,
                   "column": 42
                 },
                 "end": {
-                  "line": 16,
+                  "line": 33,
                   "column": 50
                 },
                 "identifierName": "Protocol"
@@ -614,58 +630,58 @@
       },
       {
         "type": "ExpressionStatement",
-        "start": 402,
-        "end": 444,
+        "start": 1853,
+        "end": 1895,
         "loc": {
           "start": {
-            "line": 17,
+            "line": 34,
             "column": 0
           },
           "end": {
-            "line": 17,
+            "line": 34,
             "column": 42
           }
         },
         "expression": {
           "type": "AssignmentExpression",
-          "start": 402,
-          "end": 444,
+          "start": 1853,
+          "end": 1895,
           "loc": {
             "start": {
-              "line": 17,
+              "line": 34,
               "column": 0
             },
             "end": {
-              "line": 17,
+              "line": 34,
               "column": 42
             }
           },
           "operator": "=",
           "left": {
             "type": "MemberExpression",
-            "start": 402,
-            "end": 415,
+            "start": 1853,
+            "end": 1866,
             "loc": {
               "start": {
-                "line": 17,
+                "line": 34,
                 "column": 0
               },
               "end": {
-                "line": 17,
+                "line": 34,
                 "column": 13
               }
             },
             "object": {
               "type": "Identifier",
-              "start": 402,
-              "end": 410,
+              "start": 1853,
+              "end": 1861,
               "loc": {
                 "start": {
-                  "line": 17,
+                  "line": 34,
                   "column": 0
                 },
                 "end": {
-                  "line": 17,
+                  "line": 34,
                   "column": 8
                 },
                 "identifierName": "CRIExtra"
@@ -674,15 +690,15 @@
             },
             "property": {
               "type": "Identifier",
-              "start": 411,
-              "end": 415,
+              "start": 1862,
+              "end": 1866,
               "loc": {
                 "start": {
-                  "line": 17,
+                  "line": 34,
                   "column": 9
                 },
                 "end": {
-                  "line": 17,
+                  "line": 34,
                   "column": 13
                 },
                 "identifierName": "List"
@@ -693,29 +709,29 @@
           },
           "right": {
             "type": "MemberExpression",
-            "start": 418,
-            "end": 444,
+            "start": 1869,
+            "end": 1895,
             "loc": {
               "start": {
-                "line": 17,
+                "line": 34,
                 "column": 16
               },
               "end": {
-                "line": 17,
+                "line": 34,
                 "column": 42
               }
             },
             "object": {
               "type": "Identifier",
-              "start": 418,
-              "end": 439,
+              "start": 1869,
+              "end": 1890,
               "loc": {
                 "start": {
-                  "line": 17,
+                  "line": 34,
                   "column": 16
                 },
                 "end": {
-                  "line": 17,
+                  "line": 34,
                   "column": 37
                 },
                 "identifierName": "ChromeRemoteInterface"
@@ -724,15 +740,15 @@
             },
             "property": {
               "type": "Identifier",
-              "start": 440,
-              "end": 444,
+              "start": 1891,
+              "end": 1895,
               "loc": {
                 "start": {
-                  "line": 17,
+                  "line": 34,
                   "column": 38
                 },
                 "end": {
-                  "line": 17,
+                  "line": 34,
                   "column": 42
                 },
                 "identifierName": "List"
@@ -745,58 +761,58 @@
       },
       {
         "type": "ExpressionStatement",
-        "start": 445,
-        "end": 485,
+        "start": 1896,
+        "end": 1936,
         "loc": {
           "start": {
-            "line": 18,
+            "line": 35,
             "column": 0
           },
           "end": {
-            "line": 18,
+            "line": 35,
             "column": 40
           }
         },
         "expression": {
           "type": "AssignmentExpression",
-          "start": 445,
-          "end": 485,
+          "start": 1896,
+          "end": 1936,
           "loc": {
             "start": {
-              "line": 18,
+              "line": 35,
               "column": 0
             },
             "end": {
-              "line": 18,
+              "line": 35,
               "column": 40
             }
           },
           "operator": "=",
           "left": {
             "type": "MemberExpression",
-            "start": 445,
-            "end": 457,
+            "start": 1896,
+            "end": 1908,
             "loc": {
               "start": {
-                "line": 18,
+                "line": 35,
                 "column": 0
               },
               "end": {
-                "line": 18,
+                "line": 35,
                 "column": 12
               }
             },
             "object": {
               "type": "Identifier",
-              "start": 445,
-              "end": 453,
+              "start": 1896,
+              "end": 1904,
               "loc": {
                 "start": {
-                  "line": 18,
+                  "line": 35,
                   "column": 0
                 },
                 "end": {
-                  "line": 18,
+                  "line": 35,
                   "column": 8
                 },
                 "identifierName": "CRIExtra"
@@ -805,15 +821,15 @@
             },
             "property": {
               "type": "Identifier",
-              "start": 454,
-              "end": 457,
+              "start": 1905,
+              "end": 1908,
               "loc": {
                 "start": {
-                  "line": 18,
+                  "line": 35,
                   "column": 9
                 },
                 "end": {
-                  "line": 18,
+                  "line": 35,
                   "column": 12
                 },
                 "identifierName": "New"
@@ -824,29 +840,29 @@
           },
           "right": {
             "type": "MemberExpression",
-            "start": 460,
-            "end": 485,
+            "start": 1911,
+            "end": 1936,
             "loc": {
               "start": {
-                "line": 18,
+                "line": 35,
                 "column": 15
               },
               "end": {
-                "line": 18,
+                "line": 35,
                 "column": 40
               }
             },
             "object": {
               "type": "Identifier",
-              "start": 460,
-              "end": 481,
+              "start": 1911,
+              "end": 1932,
               "loc": {
                 "start": {
-                  "line": 18,
+                  "line": 35,
                   "column": 15
                 },
                 "end": {
-                  "line": 18,
+                  "line": 35,
                   "column": 36
                 },
                 "identifierName": "ChromeRemoteInterface"
@@ -855,15 +871,15 @@
             },
             "property": {
               "type": "Identifier",
-              "start": 482,
-              "end": 485,
+              "start": 1933,
+              "end": 1936,
               "loc": {
                 "start": {
-                  "line": 18,
+                  "line": 35,
                   "column": 37
                 },
                 "end": {
-                  "line": 18,
+                  "line": 35,
                   "column": 40
                 },
                 "identifierName": "New"
@@ -876,58 +892,58 @@
       },
       {
         "type": "ExpressionStatement",
-        "start": 486,
-        "end": 536,
+        "start": 1937,
+        "end": 1987,
         "loc": {
           "start": {
-            "line": 19,
+            "line": 36,
             "column": 0
           },
           "end": {
-            "line": 19,
+            "line": 36,
             "column": 50
           }
         },
         "expression": {
           "type": "AssignmentExpression",
-          "start": 486,
-          "end": 536,
+          "start": 1937,
+          "end": 1987,
           "loc": {
             "start": {
-              "line": 19,
+              "line": 36,
               "column": 0
             },
             "end": {
-              "line": 19,
+              "line": 36,
               "column": 50
             }
           },
           "operator": "=",
           "left": {
             "type": "MemberExpression",
-            "start": 486,
-            "end": 503,
+            "start": 1937,
+            "end": 1954,
             "loc": {
               "start": {
-                "line": 19,
+                "line": 36,
                 "column": 0
               },
               "end": {
-                "line": 19,
+                "line": 36,
                 "column": 17
               }
             },
             "object": {
               "type": "Identifier",
-              "start": 486,
-              "end": 494,
+              "start": 1937,
+              "end": 1945,
               "loc": {
                 "start": {
-                  "line": 19,
+                  "line": 36,
                   "column": 0
                 },
                 "end": {
-                  "line": 19,
+                  "line": 36,
                   "column": 8
                 },
                 "identifierName": "CRIExtra"
@@ -936,15 +952,15 @@
             },
             "property": {
               "type": "Identifier",
-              "start": 495,
-              "end": 503,
+              "start": 1946,
+              "end": 1954,
               "loc": {
                 "start": {
-                  "line": 19,
+                  "line": 36,
                   "column": 9
                 },
                 "end": {
-                  "line": 19,
+                  "line": 36,
                   "column": 17
                 },
                 "identifierName": "Activate"
@@ -955,29 +971,29 @@
           },
           "right": {
             "type": "MemberExpression",
-            "start": 506,
-            "end": 536,
+            "start": 1957,
+            "end": 1987,
             "loc": {
               "start": {
-                "line": 19,
+                "line": 36,
                 "column": 20
               },
               "end": {
-                "line": 19,
+                "line": 36,
                 "column": 50
               }
             },
             "object": {
               "type": "Identifier",
-              "start": 506,
-              "end": 527,
+              "start": 1957,
+              "end": 1978,
               "loc": {
                 "start": {
-                  "line": 19,
+                  "line": 36,
                   "column": 20
                 },
                 "end": {
-                  "line": 19,
+                  "line": 36,
                   "column": 41
                 },
                 "identifierName": "ChromeRemoteInterface"
@@ -986,15 +1002,15 @@
             },
             "property": {
               "type": "Identifier",
-              "start": 528,
-              "end": 536,
+              "start": 1979,
+              "end": 1987,
               "loc": {
                 "start": {
-                  "line": 19,
+                  "line": 36,
                   "column": 42
                 },
                 "end": {
-                  "line": 19,
+                  "line": 36,
                   "column": 50
                 },
                 "identifierName": "Activate"
@@ -1007,58 +1023,58 @@
       },
       {
         "type": "ExpressionStatement",
-        "start": 537,
-        "end": 581,
+        "start": 1988,
+        "end": 2032,
         "loc": {
           "start": {
-            "line": 20,
+            "line": 37,
             "column": 0
           },
           "end": {
-            "line": 20,
+            "line": 37,
             "column": 44
           }
         },
         "expression": {
           "type": "AssignmentExpression",
-          "start": 537,
-          "end": 581,
+          "start": 1988,
+          "end": 2032,
           "loc": {
             "start": {
-              "line": 20,
+              "line": 37,
               "column": 0
             },
             "end": {
-              "line": 20,
+              "line": 37,
               "column": 44
             }
           },
           "operator": "=",
           "left": {
             "type": "MemberExpression",
-            "start": 537,
-            "end": 551,
+            "start": 1988,
+            "end": 2002,
             "loc": {
               "start": {
-                "line": 20,
+                "line": 37,
                 "column": 0
               },
               "end": {
-                "line": 20,
+                "line": 37,
                 "column": 14
               }
             },
             "object": {
               "type": "Identifier",
-              "start": 537,
-              "end": 545,
+              "start": 1988,
+              "end": 1996,
               "loc": {
                 "start": {
-                  "line": 20,
+                  "line": 37,
                   "column": 0
                 },
                 "end": {
-                  "line": 20,
+                  "line": 37,
                   "column": 8
                 },
                 "identifierName": "CRIExtra"
@@ -1067,15 +1083,15 @@
             },
             "property": {
               "type": "Identifier",
-              "start": 546,
-              "end": 551,
+              "start": 1997,
+              "end": 2002,
               "loc": {
                 "start": {
-                  "line": 20,
+                  "line": 37,
                   "column": 9
                 },
                 "end": {
-                  "line": 20,
+                  "line": 37,
                   "column": 14
                 },
                 "identifierName": "Close"
@@ -1086,29 +1102,29 @@
           },
           "right": {
             "type": "MemberExpression",
-            "start": 554,
-            "end": 581,
+            "start": 2005,
+            "end": 2032,
             "loc": {
               "start": {
-                "line": 20,
+                "line": 37,
                 "column": 17
               },
               "end": {
-                "line": 20,
+                "line": 37,
                 "column": 44
               }
             },
             "object": {
               "type": "Identifier",
-              "start": 554,
-              "end": 575,
+              "start": 2005,
+              "end": 2026,
               "loc": {
                 "start": {
-                  "line": 20,
+                  "line": 37,
                   "column": 17
                 },
                 "end": {
-                  "line": 20,
+                  "line": 37,
                   "column": 38
                 },
                 "identifierName": "ChromeRemoteInterface"
@@ -1117,15 +1133,15 @@
             },
             "property": {
               "type": "Identifier",
-              "start": 576,
-              "end": 581,
+              "start": 2027,
+              "end": 2032,
               "loc": {
                 "start": {
-                  "line": 20,
+                  "line": 37,
                   "column": 39
                 },
                 "end": {
-                  "line": 20,
+                  "line": 37,
                   "column": 44
                 },
                 "identifierName": "Close"
@@ -1138,58 +1154,58 @@
       },
       {
         "type": "ExpressionStatement",
-        "start": 582,
-        "end": 630,
+        "start": 2033,
+        "end": 2081,
         "loc": {
           "start": {
-            "line": 21,
+            "line": 38,
             "column": 0
           },
           "end": {
-            "line": 21,
+            "line": 38,
             "column": 48
           }
         },
         "expression": {
           "type": "AssignmentExpression",
-          "start": 582,
-          "end": 630,
+          "start": 2033,
+          "end": 2081,
           "loc": {
             "start": {
-              "line": 21,
+              "line": 38,
               "column": 0
             },
             "end": {
-              "line": 21,
+              "line": 38,
               "column": 48
             }
           },
           "operator": "=",
           "left": {
             "type": "MemberExpression",
-            "start": 582,
-            "end": 598,
+            "start": 2033,
+            "end": 2049,
             "loc": {
               "start": {
-                "line": 21,
+                "line": 38,
                 "column": 0
               },
               "end": {
-                "line": 21,
+                "line": 38,
                 "column": 16
               }
             },
             "object": {
               "type": "Identifier",
-              "start": 582,
-              "end": 590,
+              "start": 2033,
+              "end": 2041,
               "loc": {
                 "start": {
-                  "line": 21,
+                  "line": 38,
                   "column": 0
                 },
                 "end": {
-                  "line": 21,
+                  "line": 38,
                   "column": 8
                 },
                 "identifierName": "CRIExtra"
@@ -1198,15 +1214,15 @@
             },
             "property": {
               "type": "Identifier",
-              "start": 591,
-              "end": 598,
+              "start": 2042,
+              "end": 2049,
               "loc": {
                 "start": {
-                  "line": 21,
+                  "line": 38,
                   "column": 9
                 },
                 "end": {
-                  "line": 21,
+                  "line": 38,
                   "column": 16
                 },
                 "identifierName": "Version"
@@ -1217,29 +1233,29 @@
           },
           "right": {
             "type": "MemberExpression",
-            "start": 601,
-            "end": 630,
+            "start": 2052,
+            "end": 2081,
             "loc": {
               "start": {
-                "line": 21,
+                "line": 38,
                 "column": 19
               },
               "end": {
-                "line": 21,
+                "line": 38,
                 "column": 48
               }
             },
             "object": {
               "type": "Identifier",
-              "start": 601,
-              "end": 622,
+              "start": 2052,
+              "end": 2073,
               "loc": {
                 "start": {
-                  "line": 21,
+                  "line": 38,
                   "column": 19
                 },
                 "end": {
-                  "line": 21,
+                  "line": 38,
                   "column": 40
                 },
                 "identifierName": "ChromeRemoteInterface"
@@ -1248,15 +1264,15 @@
             },
             "property": {
               "type": "Identifier",
-              "start": 623,
-              "end": 630,
+              "start": 2074,
+              "end": 2081,
               "loc": {
                 "start": {
-                  "line": 21,
+                  "line": 38,
                   "column": 41
                 },
                 "end": {
-                  "line": 21,
+                  "line": 38,
                   "column": 48
                 },
                 "identifierName": "Version"
@@ -1274,15 +1290,15 @@
           {
             "type": "CommentBlock",
             "value": "*\n * @type {function(options: [Object]): Promise<CRIConnection>}\n ",
-            "start": 632,
-            "end": 702,
+            "start": 2083,
+            "end": 2153,
             "loc": {
               "start": {
-                "line": 23,
+                "line": 40,
                 "column": 0
               },
               "end": {
-                "line": 25,
+                "line": 42,
                 "column": 3
               }
             }
@@ -1291,29 +1307,29 @@
       },
       {
         "type": "Identifier",
-        "start": 703,
-        "end": 726,
+        "start": 2154,
+        "end": 2177,
         "loc": {
           "start": {
-            "line": 26,
+            "line": 43,
             "column": 0
           },
           "end": {
-            "line": 26,
+            "line": 43,
             "column": 23
           }
         },
         "declaration": {
           "type": "Identifier",
-          "start": 718,
-          "end": 726,
+          "start": 2169,
+          "end": 2177,
           "loc": {
             "start": {
-              "line": 26,
+              "line": 43,
               "column": 15
             },
             "end": {
-              "line": 26,
+              "line": 43,
               "column": 23
             },
             "identifierName": "CRIExtra"
@@ -1327,43 +1343,43 @@
       },
       {
         "type": "ExportDefaultDeclaration",
-        "start": 703,
-        "end": 726,
+        "start": 2154,
+        "end": 2177,
         "loc": {
           "start": {
-            "line": 26,
+            "line": 43,
             "column": 0
           },
           "end": {
-            "line": 26,
+            "line": 43,
             "column": 23
           }
         },
         "declaration": {
           "type": "FunctionDeclaration",
-          "start": 189,
-          "end": 260,
+          "start": 1630,
+          "end": 1701,
           "loc": {
             "start": {
-              "line": 8,
+              "line": 25,
               "column": 0
             },
             "end": {
-              "line": 10,
+              "line": 27,
               "column": 1
             }
           },
           "id": {
             "type": "Identifier",
-            "start": 198,
-            "end": 206,
+            "start": 1639,
+            "end": 1647,
             "loc": {
               "start": {
-                "line": 8,
+                "line": 25,
                 "column": 9
               },
               "end": {
-                "line": 8,
+                "line": 25,
                 "column": 17
               },
               "identifierName": "CRIExtra"
@@ -1377,15 +1393,15 @@
           "params": [
             {
               "type": "Identifier",
-              "start": 208,
-              "end": 215,
+              "start": 1649,
+              "end": 1656,
               "loc": {
                 "start": {
-                  "line": 8,
+                  "line": 25,
                   "column": 19
                 },
                 "end": {
-                  "line": 8,
+                  "line": 25,
                   "column": 26
                 },
                 "identifierName": "options"
@@ -1395,72 +1411,72 @@
           ],
           "body": {
             "type": "BlockStatement",
-            "start": 217,
-            "end": 260,
+            "start": 1658,
+            "end": 1701,
             "loc": {
               "start": {
-                "line": 8,
+                "line": 25,
                 "column": 28
               },
               "end": {
-                "line": 10,
+                "line": 27,
                 "column": 1
               }
             },
             "body": [
               {
                 "type": "ReturnStatement",
-                "start": 221,
-                "end": 258,
+                "start": 1662,
+                "end": 1699,
                 "loc": {
                   "start": {
-                    "line": 9,
+                    "line": 26,
                     "column": 2
                   },
                   "end": {
-                    "line": 9,
+                    "line": 26,
                     "column": 39
                   }
                 },
                 "argument": {
                   "type": "CallExpression",
-                  "start": 228,
-                  "end": 258,
+                  "start": 1669,
+                  "end": 1699,
                   "loc": {
                     "start": {
-                      "line": 9,
+                      "line": 26,
                       "column": 9
                     },
                     "end": {
-                      "line": 9,
+                      "line": 26,
                       "column": 39
                     }
                   },
                   "callee": {
                     "type": "MemberExpression",
-                    "start": 228,
-                    "end": 249,
+                    "start": 1669,
+                    "end": 1690,
                     "loc": {
                       "start": {
-                        "line": 9,
+                        "line": 26,
                         "column": 9
                       },
                       "end": {
-                        "line": 9,
+                        "line": 26,
                         "column": 30
                       }
                     },
                     "object": {
                       "type": "Identifier",
-                      "start": 228,
-                      "end": 241,
+                      "start": 1669,
+                      "end": 1682,
                       "loc": {
                         "start": {
-                          "line": 9,
+                          "line": 26,
                           "column": 9
                         },
                         "end": {
-                          "line": 9,
+                          "line": 26,
                           "column": 22
                         },
                         "identifierName": "CRIConnection"
@@ -1469,15 +1485,15 @@
                     },
                     "property": {
                       "type": "Identifier",
-                      "start": 242,
-                      "end": 249,
+                      "start": 1683,
+                      "end": 1690,
                       "loc": {
                         "start": {
-                          "line": 9,
+                          "line": 26,
                           "column": 23
                         },
                         "end": {
-                          "line": 9,
+                          "line": 26,
                           "column": 30
                         },
                         "identifierName": "connect"
@@ -1489,15 +1505,15 @@
                   "arguments": [
                     {
                       "type": "Identifier",
-                      "start": 250,
-                      "end": 257,
+                      "start": 1691,
+                      "end": 1698,
                       "loc": {
                         "start": {
-                          "line": 9,
+                          "line": 26,
                           "column": 31
                         },
                         "end": {
-                          "line": 9,
+                          "line": 26,
                           "column": 38
                         },
                         "identifierName": "options"
@@ -1514,16 +1530,32 @@
           "leadingComments": [
             {
               "type": "CommentBlock",
-              "value": "*\n * @param {Object} [options]\n * @return {Promise<CRIConnection>}\n ",
+              "value": "*\n * @typedef {Object} CRIOptions\n * @property {?string} [host] - HTTP frontend host. Defaults to localhost\n * @property {?number} [port] - HTTP frontend port. Defaults to 9222\n * @property {?boolean} [secure] - HTTPS/WSS frontend. Defaults to false\n * @property {?boolean} [useHostName] - do not perform a DNS lookup of the host. Defaults to false\n * @property {?(function|object|string)} [target] - determines which target this client should attach to. The behavior changes according to the type\n * - a function that takes the array returned by the List method and returns a target or its numeric index relative to the array\n * - a target object like those returned by the New and List methods\n * - a string representing the raw WebSocket URL, in this case host and port are not used to fetch the target list, yet they are used to complete the URL if relative\n * - a string representing the target id\n *\n * Defaults to a function which returns the first available target according to the implementation (note that at most one connection can be established to the same target)\n * @property {?Object} [protocol] - Chrome Debugging Protocol descriptor object. Defaults to use the protocol chosen according to the local option\n * @property {?boolean} [local] -  boolean indicating whether the protocol must be fetched remotely or if the local version must be used. It has no effect if the protocol option is set. Defaults to false\n ",
               "start": 116,
-              "end": 188,
+              "end": 1550,
               "loc": {
                 "start": {
                   "line": 4,
                   "column": 0
                 },
                 "end": {
-                  "line": 7,
+                  "line": 19,
+                  "column": 3
+                }
+              }
+            },
+            {
+              "type": "CommentBlock",
+              "value": "*\n * @param {?CRIOptions} [options]\n * @return {Promise<CRIConnection>}\n ",
+              "start": 1552,
+              "end": 1629,
+              "loc": {
+                "start": {
+                  "line": 21,
+                  "column": 0
+                },
+                "end": {
+                  "line": 24,
                   "column": 3
                 }
               }
@@ -1531,15 +1563,15 @@
             {
               "type": "CommentBlock",
               "value": "*\n * @type {function(options: [Object]): Promise<CRIConnection>}\n ",
-              "start": 632,
-              "end": 702,
+              "start": 2083,
+              "end": 2153,
               "loc": {
                 "start": {
-                  "line": 23,
+                  "line": 40,
                   "column": 0
                 },
                 "end": {
-                  "line": 25,
+                  "line": 42,
                   "column": 3
                 }
               }
@@ -1548,16 +1580,16 @@
           "trailingComments": [
             {
               "type": "CommentBlock",
-              "value": "*\n * @type {function(opts: *, cb: *): Chrome}\n ",
-              "start": 262,
-              "end": 313,
+              "value": "*\n * @type {function(opts: ?CRIOptions, cb: *): Chrome}\n ",
+              "start": 1703,
+              "end": 1764,
               "loc": {
                 "start": {
-                  "line": 12,
+                  "line": 29,
                   "column": 0
                 },
                 "end": {
-                  "line": 14,
+                  "line": 31,
                   "column": 3
                 }
               }
@@ -1568,15 +1600,15 @@
           {
             "type": "CommentBlock",
             "value": "*\n * @type {function(options: [Object]): Promise<CRIConnection>}\n ",
-            "start": 632,
-            "end": 702,
+            "start": 2083,
+            "end": 2153,
             "loc": {
               "start": {
-                "line": 23,
+                "line": 40,
                 "column": 0
               },
               "end": {
-                "line": 25,
+                "line": 42,
                 "column": 3
               }
             }
@@ -1589,32 +1621,48 @@
   "comments": [
     {
       "type": "CommentBlock",
-      "value": "*\n * @param {Object} [options]\n * @return {Promise<CRIConnection>}\n ",
+      "value": "*\n * @typedef {Object} CRIOptions\n * @property {?string} [host] - HTTP frontend host. Defaults to localhost\n * @property {?number} [port] - HTTP frontend port. Defaults to 9222\n * @property {?boolean} [secure] - HTTPS/WSS frontend. Defaults to false\n * @property {?boolean} [useHostName] - do not perform a DNS lookup of the host. Defaults to false\n * @property {?(function|object|string)} [target] - determines which target this client should attach to. The behavior changes according to the type\n * - a function that takes the array returned by the List method and returns a target or its numeric index relative to the array\n * - a target object like those returned by the New and List methods\n * - a string representing the raw WebSocket URL, in this case host and port are not used to fetch the target list, yet they are used to complete the URL if relative\n * - a string representing the target id\n *\n * Defaults to a function which returns the first available target according to the implementation (note that at most one connection can be established to the same target)\n * @property {?Object} [protocol] - Chrome Debugging Protocol descriptor object. Defaults to use the protocol chosen according to the local option\n * @property {?boolean} [local] -  boolean indicating whether the protocol must be fetched remotely or if the local version must be used. It has no effect if the protocol option is set. Defaults to false\n ",
       "start": 116,
-      "end": 188,
+      "end": 1550,
       "loc": {
         "start": {
           "line": 4,
           "column": 0
         },
         "end": {
-          "line": 7,
+          "line": 19,
           "column": 3
         }
       }
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * @type {function(opts: *, cb: *): Chrome}\n ",
-      "start": 262,
-      "end": 313,
+      "value": "*\n * @param {?CRIOptions} [options]\n * @return {Promise<CRIConnection>}\n ",
+      "start": 1552,
+      "end": 1629,
       "loc": {
         "start": {
-          "line": 12,
+          "line": 21,
           "column": 0
         },
         "end": {
-          "line": 14,
+          "line": 24,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @type {function(opts: ?CRIOptions, cb: *): Chrome}\n ",
+      "start": 1703,
+      "end": 1764,
+      "loc": {
+        "start": {
+          "line": 29,
+          "column": 0
+        },
+        "end": {
+          "line": 31,
           "column": 3
         }
       }
@@ -1622,15 +1670,15 @@
     {
       "type": "CommentBlock",
       "value": "*\n * @type {function(options: [Object]): Promise<CRIConnection>}\n ",
-      "start": 632,
-      "end": 702,
+      "start": 2083,
+      "end": 2153,
       "loc": {
         "start": {
-          "line": 23,
+          "line": 40,
           "column": 0
         },
         "end": {
-          "line": 25,
+          "line": 42,
           "column": 3
         }
       }
@@ -1853,16 +1901,32 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * @param {Object} [options]\n * @return {Promise<CRIConnection>}\n ",
+      "value": "*\n * @typedef {Object} CRIOptions\n * @property {?string} [host] - HTTP frontend host. Defaults to localhost\n * @property {?number} [port] - HTTP frontend port. Defaults to 9222\n * @property {?boolean} [secure] - HTTPS/WSS frontend. Defaults to false\n * @property {?boolean} [useHostName] - do not perform a DNS lookup of the host. Defaults to false\n * @property {?(function|object|string)} [target] - determines which target this client should attach to. The behavior changes according to the type\n * - a function that takes the array returned by the List method and returns a target or its numeric index relative to the array\n * - a target object like those returned by the New and List methods\n * - a string representing the raw WebSocket URL, in this case host and port are not used to fetch the target list, yet they are used to complete the URL if relative\n * - a string representing the target id\n *\n * Defaults to a function which returns the first available target according to the implementation (note that at most one connection can be established to the same target)\n * @property {?Object} [protocol] - Chrome Debugging Protocol descriptor object. Defaults to use the protocol chosen according to the local option\n * @property {?boolean} [local] -  boolean indicating whether the protocol must be fetched remotely or if the local version must be used. It has no effect if the protocol option is set. Defaults to false\n ",
       "start": 116,
-      "end": 188,
+      "end": 1550,
       "loc": {
         "start": {
           "line": 4,
           "column": 0
         },
         "end": {
-          "line": 7,
+          "line": 19,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @param {?CRIOptions} [options]\n * @return {Promise<CRIConnection>}\n ",
+      "start": 1552,
+      "end": 1629,
+      "loc": {
+        "start": {
+          "line": 21,
+          "column": 0
+        },
+        "end": {
+          "line": 24,
           "column": 3
         }
       }
@@ -1881,15 +1945,15 @@
         "binop": null
       },
       "value": "function",
-      "start": 189,
-      "end": 197,
+      "start": 1630,
+      "end": 1638,
       "loc": {
         "start": {
-          "line": 8,
+          "line": 25,
           "column": 0
         },
         "end": {
-          "line": 8,
+          "line": 25,
           "column": 8
         }
       }
@@ -1907,15 +1971,15 @@
         "binop": null
       },
       "value": "CRIExtra",
-      "start": 198,
-      "end": 206,
+      "start": 1639,
+      "end": 1647,
       "loc": {
         "start": {
-          "line": 8,
+          "line": 25,
           "column": 9
         },
         "end": {
-          "line": 8,
+          "line": 25,
           "column": 17
         }
       }
@@ -1932,15 +1996,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 207,
-      "end": 208,
+      "start": 1648,
+      "end": 1649,
       "loc": {
         "start": {
-          "line": 8,
+          "line": 25,
           "column": 18
         },
         "end": {
-          "line": 8,
+          "line": 25,
           "column": 19
         }
       }
@@ -1958,15 +2022,15 @@
         "binop": null
       },
       "value": "options",
-      "start": 208,
-      "end": 215,
+      "start": 1649,
+      "end": 1656,
       "loc": {
         "start": {
-          "line": 8,
+          "line": 25,
           "column": 19
         },
         "end": {
-          "line": 8,
+          "line": 25,
           "column": 26
         }
       }
@@ -1983,15 +2047,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 215,
-      "end": 216,
+      "start": 1656,
+      "end": 1657,
       "loc": {
         "start": {
-          "line": 8,
+          "line": 25,
           "column": 26
         },
         "end": {
-          "line": 8,
+          "line": 25,
           "column": 27
         }
       }
@@ -2008,15 +2072,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 217,
-      "end": 218,
+      "start": 1658,
+      "end": 1659,
       "loc": {
         "start": {
-          "line": 8,
+          "line": 25,
           "column": 28
         },
         "end": {
-          "line": 8,
+          "line": 25,
           "column": 29
         }
       }
@@ -2036,15 +2100,15 @@
         "updateContext": null
       },
       "value": "return",
-      "start": 221,
-      "end": 227,
+      "start": 1662,
+      "end": 1668,
       "loc": {
         "start": {
-          "line": 9,
+          "line": 26,
           "column": 2
         },
         "end": {
-          "line": 9,
+          "line": 26,
           "column": 8
         }
       }
@@ -2062,15 +2126,15 @@
         "binop": null
       },
       "value": "CRIConnection",
-      "start": 228,
-      "end": 241,
+      "start": 1669,
+      "end": 1682,
       "loc": {
         "start": {
-          "line": 9,
+          "line": 26,
           "column": 9
         },
         "end": {
-          "line": 9,
+          "line": 26,
           "column": 22
         }
       }
@@ -2088,15 +2152,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 241,
-      "end": 242,
+      "start": 1682,
+      "end": 1683,
       "loc": {
         "start": {
-          "line": 9,
+          "line": 26,
           "column": 22
         },
         "end": {
-          "line": 9,
+          "line": 26,
           "column": 23
         }
       }
@@ -2114,15 +2178,15 @@
         "binop": null
       },
       "value": "connect",
-      "start": 242,
-      "end": 249,
+      "start": 1683,
+      "end": 1690,
       "loc": {
         "start": {
-          "line": 9,
+          "line": 26,
           "column": 23
         },
         "end": {
-          "line": 9,
+          "line": 26,
           "column": 30
         }
       }
@@ -2139,15 +2203,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 249,
-      "end": 250,
+      "start": 1690,
+      "end": 1691,
       "loc": {
         "start": {
-          "line": 9,
+          "line": 26,
           "column": 30
         },
         "end": {
-          "line": 9,
+          "line": 26,
           "column": 31
         }
       }
@@ -2165,15 +2229,15 @@
         "binop": null
       },
       "value": "options",
-      "start": 250,
-      "end": 257,
+      "start": 1691,
+      "end": 1698,
       "loc": {
         "start": {
-          "line": 9,
+          "line": 26,
           "column": 31
         },
         "end": {
-          "line": 9,
+          "line": 26,
           "column": 38
         }
       }
@@ -2190,15 +2254,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 257,
-      "end": 258,
+      "start": 1698,
+      "end": 1699,
       "loc": {
         "start": {
-          "line": 9,
+          "line": 26,
           "column": 38
         },
         "end": {
-          "line": 9,
+          "line": 26,
           "column": 39
         }
       }
@@ -2215,31 +2279,31 @@
         "postfix": false,
         "binop": null
       },
-      "start": 259,
-      "end": 260,
+      "start": 1700,
+      "end": 1701,
       "loc": {
         "start": {
-          "line": 10,
+          "line": 27,
           "column": 0
         },
         "end": {
-          "line": 10,
+          "line": 27,
           "column": 1
         }
       }
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * @type {function(opts: *, cb: *): Chrome}\n ",
-      "start": 262,
-      "end": 313,
+      "value": "*\n * @type {function(opts: ?CRIOptions, cb: *): Chrome}\n ",
+      "start": 1703,
+      "end": 1764,
       "loc": {
         "start": {
-          "line": 12,
+          "line": 29,
           "column": 0
         },
         "end": {
-          "line": 14,
+          "line": 31,
           "column": 3
         }
       }
@@ -2257,15 +2321,15 @@
         "binop": null
       },
       "value": "CRIExtra",
-      "start": 314,
-      "end": 322,
+      "start": 1765,
+      "end": 1773,
       "loc": {
         "start": {
-          "line": 15,
+          "line": 32,
           "column": 0
         },
         "end": {
-          "line": 15,
+          "line": 32,
           "column": 8
         }
       }
@@ -2283,15 +2347,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 322,
-      "end": 323,
+      "start": 1773,
+      "end": 1774,
       "loc": {
         "start": {
-          "line": 15,
+          "line": 32,
           "column": 8
         },
         "end": {
-          "line": 15,
+          "line": 32,
           "column": 9
         }
       }
@@ -2309,15 +2373,15 @@
         "binop": null
       },
       "value": "CDP",
-      "start": 323,
-      "end": 326,
+      "start": 1774,
+      "end": 1777,
       "loc": {
         "start": {
-          "line": 15,
+          "line": 32,
           "column": 9
         },
         "end": {
-          "line": 15,
+          "line": 32,
           "column": 12
         }
       }
@@ -2336,15 +2400,15 @@
         "updateContext": null
       },
       "value": "=",
-      "start": 327,
-      "end": 328,
+      "start": 1778,
+      "end": 1779,
       "loc": {
         "start": {
-          "line": 15,
+          "line": 32,
           "column": 13
         },
         "end": {
-          "line": 15,
+          "line": 32,
           "column": 14
         }
       }
@@ -2362,15 +2426,15 @@
         "binop": null
       },
       "value": "ChromeRemoteInterface",
-      "start": 329,
-      "end": 350,
+      "start": 1780,
+      "end": 1801,
       "loc": {
         "start": {
-          "line": 15,
+          "line": 32,
           "column": 15
         },
         "end": {
-          "line": 15,
+          "line": 32,
           "column": 36
         }
       }
@@ -2388,15 +2452,15 @@
         "binop": null
       },
       "value": "CRIExtra",
-      "start": 351,
-      "end": 359,
+      "start": 1802,
+      "end": 1810,
       "loc": {
         "start": {
-          "line": 16,
+          "line": 33,
           "column": 0
         },
         "end": {
-          "line": 16,
+          "line": 33,
           "column": 8
         }
       }
@@ -2414,15 +2478,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 359,
-      "end": 360,
+      "start": 1810,
+      "end": 1811,
       "loc": {
         "start": {
-          "line": 16,
+          "line": 33,
           "column": 8
         },
         "end": {
-          "line": 16,
+          "line": 33,
           "column": 9
         }
       }
@@ -2440,15 +2504,15 @@
         "binop": null
       },
       "value": "Protocol",
-      "start": 360,
-      "end": 368,
+      "start": 1811,
+      "end": 1819,
       "loc": {
         "start": {
-          "line": 16,
+          "line": 33,
           "column": 9
         },
         "end": {
-          "line": 16,
+          "line": 33,
           "column": 17
         }
       }
@@ -2467,15 +2531,15 @@
         "updateContext": null
       },
       "value": "=",
-      "start": 369,
-      "end": 370,
+      "start": 1820,
+      "end": 1821,
       "loc": {
         "start": {
-          "line": 16,
+          "line": 33,
           "column": 18
         },
         "end": {
-          "line": 16,
+          "line": 33,
           "column": 19
         }
       }
@@ -2493,15 +2557,15 @@
         "binop": null
       },
       "value": "ChromeRemoteInterface",
-      "start": 371,
-      "end": 392,
+      "start": 1822,
+      "end": 1843,
       "loc": {
         "start": {
-          "line": 16,
+          "line": 33,
           "column": 20
         },
         "end": {
-          "line": 16,
+          "line": 33,
           "column": 41
         }
       }
@@ -2519,15 +2583,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 392,
-      "end": 393,
+      "start": 1843,
+      "end": 1844,
       "loc": {
         "start": {
-          "line": 16,
+          "line": 33,
           "column": 41
         },
         "end": {
-          "line": 16,
+          "line": 33,
           "column": 42
         }
       }
@@ -2545,15 +2609,15 @@
         "binop": null
       },
       "value": "Protocol",
-      "start": 393,
-      "end": 401,
+      "start": 1844,
+      "end": 1852,
       "loc": {
         "start": {
-          "line": 16,
+          "line": 33,
           "column": 42
         },
         "end": {
-          "line": 16,
+          "line": 33,
           "column": 50
         }
       }
@@ -2571,15 +2635,15 @@
         "binop": null
       },
       "value": "CRIExtra",
-      "start": 402,
-      "end": 410,
+      "start": 1853,
+      "end": 1861,
       "loc": {
         "start": {
-          "line": 17,
+          "line": 34,
           "column": 0
         },
         "end": {
-          "line": 17,
+          "line": 34,
           "column": 8
         }
       }
@@ -2597,15 +2661,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 410,
-      "end": 411,
+      "start": 1861,
+      "end": 1862,
       "loc": {
         "start": {
-          "line": 17,
+          "line": 34,
           "column": 8
         },
         "end": {
-          "line": 17,
+          "line": 34,
           "column": 9
         }
       }
@@ -2623,15 +2687,15 @@
         "binop": null
       },
       "value": "List",
-      "start": 411,
-      "end": 415,
+      "start": 1862,
+      "end": 1866,
       "loc": {
         "start": {
-          "line": 17,
+          "line": 34,
           "column": 9
         },
         "end": {
-          "line": 17,
+          "line": 34,
           "column": 13
         }
       }
@@ -2650,15 +2714,15 @@
         "updateContext": null
       },
       "value": "=",
-      "start": 416,
-      "end": 417,
+      "start": 1867,
+      "end": 1868,
       "loc": {
         "start": {
-          "line": 17,
+          "line": 34,
           "column": 14
         },
         "end": {
-          "line": 17,
+          "line": 34,
           "column": 15
         }
       }
@@ -2676,15 +2740,15 @@
         "binop": null
       },
       "value": "ChromeRemoteInterface",
-      "start": 418,
-      "end": 439,
+      "start": 1869,
+      "end": 1890,
       "loc": {
         "start": {
-          "line": 17,
+          "line": 34,
           "column": 16
         },
         "end": {
-          "line": 17,
+          "line": 34,
           "column": 37
         }
       }
@@ -2702,15 +2766,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 439,
-      "end": 440,
+      "start": 1890,
+      "end": 1891,
       "loc": {
         "start": {
-          "line": 17,
+          "line": 34,
           "column": 37
         },
         "end": {
-          "line": 17,
+          "line": 34,
           "column": 38
         }
       }
@@ -2728,15 +2792,15 @@
         "binop": null
       },
       "value": "List",
-      "start": 440,
-      "end": 444,
+      "start": 1891,
+      "end": 1895,
       "loc": {
         "start": {
-          "line": 17,
+          "line": 34,
           "column": 38
         },
         "end": {
-          "line": 17,
+          "line": 34,
           "column": 42
         }
       }
@@ -2754,15 +2818,15 @@
         "binop": null
       },
       "value": "CRIExtra",
-      "start": 445,
-      "end": 453,
+      "start": 1896,
+      "end": 1904,
       "loc": {
         "start": {
-          "line": 18,
+          "line": 35,
           "column": 0
         },
         "end": {
-          "line": 18,
+          "line": 35,
           "column": 8
         }
       }
@@ -2780,15 +2844,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 453,
-      "end": 454,
+      "start": 1904,
+      "end": 1905,
       "loc": {
         "start": {
-          "line": 18,
+          "line": 35,
           "column": 8
         },
         "end": {
-          "line": 18,
+          "line": 35,
           "column": 9
         }
       }
@@ -2806,15 +2870,15 @@
         "binop": null
       },
       "value": "New",
-      "start": 454,
-      "end": 457,
+      "start": 1905,
+      "end": 1908,
       "loc": {
         "start": {
-          "line": 18,
+          "line": 35,
           "column": 9
         },
         "end": {
-          "line": 18,
+          "line": 35,
           "column": 12
         }
       }
@@ -2833,15 +2897,15 @@
         "updateContext": null
       },
       "value": "=",
-      "start": 458,
-      "end": 459,
+      "start": 1909,
+      "end": 1910,
       "loc": {
         "start": {
-          "line": 18,
+          "line": 35,
           "column": 13
         },
         "end": {
-          "line": 18,
+          "line": 35,
           "column": 14
         }
       }
@@ -2859,15 +2923,15 @@
         "binop": null
       },
       "value": "ChromeRemoteInterface",
-      "start": 460,
-      "end": 481,
+      "start": 1911,
+      "end": 1932,
       "loc": {
         "start": {
-          "line": 18,
+          "line": 35,
           "column": 15
         },
         "end": {
-          "line": 18,
+          "line": 35,
           "column": 36
         }
       }
@@ -2885,15 +2949,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 481,
-      "end": 482,
+      "start": 1932,
+      "end": 1933,
       "loc": {
         "start": {
-          "line": 18,
+          "line": 35,
           "column": 36
         },
         "end": {
-          "line": 18,
+          "line": 35,
           "column": 37
         }
       }
@@ -2911,15 +2975,15 @@
         "binop": null
       },
       "value": "New",
-      "start": 482,
-      "end": 485,
+      "start": 1933,
+      "end": 1936,
       "loc": {
         "start": {
-          "line": 18,
+          "line": 35,
           "column": 37
         },
         "end": {
-          "line": 18,
+          "line": 35,
           "column": 40
         }
       }
@@ -2937,15 +3001,15 @@
         "binop": null
       },
       "value": "CRIExtra",
-      "start": 486,
-      "end": 494,
+      "start": 1937,
+      "end": 1945,
       "loc": {
         "start": {
-          "line": 19,
+          "line": 36,
           "column": 0
         },
         "end": {
-          "line": 19,
+          "line": 36,
           "column": 8
         }
       }
@@ -2963,15 +3027,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 494,
-      "end": 495,
+      "start": 1945,
+      "end": 1946,
       "loc": {
         "start": {
-          "line": 19,
+          "line": 36,
           "column": 8
         },
         "end": {
-          "line": 19,
+          "line": 36,
           "column": 9
         }
       }
@@ -2989,15 +3053,15 @@
         "binop": null
       },
       "value": "Activate",
-      "start": 495,
-      "end": 503,
+      "start": 1946,
+      "end": 1954,
       "loc": {
         "start": {
-          "line": 19,
+          "line": 36,
           "column": 9
         },
         "end": {
-          "line": 19,
+          "line": 36,
           "column": 17
         }
       }
@@ -3016,15 +3080,15 @@
         "updateContext": null
       },
       "value": "=",
-      "start": 504,
-      "end": 505,
+      "start": 1955,
+      "end": 1956,
       "loc": {
         "start": {
-          "line": 19,
+          "line": 36,
           "column": 18
         },
         "end": {
-          "line": 19,
+          "line": 36,
           "column": 19
         }
       }
@@ -3042,15 +3106,15 @@
         "binop": null
       },
       "value": "ChromeRemoteInterface",
-      "start": 506,
-      "end": 527,
+      "start": 1957,
+      "end": 1978,
       "loc": {
         "start": {
-          "line": 19,
+          "line": 36,
           "column": 20
         },
         "end": {
-          "line": 19,
+          "line": 36,
           "column": 41
         }
       }
@@ -3068,15 +3132,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 527,
-      "end": 528,
+      "start": 1978,
+      "end": 1979,
       "loc": {
         "start": {
-          "line": 19,
+          "line": 36,
           "column": 41
         },
         "end": {
-          "line": 19,
+          "line": 36,
           "column": 42
         }
       }
@@ -3094,15 +3158,15 @@
         "binop": null
       },
       "value": "Activate",
-      "start": 528,
-      "end": 536,
+      "start": 1979,
+      "end": 1987,
       "loc": {
         "start": {
-          "line": 19,
+          "line": 36,
           "column": 42
         },
         "end": {
-          "line": 19,
+          "line": 36,
           "column": 50
         }
       }
@@ -3120,15 +3184,15 @@
         "binop": null
       },
       "value": "CRIExtra",
-      "start": 537,
-      "end": 545,
+      "start": 1988,
+      "end": 1996,
       "loc": {
         "start": {
-          "line": 20,
+          "line": 37,
           "column": 0
         },
         "end": {
-          "line": 20,
+          "line": 37,
           "column": 8
         }
       }
@@ -3146,15 +3210,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 545,
-      "end": 546,
+      "start": 1996,
+      "end": 1997,
       "loc": {
         "start": {
-          "line": 20,
+          "line": 37,
           "column": 8
         },
         "end": {
-          "line": 20,
+          "line": 37,
           "column": 9
         }
       }
@@ -3172,15 +3236,15 @@
         "binop": null
       },
       "value": "Close",
-      "start": 546,
-      "end": 551,
+      "start": 1997,
+      "end": 2002,
       "loc": {
         "start": {
-          "line": 20,
+          "line": 37,
           "column": 9
         },
         "end": {
-          "line": 20,
+          "line": 37,
           "column": 14
         }
       }
@@ -3199,15 +3263,15 @@
         "updateContext": null
       },
       "value": "=",
-      "start": 552,
-      "end": 553,
+      "start": 2003,
+      "end": 2004,
       "loc": {
         "start": {
-          "line": 20,
+          "line": 37,
           "column": 15
         },
         "end": {
-          "line": 20,
+          "line": 37,
           "column": 16
         }
       }
@@ -3225,15 +3289,15 @@
         "binop": null
       },
       "value": "ChromeRemoteInterface",
-      "start": 554,
-      "end": 575,
+      "start": 2005,
+      "end": 2026,
       "loc": {
         "start": {
-          "line": 20,
+          "line": 37,
           "column": 17
         },
         "end": {
-          "line": 20,
+          "line": 37,
           "column": 38
         }
       }
@@ -3251,15 +3315,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 575,
-      "end": 576,
+      "start": 2026,
+      "end": 2027,
       "loc": {
         "start": {
-          "line": 20,
+          "line": 37,
           "column": 38
         },
         "end": {
-          "line": 20,
+          "line": 37,
           "column": 39
         }
       }
@@ -3277,15 +3341,15 @@
         "binop": null
       },
       "value": "Close",
-      "start": 576,
-      "end": 581,
+      "start": 2027,
+      "end": 2032,
       "loc": {
         "start": {
-          "line": 20,
+          "line": 37,
           "column": 39
         },
         "end": {
-          "line": 20,
+          "line": 37,
           "column": 44
         }
       }
@@ -3303,15 +3367,15 @@
         "binop": null
       },
       "value": "CRIExtra",
-      "start": 582,
-      "end": 590,
+      "start": 2033,
+      "end": 2041,
       "loc": {
         "start": {
-          "line": 21,
+          "line": 38,
           "column": 0
         },
         "end": {
-          "line": 21,
+          "line": 38,
           "column": 8
         }
       }
@@ -3329,15 +3393,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 590,
-      "end": 591,
+      "start": 2041,
+      "end": 2042,
       "loc": {
         "start": {
-          "line": 21,
+          "line": 38,
           "column": 8
         },
         "end": {
-          "line": 21,
+          "line": 38,
           "column": 9
         }
       }
@@ -3355,15 +3419,15 @@
         "binop": null
       },
       "value": "Version",
-      "start": 591,
-      "end": 598,
+      "start": 2042,
+      "end": 2049,
       "loc": {
         "start": {
-          "line": 21,
+          "line": 38,
           "column": 9
         },
         "end": {
-          "line": 21,
+          "line": 38,
           "column": 16
         }
       }
@@ -3382,15 +3446,15 @@
         "updateContext": null
       },
       "value": "=",
-      "start": 599,
-      "end": 600,
+      "start": 2050,
+      "end": 2051,
       "loc": {
         "start": {
-          "line": 21,
+          "line": 38,
           "column": 17
         },
         "end": {
-          "line": 21,
+          "line": 38,
           "column": 18
         }
       }
@@ -3408,15 +3472,15 @@
         "binop": null
       },
       "value": "ChromeRemoteInterface",
-      "start": 601,
-      "end": 622,
+      "start": 2052,
+      "end": 2073,
       "loc": {
         "start": {
-          "line": 21,
+          "line": 38,
           "column": 19
         },
         "end": {
-          "line": 21,
+          "line": 38,
           "column": 40
         }
       }
@@ -3434,15 +3498,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 622,
-      "end": 623,
+      "start": 2073,
+      "end": 2074,
       "loc": {
         "start": {
-          "line": 21,
+          "line": 38,
           "column": 40
         },
         "end": {
-          "line": 21,
+          "line": 38,
           "column": 41
         }
       }
@@ -3460,15 +3524,15 @@
         "binop": null
       },
       "value": "Version",
-      "start": 623,
-      "end": 630,
+      "start": 2074,
+      "end": 2081,
       "loc": {
         "start": {
-          "line": 21,
+          "line": 38,
           "column": 41
         },
         "end": {
-          "line": 21,
+          "line": 38,
           "column": 48
         }
       }
@@ -3476,15 +3540,15 @@
     {
       "type": "CommentBlock",
       "value": "*\n * @type {function(options: [Object]): Promise<CRIConnection>}\n ",
-      "start": 632,
-      "end": 702,
+      "start": 2083,
+      "end": 2153,
       "loc": {
         "start": {
-          "line": 23,
+          "line": 40,
           "column": 0
         },
         "end": {
-          "line": 25,
+          "line": 42,
           "column": 3
         }
       }
@@ -3504,15 +3568,15 @@
         "updateContext": null
       },
       "value": "export",
-      "start": 703,
-      "end": 709,
+      "start": 2154,
+      "end": 2160,
       "loc": {
         "start": {
-          "line": 26,
+          "line": 43,
           "column": 0
         },
         "end": {
-          "line": 26,
+          "line": 43,
           "column": 6
         }
       }
@@ -3532,15 +3596,15 @@
         "updateContext": null
       },
       "value": "default",
-      "start": 710,
-      "end": 717,
+      "start": 2161,
+      "end": 2168,
       "loc": {
         "start": {
-          "line": 26,
+          "line": 43,
           "column": 7
         },
         "end": {
-          "line": 26,
+          "line": 43,
           "column": 14
         }
       }
@@ -3558,15 +3622,15 @@
         "binop": null
       },
       "value": "CRIExtra",
-      "start": 718,
-      "end": 726,
+      "start": 2169,
+      "end": 2177,
       "loc": {
         "start": {
-          "line": 26,
+          "line": 43,
           "column": 15
         },
         "end": {
-          "line": 26,
+          "line": 43,
           "column": 23
         }
       }
@@ -3584,15 +3648,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 727,
-      "end": 727,
+      "start": 2178,
+      "end": 2178,
       "loc": {
         "start": {
-          "line": 27,
+          "line": 44,
           "column": 0
         },
         "end": {
-          "line": 27,
+          "line": 44,
           "column": 0
         }
       }

@@ -24,6 +24,36 @@ window.esdocSearchIndex = [
     "variable"
   ],
   [
+    "chrome-remote-interface-extra/lib/animations/animation.js~animation",
+    "class/lib/animations/Animation.js~Animation.html",
+    "<span>Animation</span> <span class=\"search-result-import-path\">chrome-remote-interface-extra/lib/animations/Animation.js</span>",
+    "class"
+  ],
+  [
+    "chrome-remote-interface-extra/lib/animations/index.js~animation",
+    "variable/index.html#static-variable-Animation",
+    "<span>Animation</span> <span class=\"search-result-import-path\">chrome-remote-interface-extra/lib/animations/index.js</span>",
+    "variable"
+  ],
+  [
+    "chrome-remote-interface-extra/lib/animations/animationmanager.js~animationmanager",
+    "class/lib/animations/AnimationManager.js~AnimationManager.html",
+    "<span>AnimationManager</span> <span class=\"search-result-import-path\">chrome-remote-interface-extra/lib/animations/AnimationManager.js</span>",
+    "class"
+  ],
+  [
+    "chrome-remote-interface-extra/lib/animations/index.js~animationmanager",
+    "variable/index.html#static-variable-AnimationManager",
+    "<span>AnimationManager</span> <span class=\"search-result-import-path\">chrome-remote-interface-extra/lib/animations/index.js</span>",
+    "variable"
+  ],
+  [
+    "chrome-remote-interface-extra/lib/audits.js~audits",
+    "class/lib/Audits.js~Audits.html",
+    "<span>Audits</span> <span class=\"search-result-import-path\">chrome-remote-interface-extra/lib/Audits.js</span>",
+    "class"
+  ],
+  [
     "chrome-remote-interface-extra/lib/browser/browser.js~browser",
     "class/lib/browser/Browser.js~Browser.html",
     "<span>Browser</span> <span class=\"search-result-import-path\">chrome-remote-interface-extra/lib/browser/Browser.js</span>",
@@ -102,10 +132,10 @@ window.esdocSearchIndex = [
     "variable"
   ],
   [
-    "chrome-remote-interface-extra/lib/page/index.js~consolemessage",
-    "variable/index.html#static-variable-ConsoleMessage",
-    "<span>ConsoleMessage</span> <span class=\"search-result-import-path\">chrome-remote-interface-extra/lib/page/index.js</span>",
-    "variable"
+    "chrome-remote-interface-extra/lib/consolemessage.js~consolemessage",
+    "class/lib/ConsoleMessage.js~ConsoleMessage.html",
+    "<span>ConsoleMessage</span> <span class=\"search-result-import-path\">chrome-remote-interface-extra/lib/ConsoleMessage.js</span>",
+    "class"
   ],
   [
     "chrome-remote-interface-extra/lib/network/cookie.js~cookie",
@@ -142,6 +172,30 @@ window.esdocSearchIndex = [
     "class/lib/DOMWorld.js~DOMWorld.html",
     "<span>DOMWorld</span> <span class=\"search-result-import-path\">chrome-remote-interface-extra/lib/DOMWorld.js</span>",
     "class"
+  ],
+  [
+    "chrome-remote-interface-extra/lib/database/database.js~database",
+    "class/lib/database/Database.js~Database.html",
+    "<span>Database</span> <span class=\"search-result-import-path\">chrome-remote-interface-extra/lib/database/Database.js</span>",
+    "class"
+  ],
+  [
+    "chrome-remote-interface-extra/lib/database/index.js~database",
+    "variable/index.html#static-variable-Database",
+    "<span>Database</span> <span class=\"search-result-import-path\">chrome-remote-interface-extra/lib/database/index.js</span>",
+    "variable"
+  ],
+  [
+    "chrome-remote-interface-extra/lib/database/databasemanager.js~databasemanager",
+    "class/lib/database/DatabaseManager.js~DatabaseManager.html",
+    "<span>DatabaseManager</span> <span class=\"search-result-import-path\">chrome-remote-interface-extra/lib/database/DatabaseManager.js</span>",
+    "class"
+  ],
+  [
+    "chrome-remote-interface-extra/lib/database/index.js~databasemanager",
+    "variable/index.html#static-variable-DatabaseManager",
+    "<span>DatabaseManager</span> <span class=\"search-result-import-path\">chrome-remote-interface-extra/lib/database/index.js</span>",
+    "variable"
   ],
   [
     "chrome-remote-interface-extra/lib/devicedescriptors.js~devicedescriptors",
@@ -276,6 +330,18 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "chrome-remote-interface-extra/lib/page/logentry.js~logentry",
+    "class/lib/page/LogEntry.js~LogEntry.html",
+    "<span>LogEntry</span> <span class=\"search-result-import-path\">chrome-remote-interface-extra/lib/page/LogEntry.js</span>",
+    "class"
+  ],
+  [
+    "chrome-remote-interface-extra/lib/page/index.js~logentry",
+    "variable/index.html#static-variable-LogEntry",
+    "<span>LogEntry</span> <span class=\"search-result-import-path\">chrome-remote-interface-extra/lib/page/index.js</span>",
+    "variable"
+  ],
+  [
     "chrome-remote-interface-extra/lib/input/mouse.js~mouse",
     "class/lib/input/Mouse.js~Mouse.html",
     "<span>Mouse</span> <span class=\"search-result-import-path\">chrome-remote-interface-extra/lib/input/Mouse.js</span>",
@@ -286,6 +352,12 @@ window.esdocSearchIndex = [
     "variable/index.html#static-variable-Mouse",
     "<span>Mouse</span> <span class=\"search-result-import-path\">chrome-remote-interface-extra/lib/input/index.js</span>",
     "variable"
+  ],
+  [
+    "chrome-remote-interface-extra/lib/multimap.js~multimap",
+    "class/lib/Multimap.js~Multimap.html",
+    "<span>Multimap</span> <span class=\"search-result-import-path\">chrome-remote-interface-extra/lib/Multimap.js</span>",
+    "class"
   ],
   [
     "chrome-remote-interface-extra/lib/network/networkidlewatcher.js~netidlewatcher",
@@ -360,9 +432,27 @@ window.esdocSearchIndex = [
     "variable"
   ],
   [
+    "chrome-remote-interface-extra/lib/workers/serviceworker.js~serviceworker",
+    "class/lib/workers/ServiceWorker.js~ServiceWorker.html",
+    "<span>ServiceWorker</span> <span class=\"search-result-import-path\">chrome-remote-interface-extra/lib/workers/ServiceWorker.js</span>",
+    "class"
+  ],
+  [
+    "chrome-remote-interface-extra/lib/workers/index.js~serviceworker",
+    "variable/index.html#static-variable-ServiceWorker",
+    "<span>ServiceWorker</span> <span class=\"search-result-import-path\">chrome-remote-interface-extra/lib/workers/index.js</span>",
+    "variable"
+  ],
+  [
     "chrome-remote-interface-extra/lib/target.js~target",
     "class/lib/Target.js~Target.html",
     "<span>Target</span> <span class=\"search-result-import-path\">chrome-remote-interface-extra/lib/Target.js</span>",
+    "class"
+  ],
+  [
+    "chrome-remote-interface-extra/lib/taskqueue.js~taskqueue",
+    "class/lib/TaskQueue.js~TaskQueue.html",
+    "<span>TaskQueue</span> <span class=\"search-result-import-path\">chrome-remote-interface-extra/lib/TaskQueue.js</span>",
     "class"
   ],
   [
@@ -408,10 +498,28 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
-    "chrome-remote-interface-extra/lib/worker.js~worker",
-    "class/lib/Worker.js~Worker.html",
-    "<span>Worker</span> <span class=\"search-result-import-path\">chrome-remote-interface-extra/lib/Worker.js</span>",
+    "chrome-remote-interface-extra/lib/workers/worker.js~worker",
+    "class/lib/workers/Worker.js~Worker.html",
+    "<span>Worker</span> <span class=\"search-result-import-path\">chrome-remote-interface-extra/lib/workers/Worker.js</span>",
     "class"
+  ],
+  [
+    "chrome-remote-interface-extra/lib/workers/index.js~worker",
+    "variable/index.html#static-variable-Worker",
+    "<span>Worker</span> <span class=\"search-result-import-path\">chrome-remote-interface-extra/lib/workers/index.js</span>",
+    "variable"
+  ],
+  [
+    "chrome-remote-interface-extra/lib/workers/workermanager.js~workermanager",
+    "class/lib/workers/WorkerManager.js~WorkerManager.html",
+    "<span>WorkerManager</span> <span class=\"search-result-import-path\">chrome-remote-interface-extra/lib/workers/WorkerManager.js</span>",
+    "class"
+  ],
+  [
+    "chrome-remote-interface-extra/lib/workers/index.js~workermanager",
+    "variable/index.html#static-variable-WorkerManager",
+    "<span>WorkerManager</span> <span class=\"search-result-import-path\">chrome-remote-interface-extra/lib/workers/index.js</span>",
+    "variable"
   ],
   [
     "chrome-remote-interface-extra/lib/connection/adaptor.js~adaptchromeremoteinterfaceclient",
@@ -720,6 +828,156 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "lib/audits.js",
+    "file/lib/Audits.js.html",
+    "lib/Audits.js",
+    "file"
+  ],
+  [
+    "lib/audits.js~audits#_allowedencodings",
+    "class/lib/Audits.js~Audits.html#instance-member-_allowedEncodings",
+    "lib/Audits.js~Audits#_allowedEncodings",
+    "member"
+  ],
+  [
+    "lib/audits.js~audits#_client",
+    "class/lib/Audits.js~Audits.html#instance-member-_client",
+    "lib/Audits.js~Audits#_client",
+    "member"
+  ],
+  [
+    "lib/audits.js~audits#constructor",
+    "class/lib/Audits.js~Audits.html#instance-constructor-constructor",
+    "lib/Audits.js~Audits#constructor",
+    "method"
+  ],
+  [
+    "lib/audits.js~audits#getencodedresponse",
+    "class/lib/Audits.js~Audits.html#instance-method-getEncodedResponse",
+    "lib/Audits.js~Audits#getEncodedResponse",
+    "method"
+  ],
+  [
+    "lib/audits.js~getencodedresponseargs",
+    "typedef/index.html#static-typedef-GetEncodedResponseArgs",
+    "lib/Audits.js~GetEncodedResponseArgs",
+    "typedef"
+  ],
+  [
+    "lib/audits.js~getencodedresponseresults",
+    "typedef/index.html#static-typedef-GetEncodedResponseResults",
+    "lib/Audits.js~GetEncodedResponseResults",
+    "typedef"
+  ],
+  [
+    "lib/consolemessage.js",
+    "file/lib/ConsoleMessage.js.html",
+    "lib/ConsoleMessage.js",
+    "file"
+  ],
+  [
+    "lib/consolemessage.js~consolemessage#__init",
+    "class/lib/ConsoleMessage.js~ConsoleMessage.html#instance-method-__init",
+    "lib/ConsoleMessage.js~ConsoleMessage#__init",
+    "method"
+  ],
+  [
+    "lib/consolemessage.js~consolemessage#_args",
+    "class/lib/ConsoleMessage.js~ConsoleMessage.html#instance-member-_args",
+    "lib/ConsoleMessage.js~ConsoleMessage#_args",
+    "member"
+  ],
+  [
+    "lib/consolemessage.js~consolemessage#_event",
+    "class/lib/ConsoleMessage.js~ConsoleMessage.html#instance-member-_event",
+    "lib/ConsoleMessage.js~ConsoleMessage#_event",
+    "member"
+  ],
+  [
+    "lib/consolemessage.js~consolemessage#_location",
+    "class/lib/ConsoleMessage.js~ConsoleMessage.html#instance-member-_location",
+    "lib/ConsoleMessage.js~ConsoleMessage#_location",
+    "member"
+  ],
+  [
+    "lib/consolemessage.js~consolemessage#_text",
+    "class/lib/ConsoleMessage.js~ConsoleMessage.html#instance-member-_text",
+    "lib/ConsoleMessage.js~ConsoleMessage#_text",
+    "member"
+  ],
+  [
+    "lib/consolemessage.js~consolemessage#args",
+    "class/lib/ConsoleMessage.js~ConsoleMessage.html#instance-method-args",
+    "lib/ConsoleMessage.js~ConsoleMessage#args",
+    "method"
+  ],
+  [
+    "lib/consolemessage.js~consolemessage#consolecontext",
+    "class/lib/ConsoleMessage.js~ConsoleMessage.html#instance-method-consoleContext",
+    "lib/ConsoleMessage.js~ConsoleMessage#consoleContext",
+    "method"
+  ],
+  [
+    "lib/consolemessage.js~consolemessage#constructor",
+    "class/lib/ConsoleMessage.js~ConsoleMessage.html#instance-constructor-constructor",
+    "lib/ConsoleMessage.js~ConsoleMessage#constructor",
+    "method"
+  ],
+  [
+    "lib/consolemessage.js~consolemessage#executioncontextid",
+    "class/lib/ConsoleMessage.js~ConsoleMessage.html#instance-method-executionContextId",
+    "lib/ConsoleMessage.js~ConsoleMessage#executionContextId",
+    "method"
+  ],
+  [
+    "lib/consolemessage.js~consolemessage#location",
+    "class/lib/ConsoleMessage.js~ConsoleMessage.html#instance-method-location",
+    "lib/ConsoleMessage.js~ConsoleMessage#location",
+    "method"
+  ],
+  [
+    "lib/consolemessage.js~consolemessage#stacktrace",
+    "class/lib/ConsoleMessage.js~ConsoleMessage.html#instance-method-stackTrace",
+    "lib/ConsoleMessage.js~ConsoleMessage#stackTrace",
+    "method"
+  ],
+  [
+    "lib/consolemessage.js~consolemessage#text",
+    "class/lib/ConsoleMessage.js~ConsoleMessage.html#instance-method-text",
+    "lib/ConsoleMessage.js~ConsoleMessage#text",
+    "method"
+  ],
+  [
+    "lib/consolemessage.js~consolemessage#timestamp",
+    "class/lib/ConsoleMessage.js~ConsoleMessage.html#instance-method-timestamp",
+    "lib/ConsoleMessage.js~ConsoleMessage#timestamp",
+    "method"
+  ],
+  [
+    "lib/consolemessage.js~consolemessage#tojson",
+    "class/lib/ConsoleMessage.js~ConsoleMessage.html#instance-method-toJSON",
+    "lib/ConsoleMessage.js~ConsoleMessage#toJSON",
+    "method"
+  ],
+  [
+    "lib/consolemessage.js~consolemessage#type",
+    "class/lib/ConsoleMessage.js~ConsoleMessage.html#instance-method-type",
+    "lib/ConsoleMessage.js~ConsoleMessage#type",
+    "method"
+  ],
+  [
+    "lib/consolemessage.js~consolemessage.location",
+    "typedef/index.html#static-typedef-ConsoleMessage.Location",
+    "lib/ConsoleMessage.js~ConsoleMessage.Location",
+    "typedef"
+  ],
+  [
+    "lib/consolemessage.js~consolemessageargsinit",
+    "typedef/index.html#static-typedef-ConsoleMessageArgsInit",
+    "lib/ConsoleMessage.js~ConsoleMessageArgsInit",
+    "typedef"
+  ],
+  [
     "lib/domworld.js",
     "file/lib/DOMWorld.js.html",
     "lib/DOMWorld.js",
@@ -888,6 +1146,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/domworld.js~domworld#getelementbyid",
+    "class/lib/DOMWorld.js~DOMWorld.html#instance-method-getElementById",
+    "lib/DOMWorld.js~DOMWorld#getElementById",
+    "method"
+  ],
+  [
     "lib/domworld.js~domworld#hover",
     "class/lib/DOMWorld.js~DOMWorld.html#instance-method-hover",
     "lib/DOMWorld.js~DOMWorld#hover",
@@ -1002,27 +1266,15 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "lib/dialog.js~dialog#_defaultvalue",
-    "class/lib/Dialog.js~Dialog.html#instance-member-_defaultValue",
-    "lib/Dialog.js~Dialog#_defaultValue",
+    "lib/dialog.js~dialog#_event",
+    "class/lib/Dialog.js~Dialog.html#instance-member-_event",
+    "lib/Dialog.js~Dialog#_event",
     "member"
   ],
   [
     "lib/dialog.js~dialog#_handled",
     "class/lib/Dialog.js~Dialog.html#instance-member-_handled",
     "lib/Dialog.js~Dialog#_handled",
-    "member"
-  ],
-  [
-    "lib/dialog.js~dialog#_message",
-    "class/lib/Dialog.js~Dialog.html#instance-member-_message",
-    "lib/Dialog.js~Dialog#_message",
-    "member"
-  ],
-  [
-    "lib/dialog.js~dialog#_type",
-    "class/lib/Dialog.js~Dialog.html#instance-member-_type",
-    "lib/Dialog.js~Dialog#_type",
     "member"
   ],
   [
@@ -1050,15 +1302,33 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/dialog.js~dialog#hasbrowserhandler",
+    "class/lib/Dialog.js~Dialog.html#instance-method-hasBrowserHandler",
+    "lib/Dialog.js~Dialog#hasBrowserHandler",
+    "method"
+  ],
+  [
     "lib/dialog.js~dialog#message",
     "class/lib/Dialog.js~Dialog.html#instance-method-message",
     "lib/Dialog.js~Dialog#message",
     "method"
   ],
   [
+    "lib/dialog.js~dialog#tojson",
+    "class/lib/Dialog.js~Dialog.html#instance-method-toJSON",
+    "lib/Dialog.js~Dialog#toJSON",
+    "method"
+  ],
+  [
     "lib/dialog.js~dialog#type",
     "class/lib/Dialog.js~Dialog.html#instance-method-type",
     "lib/Dialog.js~Dialog#type",
+    "method"
+  ],
+  [
+    "lib/dialog.js~dialog#url",
+    "class/lib/Dialog.js~Dialog.html#instance-method-url",
+    "lib/Dialog.js~Dialog#url",
     "method"
   ],
   [
@@ -1215,12 +1485,6 @@ window.esdocSearchIndex = [
     "lib/events.js",
     "file/lib/Events.js.html",
     "lib/Events.js",
-    "file"
-  ],
-  [
-    "lib/fetch.js",
-    "file/lib/Fetch.js.html",
-    "lib/Fetch.js",
     "file"
   ],
   [
@@ -1446,6 +1710,96 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "lib/multimap.js~multimap#[util.inspect.custom]",
+    "class/lib/Multimap.js~Multimap.html#instance-method-[util.inspect.custom]",
+    "lib/Multimap.js~Multimap#[util.inspect.custom]",
+    "method"
+  ],
+  [
+    "lib/multimap.js~multimap#_map",
+    "class/lib/Multimap.js~Multimap.html#instance-member-_map",
+    "lib/Multimap.js~Multimap#_map",
+    "member"
+  ],
+  [
+    "lib/multimap.js~multimap#clear",
+    "class/lib/Multimap.js~Multimap.html#instance-method-clear",
+    "lib/Multimap.js~Multimap#clear",
+    "method"
+  ],
+  [
+    "lib/multimap.js~multimap#constructor",
+    "class/lib/Multimap.js~Multimap.html#instance-constructor-constructor",
+    "lib/Multimap.js~Multimap#constructor",
+    "method"
+  ],
+  [
+    "lib/multimap.js~multimap#delete",
+    "class/lib/Multimap.js~Multimap.html#instance-method-delete",
+    "lib/Multimap.js~Multimap#delete",
+    "method"
+  ],
+  [
+    "lib/multimap.js~multimap#deleteall",
+    "class/lib/Multimap.js~Multimap.html#instance-method-deleteAll",
+    "lib/Multimap.js~Multimap#deleteAll",
+    "method"
+  ],
+  [
+    "lib/multimap.js~multimap#firstkey",
+    "class/lib/Multimap.js~Multimap.html#instance-method-firstKey",
+    "lib/Multimap.js~Multimap#firstKey",
+    "method"
+  ],
+  [
+    "lib/multimap.js~multimap#firstvalue",
+    "class/lib/Multimap.js~Multimap.html#instance-method-firstValue",
+    "lib/Multimap.js~Multimap#firstValue",
+    "method"
+  ],
+  [
+    "lib/multimap.js~multimap#get",
+    "class/lib/Multimap.js~Multimap.html#instance-method-get",
+    "lib/Multimap.js~Multimap#get",
+    "method"
+  ],
+  [
+    "lib/multimap.js~multimap#has",
+    "class/lib/Multimap.js~Multimap.html#instance-method-has",
+    "lib/Multimap.js~Multimap#has",
+    "method"
+  ],
+  [
+    "lib/multimap.js~multimap#hasvalue",
+    "class/lib/Multimap.js~Multimap.html#instance-method-hasValue",
+    "lib/Multimap.js~Multimap#hasValue",
+    "method"
+  ],
+  [
+    "lib/multimap.js~multimap#keys",
+    "class/lib/Multimap.js~Multimap.html#instance-method-keys",
+    "lib/Multimap.js~Multimap#keys",
+    "method"
+  ],
+  [
+    "lib/multimap.js~multimap#set",
+    "class/lib/Multimap.js~Multimap.html#instance-method-set",
+    "lib/Multimap.js~Multimap#set",
+    "method"
+  ],
+  [
+    "lib/multimap.js~multimap#size",
+    "class/lib/Multimap.js~Multimap.html#instance-get-size",
+    "lib/Multimap.js~Multimap#size",
+    "member"
+  ],
+  [
+    "lib/multimap.js~multimap#values",
+    "class/lib/Multimap.js~Multimap.html#instance-method-values",
+    "lib/Multimap.js~Multimap#values",
+    "method"
+  ],
+  [
     "lib/target.js",
     "file/lib/Target.js.html",
     "lib/Target.js",
@@ -1642,6 +1996,24 @@ window.esdocSearchIndex = [
     "file/lib/TaskQueue.js.html",
     "lib/TaskQueue.js",
     "file"
+  ],
+  [
+    "lib/taskqueue.js~taskqueue#_chain",
+    "class/lib/TaskQueue.js~TaskQueue.html#instance-member-_chain",
+    "lib/TaskQueue.js~TaskQueue#_chain",
+    "member"
+  ],
+  [
+    "lib/taskqueue.js~taskqueue#constructor",
+    "class/lib/TaskQueue.js~TaskQueue.html#instance-constructor-constructor",
+    "lib/TaskQueue.js~TaskQueue#constructor",
+    "method"
+  ],
+  [
+    "lib/taskqueue.js~taskqueue#posttask",
+    "class/lib/TaskQueue.js~TaskQueue.html#instance-method-postTask",
+    "lib/TaskQueue.js~TaskQueue#postTask",
+    "method"
   ],
   [
     "lib/timeoutsettings.js",
@@ -1842,70 +2214,166 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "lib/worker.js",
-    "file/lib/Worker.js.html",
-    "lib/Worker.js",
-    "file"
-  ],
-  [
-    "lib/worker.js~worker#_client",
-    "class/lib/Worker.js~Worker.html#instance-member-_client",
-    "lib/Worker.js~Worker#_client",
-    "member"
-  ],
-  [
-    "lib/worker.js~worker#_executioncontextpromise",
-    "class/lib/Worker.js~Worker.html#instance-member-_executionContextPromise",
-    "lib/Worker.js~Worker#_executionContextPromise",
-    "member"
-  ],
-  [
-    "lib/worker.js~worker#_url",
-    "class/lib/Worker.js~Worker.html#instance-member-_url",
-    "lib/Worker.js~Worker#_url",
-    "member"
-  ],
-  [
-    "lib/worker.js~worker#constructor",
-    "class/lib/Worker.js~Worker.html#instance-constructor-constructor",
-    "lib/Worker.js~Worker#constructor",
-    "method"
-  ],
-  [
-    "lib/worker.js~worker#evaluate",
-    "class/lib/Worker.js~Worker.html#instance-method-evaluate",
-    "lib/Worker.js~Worker#evaluate",
-    "method"
-  ],
-  [
-    "lib/worker.js~worker#evaluatehandle",
-    "class/lib/Worker.js~Worker.html#instance-method-evaluateHandle",
-    "lib/Worker.js~Worker#evaluateHandle",
-    "method"
-  ],
-  [
-    "lib/worker.js~worker#executioncontext",
-    "class/lib/Worker.js~Worker.html#instance-method-executionContext",
-    "lib/Worker.js~Worker#executionContext",
-    "method"
-  ],
-  [
-    "lib/worker.js~worker#tojson",
-    "class/lib/Worker.js~Worker.html#instance-method-toJSON",
-    "lib/Worker.js~Worker#toJSON",
-    "method"
-  ],
-  [
-    "lib/worker.js~worker#url",
-    "class/lib/Worker.js~Worker.html#instance-method-url",
-    "lib/Worker.js~Worker#url",
-    "method"
-  ],
-  [
     "lib/__shared.js",
     "file/lib/__shared.js.html",
     "lib/__shared.js",
     "file"
+  ],
+  [
+    "lib/__typedefs.js",
+    "file/lib/__typeDefs.js.html",
+    "lib/__typeDefs.js",
+    "file"
+  ],
+  [
+    "lib/__typedefs.js~browserhistogramquery",
+    "typedef/index.html#static-typedef-BrowserHistogramQuery",
+    "lib/__typeDefs.js~BrowserHistogramQuery",
+    "typedef"
+  ],
+  [
+    "lib/__typedefs.js~cdpanimation",
+    "typedef/index.html#static-typedef-CDPAnimation",
+    "lib/__typeDefs.js~CDPAnimation",
+    "typedef"
+  ],
+  [
+    "lib/__typedefs.js~cdpanimationeffect",
+    "typedef/index.html#static-typedef-CDPAnimationEffect",
+    "lib/__typeDefs.js~CDPAnimationEffect",
+    "typedef"
+  ],
+  [
+    "lib/__typedefs.js~cdpbucket",
+    "typedef/index.html#static-typedef-CDPBucket",
+    "lib/__typeDefs.js~CDPBucket",
+    "typedef"
+  ],
+  [
+    "lib/__typedefs.js~cdpdatabase",
+    "typedef/index.html#static-typedef-CDPDatabase",
+    "lib/__typeDefs.js~CDPDatabase",
+    "typedef"
+  ],
+  [
+    "lib/__typedefs.js~cdpframeresource",
+    "typedef/index.html#static-typedef-CDPFrameResource",
+    "lib/__typeDefs.js~CDPFrameResource",
+    "typedef"
+  ],
+  [
+    "lib/__typedefs.js~cdpframeresourcetree",
+    "typedef/index.html#static-typedef-CDPFrameResourceTree",
+    "lib/__typeDefs.js~CDPFrameResourceTree",
+    "typedef"
+  ],
+  [
+    "lib/__typedefs.js~cdphistogram",
+    "typedef/index.html#static-typedef-CDPHistogram",
+    "lib/__typeDefs.js~CDPHistogram",
+    "typedef"
+  ],
+  [
+    "lib/__typedefs.js~cdpkeyframestyle",
+    "typedef/index.html#static-typedef-CDPKeyframeStyle",
+    "lib/__typeDefs.js~CDPKeyframeStyle",
+    "typedef"
+  ],
+  [
+    "lib/__typedefs.js~cdpkeyframesrule",
+    "typedef/index.html#static-typedef-CDPKeyframesRule",
+    "lib/__typeDefs.js~CDPKeyframesRule",
+    "typedef"
+  ],
+  [
+    "lib/__typedefs.js~cdpnavigationentry",
+    "typedef/index.html#static-typedef-CDPNavigationEntry",
+    "lib/__typeDefs.js~CDPNavigationEntry",
+    "typedef"
+  ],
+  [
+    "lib/__typedefs.js~cdpsecuritydetails",
+    "typedef/index.html#static-typedef-CDPSecurityDetails",
+    "lib/__typeDefs.js~CDPSecurityDetails",
+    "typedef"
+  ],
+  [
+    "lib/__typedefs.js~cdpserviceworkererrormessage",
+    "typedef/index.html#static-typedef-CDPServiceWorkerErrorMessage",
+    "lib/__typeDefs.js~CDPServiceWorkerErrorMessage",
+    "typedef"
+  ],
+  [
+    "lib/__typedefs.js~cdpserviceworkerregistration",
+    "typedef/index.html#static-typedef-CDPServiceWorkerRegistration",
+    "lib/__typeDefs.js~CDPServiceWorkerRegistration",
+    "typedef"
+  ],
+  [
+    "lib/__typedefs.js~cdpserviceworkerversion",
+    "typedef/index.html#static-typedef-CDPServiceWorkerVersion",
+    "lib/__typeDefs.js~CDPServiceWorkerVersion",
+    "typedef"
+  ],
+  [
+    "lib/__typedefs.js~cdpsignedcertificatetimestamp",
+    "typedef/index.html#static-typedef-CDPSignedCertificateTimestamp",
+    "lib/__typeDefs.js~CDPSignedCertificateTimestamp",
+    "typedef"
+  ],
+  [
+    "lib/__typedefs.js~cdptargetinfo",
+    "typedef/index.html#static-typedef-CDPTargetInfo",
+    "lib/__typeDefs.js~CDPTargetInfo",
+    "typedef"
+  ],
+  [
+    "lib/__typedefs.js~coverageentry",
+    "typedef/index.html#static-typedef-CoverageEntry",
+    "lib/__typeDefs.js~CoverageEntry",
+    "typedef"
+  ],
+  [
+    "lib/__typedefs.js~metrics",
+    "typedef/index.html#static-typedef-Metrics",
+    "lib/__typeDefs.js~Metrics",
+    "typedef"
+  ],
+  [
+    "lib/__typedefs.js~pdfoptions",
+    "typedef/index.html#static-typedef-PDFOptions",
+    "lib/__typeDefs.js~PDFOptions",
+    "typedef"
+  ],
+  [
+    "lib/__typedefs.js~sqlqueryresults",
+    "typedef/index.html#static-typedef-SQLQueryResults",
+    "lib/__typeDefs.js~SQLQueryResults",
+    "typedef"
+  ],
+  [
+    "lib/__typedefs.js~screenshotoptions",
+    "typedef/index.html#static-typedef-ScreenshotOptions",
+    "lib/__typeDefs.js~ScreenshotOptions",
+    "typedef"
+  ],
+  [
+    "lib/__typedefs.js~serializedaxnode",
+    "typedef/index.html#static-typedef-SerializedAXNode",
+    "lib/__typeDefs.js~SerializedAXNode",
+    "typedef"
+  ],
+  [
+    "lib/__typedefs.js~serviceworkerinfo",
+    "typedef/index.html#static-typedef-ServiceWorkerInfo",
+    "lib/__typeDefs.js~ServiceWorkerInfo",
+    "typedef"
+  ],
+  [
+    "lib/__typedefs.js~windowbounds",
+    "typedef/index.html#static-typedef-WindowBounds",
+    "lib/__typeDefs.js~WindowBounds",
+    "typedef"
   ],
   [
     "lib/accessibility/axnode.js",
@@ -2052,15 +2520,297 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "lib/accessibility/accessibility.js~serializedaxnode",
-    "typedef/index.html#static-typedef-SerializedAXNode",
-    "lib/accessibility/Accessibility.js~SerializedAXNode",
-    "typedef"
+    "lib/accessibility/accessibility.js~accessibility#tostring",
+    "class/lib/accessibility/Accessibility.js~Accessibility.html#instance-method-toString",
+    "lib/accessibility/Accessibility.js~Accessibility#toString",
+    "method"
   ],
   [
     "lib/accessibility/index.js",
     "file/lib/accessibility/index.js.html",
     "lib/accessibility/index.js",
+    "file"
+  ],
+  [
+    "lib/animations/animation.js",
+    "file/lib/animations/Animation.js.html",
+    "lib/animations/Animation.js",
+    "file"
+  ],
+  [
+    "lib/animations/animation.js~animation#_animation",
+    "class/lib/animations/Animation.js~Animation.html#instance-member-_animation",
+    "lib/animations/Animation.js~Animation#_animation",
+    "member"
+  ],
+  [
+    "lib/animations/animation.js~animation#_assertnotreleased",
+    "class/lib/animations/Animation.js~Animation.html#instance-method-_assertNotReleased",
+    "lib/animations/Animation.js~Animation#_assertNotReleased",
+    "method"
+  ],
+  [
+    "lib/animations/animation.js~animation#_manager",
+    "class/lib/animations/Animation.js~Animation.html#instance-member-_manager",
+    "lib/animations/Animation.js~Animation#_manager",
+    "member"
+  ],
+  [
+    "lib/animations/animation.js~animation#_released",
+    "class/lib/animations/Animation.js~Animation.html#instance-member-_released",
+    "lib/animations/Animation.js~Animation#_released",
+    "member"
+  ],
+  [
+    "lib/animations/animation.js~animation#constructor",
+    "class/lib/animations/Animation.js~Animation.html#instance-constructor-constructor",
+    "lib/animations/Animation.js~Animation#constructor",
+    "method"
+  ],
+  [
+    "lib/animations/animation.js~animation#cssid",
+    "class/lib/animations/Animation.js~Animation.html#instance-method-cssId",
+    "lib/animations/Animation.js~Animation#cssId",
+    "method"
+  ],
+  [
+    "lib/animations/animation.js~animation#currenttime",
+    "class/lib/animations/Animation.js~Animation.html#instance-method-currentTime",
+    "lib/animations/Animation.js~Animation#currentTime",
+    "method"
+  ],
+  [
+    "lib/animations/animation.js~animation#id",
+    "class/lib/animations/Animation.js~Animation.html#instance-method-id",
+    "lib/animations/Animation.js~Animation#id",
+    "method"
+  ],
+  [
+    "lib/animations/animation.js~animation#name",
+    "class/lib/animations/Animation.js~Animation.html#instance-method-name",
+    "lib/animations/Animation.js~Animation#name",
+    "method"
+  ],
+  [
+    "lib/animations/animation.js~animation#pause",
+    "class/lib/animations/Animation.js~Animation.html#instance-method-pause",
+    "lib/animations/Animation.js~Animation#pause",
+    "method"
+  ],
+  [
+    "lib/animations/animation.js~animation#pausedstate",
+    "class/lib/animations/Animation.js~Animation.html#instance-method-pausedState",
+    "lib/animations/Animation.js~Animation#pausedState",
+    "method"
+  ],
+  [
+    "lib/animations/animation.js~animation#playstate",
+    "class/lib/animations/Animation.js~Animation.html#instance-method-playState",
+    "lib/animations/Animation.js~Animation#playState",
+    "method"
+  ],
+  [
+    "lib/animations/animation.js~animation#playbackrate",
+    "class/lib/animations/Animation.js~Animation.html#instance-method-playbackRate",
+    "lib/animations/Animation.js~Animation#playbackRate",
+    "method"
+  ],
+  [
+    "lib/animations/animation.js~animation#release",
+    "class/lib/animations/Animation.js~Animation.html#instance-method-release",
+    "lib/animations/Animation.js~Animation#release",
+    "method"
+  ],
+  [
+    "lib/animations/animation.js~animation#released",
+    "class/lib/animations/Animation.js~Animation.html#instance-method-released",
+    "lib/animations/Animation.js~Animation#released",
+    "method"
+  ],
+  [
+    "lib/animations/animation.js~animation#seek",
+    "class/lib/animations/Animation.js~Animation.html#instance-method-seek",
+    "lib/animations/Animation.js~Animation#seek",
+    "method"
+  ],
+  [
+    "lib/animations/animation.js~animation#settiming",
+    "class/lib/animations/Animation.js~Animation.html#instance-method-setTiming",
+    "lib/animations/Animation.js~Animation#setTiming",
+    "method"
+  ],
+  [
+    "lib/animations/animation.js~animation#source",
+    "class/lib/animations/Animation.js~Animation.html#instance-method-source",
+    "lib/animations/Animation.js~Animation#source",
+    "method"
+  ],
+  [
+    "lib/animations/animation.js~animation#starttime",
+    "class/lib/animations/Animation.js~Animation.html#instance-method-startTime",
+    "lib/animations/Animation.js~Animation#startTime",
+    "method"
+  ],
+  [
+    "lib/animations/animation.js~animation#tojson",
+    "class/lib/animations/Animation.js~Animation.html#instance-method-toJSON",
+    "lib/animations/Animation.js~Animation#toJSON",
+    "method"
+  ],
+  [
+    "lib/animations/animation.js~animation#tostring",
+    "class/lib/animations/Animation.js~Animation.html#instance-method-toString",
+    "lib/animations/Animation.js~Animation#toString",
+    "method"
+  ],
+  [
+    "lib/animations/animation.js~animation#type",
+    "class/lib/animations/Animation.js~Animation.html#instance-method-type",
+    "lib/animations/Animation.js~Animation#type",
+    "method"
+  ],
+  [
+    "lib/animations/animation.js~animation#unpause",
+    "class/lib/animations/Animation.js~Animation.html#instance-method-unpause",
+    "lib/animations/Animation.js~Animation#unpause",
+    "method"
+  ],
+  [
+    "lib/animations/animation.js~animation#updatecurrenttime",
+    "class/lib/animations/Animation.js~Animation.html#instance-method-updateCurrentTime",
+    "lib/animations/Animation.js~Animation#updateCurrentTime",
+    "method"
+  ],
+  [
+    "lib/animations/animationmanager.js",
+    "file/lib/animations/AnimationManager.js.html",
+    "lib/animations/AnimationManager.js",
+    "file"
+  ],
+  [
+    "lib/animations/animationmanager.js~animationmanager#_client",
+    "class/lib/animations/AnimationManager.js~AnimationManager.html#instance-member-_client",
+    "lib/animations/AnimationManager.js~AnimationManager#_client",
+    "member"
+  ],
+  [
+    "lib/animations/animationmanager.js~animationmanager#_clientlisteners",
+    "class/lib/animations/AnimationManager.js~AnimationManager.html#instance-member-_clientListeners",
+    "lib/animations/AnimationManager.js~AnimationManager#_clientListeners",
+    "member"
+  ],
+  [
+    "lib/animations/animationmanager.js~animationmanager#_enabled",
+    "class/lib/animations/AnimationManager.js~AnimationManager.html#instance-member-_enabled",
+    "lib/animations/AnimationManager.js~AnimationManager#_enabled",
+    "member"
+  ],
+  [
+    "lib/animations/animationmanager.js~animationmanager#_onanimationcanceled",
+    "class/lib/animations/AnimationManager.js~AnimationManager.html#instance-method-_onAnimationCanceled",
+    "lib/animations/AnimationManager.js~AnimationManager#_onAnimationCanceled",
+    "method"
+  ],
+  [
+    "lib/animations/animationmanager.js~animationmanager#_onanimationcreated",
+    "class/lib/animations/AnimationManager.js~AnimationManager.html#instance-method-_onAnimationCreated",
+    "lib/animations/AnimationManager.js~AnimationManager#_onAnimationCreated",
+    "method"
+  ],
+  [
+    "lib/animations/animationmanager.js~animationmanager#_onanimationstarted",
+    "class/lib/animations/AnimationManager.js~AnimationManager.html#instance-method-_onAnimationStarted",
+    "lib/animations/AnimationManager.js~AnimationManager#_onAnimationStarted",
+    "method"
+  ],
+  [
+    "lib/animations/animationmanager.js~animationmanager#constructor",
+    "class/lib/animations/AnimationManager.js~AnimationManager.html#instance-constructor-constructor",
+    "lib/animations/AnimationManager.js~AnimationManager#constructor",
+    "method"
+  ],
+  [
+    "lib/animations/animationmanager.js~animationmanager#disable",
+    "class/lib/animations/AnimationManager.js~AnimationManager.html#instance-method-disable",
+    "lib/animations/AnimationManager.js~AnimationManager#disable",
+    "method"
+  ],
+  [
+    "lib/animations/animationmanager.js~animationmanager#enable",
+    "class/lib/animations/AnimationManager.js~AnimationManager.html#instance-method-enable",
+    "lib/animations/AnimationManager.js~AnimationManager#enable",
+    "method"
+  ],
+  [
+    "lib/animations/animationmanager.js~animationmanager#enabled",
+    "class/lib/animations/AnimationManager.js~AnimationManager.html#instance-method-enabled",
+    "lib/animations/AnimationManager.js~AnimationManager#enabled",
+    "method"
+  ],
+  [
+    "lib/animations/animationmanager.js~animationmanager#getanimationscurrenttime",
+    "class/lib/animations/AnimationManager.js~AnimationManager.html#instance-method-getAnimationsCurrentTime",
+    "lib/animations/AnimationManager.js~AnimationManager#getAnimationsCurrentTime",
+    "method"
+  ],
+  [
+    "lib/animations/animationmanager.js~animationmanager#getplaybackrate",
+    "class/lib/animations/AnimationManager.js~AnimationManager.html#instance-method-getPlaybackRate",
+    "lib/animations/AnimationManager.js~AnimationManager#getPlaybackRate",
+    "method"
+  ],
+  [
+    "lib/animations/animationmanager.js~animationmanager#pauseanimation",
+    "class/lib/animations/AnimationManager.js~AnimationManager.html#instance-method-pauseAnimation",
+    "lib/animations/AnimationManager.js~AnimationManager#pauseAnimation",
+    "method"
+  ],
+  [
+    "lib/animations/animationmanager.js~animationmanager#pauseanimations",
+    "class/lib/animations/AnimationManager.js~AnimationManager.html#instance-method-pauseAnimations",
+    "lib/animations/AnimationManager.js~AnimationManager#pauseAnimations",
+    "method"
+  ],
+  [
+    "lib/animations/animationmanager.js~animationmanager#releaseanimation",
+    "class/lib/animations/AnimationManager.js~AnimationManager.html#instance-method-releaseAnimation",
+    "lib/animations/AnimationManager.js~AnimationManager#releaseAnimation",
+    "method"
+  ],
+  [
+    "lib/animations/animationmanager.js~animationmanager#releaseanimations",
+    "class/lib/animations/AnimationManager.js~AnimationManager.html#instance-method-releaseAnimations",
+    "lib/animations/AnimationManager.js~AnimationManager#releaseAnimations",
+    "method"
+  ],
+  [
+    "lib/animations/animationmanager.js~animationmanager#seekanimation",
+    "class/lib/animations/AnimationManager.js~AnimationManager.html#instance-method-seekAnimation",
+    "lib/animations/AnimationManager.js~AnimationManager#seekAnimation",
+    "method"
+  ],
+  [
+    "lib/animations/animationmanager.js~animationmanager#seekanimations",
+    "class/lib/animations/AnimationManager.js~AnimationManager.html#instance-method-seekAnimations",
+    "lib/animations/AnimationManager.js~AnimationManager#seekAnimations",
+    "method"
+  ],
+  [
+    "lib/animations/animationmanager.js~animationmanager#setanimationtiming",
+    "class/lib/animations/AnimationManager.js~AnimationManager.html#instance-method-setAnimationTiming",
+    "lib/animations/AnimationManager.js~AnimationManager#setAnimationTiming",
+    "method"
+  ],
+  [
+    "lib/animations/animationmanager.js~animationmanager#setplaybackrate",
+    "class/lib/animations/AnimationManager.js~AnimationManager.html#instance-method-setPlaybackRate",
+    "lib/animations/AnimationManager.js~AnimationManager#setPlaybackRate",
+    "method"
+  ],
+  [
+    "lib/animations/index.js",
+    "file/lib/animations/index.js.html",
+    "lib/animations/index.js",
     "file"
   ],
   [
@@ -2298,6 +3048,18 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/browser/browser.js~browser#tojson",
+    "class/lib/browser/Browser.js~Browser.html#instance-method-toJSON",
+    "lib/browser/Browser.js~Browser#toJSON",
+    "method"
+  ],
+  [
+    "lib/browser/browser.js~browser#tostring",
+    "class/lib/browser/Browser.js~Browser.html#instance-method-toString",
+    "lib/browser/Browser.js~Browser#toString",
+    "method"
+  ],
+  [
     "lib/browser/browser.js~browser#useragent",
     "class/lib/browser/Browser.js~Browser.html#instance-method-userAgent",
     "lib/browser/Browser.js~Browser#userAgent",
@@ -2340,21 +3102,9 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "lib/browser/browser.js~browserhistogramquery",
-    "typedef/index.html#static-typedef-BrowserHistogramQuery",
-    "lib/browser/Browser.js~BrowserHistogramQuery",
-    "typedef"
-  ],
-  [
     "lib/browser/browser.js~browserinitoptions",
     "typedef/index.html#static-typedef-BrowserInitOptions",
     "lib/browser/Browser.js~BrowserInitOptions",
-    "typedef"
-  ],
-  [
-    "lib/browser/browser.js~windowbounds",
-    "typedef/index.html#static-typedef-WindowBounds",
-    "lib/browser/Browser.js~WindowBounds",
     "typedef"
   ],
   [
@@ -2478,6 +3228,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/browser/browsercontext.js~browsercontext#tostring",
+    "class/lib/browser/BrowserContext.js~BrowserContext.html#instance-method-toString",
+    "lib/browser/BrowserContext.js~BrowserContext#toString",
+    "method"
+  ],
+  [
     "lib/browser/browsercontext.js~browsercontext#waitfortarget",
     "class/lib/browser/BrowserContext.js~BrowserContext.html#instance-method-waitForTarget",
     "lib/browser/BrowserContext.js~BrowserContext#waitForTarget",
@@ -2494,6 +3250,12 @@ window.esdocSearchIndex = [
     "file/lib/chromeRemoteInterfaceExtra.js.html",
     "lib/chromeRemoteInterfaceExtra.js",
     "file"
+  ],
+  [
+    "lib/chromeremoteinterfaceextra.js~crioptions",
+    "typedef/index.html#static-typedef-CRIOptions",
+    "lib/chromeRemoteInterfaceExtra.js~CRIOptions",
+    "typedef"
   ],
   [
     "lib/connection/cdpsession.js",
@@ -2565,6 +3327,12 @@ window.esdocSearchIndex = [
     "lib/connection/cdpsession.js~cdpsession#send",
     "class/lib/connection/CDPSession.js~CDPSession.html#instance-method-send",
     "lib/connection/CDPSession.js~CDPSession#send",
+    "method"
+  ],
+  [
+    "lib/connection/cdpsession.js~cdpsession#tostring",
+    "class/lib/connection/CDPSession.js~CDPSession.html#instance-method-toString",
+    "lib/connection/CDPSession.js~CDPSession#toString",
     "method"
   ],
   [
@@ -2667,6 +3435,12 @@ window.esdocSearchIndex = [
     "lib/connection/criconnection.js~criconnection#session",
     "class/lib/connection/CRIConnection.js~CRIConnection.html#instance-method-session",
     "lib/connection/CRIConnection.js~CRIConnection#session",
+    "method"
+  ],
+  [
+    "lib/connection/criconnection.js~criconnection#tostring",
+    "class/lib/connection/CRIConnection.js~CRIConnection.html#instance-method-toString",
+    "lib/connection/CRIConnection.js~CRIConnection#toString",
     "method"
   ],
   [
@@ -2826,12 +3600,6 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "lib/coverage/coverage.js~coverageentry",
-    "typedef/index.html#static-typedef-CoverageEntry",
-    "lib/coverage/Coverage.js~CoverageEntry",
-    "typedef"
-  ],
-  [
     "lib/coverage/jscoverage.js",
     "file/lib/coverage/JSCoverage.js.html",
     "lib/coverage/JSCoverage.js",
@@ -2913,6 +3681,144 @@ window.esdocSearchIndex = [
     "lib/coverage/index.js",
     "file/lib/coverage/index.js.html",
     "lib/coverage/index.js",
+    "file"
+  ],
+  [
+    "lib/database/database.js",
+    "file/lib/database/Database.js.html",
+    "lib/database/Database.js",
+    "file"
+  ],
+  [
+    "lib/database/database.js~database#_database",
+    "class/lib/database/Database.js~Database.html#instance-member-_database",
+    "lib/database/Database.js~Database#_database",
+    "member"
+  ],
+  [
+    "lib/database/database.js~database#_manager",
+    "class/lib/database/Database.js~Database.html#instance-member-_manager",
+    "lib/database/Database.js~Database#_manager",
+    "member"
+  ],
+  [
+    "lib/database/database.js~database#constructor",
+    "class/lib/database/Database.js~Database.html#instance-constructor-constructor",
+    "lib/database/Database.js~Database#constructor",
+    "method"
+  ],
+  [
+    "lib/database/database.js~database#executesql",
+    "class/lib/database/Database.js~Database.html#instance-method-executeSQL",
+    "lib/database/Database.js~Database#executeSQL",
+    "method"
+  ],
+  [
+    "lib/database/database.js~database#getdatabasetablenames",
+    "class/lib/database/Database.js~Database.html#instance-method-getDatabaseTableNames",
+    "lib/database/Database.js~Database#getDatabaseTableNames",
+    "method"
+  ],
+  [
+    "lib/database/database.js~database#id",
+    "class/lib/database/Database.js~Database.html#instance-method-id",
+    "lib/database/Database.js~Database#id",
+    "method"
+  ],
+  [
+    "lib/database/database.js~database#name",
+    "class/lib/database/Database.js~Database.html#instance-method-name",
+    "lib/database/Database.js~Database#name",
+    "method"
+  ],
+  [
+    "lib/database/database.js~database#tojson",
+    "class/lib/database/Database.js~Database.html#instance-method-toJSON",
+    "lib/database/Database.js~Database#toJSON",
+    "method"
+  ],
+  [
+    "lib/database/database.js~database#tostring",
+    "class/lib/database/Database.js~Database.html#instance-method-toString",
+    "lib/database/Database.js~Database#toString",
+    "method"
+  ],
+  [
+    "lib/database/database.js~database#version",
+    "class/lib/database/Database.js~Database.html#instance-method-version",
+    "lib/database/Database.js~Database#version",
+    "method"
+  ],
+  [
+    "lib/database/databasemanager.js",
+    "file/lib/database/DatabaseManager.js.html",
+    "lib/database/DatabaseManager.js",
+    "file"
+  ],
+  [
+    "lib/database/databasemanager.js~databasemanager#_client",
+    "class/lib/database/DatabaseManager.js~DatabaseManager.html#instance-member-_client",
+    "lib/database/DatabaseManager.js~DatabaseManager#_client",
+    "member"
+  ],
+  [
+    "lib/database/databasemanager.js~databasemanager#_clientlisteners",
+    "class/lib/database/DatabaseManager.js~DatabaseManager.html#instance-member-_clientListeners",
+    "lib/database/DatabaseManager.js~DatabaseManager#_clientListeners",
+    "member"
+  ],
+  [
+    "lib/database/databasemanager.js~databasemanager#_enabled",
+    "class/lib/database/DatabaseManager.js~DatabaseManager.html#instance-member-_enabled",
+    "lib/database/DatabaseManager.js~DatabaseManager#_enabled",
+    "member"
+  ],
+  [
+    "lib/database/databasemanager.js~databasemanager#_ondatabaseadded",
+    "class/lib/database/DatabaseManager.js~DatabaseManager.html#instance-method-_onDatabaseAdded",
+    "lib/database/DatabaseManager.js~DatabaseManager#_onDatabaseAdded",
+    "method"
+  ],
+  [
+    "lib/database/databasemanager.js~databasemanager#constructor",
+    "class/lib/database/DatabaseManager.js~DatabaseManager.html#instance-constructor-constructor",
+    "lib/database/DatabaseManager.js~DatabaseManager#constructor",
+    "method"
+  ],
+  [
+    "lib/database/databasemanager.js~databasemanager#disable",
+    "class/lib/database/DatabaseManager.js~DatabaseManager.html#instance-method-disable",
+    "lib/database/DatabaseManager.js~DatabaseManager#disable",
+    "method"
+  ],
+  [
+    "lib/database/databasemanager.js~databasemanager#enable",
+    "class/lib/database/DatabaseManager.js~DatabaseManager.html#instance-method-enable",
+    "lib/database/DatabaseManager.js~DatabaseManager#enable",
+    "method"
+  ],
+  [
+    "lib/database/databasemanager.js~databasemanager#enabled",
+    "class/lib/database/DatabaseManager.js~DatabaseManager.html#instance-method-enabled",
+    "lib/database/DatabaseManager.js~DatabaseManager#enabled",
+    "method"
+  ],
+  [
+    "lib/database/databasemanager.js~databasemanager#executesql",
+    "class/lib/database/DatabaseManager.js~DatabaseManager.html#instance-method-executeSQL",
+    "lib/database/DatabaseManager.js~DatabaseManager#executeSQL",
+    "method"
+  ],
+  [
+    "lib/database/databasemanager.js~databasemanager#getdatabasetablenames",
+    "class/lib/database/DatabaseManager.js~DatabaseManager.html#instance-method-getDatabaseTableNames",
+    "lib/database/DatabaseManager.js~DatabaseManager#getDatabaseTableNames",
+    "method"
+  ],
+  [
+    "lib/database/index.js",
+    "file/lib/database/index.js.html",
+    "lib/database/index.js",
     "file"
   ],
   [
@@ -3225,6 +4131,12 @@ window.esdocSearchIndex = [
     "lib/frames/frame.js~frame#framemanager",
     "class/lib/frames/Frame.js~Frame.html#instance-method-frameManager",
     "lib/frames/Frame.js~Frame#frameManager",
+    "method"
+  ],
+  [
+    "lib/frames/frame.js~frame#getelementbyid",
+    "class/lib/frames/Frame.js~Frame.html#instance-method-getElementById",
+    "lib/frames/Frame.js~Frame#getElementById",
     "method"
   ],
   [
@@ -4380,6 +5292,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/network/networkmanager.js~networkmanager#_timeoutsettings",
+    "class/lib/network/NetworkManager.js~NetworkManager.html#instance-member-_timeoutSettings",
+    "lib/network/NetworkManager.js~NetworkManager#_timeoutSettings",
+    "member"
+  ],
+  [
     "lib/network/networkmanager.js~networkmanager#_updateprotocolrequestinterception",
     "class/lib/network/NetworkManager.js~NetworkManager.html#instance-method-_updateProtocolRequestInterception",
     "lib/network/NetworkManager.js~NetworkManager#_updateProtocolRequestInterception",
@@ -4536,6 +5454,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/network/networkmanager.js~networkmanager#settimeoutsettings",
+    "class/lib/network/NetworkManager.js~NetworkManager.html#instance-method-setTimeoutSettings",
+    "lib/network/NetworkManager.js~NetworkManager#setTimeoutSettings",
+    "method"
+  ],
+  [
     "lib/network/networkmanager.js~networkmanager#setuseragent",
     "class/lib/network/NetworkManager.js~NetworkManager.html#instance-method-setUserAgent",
     "lib/network/NetworkManager.js~NetworkManager#setUserAgent",
@@ -4551,6 +5475,18 @@ window.esdocSearchIndex = [
     "lib/network/networkmanager.js~networkmanager#tojson",
     "class/lib/network/NetworkManager.js~NetworkManager.html#instance-method-toJSON",
     "lib/network/NetworkManager.js~NetworkManager#toJSON",
+    "method"
+  ],
+  [
+    "lib/network/networkmanager.js~networkmanager#waitforrequest",
+    "class/lib/network/NetworkManager.js~NetworkManager.html#instance-method-waitForRequest",
+    "lib/network/NetworkManager.js~NetworkManager#waitForRequest",
+    "method"
+  ],
+  [
+    "lib/network/networkmanager.js~networkmanager#waitforresponse",
+    "class/lib/network/NetworkManager.js~NetworkManager.html#instance-method-waitForResponse",
+    "lib/network/NetworkManager.js~NetworkManager#waitForResponse",
     "method"
   ],
   [
@@ -5544,16 +6480,100 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "lib/page/consolemessage.js",
-    "file/lib/page/ConsoleMessage.js.html",
-    "lib/page/ConsoleMessage.js",
+    "lib/page/logentry.js",
+    "file/lib/page/LogEntry.js.html",
+    "lib/page/LogEntry.js",
     "file"
   ],
   [
-    "lib/page/consolemessage.js~consolemessage.location",
-    "typedef/index.html#static-typedef-ConsoleMessage.Location",
-    "lib/page/ConsoleMessage.js~ConsoleMessage.Location",
+    "lib/page/logentry.js~cdplogentry",
+    "typedef/index.html#static-typedef-CDPLogEntry",
+    "lib/page/LogEntry.js~CDPLogEntry",
     "typedef"
+  ],
+  [
+    "lib/page/logentry.js~logentry#_entry",
+    "class/lib/page/LogEntry.js~LogEntry.html#instance-member-_entry",
+    "lib/page/LogEntry.js~LogEntry#_entry",
+    "member"
+  ],
+  [
+    "lib/page/logentry.js~logentry#_location",
+    "class/lib/page/LogEntry.js~LogEntry.html#instance-member-_location",
+    "lib/page/LogEntry.js~LogEntry#_location",
+    "member"
+  ],
+  [
+    "lib/page/logentry.js~logentry#constructor",
+    "class/lib/page/LogEntry.js~LogEntry.html#instance-constructor-constructor",
+    "lib/page/LogEntry.js~LogEntry#constructor",
+    "method"
+  ],
+  [
+    "lib/page/logentry.js~logentry#level",
+    "class/lib/page/LogEntry.js~LogEntry.html#instance-method-level",
+    "lib/page/LogEntry.js~LogEntry#level",
+    "method"
+  ],
+  [
+    "lib/page/logentry.js~logentry#linenumber",
+    "class/lib/page/LogEntry.js~LogEntry.html#instance-method-lineNumber",
+    "lib/page/LogEntry.js~LogEntry#lineNumber",
+    "method"
+  ],
+  [
+    "lib/page/logentry.js~logentry#location",
+    "class/lib/page/LogEntry.js~LogEntry.html#instance-method-location",
+    "lib/page/LogEntry.js~LogEntry#location",
+    "method"
+  ],
+  [
+    "lib/page/logentry.js~logentry#source",
+    "class/lib/page/LogEntry.js~LogEntry.html#instance-method-source",
+    "lib/page/LogEntry.js~LogEntry#source",
+    "method"
+  ],
+  [
+    "lib/page/logentry.js~logentry#stacktrace",
+    "class/lib/page/LogEntry.js~LogEntry.html#instance-method-stackTrace",
+    "lib/page/LogEntry.js~LogEntry#stackTrace",
+    "method"
+  ],
+  [
+    "lib/page/logentry.js~logentry#text",
+    "class/lib/page/LogEntry.js~LogEntry.html#instance-method-text",
+    "lib/page/LogEntry.js~LogEntry#text",
+    "method"
+  ],
+  [
+    "lib/page/logentry.js~logentry#tojson",
+    "class/lib/page/LogEntry.js~LogEntry.html#instance-method-toJSON",
+    "lib/page/LogEntry.js~LogEntry#toJSON",
+    "method"
+  ],
+  [
+    "lib/page/logentry.js~logentry#tostring",
+    "class/lib/page/LogEntry.js~LogEntry.html#instance-method-toString",
+    "lib/page/LogEntry.js~LogEntry#toString",
+    "method"
+  ],
+  [
+    "lib/page/logentry.js~logentry#type",
+    "class/lib/page/LogEntry.js~LogEntry.html#instance-method-type",
+    "lib/page/LogEntry.js~LogEntry#type",
+    "method"
+  ],
+  [
+    "lib/page/logentry.js~logentry#url",
+    "class/lib/page/LogEntry.js~LogEntry.html#instance-method-url",
+    "lib/page/LogEntry.js~LogEntry#url",
+    "method"
+  ],
+  [
+    "lib/page/logentry.js~logentry#workerid",
+    "class/lib/page/LogEntry.js~LogEntry.html#instance-method-workerId",
+    "lib/page/LogEntry.js~LogEntry#workerId",
+    "method"
   ],
   [
     "lib/page/page.js",
@@ -5562,33 +6582,9 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "lib/page/page.js~extradomainsconfig",
-    "typedef/index.html#static-typedef-ExtraDomainsConfig",
-    "lib/page/Page.js~ExtraDomainsConfig",
-    "typedef"
-  ],
-  [
-    "lib/page/page.js~metrics",
-    "typedef/index.html#static-typedef-Metrics",
-    "lib/page/Page.js~Metrics",
-    "typedef"
-  ],
-  [
-    "lib/page/page.js~metrics",
-    "typedef/index.html#static-typedef-Metrics",
-    "lib/page/Page.js~Metrics",
-    "typedef"
-  ],
-  [
-    "lib/page/page.js~pdfoptions",
-    "typedef/index.html#static-typedef-PDFOptions",
-    "lib/page/Page.js~PDFOptions",
-    "typedef"
-  ],
-  [
-    "lib/page/page.js~pdfoptions",
-    "typedef/index.html#static-typedef-PDFOptions",
-    "lib/page/Page.js~PDFOptions",
+    "lib/page/page.js~enabledextras",
+    "typedef/index.html#static-typedef-EnabledExtras",
+    "lib/page/Page.js~EnabledExtras",
     "typedef"
   ],
   [
@@ -5622,21 +6618,27 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/page/page.js~page#__onclose",
+    "class/lib/page/Page.js~Page.html#instance-method-__onClose",
+    "lib/page/Page.js~Page#__onClose",
+    "method"
+  ],
+  [
     "lib/page/page.js~page#_accessibility",
     "class/lib/page/Page.js~Page.html#instance-member-_accessibility",
     "lib/page/Page.js~Page#_accessibility",
     "member"
   ],
   [
-    "lib/page/page.js~page#_addconsolemessage",
-    "class/lib/page/Page.js~Page.html#instance-method-_addConsoleMessage",
-    "lib/page/Page.js~Page#_addConsoleMessage",
-    "method"
-  ],
-  [
     "lib/page/page.js~page#_additionaldomains",
     "class/lib/page/Page.js~Page.html#instance-member-_additionalDomains",
     "lib/page/Page.js~Page#_additionalDomains",
+    "member"
+  ],
+  [
+    "lib/page/page.js~page#_animationmanager",
+    "class/lib/page/Page.js~Page.html#instance-member-_animationManager",
+    "lib/page/Page.js~Page#_animationManager",
     "member"
   ],
   [
@@ -5661,6 +6663,12 @@ window.esdocSearchIndex = [
     "lib/page/page.js~page#_coverage",
     "class/lib/page/Page.js~Page.html#instance-member-_coverage",
     "lib/page/Page.js~Page#_coverage",
+    "member"
+  ],
+  [
+    "lib/page/page.js~page#_databasemanager",
+    "class/lib/page/Page.js~Page.html#instance-member-_databaseManager",
+    "lib/page/Page.js~Page#_databaseManager",
     "member"
   ],
   [
@@ -5724,12 +6732,6 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "lib/page/page.js~page#_onattachedtotarget",
-    "class/lib/page/Page.js~Page.html#instance-method-_onAttachedToTarget",
-    "lib/page/Page.js~Page#_onAttachedToTarget",
-    "method"
-  ],
-  [
     "lib/page/page.js~page#_onbindingcalled",
     "class/lib/page/Page.js~Page.html#instance-method-_onBindingCalled",
     "lib/page/Page.js~Page#_onBindingCalled",
@@ -5745,12 +6747,6 @@ window.esdocSearchIndex = [
     "lib/page/page.js~page#_onconsoleapi",
     "class/lib/page/Page.js~Page.html#instance-method-_onConsoleAPI",
     "lib/page/Page.js~Page#_onConsoleAPI",
-    "method"
-  ],
-  [
-    "lib/page/page.js~page#_ondetachedfromtarget",
-    "class/lib/page/Page.js~Page.html#instance-method-_onDetachedFromTarget",
-    "lib/page/Page.js~Page#_onDetachedFromTarget",
     "method"
   ],
   [
@@ -5826,9 +6822,9 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "lib/page/page.js~page#_workers",
-    "class/lib/page/Page.js~Page.html#instance-member-_workers",
-    "lib/page/Page.js~Page#_workers",
+    "lib/page/page.js~page#_workermanager",
+    "class/lib/page/Page.js~Page.html#instance-member-_workerManager",
+    "lib/page/Page.js~Page#_workerManager",
     "member"
   ],
   [
@@ -5853,6 +6849,18 @@ window.esdocSearchIndex = [
     "lib/page/page.js~page#addstyletag",
     "class/lib/page/Page.js~Page.html#instance-method-addStyleTag",
     "lib/page/Page.js~Page#addStyleTag",
+    "method"
+  ],
+  [
+    "lib/page/page.js~page#animationmanager",
+    "class/lib/page/Page.js~Page.html#instance-get-animationManager",
+    "lib/page/Page.js~Page#animationManager",
+    "member"
+  ],
+  [
+    "lib/page/page.js~page#animationsdomainenabled",
+    "class/lib/page/Page.js~Page.html#instance-method-animationsDomainEnabled",
+    "lib/page/Page.js~Page#animationsDomainEnabled",
     "method"
   ],
   [
@@ -5928,6 +6936,18 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "lib/page/page.js~page#databasedomainenabled",
+    "class/lib/page/Page.js~Page.html#instance-method-databaseDomainEnabled",
+    "lib/page/Page.js~Page#databaseDomainEnabled",
+    "method"
+  ],
+  [
+    "lib/page/page.js~page#databasemanager",
+    "class/lib/page/Page.js~Page.html#instance-get-databaseManager",
+    "lib/page/Page.js~Page#databaseManager",
+    "member"
+  ],
+  [
     "lib/page/page.js~page#deletecookie",
     "class/lib/page/Page.js~Page.html#instance-method-deleteCookie",
     "lib/page/Page.js~Page#deleteCookie",
@@ -5940,15 +6960,27 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "lib/page/page.js~page#disablecache",
-    "class/lib/page/Page.js~Page.html#instance-method-disableCache",
-    "lib/page/Page.js~Page#disableCache",
+    "lib/page/page.js~page#disableanimationsdomain",
+    "class/lib/page/Page.js~Page.html#instance-method-disableAnimationsDomain",
+    "lib/page/Page.js~Page#disableAnimationsDomain",
+    "method"
+  ],
+  [
+    "lib/page/page.js~page#disabledatabasedomain",
+    "class/lib/page/Page.js~Page.html#instance-method-disableDatabaseDomain",
+    "lib/page/Page.js~Page#disableDatabaseDomain",
     "method"
   ],
   [
     "lib/page/page.js~page#disablelogdomain",
     "class/lib/page/Page.js~Page.html#instance-method-disableLogDomain",
     "lib/page/Page.js~Page#disableLogDomain",
+    "method"
+  ],
+  [
+    "lib/page/page.js~page#disablenetworkcache",
+    "class/lib/page/Page.js~Page.html#instance-method-disableNetworkCache",
+    "lib/page/Page.js~Page#disableNetworkCache",
     "method"
   ],
   [
@@ -5964,9 +6996,15 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "lib/page/page.js~page#disableworkerdomain",
-    "class/lib/page/Page.js~Page.html#instance-method-disableWorkerDomain",
-    "lib/page/Page.js~Page#disableWorkerDomain",
+    "lib/page/page.js~page#disableserviceworkersdomain",
+    "class/lib/page/Page.js~Page.html#instance-method-disableServiceWorkersDomain",
+    "lib/page/Page.js~Page#disableServiceWorkersDomain",
+    "method"
+  ],
+  [
+    "lib/page/page.js~page#disableworkermonitoring",
+    "class/lib/page/Page.js~Page.html#instance-method-disableWorkerMonitoring",
+    "lib/page/Page.js~Page#disableWorkerMonitoring",
     "method"
   ],
   [
@@ -5982,15 +7020,27 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "lib/page/page.js~page#enablecache",
-    "class/lib/page/Page.js~Page.html#instance-method-enableCache",
-    "lib/page/Page.js~Page#enableCache",
+    "lib/page/page.js~page#enableanimationsdomain",
+    "class/lib/page/Page.js~Page.html#instance-method-enableAnimationsDomain",
+    "lib/page/Page.js~Page#enableAnimationsDomain",
+    "method"
+  ],
+  [
+    "lib/page/page.js~page#enabledatabasedomain",
+    "class/lib/page/Page.js~Page.html#instance-method-enableDatabaseDomain",
+    "lib/page/Page.js~Page#enableDatabaseDomain",
     "method"
   ],
   [
     "lib/page/page.js~page#enablelogdomain",
     "class/lib/page/Page.js~Page.html#instance-method-enableLogDomain",
     "lib/page/Page.js~Page#enableLogDomain",
+    "method"
+  ],
+  [
+    "lib/page/page.js~page#enablenetworkcache",
+    "class/lib/page/Page.js~Page.html#instance-method-enableNetworkCache",
+    "lib/page/Page.js~Page#enableNetworkCache",
     "method"
   ],
   [
@@ -6006,9 +7056,15 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "lib/page/page.js~page#enableworkerdomain",
-    "class/lib/page/Page.js~Page.html#instance-method-enableWorkerDomain",
-    "lib/page/Page.js~Page#enableWorkerDomain",
+    "lib/page/page.js~page#enableserviceworkersdomain",
+    "class/lib/page/Page.js~Page.html#instance-method-enableServiceWorkersDomain",
+    "lib/page/Page.js~Page#enableServiceWorkersDomain",
+    "method"
+  ],
+  [
+    "lib/page/page.js~page#enableworkermonitoring",
+    "class/lib/page/Page.js~Page.html#instance-method-enableWorkerMonitoring",
+    "lib/page/Page.js~Page#enableWorkerMonitoring",
     "method"
   ],
   [
@@ -6066,6 +7122,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/page/page.js~page#getanimationplaybackrate",
+    "class/lib/page/Page.js~Page.html#instance-method-getAnimationPlaybackRate",
+    "lib/page/Page.js~Page#getAnimationPlaybackRate",
+    "method"
+  ],
+  [
     "lib/page/page.js~page#getappmanifest",
     "class/lib/page/Page.js~Page.html#instance-method-getAppManifest",
     "lib/page/Page.js~Page#getAppManifest",
@@ -6075,6 +7137,12 @@ window.esdocSearchIndex = [
     "lib/page/page.js~page#getderencodedcertificatefororigin",
     "class/lib/page/Page.js~Page.html#instance-method-getDEREncodedCertificateForOrigin",
     "lib/page/Page.js~Page#getDEREncodedCertificateForOrigin",
+    "method"
+  ],
+  [
+    "lib/page/page.js~page#getelementbyid",
+    "class/lib/page/Page.js~Page.html#instance-method-getElementById",
+    "lib/page/Page.js~Page#getElementById",
     "method"
   ],
   [
@@ -6270,9 +7338,27 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/page/page.js~page#serviceworkers",
+    "class/lib/page/Page.js~Page.html#instance-method-serviceWorkers",
+    "lib/page/Page.js~Page#serviceWorkers",
+    "method"
+  ],
+  [
+    "lib/page/page.js~page#serviceworkersenabled",
+    "class/lib/page/Page.js~Page.html#instance-method-serviceWorkersEnabled",
+    "lib/page/Page.js~Page#serviceWorkersEnabled",
+    "method"
+  ],
+  [
     "lib/page/page.js~page#setacceptlanguage",
     "class/lib/page/Page.js~Page.html#instance-method-setAcceptLanguage",
     "lib/page/Page.js~Page#setAcceptLanguage",
+    "method"
+  ],
+  [
+    "lib/page/page.js~page#setanimationplaybackrate",
+    "class/lib/page/Page.js~Page.html#instance-method-setAnimationPlaybackRate",
+    "lib/page/Page.js~Page#setAnimationPlaybackRate",
     "method"
   ],
   [
@@ -6486,9 +7572,15 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "lib/page/page.js~page#workerdomainenabled",
-    "class/lib/page/Page.js~Page.html#instance-method-workerDomainEnabled",
-    "lib/page/Page.js~Page#workerDomainEnabled",
+    "lib/page/page.js~page#workermanager",
+    "class/lib/page/Page.js~Page.html#instance-get-workerManager",
+    "lib/page/Page.js~Page#workerManager",
+    "member"
+  ],
+  [
+    "lib/page/page.js~page#workermonitoringenabled",
+    "class/lib/page/Page.js~Page.html#instance-method-workerMonitoringEnabled",
+    "lib/page/Page.js~Page#workerMonitoringEnabled",
     "method"
   ],
   [
@@ -6516,21 +7608,555 @@ window.esdocSearchIndex = [
     "typedef"
   ],
   [
-    "lib/page/page.js~screenshotoptions",
-    "typedef/index.html#static-typedef-ScreenshotOptions",
-    "lib/page/Page.js~ScreenshotOptions",
-    "typedef"
-  ],
-  [
-    "lib/page/page.js~screenshotoptions",
-    "typedef/index.html#static-typedef-ScreenshotOptions",
-    "lib/page/Page.js~ScreenshotOptions",
-    "typedef"
-  ],
-  [
     "lib/page/index.js",
     "file/lib/page/index.js.html",
     "lib/page/index.js",
+    "file"
+  ],
+  [
+    "lib/workers/serviceworker.js",
+    "file/lib/workers/ServiceWorker.js.html",
+    "lib/workers/ServiceWorker.js",
+    "file"
+  ],
+  [
+    "lib/workers/serviceworker.js~serviceworker#_bookkeeping",
+    "class/lib/workers/ServiceWorker.js~ServiceWorker.html#instance-method-_bookKeeping",
+    "lib/workers/ServiceWorker.js~ServiceWorker#_bookKeeping",
+    "method"
+  ],
+  [
+    "lib/workers/serviceworker.js~serviceworker#_destroyed",
+    "class/lib/workers/ServiceWorker.js~ServiceWorker.html#instance-method-_destroyed",
+    "lib/workers/ServiceWorker.js~ServiceWorker#_destroyed",
+    "method"
+  ],
+  [
+    "lib/workers/serviceworker.js~serviceworker#_errorreported",
+    "class/lib/workers/ServiceWorker.js~ServiceWorker.html#instance-method-_errorReported",
+    "lib/workers/ServiceWorker.js~ServiceWorker#_errorReported",
+    "method"
+  ],
+  [
+    "lib/workers/serviceworker.js~serviceworker#_info",
+    "class/lib/workers/ServiceWorker.js~ServiceWorker.html#instance-member-_info",
+    "lib/workers/ServiceWorker.js~ServiceWorker#_info",
+    "member"
+  ],
+  [
+    "lib/workers/serviceworker.js~serviceworker#_manager",
+    "class/lib/workers/ServiceWorker.js~ServiceWorker.html#instance-member-_manager",
+    "lib/workers/ServiceWorker.js~ServiceWorker#_manager",
+    "member"
+  ],
+  [
+    "lib/workers/serviceworker.js~serviceworker#_origin",
+    "class/lib/workers/ServiceWorker.js~ServiceWorker.html#instance-member-_origin",
+    "lib/workers/ServiceWorker.js~ServiceWorker#_origin",
+    "member"
+  ],
+  [
+    "lib/workers/serviceworker.js~serviceworker#constructor",
+    "class/lib/workers/ServiceWorker.js~ServiceWorker.html#instance-constructor-constructor",
+    "lib/workers/ServiceWorker.js~ServiceWorker#constructor",
+    "method"
+  ],
+  [
+    "lib/workers/serviceworker.js~serviceworker#controlledclients",
+    "class/lib/workers/ServiceWorker.js~ServiceWorker.html#instance-method-controlledClients",
+    "lib/workers/ServiceWorker.js~ServiceWorker#controlledClients",
+    "method"
+  ],
+  [
+    "lib/workers/serviceworker.js~serviceworker#deliverpushmessage",
+    "class/lib/workers/ServiceWorker.js~ServiceWorker.html#instance-method-deliverPushMessage",
+    "lib/workers/ServiceWorker.js~ServiceWorker#deliverPushMessage",
+    "method"
+  ],
+  [
+    "lib/workers/serviceworker.js~serviceworker#dispatchsyncevent",
+    "class/lib/workers/ServiceWorker.js~ServiceWorker.html#instance-method-dispatchSyncEvent",
+    "lib/workers/ServiceWorker.js~ServiceWorker#dispatchSyncEvent",
+    "method"
+  ],
+  [
+    "lib/workers/serviceworker.js~serviceworker#isactivated",
+    "class/lib/workers/ServiceWorker.js~ServiceWorker.html#instance-method-isActivated",
+    "lib/workers/ServiceWorker.js~ServiceWorker#isActivated",
+    "method"
+  ],
+  [
+    "lib/workers/serviceworker.js~serviceworker#isactivating",
+    "class/lib/workers/ServiceWorker.js~ServiceWorker.html#instance-method-isActivating",
+    "lib/workers/ServiceWorker.js~ServiceWorker#isActivating",
+    "method"
+  ],
+  [
+    "lib/workers/serviceworker.js~serviceworker#isdeleted",
+    "class/lib/workers/ServiceWorker.js~ServiceWorker.html#instance-method-isDeleted",
+    "lib/workers/ServiceWorker.js~ServiceWorker#isDeleted",
+    "method"
+  ],
+  [
+    "lib/workers/serviceworker.js~serviceworker#isinstalled",
+    "class/lib/workers/ServiceWorker.js~ServiceWorker.html#instance-method-isInstalled",
+    "lib/workers/ServiceWorker.js~ServiceWorker#isInstalled",
+    "method"
+  ],
+  [
+    "lib/workers/serviceworker.js~serviceworker#isinstalling",
+    "class/lib/workers/ServiceWorker.js~ServiceWorker.html#instance-method-isInstalling",
+    "lib/workers/ServiceWorker.js~ServiceWorker#isInstalling",
+    "method"
+  ],
+  [
+    "lib/workers/serviceworker.js~serviceworker#isnew",
+    "class/lib/workers/ServiceWorker.js~ServiceWorker.html#instance-method-isNew",
+    "lib/workers/ServiceWorker.js~ServiceWorker#isNew",
+    "method"
+  ],
+  [
+    "lib/workers/serviceworker.js~serviceworker#isredundant",
+    "class/lib/workers/ServiceWorker.js~ServiceWorker.html#instance-method-isRedundant",
+    "lib/workers/ServiceWorker.js~ServiceWorker#isRedundant",
+    "method"
+  ],
+  [
+    "lib/workers/serviceworker.js~serviceworker#isrunning",
+    "class/lib/workers/ServiceWorker.js~ServiceWorker.html#instance-method-isRunning",
+    "lib/workers/ServiceWorker.js~ServiceWorker#isRunning",
+    "method"
+  ],
+  [
+    "lib/workers/serviceworker.js~serviceworker#isstarting",
+    "class/lib/workers/ServiceWorker.js~ServiceWorker.html#instance-method-isStarting",
+    "lib/workers/ServiceWorker.js~ServiceWorker#isStarting",
+    "method"
+  ],
+  [
+    "lib/workers/serviceworker.js~serviceworker#isstopped",
+    "class/lib/workers/ServiceWorker.js~ServiceWorker.html#instance-method-isStopped",
+    "lib/workers/ServiceWorker.js~ServiceWorker#isStopped",
+    "method"
+  ],
+  [
+    "lib/workers/serviceworker.js~serviceworker#isstopping",
+    "class/lib/workers/ServiceWorker.js~ServiceWorker.html#instance-method-isStopping",
+    "lib/workers/ServiceWorker.js~ServiceWorker#isStopping",
+    "method"
+  ],
+  [
+    "lib/workers/serviceworker.js~serviceworker#registrationid",
+    "class/lib/workers/ServiceWorker.js~ServiceWorker.html#instance-method-registrationId",
+    "lib/workers/ServiceWorker.js~ServiceWorker#registrationId",
+    "method"
+  ],
+  [
+    "lib/workers/serviceworker.js~serviceworker#runningstatus",
+    "class/lib/workers/ServiceWorker.js~ServiceWorker.html#instance-method-runningStatus",
+    "lib/workers/ServiceWorker.js~ServiceWorker#runningStatus",
+    "method"
+  ],
+  [
+    "lib/workers/serviceworker.js~serviceworker#scopeurl",
+    "class/lib/workers/ServiceWorker.js~ServiceWorker.html#instance-method-scopeURL",
+    "lib/workers/ServiceWorker.js~ServiceWorker#scopeURL",
+    "method"
+  ],
+  [
+    "lib/workers/serviceworker.js~serviceworker#scriptlastmodified",
+    "class/lib/workers/ServiceWorker.js~ServiceWorker.html#instance-method-scriptLastModified",
+    "lib/workers/ServiceWorker.js~ServiceWorker#scriptLastModified",
+    "method"
+  ],
+  [
+    "lib/workers/serviceworker.js~serviceworker#scriptresponsetime",
+    "class/lib/workers/ServiceWorker.js~ServiceWorker.html#instance-method-scriptResponseTime",
+    "lib/workers/ServiceWorker.js~ServiceWorker#scriptResponseTime",
+    "method"
+  ],
+  [
+    "lib/workers/serviceworker.js~serviceworker#skipwaiting",
+    "class/lib/workers/ServiceWorker.js~ServiceWorker.html#instance-method-skipWaiting",
+    "lib/workers/ServiceWorker.js~ServiceWorker#skipWaiting",
+    "method"
+  ],
+  [
+    "lib/workers/serviceworker.js~serviceworker#start",
+    "class/lib/workers/ServiceWorker.js~ServiceWorker.html#instance-method-start",
+    "lib/workers/ServiceWorker.js~ServiceWorker#start",
+    "method"
+  ],
+  [
+    "lib/workers/serviceworker.js~serviceworker#status",
+    "class/lib/workers/ServiceWorker.js~ServiceWorker.html#instance-method-status",
+    "lib/workers/ServiceWorker.js~ServiceWorker#status",
+    "method"
+  ],
+  [
+    "lib/workers/serviceworker.js~serviceworker#stop",
+    "class/lib/workers/ServiceWorker.js~ServiceWorker.html#instance-method-stop",
+    "lib/workers/ServiceWorker.js~ServiceWorker#stop",
+    "method"
+  ],
+  [
+    "lib/workers/serviceworker.js~serviceworker#targetid",
+    "class/lib/workers/ServiceWorker.js~ServiceWorker.html#instance-method-targetId",
+    "lib/workers/ServiceWorker.js~ServiceWorker#targetId",
+    "method"
+  ],
+  [
+    "lib/workers/serviceworker.js~serviceworker#tojson",
+    "class/lib/workers/ServiceWorker.js~ServiceWorker.html#instance-method-toJSON",
+    "lib/workers/ServiceWorker.js~ServiceWorker#toJSON",
+    "method"
+  ],
+  [
+    "lib/workers/serviceworker.js~serviceworker#unregister",
+    "class/lib/workers/ServiceWorker.js~ServiceWorker.html#instance-method-unregister",
+    "lib/workers/ServiceWorker.js~ServiceWorker#unregister",
+    "method"
+  ],
+  [
+    "lib/workers/serviceworker.js~serviceworker#updateregistration",
+    "class/lib/workers/ServiceWorker.js~ServiceWorker.html#instance-method-updateRegistration",
+    "lib/workers/ServiceWorker.js~ServiceWorker#updateRegistration",
+    "method"
+  ],
+  [
+    "lib/workers/serviceworker.js~serviceworker#versionid",
+    "class/lib/workers/ServiceWorker.js~ServiceWorker.html#instance-method-versionId",
+    "lib/workers/ServiceWorker.js~ServiceWorker#versionId",
+    "method"
+  ],
+  [
+    "lib/workers/worker.js",
+    "file/lib/workers/Worker.js.html",
+    "lib/workers/Worker.js",
+    "file"
+  ],
+  [
+    "lib/workers/worker.js~worker#_client",
+    "class/lib/workers/Worker.js~Worker.html#instance-member-_client",
+    "lib/workers/Worker.js~Worker#_client",
+    "member"
+  ],
+  [
+    "lib/workers/worker.js~worker#_executioncontextpromise",
+    "class/lib/workers/Worker.js~Worker.html#instance-member-_executionContextPromise",
+    "lib/workers/Worker.js~Worker#_executionContextPromise",
+    "member"
+  ],
+  [
+    "lib/workers/worker.js~worker#_url",
+    "class/lib/workers/Worker.js~Worker.html#instance-member-_url",
+    "lib/workers/Worker.js~Worker#_url",
+    "member"
+  ],
+  [
+    "lib/workers/worker.js~worker#constructor",
+    "class/lib/workers/Worker.js~Worker.html#instance-constructor-constructor",
+    "lib/workers/Worker.js~Worker#constructor",
+    "method"
+  ],
+  [
+    "lib/workers/worker.js~worker#evaluate",
+    "class/lib/workers/Worker.js~Worker.html#instance-method-evaluate",
+    "lib/workers/Worker.js~Worker#evaluate",
+    "method"
+  ],
+  [
+    "lib/workers/worker.js~worker#evaluatehandle",
+    "class/lib/workers/Worker.js~Worker.html#instance-method-evaluateHandle",
+    "lib/workers/Worker.js~Worker#evaluateHandle",
+    "method"
+  ],
+  [
+    "lib/workers/worker.js~worker#executioncontext",
+    "class/lib/workers/Worker.js~Worker.html#instance-method-executionContext",
+    "lib/workers/Worker.js~Worker#executionContext",
+    "method"
+  ],
+  [
+    "lib/workers/worker.js~worker#tojson",
+    "class/lib/workers/Worker.js~Worker.html#instance-method-toJSON",
+    "lib/workers/Worker.js~Worker#toJSON",
+    "method"
+  ],
+  [
+    "lib/workers/worker.js~worker#url",
+    "class/lib/workers/Worker.js~Worker.html#instance-method-url",
+    "lib/workers/Worker.js~Worker#url",
+    "method"
+  ],
+  [
+    "lib/workers/workermanager.js",
+    "file/lib/workers/WorkerManager.js.html",
+    "lib/workers/WorkerManager.js",
+    "file"
+  ],
+  [
+    "lib/workers/workermanager.js~workermanager#_addworkerconsolemessage",
+    "class/lib/workers/WorkerManager.js~WorkerManager.html#instance-method-_addWorkerConsoleMessage",
+    "lib/workers/WorkerManager.js~WorkerManager#_addWorkerConsoleMessage",
+    "method"
+  ],
+  [
+    "lib/workers/workermanager.js~workermanager#_autoattachenabled",
+    "class/lib/workers/WorkerManager.js~WorkerManager.html#instance-member-_autoAttachEnabled",
+    "lib/workers/WorkerManager.js~WorkerManager#_autoAttachEnabled",
+    "member"
+  ],
+  [
+    "lib/workers/workermanager.js~workermanager#_clearknownworkers",
+    "class/lib/workers/WorkerManager.js~WorkerManager.html#instance-method-_clearKnownWorkers",
+    "lib/workers/WorkerManager.js~WorkerManager#_clearKnownWorkers",
+    "method"
+  ],
+  [
+    "lib/workers/workermanager.js~workermanager#_client",
+    "class/lib/workers/WorkerManager.js~WorkerManager.html#instance-member-_client",
+    "lib/workers/WorkerManager.js~WorkerManager#_client",
+    "member"
+  ],
+  [
+    "lib/workers/workermanager.js~workermanager#_disableautoattach",
+    "class/lib/workers/WorkerManager.js~WorkerManager.html#instance-method-_disableAutoAttach",
+    "lib/workers/WorkerManager.js~WorkerManager#_disableAutoAttach",
+    "method"
+  ],
+  [
+    "lib/workers/workermanager.js~workermanager#_enableautoattach",
+    "class/lib/workers/WorkerManager.js~WorkerManager.html#instance-method-_enableAutoAttach",
+    "lib/workers/WorkerManager.js~WorkerManager#_enableAutoAttach",
+    "method"
+  ],
+  [
+    "lib/workers/workermanager.js~workermanager#_ensureserviceworkerswapped",
+    "class/lib/workers/WorkerManager.js~WorkerManager.html#instance-method-_ensureServiceWorkerSwapped",
+    "lib/workers/WorkerManager.js~WorkerManager#_ensureServiceWorkerSwapped",
+    "method"
+  ],
+  [
+    "lib/workers/workermanager.js~workermanager#_forceupdatestate",
+    "class/lib/workers/WorkerManager.js~WorkerManager.html#instance-member-_forceUpdateState",
+    "lib/workers/WorkerManager.js~WorkerManager#_forceUpdateState",
+    "member"
+  ],
+  [
+    "lib/workers/workermanager.js~workermanager#_handleexception",
+    "class/lib/workers/WorkerManager.js~WorkerManager.html#instance-method-_handleException",
+    "lib/workers/WorkerManager.js~WorkerManager#_handleException",
+    "method"
+  ],
+  [
+    "lib/workers/workermanager.js~workermanager#_isactiveserviceworkertarget",
+    "class/lib/workers/WorkerManager.js~WorkerManager.html#instance-method-_isActiveServiceWorkerTarget",
+    "lib/workers/WorkerManager.js~WorkerManager#_isActiveServiceWorkerTarget",
+    "method"
+  ],
+  [
+    "lib/workers/workermanager.js~workermanager#_onattachedtotarget",
+    "class/lib/workers/WorkerManager.js~WorkerManager.html#instance-method-_onAttachedToTarget",
+    "lib/workers/WorkerManager.js~WorkerManager#_onAttachedToTarget",
+    "method"
+  ],
+  [
+    "lib/workers/workermanager.js~workermanager#_ondetachedfromtarget",
+    "class/lib/workers/WorkerManager.js~WorkerManager.html#instance-method-_onDetachedFromTarget",
+    "lib/workers/WorkerManager.js~WorkerManager#_onDetachedFromTarget",
+    "method"
+  ],
+  [
+    "lib/workers/workermanager.js~workermanager#_onworkererrorreported",
+    "class/lib/workers/WorkerManager.js~WorkerManager.html#instance-method-_onWorkerErrorReported",
+    "lib/workers/WorkerManager.js~WorkerManager#_onWorkerErrorReported",
+    "method"
+  ],
+  [
+    "lib/workers/workermanager.js~workermanager#_onworkerregistrationupdated",
+    "class/lib/workers/WorkerManager.js~WorkerManager.html#instance-method-_onWorkerRegistrationUpdated",
+    "lib/workers/WorkerManager.js~WorkerManager#_onWorkerRegistrationUpdated",
+    "method"
+  ],
+  [
+    "lib/workers/workermanager.js~workermanager#_onworkerversionupdated",
+    "class/lib/workers/WorkerManager.js~WorkerManager.html#instance-method-_onWorkerVersionUpdated",
+    "lib/workers/WorkerManager.js~WorkerManager#_onWorkerVersionUpdated",
+    "method"
+  ],
+  [
+    "lib/workers/workermanager.js~workermanager#_removeserviceworker",
+    "class/lib/workers/WorkerManager.js~WorkerManager.html#instance-method-_removeServiceWorker",
+    "lib/workers/WorkerManager.js~WorkerManager#_removeServiceWorker",
+    "method"
+  ],
+  [
+    "lib/workers/workermanager.js~workermanager#_serviceworkertargets",
+    "class/lib/workers/WorkerManager.js~WorkerManager.html#instance-member-_serviceWorkerTargets",
+    "lib/workers/WorkerManager.js~WorkerManager#_serviceWorkerTargets",
+    "member"
+  ],
+  [
+    "lib/workers/workermanager.js~workermanager#_serviceworkers",
+    "class/lib/workers/WorkerManager.js~WorkerManager.html#instance-member-_serviceWorkers",
+    "lib/workers/WorkerManager.js~WorkerManager#_serviceWorkers",
+    "member"
+  ],
+  [
+    "lib/workers/workermanager.js~workermanager#_serviceworkersenabled",
+    "class/lib/workers/WorkerManager.js~WorkerManager.html#instance-member-_serviceWorkersEnabled",
+    "lib/workers/WorkerManager.js~WorkerManager#_serviceWorkersEnabled",
+    "member"
+  ],
+  [
+    "lib/workers/workermanager.js~workermanager#_updatesw",
+    "class/lib/workers/WorkerManager.js~WorkerManager.html#instance-method-_updateSW",
+    "lib/workers/WorkerManager.js~WorkerManager#_updateSW",
+    "method"
+  ],
+  [
+    "lib/workers/workermanager.js~workermanager#_workersession",
+    "class/lib/workers/WorkerManager.js~WorkerManager.html#instance-method-_workerSession",
+    "lib/workers/WorkerManager.js~WorkerManager#_workerSession",
+    "method"
+  ],
+  [
+    "lib/workers/workermanager.js~workermanager#_workers",
+    "class/lib/workers/WorkerManager.js~WorkerManager.html#instance-member-_workers",
+    "lib/workers/WorkerManager.js~WorkerManager#_workers",
+    "member"
+  ],
+  [
+    "lib/workers/workermanager.js~workermanager#_workersenabled",
+    "class/lib/workers/WorkerManager.js~WorkerManager.html#instance-member-_workersEnabled",
+    "lib/workers/WorkerManager.js~WorkerManager#_workersEnabled",
+    "member"
+  ],
+  [
+    "lib/workers/workermanager.js~workermanager#constructor",
+    "class/lib/workers/WorkerManager.js~WorkerManager.html#instance-constructor-constructor",
+    "lib/workers/WorkerManager.js~WorkerManager#constructor",
+    "method"
+  ],
+  [
+    "lib/workers/workermanager.js~workermanager#disableserviceworkerdomain",
+    "class/lib/workers/WorkerManager.js~WorkerManager.html#instance-method-disableServiceWorkerDomain",
+    "lib/workers/WorkerManager.js~WorkerManager#disableServiceWorkerDomain",
+    "method"
+  ],
+  [
+    "lib/workers/workermanager.js~workermanager#disableworkermonitoring",
+    "class/lib/workers/WorkerManager.js~WorkerManager.html#instance-method-disableWorkerMonitoring",
+    "lib/workers/WorkerManager.js~WorkerManager#disableWorkerMonitoring",
+    "method"
+  ],
+  [
+    "lib/workers/workermanager.js~workermanager#enableserviceworkerdomain",
+    "class/lib/workers/WorkerManager.js~WorkerManager.html#instance-method-enableServiceWorkerDomain",
+    "lib/workers/WorkerManager.js~WorkerManager#enableServiceWorkerDomain",
+    "method"
+  ],
+  [
+    "lib/workers/workermanager.js~workermanager#enableworkermonitoring",
+    "class/lib/workers/WorkerManager.js~WorkerManager.html#instance-method-enableWorkerMonitoring",
+    "lib/workers/WorkerManager.js~WorkerManager#enableWorkerMonitoring",
+    "method"
+  ],
+  [
+    "lib/workers/workermanager.js~workermanager#makeserviceworkerskipwaiting",
+    "class/lib/workers/WorkerManager.js~WorkerManager.html#instance-method-makeServiceWorkerSkipWaiting",
+    "lib/workers/WorkerManager.js~WorkerManager#makeServiceWorkerSkipWaiting",
+    "method"
+  ],
+  [
+    "lib/workers/workermanager.js~workermanager#serviceworker",
+    "class/lib/workers/WorkerManager.js~WorkerManager.html#instance-method-serviceWorker",
+    "lib/workers/WorkerManager.js~WorkerManager#serviceWorker",
+    "method"
+  ],
+  [
+    "lib/workers/workermanager.js~workermanager#serviceworkerdomainenabled",
+    "class/lib/workers/WorkerManager.js~WorkerManager.html#instance-method-serviceWorkerDomainEnabled",
+    "lib/workers/WorkerManager.js~WorkerManager#serviceWorkerDomainEnabled",
+    "method"
+  ],
+  [
+    "lib/workers/workermanager.js~workermanager#serviceworkers",
+    "class/lib/workers/WorkerManager.js~WorkerManager.html#instance-method-serviceWorkers",
+    "lib/workers/WorkerManager.js~WorkerManager#serviceWorkers",
+    "method"
+  ],
+  [
+    "lib/workers/workermanager.js~workermanager#startserviceworker",
+    "class/lib/workers/WorkerManager.js~WorkerManager.html#instance-method-startServiceWorker",
+    "lib/workers/WorkerManager.js~WorkerManager#startServiceWorker",
+    "method"
+  ],
+  [
+    "lib/workers/workermanager.js~workermanager#stopallserviceworker",
+    "class/lib/workers/WorkerManager.js~WorkerManager.html#instance-method-stopAllServiceWorker",
+    "lib/workers/WorkerManager.js~WorkerManager#stopAllServiceWorker",
+    "method"
+  ],
+  [
+    "lib/workers/workermanager.js~workermanager#stopserviceworker",
+    "class/lib/workers/WorkerManager.js~WorkerManager.html#instance-method-stopServiceWorker",
+    "lib/workers/WorkerManager.js~WorkerManager#stopServiceWorker",
+    "method"
+  ],
+  [
+    "lib/workers/workermanager.js~workermanager#swdeliverpushmessage",
+    "class/lib/workers/WorkerManager.js~WorkerManager.html#instance-method-swDeliverPushMessage",
+    "lib/workers/WorkerManager.js~WorkerManager#swDeliverPushMessage",
+    "method"
+  ],
+  [
+    "lib/workers/workermanager.js~workermanager#swdispatchsyncevent",
+    "class/lib/workers/WorkerManager.js~WorkerManager.html#instance-method-swDispatchSyncEvent",
+    "lib/workers/WorkerManager.js~WorkerManager#swDispatchSyncEvent",
+    "method"
+  ],
+  [
+    "lib/workers/workermanager.js~workermanager#swsetforceupdateonpageload",
+    "class/lib/workers/WorkerManager.js~WorkerManager.html#instance-method-swSetForceUpdateOnPageLoad",
+    "lib/workers/WorkerManager.js~WorkerManager#swSetForceUpdateOnPageLoad",
+    "method"
+  ],
+  [
+    "lib/workers/workermanager.js~workermanager#tojson",
+    "class/lib/workers/WorkerManager.js~WorkerManager.html#instance-method-toJSON",
+    "lib/workers/WorkerManager.js~WorkerManager#toJSON",
+    "method"
+  ],
+  [
+    "lib/workers/workermanager.js~workermanager#unregisterserviceworker",
+    "class/lib/workers/WorkerManager.js~WorkerManager.html#instance-method-unregisterServiceWorker",
+    "lib/workers/WorkerManager.js~WorkerManager#unregisterServiceWorker",
+    "method"
+  ],
+  [
+    "lib/workers/workermanager.js~workermanager#updateserviceworkerregistration",
+    "class/lib/workers/WorkerManager.js~WorkerManager.html#instance-method-updateServiceWorkerRegistration",
+    "lib/workers/WorkerManager.js~WorkerManager#updateServiceWorkerRegistration",
+    "method"
+  ],
+  [
+    "lib/workers/workermanager.js~workermanager#workermonitoringenabled",
+    "class/lib/workers/WorkerManager.js~WorkerManager.html#instance-method-workerMonitoringEnabled",
+    "lib/workers/WorkerManager.js~WorkerManager#workerMonitoringEnabled",
+    "method"
+  ],
+  [
+    "lib/workers/workermanager.js~workermanager#workers",
+    "class/lib/workers/WorkerManager.js~WorkerManager.html#instance-method-workers",
+    "lib/workers/WorkerManager.js~WorkerManager#workers",
+    "method"
+  ],
+  [
+    "lib/workers/index.js",
+    "file/lib/workers/index.js.html",
+    "lib/workers/index.js",
     "file"
   ]
 ]

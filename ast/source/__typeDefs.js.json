@@ -1,0 +1,1266 @@
+{
+  "type": "File",
+  "start": 0,
+  "end": 11795,
+  "loc": {
+    "start": {
+      "line": 1,
+      "column": 0
+    },
+    "end": {
+      "line": 285,
+      "column": 0
+    }
+  },
+  "program": {
+    "type": "Program",
+    "start": 0,
+    "end": 11795,
+    "loc": {
+      "start": {
+        "line": 1,
+        "column": 0
+      },
+      "end": {
+        "line": 285,
+        "column": 0
+      }
+    },
+    "sourceType": "module",
+    "body": [],
+    "directives": [],
+    "leadingComments": null,
+    "innerComments": [
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} CDPNavigationEntry - Navigation history entry.\n * @property {number} id - Unique id of the navigation history entry.\n * @property {string} url - URL of the navigation history entry.\n * @property {string} userTypedURL - URL that the user typed in the url bar.\n * @property {string} title - Title of the navigation history entry.\n * @property {string} transitionType - Transition type - values: ink, typed, address_bar, auto_bookmark, auto_subframe, manual_subframe, generated, auto_toplevel, form_submit, reload, keyword, keyword_generated, other\n ",
+        "start": 0,
+        "end": 574,
+        "loc": {
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 8,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} PDFOptions\n * @property {number} scale\n * @property {boolean} displayHeaderFooter\n * @property {string} headerTemplate\n * @property {string} footerTemplate\n * @property {boolean} printBackground\n * @property {boolean} landscape\n * @property {string} pageRanges\n * @property {string} format\n * @property {string|number} width\n * @property {string|number} height\n * @property {boolean} [preferCSSPageSize]\n * @property {!{top?: string|number, bottom?: string|number, left?: string|number, right?: string|number}} [margin]\n * @property {string} [path]\n ",
+        "start": 576,
+        "end": 1153,
+        "loc": {
+          "start": {
+            "line": 10,
+            "column": 0
+          },
+          "end": {
+            "line": 25,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} Metrics\n * @property {number} Timestamp\n * @property {number} Documents\n * @property {number} Frames\n * @property {number} JSEventListeners\n * @property {number} Nodes\n * @property {number} LayoutCount\n * @property {number} RecalcStyleCount\n * @property {number} LayoutDuration\n * @property {number} RecalcStyleDuration\n * @property {number} ScriptDuration\n * @property {number} TaskDuration\n * @property {number} JSHeapUsedSize\n * @property {number} JSHeapTotalSize\n ",
+        "start": 1155,
+        "end": 1650,
+        "loc": {
+          "start": {
+            "line": 27,
+            "column": 0
+          },
+          "end": {
+            "line": 42,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} ScreenshotOptions\n * @property {string} type\n * @property {string} path\n * @property {boolean} fullPage\n * @property {{x: number, y: number, width: number, height: number}} clip\n * @property {number} quality\n * @property {boolean} omitBackground\n * @property {string} encoding\n ",
+        "start": 1652,
+        "end": 1957,
+        "loc": {
+          "start": {
+            "line": 44,
+            "column": 0
+          },
+          "end": {
+            "line": 53,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} SerializedAXNode\n * @property {string} role\n *\n * @property {string} name\n * @property {string|number} value\n * @property {string} description\n *\n * @property {string} keyshortcuts\n * @property {string} roledescription\n * @property {string} valuetext\n *\n * @property {boolean} disabled\n * @property {boolean} expanded\n * @property {boolean} focused\n * @property {boolean} modal\n * @property {boolean} multiline\n * @property {boolean} multiselectable\n * @property {boolean} readonly\n * @property {boolean} required\n * @property {boolean} selected\n *\n * @property {boolean|\"mixed\"} checked\n * @property {boolean|\"mixed\"} pressed\n *\n * @property {number} level\n * @property {number} valuemin\n * @property {number} valuemax\n *\n * @property {string} autocomplete\n * @property {string} haspopup\n * @property {string} invalid\n * @property {string} orientation\n *\n * @property {Array<SerializedAXNode>} children\n ",
+        "start": 1959,
+        "end": 2891,
+        "loc": {
+          "start": {
+            "line": 55,
+            "column": 0
+          },
+          "end": {
+            "line": 90,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} CDPAnimation - Animation instance.\n * @property {string} id - `Animation`'s id.\n * @property {string} name - `Animation`'s name.\n * @property {boolean} pausedState - `Animation`'s internal paused state.\n * @property {string} playState - `Animation`'s play state.\n * @property {number} playbackRate - `Animation`'s playback rate.\n * @property {number} startTime - `Animation`'s start time.\n * @property {number} currentTime - `Animation`'s current time.\n * @property {string} type - Animation type of `Animation`. Values: CSSTransition, CSSAnimation, WebAnimation\n * @property {CDPAnimationEffect} [source] - `Animation`'s source animation node.\n * @property {string} [cssId] - A unique ID for `Animation` representing the sources that triggered this CSS animation/transition.\n ",
+        "start": 2893,
+        "end": 3697,
+        "loc": {
+          "start": {
+            "line": 92,
+            "column": 0
+          },
+          "end": {
+            "line": 104,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} CDPAnimationEffect - AnimationEffect instance\n * @property {number} delay - `AnimationEffect`'s delay.\n * @property {number} endDelay - `AnimationEffect`'s end delay.\n * @property {number} iterationStart - `AnimationEffect`'s iteration start.\n * @property {number} iterations - `AnimationEffect`'s iterations.\n * @property {number} duration - `AnimationEffect`'s iteration duration.\n * @property {string} direction - `AnimationEffect`'s playback direction.\n * @property {string} fill - `AnimationEffect`'s fill mode.\n * @property {string} [backendNodeId] - `AnimationEffect`'s target node.\n * @property {CDPKeyframesRule} [keyframesRule] - `AnimationEffect`'s keyframes.\n * @property {string} easing - `AnimationEffect`'s timing function.\n ",
+        "start": 3699,
+        "end": 4466,
+        "loc": {
+          "start": {
+            "line": 106,
+            "column": 0
+          },
+          "end": {
+            "line": 118,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} CDPKeyframesRule - Keyframes Rule\n * @property {string} [name] - CSS keyframed animation's name.\n * @property {Array<CDPKeyframeStyle>} keyframes - List of animation keyframes.\n ",
+        "start": 4468,
+        "end": 4673,
+        "loc": {
+          "start": {
+            "line": 120,
+            "column": 0
+          },
+          "end": {
+            "line": 124,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} CDPKeyframeStyle - Keyframe Style\n * @property {string} offset - Keyframe's time offset.\n * @property {string} easing - `AnimationEffect`'s timing function.\n ",
+        "start": 4675,
+        "end": 4860,
+        "loc": {
+          "start": {
+            "line": 126,
+            "column": 0
+          },
+          "end": {
+            "line": 130,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} BrowserHistogramQuery\n * @property {string} [query]\n * @property {boolean} [delta]\n ",
+        "start": 4862,
+        "end": 4973,
+        "loc": {
+          "start": {
+            "line": 132,
+            "column": 0
+          },
+          "end": {
+            "line": 136,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} WindowBounds - Browser window bounds information EXPERIMENTAL\n * @property {number} [left] - The offset from the left edge of the screen to the window in pixels.\n * @property {number} [top] - The offset from the top edge of the screen to the window in pixels.\n * @property {number} [width] - The window width in pixels.\n * @property {number} [height] - The window height in pixels.\n * @property {string} [windowState] - The window state. Default to normal. Values: normal, minimized, maximized, fullscreen\n ",
+        "start": 4975,
+        "end": 5509,
+        "loc": {
+          "start": {
+            "line": 138,
+            "column": 0
+          },
+          "end": {
+            "line": 145,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} CoverageEntry\n * @property {string} url\n * @property {string} text\n * @property {Array<{start: number, end: number}>} ranges\n ",
+        "start": 5511,
+        "end": 5664,
+        "loc": {
+          "start": {
+            "line": 147,
+            "column": 0
+          },
+          "end": {
+            "line": 152,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} CDPDatabase - Database object.\n * @property {DatabaseId} id - Database ID.\n * @property {string} domain - Database domain.\n * @property {string} name - Database name.\n * @property {string} version - Database version.\n ",
+        "start": 5666,
+        "end": 5911,
+        "loc": {
+          "start": {
+            "line": 154,
+            "column": 0
+          },
+          "end": {
+            "line": 160,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} SQLQueryResults\n * @property {Array<string>} [columnNames]\n * @property {Array<string>} [values]\n * @property {{message: string, code: number}} [sqlError]\n ",
+        "start": 5913,
+        "end": 6096,
+        "loc": {
+          "start": {
+            "line": 162,
+            "column": 0
+          },
+          "end": {
+            "line": 167,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} CDPFrameResource - Information about the Resource on the page. EXPERIMENTAL\n * @property {string} url - Resource URL.\n * @property {ResourceType} type - Type of this resource as it was perceived by the rendering engine. Values: Document, Stylesheet, Image, Media, Font, Script, TextTrack, XHR, Fetch, EventSource, WebSocket, Manifest, SignedExchange, Ping, CSPViolationReport, Other\n * @property {string} mimeType - Resource mimeType as determined by the browser.\n * @property {number} [lastModified] - last-modified timestamp as reported by server.\n * @property {number} [contentSize] - Resource content size.\n * @property {boolean} [failed] - True if the resource failed to load.\n * @property {boolean} [canceled] - True if the resource was canceled during loading.\n ",
+        "start": 6098,
+        "end": 6894,
+        "loc": {
+          "start": {
+            "line": 169,
+            "column": 0
+          },
+          "end": {
+            "line": 178,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} CDPFrameResourceTree - Information about the Frame hierarchy along with their cached resources. EXPERIMENTAL\n * @property {Object} frame - Frame information for this tree item.\n * @property {Array<CDPFrameResourceTree>} [childFrames] - Child frames.\n * @property {Array<CDPFrameResource>} resources - Information about frame resources.\n ",
+        "start": 6896,
+        "end": 7260,
+        "loc": {
+          "start": {
+            "line": 180,
+            "column": 0
+          },
+          "end": {
+            "line": 185,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} CDPSecurityDetails - Security details about a request.\n * @property {string} protocol - Protocol name (e.g. \"TLS 1.2\" or \"QUIC\").\n * @property {string} keyExchange - Key Exchange used by the connection, or the empty string if not applicable.\n * @property {string} [keyExchangeGroup] - (EC)DH group used by the connection, if applicable.\n * @property {string} cipher - Cipher name.\n * @property {string} [mac] - TLS MAC. Note that AEAD ciphers do not have separate MACs.\n * @property {string} certificateId - Certificate ID value.\n * @property {string} subjectName - Certificate subject name.\n * @property {Array<string>} sanList - Subject Alternative Name (SAN) DNS names and IP addresses.\n * @property {string} issuer - Name of the issuing CA.\n * @property {number} validFrom - Certificate valid from date.\n * @property {number} validTo - Certificate valid to (expiration) date\n * @property {Array<CDPSignedCertificateTimestamp>} signedCertificateTimestampList - List of signed certificate timestamps (SCTs).\n * @property {string} certificateTransparencyCompliance - Whether the request complied with Certificate Transparency policy. Values: unknown, not-compliant, compliant\n ",
+        "start": 7262,
+        "end": 8467,
+        "loc": {
+          "start": {
+            "line": 187,
+            "column": 0
+          },
+          "end": {
+            "line": 202,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} CDPSignedCertificateTimestamp - Details of a signed certificate timestamp (SCT).\n * @property {string} status - Validation status.\n * @property {string} origin - Origin.\n * @property {string} logDescription - Log name / description.\n * @property {string} logId - Log ID.\n * @property {string} timestamp - Issuance date.\n * @property {string} hashAlgorithm - Hash algorithm.\n * @property {string} signatureAlgorithm - Signature algorithm.\n * @property {string} signatureData - Signature data.\n ",
+        "start": 8469,
+        "end": 8989,
+        "loc": {
+          "start": {
+            "line": 204,
+            "column": 0
+          },
+          "end": {
+            "line": 214,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} CDPServiceWorkerRegistration - ServiceWorker registration.\n * @property {string} registrationId\n * @property {string} scopeURL\n * @property {boolean} isDeleted\n ",
+        "start": 8991,
+        "end": 9179,
+        "loc": {
+          "start": {
+            "line": 216,
+            "column": 0
+          },
+          "end": {
+            "line": 221,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} CDPServiceWorkerVersion - ServiceWorker version.\n * @property {string} versionId\n * @property {string} registrationId\n * @property {string} scriptURL\n * @property {string} runningStatus - values: stopped, starting, running, stopping\n * @property {string} status - values: new, installing, installed, activating, activated, redundant\n * @property {number} [scriptLastModified] - The Last-Modified header value of the main script.\n * @property {number} [scriptResponseTime] - The time at which the response headers of the main script were received from the server. For cached script it is the last time the cache entry was validated.\n * @property {Array<string>} [controlledClients]\n * @property {string} [targetId]\n ",
+        "start": 9181,
+        "end": 9923,
+        "loc": {
+          "start": {
+            "line": 223,
+            "column": 0
+          },
+          "end": {
+            "line": 234,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} CDPServiceWorkerErrorMessage - ServiceWorker error message.\n * @property {string} errorMessage\n * @property {string} registrationId\n * @property {string} versionId\n * @property {string} sourceURL\n * @property {number} lineNumber\n * @property {number} columnNumber\n ",
+        "start": 9925,
+        "end": 10217,
+        "loc": {
+          "start": {
+            "line": 236,
+            "column": 0
+          },
+          "end": {
+            "line": 244,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} ServiceWorkerInfo\n * @property {string} versionId\n * @property {string} registrationId\n * @property {string} scopeURL\n * @property {boolean} isDeleted\n * @property {string} runningStatus - stopped, starting, running, stopping\n * @property {string} status - new, installing, installed, activating, activated, redundant\n * @property {number} [scriptLastModified] - The Last-Modified header value of the main script.\n * @property {number} [scriptResponseTime] - The time at which the response headers of the main script were received from the server. For cached script it is the last time the cache entry was validated.\n * @property {Array<string>} [controlledClients]\n * @property {string} [targetId]\n ",
+        "start": 10219,
+        "end": 10946,
+        "loc": {
+          "start": {
+            "line": 246,
+            "column": 0
+          },
+          "end": {
+            "line": 258,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} CDPTargetInfo\n * @property {string} targetId\n * @property {string} type\n * @property {string} title\n * @property {string} url\n * @property {boolean} attached - Whether the target has an attached client.\n * @property {string} [openerId] - Opener target Id\n * @property {string} [browserContextId] - EXPERIMENTAL\n ",
+        "start": 10948,
+        "end": 11287,
+        "loc": {
+          "start": {
+            "line": 260,
+            "column": 0
+          },
+          "end": {
+            "line": 269,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} CDPBucket - Chrome histogram bucket. EXPERIMENTAL\n * @property {number} low - Minimum value (inclusive).\n * @property {number} high - Maximum value (exclusive).\n * @property {number} count - Number of samples.\n ",
+        "start": 11289,
+        "end": 11527,
+        "loc": {
+          "start": {
+            "line": 271,
+            "column": 0
+          },
+          "end": {
+            "line": 276,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} CDPHistogram - Chrome histogram. EXPERIMENTAL\n * @property {string} name - Name.\n * @property {number} sum - Sum of sample values.\n * @property {number} count - Total number of samples.\n * @property {Array<CDPBucket>} buckets - Buckets.\n ",
+        "start": 11529,
+        "end": 11794,
+        "loc": {
+          "start": {
+            "line": 278,
+            "column": 0
+          },
+          "end": {
+            "line": 284,
+            "column": 3
+          }
+        }
+      }
+    ]
+  },
+  "comments": [
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} CDPNavigationEntry - Navigation history entry.\n * @property {number} id - Unique id of the navigation history entry.\n * @property {string} url - URL of the navigation history entry.\n * @property {string} userTypedURL - URL that the user typed in the url bar.\n * @property {string} title - Title of the navigation history entry.\n * @property {string} transitionType - Transition type - values: ink, typed, address_bar, auto_bookmark, auto_subframe, manual_subframe, generated, auto_toplevel, form_submit, reload, keyword, keyword_generated, other\n ",
+      "start": 0,
+      "end": 574,
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 8,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} PDFOptions\n * @property {number} scale\n * @property {boolean} displayHeaderFooter\n * @property {string} headerTemplate\n * @property {string} footerTemplate\n * @property {boolean} printBackground\n * @property {boolean} landscape\n * @property {string} pageRanges\n * @property {string} format\n * @property {string|number} width\n * @property {string|number} height\n * @property {boolean} [preferCSSPageSize]\n * @property {!{top?: string|number, bottom?: string|number, left?: string|number, right?: string|number}} [margin]\n * @property {string} [path]\n ",
+      "start": 576,
+      "end": 1153,
+      "loc": {
+        "start": {
+          "line": 10,
+          "column": 0
+        },
+        "end": {
+          "line": 25,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} Metrics\n * @property {number} Timestamp\n * @property {number} Documents\n * @property {number} Frames\n * @property {number} JSEventListeners\n * @property {number} Nodes\n * @property {number} LayoutCount\n * @property {number} RecalcStyleCount\n * @property {number} LayoutDuration\n * @property {number} RecalcStyleDuration\n * @property {number} ScriptDuration\n * @property {number} TaskDuration\n * @property {number} JSHeapUsedSize\n * @property {number} JSHeapTotalSize\n ",
+      "start": 1155,
+      "end": 1650,
+      "loc": {
+        "start": {
+          "line": 27,
+          "column": 0
+        },
+        "end": {
+          "line": 42,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ScreenshotOptions\n * @property {string} type\n * @property {string} path\n * @property {boolean} fullPage\n * @property {{x: number, y: number, width: number, height: number}} clip\n * @property {number} quality\n * @property {boolean} omitBackground\n * @property {string} encoding\n ",
+      "start": 1652,
+      "end": 1957,
+      "loc": {
+        "start": {
+          "line": 44,
+          "column": 0
+        },
+        "end": {
+          "line": 53,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} SerializedAXNode\n * @property {string} role\n *\n * @property {string} name\n * @property {string|number} value\n * @property {string} description\n *\n * @property {string} keyshortcuts\n * @property {string} roledescription\n * @property {string} valuetext\n *\n * @property {boolean} disabled\n * @property {boolean} expanded\n * @property {boolean} focused\n * @property {boolean} modal\n * @property {boolean} multiline\n * @property {boolean} multiselectable\n * @property {boolean} readonly\n * @property {boolean} required\n * @property {boolean} selected\n *\n * @property {boolean|\"mixed\"} checked\n * @property {boolean|\"mixed\"} pressed\n *\n * @property {number} level\n * @property {number} valuemin\n * @property {number} valuemax\n *\n * @property {string} autocomplete\n * @property {string} haspopup\n * @property {string} invalid\n * @property {string} orientation\n *\n * @property {Array<SerializedAXNode>} children\n ",
+      "start": 1959,
+      "end": 2891,
+      "loc": {
+        "start": {
+          "line": 55,
+          "column": 0
+        },
+        "end": {
+          "line": 90,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} CDPAnimation - Animation instance.\n * @property {string} id - `Animation`'s id.\n * @property {string} name - `Animation`'s name.\n * @property {boolean} pausedState - `Animation`'s internal paused state.\n * @property {string} playState - `Animation`'s play state.\n * @property {number} playbackRate - `Animation`'s playback rate.\n * @property {number} startTime - `Animation`'s start time.\n * @property {number} currentTime - `Animation`'s current time.\n * @property {string} type - Animation type of `Animation`. Values: CSSTransition, CSSAnimation, WebAnimation\n * @property {CDPAnimationEffect} [source] - `Animation`'s source animation node.\n * @property {string} [cssId] - A unique ID for `Animation` representing the sources that triggered this CSS animation/transition.\n ",
+      "start": 2893,
+      "end": 3697,
+      "loc": {
+        "start": {
+          "line": 92,
+          "column": 0
+        },
+        "end": {
+          "line": 104,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} CDPAnimationEffect - AnimationEffect instance\n * @property {number} delay - `AnimationEffect`'s delay.\n * @property {number} endDelay - `AnimationEffect`'s end delay.\n * @property {number} iterationStart - `AnimationEffect`'s iteration start.\n * @property {number} iterations - `AnimationEffect`'s iterations.\n * @property {number} duration - `AnimationEffect`'s iteration duration.\n * @property {string} direction - `AnimationEffect`'s playback direction.\n * @property {string} fill - `AnimationEffect`'s fill mode.\n * @property {string} [backendNodeId] - `AnimationEffect`'s target node.\n * @property {CDPKeyframesRule} [keyframesRule] - `AnimationEffect`'s keyframes.\n * @property {string} easing - `AnimationEffect`'s timing function.\n ",
+      "start": 3699,
+      "end": 4466,
+      "loc": {
+        "start": {
+          "line": 106,
+          "column": 0
+        },
+        "end": {
+          "line": 118,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} CDPKeyframesRule - Keyframes Rule\n * @property {string} [name] - CSS keyframed animation's name.\n * @property {Array<CDPKeyframeStyle>} keyframes - List of animation keyframes.\n ",
+      "start": 4468,
+      "end": 4673,
+      "loc": {
+        "start": {
+          "line": 120,
+          "column": 0
+        },
+        "end": {
+          "line": 124,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} CDPKeyframeStyle - Keyframe Style\n * @property {string} offset - Keyframe's time offset.\n * @property {string} easing - `AnimationEffect`'s timing function.\n ",
+      "start": 4675,
+      "end": 4860,
+      "loc": {
+        "start": {
+          "line": 126,
+          "column": 0
+        },
+        "end": {
+          "line": 130,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} BrowserHistogramQuery\n * @property {string} [query]\n * @property {boolean} [delta]\n ",
+      "start": 4862,
+      "end": 4973,
+      "loc": {
+        "start": {
+          "line": 132,
+          "column": 0
+        },
+        "end": {
+          "line": 136,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} WindowBounds - Browser window bounds information EXPERIMENTAL\n * @property {number} [left] - The offset from the left edge of the screen to the window in pixels.\n * @property {number} [top] - The offset from the top edge of the screen to the window in pixels.\n * @property {number} [width] - The window width in pixels.\n * @property {number} [height] - The window height in pixels.\n * @property {string} [windowState] - The window state. Default to normal. Values: normal, minimized, maximized, fullscreen\n ",
+      "start": 4975,
+      "end": 5509,
+      "loc": {
+        "start": {
+          "line": 138,
+          "column": 0
+        },
+        "end": {
+          "line": 145,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} CoverageEntry\n * @property {string} url\n * @property {string} text\n * @property {Array<{start: number, end: number}>} ranges\n ",
+      "start": 5511,
+      "end": 5664,
+      "loc": {
+        "start": {
+          "line": 147,
+          "column": 0
+        },
+        "end": {
+          "line": 152,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} CDPDatabase - Database object.\n * @property {DatabaseId} id - Database ID.\n * @property {string} domain - Database domain.\n * @property {string} name - Database name.\n * @property {string} version - Database version.\n ",
+      "start": 5666,
+      "end": 5911,
+      "loc": {
+        "start": {
+          "line": 154,
+          "column": 0
+        },
+        "end": {
+          "line": 160,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} SQLQueryResults\n * @property {Array<string>} [columnNames]\n * @property {Array<string>} [values]\n * @property {{message: string, code: number}} [sqlError]\n ",
+      "start": 5913,
+      "end": 6096,
+      "loc": {
+        "start": {
+          "line": 162,
+          "column": 0
+        },
+        "end": {
+          "line": 167,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} CDPFrameResource - Information about the Resource on the page. EXPERIMENTAL\n * @property {string} url - Resource URL.\n * @property {ResourceType} type - Type of this resource as it was perceived by the rendering engine. Values: Document, Stylesheet, Image, Media, Font, Script, TextTrack, XHR, Fetch, EventSource, WebSocket, Manifest, SignedExchange, Ping, CSPViolationReport, Other\n * @property {string} mimeType - Resource mimeType as determined by the browser.\n * @property {number} [lastModified] - last-modified timestamp as reported by server.\n * @property {number} [contentSize] - Resource content size.\n * @property {boolean} [failed] - True if the resource failed to load.\n * @property {boolean} [canceled] - True if the resource was canceled during loading.\n ",
+      "start": 6098,
+      "end": 6894,
+      "loc": {
+        "start": {
+          "line": 169,
+          "column": 0
+        },
+        "end": {
+          "line": 178,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} CDPFrameResourceTree - Information about the Frame hierarchy along with their cached resources. EXPERIMENTAL\n * @property {Object} frame - Frame information for this tree item.\n * @property {Array<CDPFrameResourceTree>} [childFrames] - Child frames.\n * @property {Array<CDPFrameResource>} resources - Information about frame resources.\n ",
+      "start": 6896,
+      "end": 7260,
+      "loc": {
+        "start": {
+          "line": 180,
+          "column": 0
+        },
+        "end": {
+          "line": 185,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} CDPSecurityDetails - Security details about a request.\n * @property {string} protocol - Protocol name (e.g. \"TLS 1.2\" or \"QUIC\").\n * @property {string} keyExchange - Key Exchange used by the connection, or the empty string if not applicable.\n * @property {string} [keyExchangeGroup] - (EC)DH group used by the connection, if applicable.\n * @property {string} cipher - Cipher name.\n * @property {string} [mac] - TLS MAC. Note that AEAD ciphers do not have separate MACs.\n * @property {string} certificateId - Certificate ID value.\n * @property {string} subjectName - Certificate subject name.\n * @property {Array<string>} sanList - Subject Alternative Name (SAN) DNS names and IP addresses.\n * @property {string} issuer - Name of the issuing CA.\n * @property {number} validFrom - Certificate valid from date.\n * @property {number} validTo - Certificate valid to (expiration) date\n * @property {Array<CDPSignedCertificateTimestamp>} signedCertificateTimestampList - List of signed certificate timestamps (SCTs).\n * @property {string} certificateTransparencyCompliance - Whether the request complied with Certificate Transparency policy. Values: unknown, not-compliant, compliant\n ",
+      "start": 7262,
+      "end": 8467,
+      "loc": {
+        "start": {
+          "line": 187,
+          "column": 0
+        },
+        "end": {
+          "line": 202,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} CDPSignedCertificateTimestamp - Details of a signed certificate timestamp (SCT).\n * @property {string} status - Validation status.\n * @property {string} origin - Origin.\n * @property {string} logDescription - Log name / description.\n * @property {string} logId - Log ID.\n * @property {string} timestamp - Issuance date.\n * @property {string} hashAlgorithm - Hash algorithm.\n * @property {string} signatureAlgorithm - Signature algorithm.\n * @property {string} signatureData - Signature data.\n ",
+      "start": 8469,
+      "end": 8989,
+      "loc": {
+        "start": {
+          "line": 204,
+          "column": 0
+        },
+        "end": {
+          "line": 214,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} CDPServiceWorkerRegistration - ServiceWorker registration.\n * @property {string} registrationId\n * @property {string} scopeURL\n * @property {boolean} isDeleted\n ",
+      "start": 8991,
+      "end": 9179,
+      "loc": {
+        "start": {
+          "line": 216,
+          "column": 0
+        },
+        "end": {
+          "line": 221,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} CDPServiceWorkerVersion - ServiceWorker version.\n * @property {string} versionId\n * @property {string} registrationId\n * @property {string} scriptURL\n * @property {string} runningStatus - values: stopped, starting, running, stopping\n * @property {string} status - values: new, installing, installed, activating, activated, redundant\n * @property {number} [scriptLastModified] - The Last-Modified header value of the main script.\n * @property {number} [scriptResponseTime] - The time at which the response headers of the main script were received from the server. For cached script it is the last time the cache entry was validated.\n * @property {Array<string>} [controlledClients]\n * @property {string} [targetId]\n ",
+      "start": 9181,
+      "end": 9923,
+      "loc": {
+        "start": {
+          "line": 223,
+          "column": 0
+        },
+        "end": {
+          "line": 234,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} CDPServiceWorkerErrorMessage - ServiceWorker error message.\n * @property {string} errorMessage\n * @property {string} registrationId\n * @property {string} versionId\n * @property {string} sourceURL\n * @property {number} lineNumber\n * @property {number} columnNumber\n ",
+      "start": 9925,
+      "end": 10217,
+      "loc": {
+        "start": {
+          "line": 236,
+          "column": 0
+        },
+        "end": {
+          "line": 244,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ServiceWorkerInfo\n * @property {string} versionId\n * @property {string} registrationId\n * @property {string} scopeURL\n * @property {boolean} isDeleted\n * @property {string} runningStatus - stopped, starting, running, stopping\n * @property {string} status - new, installing, installed, activating, activated, redundant\n * @property {number} [scriptLastModified] - The Last-Modified header value of the main script.\n * @property {number} [scriptResponseTime] - The time at which the response headers of the main script were received from the server. For cached script it is the last time the cache entry was validated.\n * @property {Array<string>} [controlledClients]\n * @property {string} [targetId]\n ",
+      "start": 10219,
+      "end": 10946,
+      "loc": {
+        "start": {
+          "line": 246,
+          "column": 0
+        },
+        "end": {
+          "line": 258,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} CDPTargetInfo\n * @property {string} targetId\n * @property {string} type\n * @property {string} title\n * @property {string} url\n * @property {boolean} attached - Whether the target has an attached client.\n * @property {string} [openerId] - Opener target Id\n * @property {string} [browserContextId] - EXPERIMENTAL\n ",
+      "start": 10948,
+      "end": 11287,
+      "loc": {
+        "start": {
+          "line": 260,
+          "column": 0
+        },
+        "end": {
+          "line": 269,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} CDPBucket - Chrome histogram bucket. EXPERIMENTAL\n * @property {number} low - Minimum value (inclusive).\n * @property {number} high - Maximum value (exclusive).\n * @property {number} count - Number of samples.\n ",
+      "start": 11289,
+      "end": 11527,
+      "loc": {
+        "start": {
+          "line": 271,
+          "column": 0
+        },
+        "end": {
+          "line": 276,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} CDPHistogram - Chrome histogram. EXPERIMENTAL\n * @property {string} name - Name.\n * @property {number} sum - Sum of sample values.\n * @property {number} count - Total number of samples.\n * @property {Array<CDPBucket>} buckets - Buckets.\n ",
+      "start": 11529,
+      "end": 11794,
+      "loc": {
+        "start": {
+          "line": 278,
+          "column": 0
+        },
+        "end": {
+          "line": 284,
+          "column": 3
+        }
+      }
+    }
+  ],
+  "tokens": [
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} CDPNavigationEntry - Navigation history entry.\n * @property {number} id - Unique id of the navigation history entry.\n * @property {string} url - URL of the navigation history entry.\n * @property {string} userTypedURL - URL that the user typed in the url bar.\n * @property {string} title - Title of the navigation history entry.\n * @property {string} transitionType - Transition type - values: ink, typed, address_bar, auto_bookmark, auto_subframe, manual_subframe, generated, auto_toplevel, form_submit, reload, keyword, keyword_generated, other\n ",
+      "start": 0,
+      "end": 574,
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 8,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} PDFOptions\n * @property {number} scale\n * @property {boolean} displayHeaderFooter\n * @property {string} headerTemplate\n * @property {string} footerTemplate\n * @property {boolean} printBackground\n * @property {boolean} landscape\n * @property {string} pageRanges\n * @property {string} format\n * @property {string|number} width\n * @property {string|number} height\n * @property {boolean} [preferCSSPageSize]\n * @property {!{top?: string|number, bottom?: string|number, left?: string|number, right?: string|number}} [margin]\n * @property {string} [path]\n ",
+      "start": 576,
+      "end": 1153,
+      "loc": {
+        "start": {
+          "line": 10,
+          "column": 0
+        },
+        "end": {
+          "line": 25,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} Metrics\n * @property {number} Timestamp\n * @property {number} Documents\n * @property {number} Frames\n * @property {number} JSEventListeners\n * @property {number} Nodes\n * @property {number} LayoutCount\n * @property {number} RecalcStyleCount\n * @property {number} LayoutDuration\n * @property {number} RecalcStyleDuration\n * @property {number} ScriptDuration\n * @property {number} TaskDuration\n * @property {number} JSHeapUsedSize\n * @property {number} JSHeapTotalSize\n ",
+      "start": 1155,
+      "end": 1650,
+      "loc": {
+        "start": {
+          "line": 27,
+          "column": 0
+        },
+        "end": {
+          "line": 42,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ScreenshotOptions\n * @property {string} type\n * @property {string} path\n * @property {boolean} fullPage\n * @property {{x: number, y: number, width: number, height: number}} clip\n * @property {number} quality\n * @property {boolean} omitBackground\n * @property {string} encoding\n ",
+      "start": 1652,
+      "end": 1957,
+      "loc": {
+        "start": {
+          "line": 44,
+          "column": 0
+        },
+        "end": {
+          "line": 53,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} SerializedAXNode\n * @property {string} role\n *\n * @property {string} name\n * @property {string|number} value\n * @property {string} description\n *\n * @property {string} keyshortcuts\n * @property {string} roledescription\n * @property {string} valuetext\n *\n * @property {boolean} disabled\n * @property {boolean} expanded\n * @property {boolean} focused\n * @property {boolean} modal\n * @property {boolean} multiline\n * @property {boolean} multiselectable\n * @property {boolean} readonly\n * @property {boolean} required\n * @property {boolean} selected\n *\n * @property {boolean|\"mixed\"} checked\n * @property {boolean|\"mixed\"} pressed\n *\n * @property {number} level\n * @property {number} valuemin\n * @property {number} valuemax\n *\n * @property {string} autocomplete\n * @property {string} haspopup\n * @property {string} invalid\n * @property {string} orientation\n *\n * @property {Array<SerializedAXNode>} children\n ",
+      "start": 1959,
+      "end": 2891,
+      "loc": {
+        "start": {
+          "line": 55,
+          "column": 0
+        },
+        "end": {
+          "line": 90,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} CDPAnimation - Animation instance.\n * @property {string} id - `Animation`'s id.\n * @property {string} name - `Animation`'s name.\n * @property {boolean} pausedState - `Animation`'s internal paused state.\n * @property {string} playState - `Animation`'s play state.\n * @property {number} playbackRate - `Animation`'s playback rate.\n * @property {number} startTime - `Animation`'s start time.\n * @property {number} currentTime - `Animation`'s current time.\n * @property {string} type - Animation type of `Animation`. Values: CSSTransition, CSSAnimation, WebAnimation\n * @property {CDPAnimationEffect} [source] - `Animation`'s source animation node.\n * @property {string} [cssId] - A unique ID for `Animation` representing the sources that triggered this CSS animation/transition.\n ",
+      "start": 2893,
+      "end": 3697,
+      "loc": {
+        "start": {
+          "line": 92,
+          "column": 0
+        },
+        "end": {
+          "line": 104,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} CDPAnimationEffect - AnimationEffect instance\n * @property {number} delay - `AnimationEffect`'s delay.\n * @property {number} endDelay - `AnimationEffect`'s end delay.\n * @property {number} iterationStart - `AnimationEffect`'s iteration start.\n * @property {number} iterations - `AnimationEffect`'s iterations.\n * @property {number} duration - `AnimationEffect`'s iteration duration.\n * @property {string} direction - `AnimationEffect`'s playback direction.\n * @property {string} fill - `AnimationEffect`'s fill mode.\n * @property {string} [backendNodeId] - `AnimationEffect`'s target node.\n * @property {CDPKeyframesRule} [keyframesRule] - `AnimationEffect`'s keyframes.\n * @property {string} easing - `AnimationEffect`'s timing function.\n ",
+      "start": 3699,
+      "end": 4466,
+      "loc": {
+        "start": {
+          "line": 106,
+          "column": 0
+        },
+        "end": {
+          "line": 118,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} CDPKeyframesRule - Keyframes Rule\n * @property {string} [name] - CSS keyframed animation's name.\n * @property {Array<CDPKeyframeStyle>} keyframes - List of animation keyframes.\n ",
+      "start": 4468,
+      "end": 4673,
+      "loc": {
+        "start": {
+          "line": 120,
+          "column": 0
+        },
+        "end": {
+          "line": 124,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} CDPKeyframeStyle - Keyframe Style\n * @property {string} offset - Keyframe's time offset.\n * @property {string} easing - `AnimationEffect`'s timing function.\n ",
+      "start": 4675,
+      "end": 4860,
+      "loc": {
+        "start": {
+          "line": 126,
+          "column": 0
+        },
+        "end": {
+          "line": 130,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} BrowserHistogramQuery\n * @property {string} [query]\n * @property {boolean} [delta]\n ",
+      "start": 4862,
+      "end": 4973,
+      "loc": {
+        "start": {
+          "line": 132,
+          "column": 0
+        },
+        "end": {
+          "line": 136,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} WindowBounds - Browser window bounds information EXPERIMENTAL\n * @property {number} [left] - The offset from the left edge of the screen to the window in pixels.\n * @property {number} [top] - The offset from the top edge of the screen to the window in pixels.\n * @property {number} [width] - The window width in pixels.\n * @property {number} [height] - The window height in pixels.\n * @property {string} [windowState] - The window state. Default to normal. Values: normal, minimized, maximized, fullscreen\n ",
+      "start": 4975,
+      "end": 5509,
+      "loc": {
+        "start": {
+          "line": 138,
+          "column": 0
+        },
+        "end": {
+          "line": 145,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} CoverageEntry\n * @property {string} url\n * @property {string} text\n * @property {Array<{start: number, end: number}>} ranges\n ",
+      "start": 5511,
+      "end": 5664,
+      "loc": {
+        "start": {
+          "line": 147,
+          "column": 0
+        },
+        "end": {
+          "line": 152,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} CDPDatabase - Database object.\n * @property {DatabaseId} id - Database ID.\n * @property {string} domain - Database domain.\n * @property {string} name - Database name.\n * @property {string} version - Database version.\n ",
+      "start": 5666,
+      "end": 5911,
+      "loc": {
+        "start": {
+          "line": 154,
+          "column": 0
+        },
+        "end": {
+          "line": 160,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} SQLQueryResults\n * @property {Array<string>} [columnNames]\n * @property {Array<string>} [values]\n * @property {{message: string, code: number}} [sqlError]\n ",
+      "start": 5913,
+      "end": 6096,
+      "loc": {
+        "start": {
+          "line": 162,
+          "column": 0
+        },
+        "end": {
+          "line": 167,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} CDPFrameResource - Information about the Resource on the page. EXPERIMENTAL\n * @property {string} url - Resource URL.\n * @property {ResourceType} type - Type of this resource as it was perceived by the rendering engine. Values: Document, Stylesheet, Image, Media, Font, Script, TextTrack, XHR, Fetch, EventSource, WebSocket, Manifest, SignedExchange, Ping, CSPViolationReport, Other\n * @property {string} mimeType - Resource mimeType as determined by the browser.\n * @property {number} [lastModified] - last-modified timestamp as reported by server.\n * @property {number} [contentSize] - Resource content size.\n * @property {boolean} [failed] - True if the resource failed to load.\n * @property {boolean} [canceled] - True if the resource was canceled during loading.\n ",
+      "start": 6098,
+      "end": 6894,
+      "loc": {
+        "start": {
+          "line": 169,
+          "column": 0
+        },
+        "end": {
+          "line": 178,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} CDPFrameResourceTree - Information about the Frame hierarchy along with their cached resources. EXPERIMENTAL\n * @property {Object} frame - Frame information for this tree item.\n * @property {Array<CDPFrameResourceTree>} [childFrames] - Child frames.\n * @property {Array<CDPFrameResource>} resources - Information about frame resources.\n ",
+      "start": 6896,
+      "end": 7260,
+      "loc": {
+        "start": {
+          "line": 180,
+          "column": 0
+        },
+        "end": {
+          "line": 185,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} CDPSecurityDetails - Security details about a request.\n * @property {string} protocol - Protocol name (e.g. \"TLS 1.2\" or \"QUIC\").\n * @property {string} keyExchange - Key Exchange used by the connection, or the empty string if not applicable.\n * @property {string} [keyExchangeGroup] - (EC)DH group used by the connection, if applicable.\n * @property {string} cipher - Cipher name.\n * @property {string} [mac] - TLS MAC. Note that AEAD ciphers do not have separate MACs.\n * @property {string} certificateId - Certificate ID value.\n * @property {string} subjectName - Certificate subject name.\n * @property {Array<string>} sanList - Subject Alternative Name (SAN) DNS names and IP addresses.\n * @property {string} issuer - Name of the issuing CA.\n * @property {number} validFrom - Certificate valid from date.\n * @property {number} validTo - Certificate valid to (expiration) date\n * @property {Array<CDPSignedCertificateTimestamp>} signedCertificateTimestampList - List of signed certificate timestamps (SCTs).\n * @property {string} certificateTransparencyCompliance - Whether the request complied with Certificate Transparency policy. Values: unknown, not-compliant, compliant\n ",
+      "start": 7262,
+      "end": 8467,
+      "loc": {
+        "start": {
+          "line": 187,
+          "column": 0
+        },
+        "end": {
+          "line": 202,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} CDPSignedCertificateTimestamp - Details of a signed certificate timestamp (SCT).\n * @property {string} status - Validation status.\n * @property {string} origin - Origin.\n * @property {string} logDescription - Log name / description.\n * @property {string} logId - Log ID.\n * @property {string} timestamp - Issuance date.\n * @property {string} hashAlgorithm - Hash algorithm.\n * @property {string} signatureAlgorithm - Signature algorithm.\n * @property {string} signatureData - Signature data.\n ",
+      "start": 8469,
+      "end": 8989,
+      "loc": {
+        "start": {
+          "line": 204,
+          "column": 0
+        },
+        "end": {
+          "line": 214,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} CDPServiceWorkerRegistration - ServiceWorker registration.\n * @property {string} registrationId\n * @property {string} scopeURL\n * @property {boolean} isDeleted\n ",
+      "start": 8991,
+      "end": 9179,
+      "loc": {
+        "start": {
+          "line": 216,
+          "column": 0
+        },
+        "end": {
+          "line": 221,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} CDPServiceWorkerVersion - ServiceWorker version.\n * @property {string} versionId\n * @property {string} registrationId\n * @property {string} scriptURL\n * @property {string} runningStatus - values: stopped, starting, running, stopping\n * @property {string} status - values: new, installing, installed, activating, activated, redundant\n * @property {number} [scriptLastModified] - The Last-Modified header value of the main script.\n * @property {number} [scriptResponseTime] - The time at which the response headers of the main script were received from the server. For cached script it is the last time the cache entry was validated.\n * @property {Array<string>} [controlledClients]\n * @property {string} [targetId]\n ",
+      "start": 9181,
+      "end": 9923,
+      "loc": {
+        "start": {
+          "line": 223,
+          "column": 0
+        },
+        "end": {
+          "line": 234,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} CDPServiceWorkerErrorMessage - ServiceWorker error message.\n * @property {string} errorMessage\n * @property {string} registrationId\n * @property {string} versionId\n * @property {string} sourceURL\n * @property {number} lineNumber\n * @property {number} columnNumber\n ",
+      "start": 9925,
+      "end": 10217,
+      "loc": {
+        "start": {
+          "line": 236,
+          "column": 0
+        },
+        "end": {
+          "line": 244,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ServiceWorkerInfo\n * @property {string} versionId\n * @property {string} registrationId\n * @property {string} scopeURL\n * @property {boolean} isDeleted\n * @property {string} runningStatus - stopped, starting, running, stopping\n * @property {string} status - new, installing, installed, activating, activated, redundant\n * @property {number} [scriptLastModified] - The Last-Modified header value of the main script.\n * @property {number} [scriptResponseTime] - The time at which the response headers of the main script were received from the server. For cached script it is the last time the cache entry was validated.\n * @property {Array<string>} [controlledClients]\n * @property {string} [targetId]\n ",
+      "start": 10219,
+      "end": 10946,
+      "loc": {
+        "start": {
+          "line": 246,
+          "column": 0
+        },
+        "end": {
+          "line": 258,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} CDPTargetInfo\n * @property {string} targetId\n * @property {string} type\n * @property {string} title\n * @property {string} url\n * @property {boolean} attached - Whether the target has an attached client.\n * @property {string} [openerId] - Opener target Id\n * @property {string} [browserContextId] - EXPERIMENTAL\n ",
+      "start": 10948,
+      "end": 11287,
+      "loc": {
+        "start": {
+          "line": 260,
+          "column": 0
+        },
+        "end": {
+          "line": 269,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} CDPBucket - Chrome histogram bucket. EXPERIMENTAL\n * @property {number} low - Minimum value (inclusive).\n * @property {number} high - Maximum value (exclusive).\n * @property {number} count - Number of samples.\n ",
+      "start": 11289,
+      "end": 11527,
+      "loc": {
+        "start": {
+          "line": 271,
+          "column": 0
+        },
+        "end": {
+          "line": 276,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} CDPHistogram - Chrome histogram. EXPERIMENTAL\n * @property {string} name - Name.\n * @property {number} sum - Sum of sample values.\n * @property {number} count - Total number of samples.\n * @property {Array<CDPBucket>} buckets - Buckets.\n ",
+      "start": 11529,
+      "end": 11794,
+      "loc": {
+        "start": {
+          "line": 278,
+          "column": 0
+        },
+        "end": {
+          "line": 284,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "eof",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "start": 11795,
+      "end": 11795,
+      "loc": {
+        "start": {
+          "line": 285,
+          "column": 0
+        },
+        "end": {
+          "line": 285,
+          "column": 0
+        }
+      }
+    }
+  ]
+}
