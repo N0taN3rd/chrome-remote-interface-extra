@@ -4,7 +4,7 @@ const util = require('util')
 const fs = require('fs-extra')
 const { CRIExtra } = require('../index')
 
-const betterProtocolFile = path.join(__dirname, '..', 'betterProtocol.json')
+const betterProtocolFile = path.join(__dirname, 'betterProtocol.json')
 const betterProtocolDumpExists = () => fs.pathExists(betterProtocolFile)
 
 function inspect (object) {

@@ -735,6 +735,7 @@ const isTTestAwaitSomething = path =>
   (btypes.isAwaitExpression(path.node.arguments[0]) ||
     (btypes.isMemberExpression(path.node.arguments[0]) &&
       btypes.isAwaitExpression(path.node.arguments[0].object)))
+
 async function postProcessing () {
   const tempTestFiles = await fs.readdir(tempTestPath)
   // const tempTestFiles = await fs.readdir('/home/john/WebstormProjects/chrome-remote-interface-extra/test')
@@ -806,6 +807,7 @@ async function postProcessing () {
 }
 
 async function doIt () {
+  await fs.ensureDir(tempTestPath)
   const testFiles = await fs.readdir(pTestPath)
   for (let i = 0; i < testFiles.length; i++) {
     const testFile = testFiles[i]
@@ -836,6 +838,6 @@ async function doIt () {
   })
 }
 
-doIt().catch(error => {
+doIt().then(postProcessing).catch(error => {
   console.error(error)
 })

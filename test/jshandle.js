@@ -249,7 +249,7 @@ test.serial(
     t.is((await page.evaluateHandle('/foo/')).toString(), 'JSHandle@regexp')
     t.is(
       (await page.evaluateHandle('document.body')).toString(),
-      'ElementHandle@node'
+      'ElementHandle@HTMLBodyElement-body'
     )
     t.is((await page.evaluateHandle('new Date()')).toString(), 'JSHandle@date')
     t.is(
