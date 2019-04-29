@@ -49,7 +49,7 @@ async function doIt () {
     // console.log(targetInfos)
     page = await Target.connectToPageTarget()
     const body = await page.querySelector('body')
-    console.log(await (await body.children())[0].getAttribute('id', 'blah'))
+    // console.log(await (await body.children())[0].getAttribute('id', 'blah'))
   } catch (err) {
     console.error(err)
   } finally {
