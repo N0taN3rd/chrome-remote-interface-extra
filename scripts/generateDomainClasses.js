@@ -5,7 +5,7 @@ const util = require('util')
 const fs = require('fs-extra')
 const { CRIExtra } = require('../index')
 
-const betterProtocolFile = path.join(__dirname, 'snp.json')
+const betterProtocolFile = path.join(__dirname, 'fullProto.json')
 const betterProtocolDumpExists = () => fs.pathExists(betterProtocolFile)
 
 async function dumpBetterProtocol () {
@@ -168,7 +168,7 @@ function makeMsgPartStr (param) {
   return param.name
 }
 
-function generateFn (domain, command, typeMapping) {
+function generateFn (domain, command) {
   const generatedFN = {
     argsTypedef: null,
     returnTypedef: null,
@@ -247,13 +247,9 @@ ${params.map(p => p.full).join('')}
 }
 
 async function doIt () {
-  const dumpDir =
-    '/home/john/WebstormProjects/chrome-remote-interface-extra/generated'
-  if (!(await betterProtocolDumpExists())) {
-    await dumpBetterProtocol()
-  }
+  const dumpDir = path.join(__dirname, '..', 'generated')
+  console.log(dumpDir)
   const betterProtocol = await fs.readJson(betterProtocolFile)
-  const typeMapping = cdpTypeMapping2(betterProtocol)
   for (const [domain, { types, events, commands }] of Object.entries(
     betterProtocol
   )) {
@@ -261,7 +257,7 @@ async function doIt () {
     const typdefs = []
 
     for (let i = 0; i < commands.length; i++) {
-      const gf = generateFn(domain, commands[i], typeMapping)
+      const gf = generateFn(domain, commands[i])
       if (gf.returnTypedef) {
         typdefs.push(gf.returnTypedef)
       }

@@ -5,7 +5,7 @@ const fs = require('fs-extra')
 const { CRIExtra } = require('../index')
 const handleTypes = require('./handleCDPTypes')
 
-const betterProtocolFile = path.join(__dirname, 'betterProtocol.json')
+const betterProtocolFile = path.join(__dirname, 'fullProto.json')
 const betterProtocolDumpExists = () => fs.pathExists(betterProtocolFile)
 
 function inspect (object) {
@@ -15,24 +15,16 @@ function inspect (object) {
 }
 
 async function dumpBetterProtocol () {
-  const client = await CRIExtra()
-  const betterProtocol = {}
-  for (const key of Object.keys(client)) {
-    if (key[0] !== '_' && key[0].toUpperCase() === key[0]) {
-      betterProtocol[key] = client[key]
-    }
-  }
-  await fs.writeJson(betterProtocolFile, betterProtocol)
-  await client.close()
+  const proto = await CRIExtra.Protocol()
+  console.log(proto)
+  await fs.writeJson(betterProtocolFile, proto)
 }
 
 async function loadProtocol () {
   if (!(await betterProtocolDumpExists())) {
     await dumpBetterProtocol()
   }
-  const betterProtocol = await fs.readJson(
-    '/home/john/WebstormProjects/chrome-remote-interface-extra/scripts/fullProto.json'
-  )
+  const betterProtocol = await fs.readJson(betterProtocolFile)
   return betterProtocol.domains
 }
 
