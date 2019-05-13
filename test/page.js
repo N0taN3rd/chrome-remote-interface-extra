@@ -56,6 +56,7 @@ test.serial(
       newPage.evaluate(() => new Promise(r => {})).catch(e => (error = e)),
       newPage.close()
     ])
+
     t.true(error.message.includes('Protocol error'))
   }
 )
@@ -71,17 +72,17 @@ test.serial('Page.close should not be visible in browser.pages', async t => {
 test.serial('Page.close should run beforeunload if asked for', async t => {
   const { context, server } = t.context
   const newPage = await context.newPage()
-  await newPage.goto(server.PREFIX + '/beforeunload.html') // We have to interact with a page so that 'beforeunload' handlers
+  await newPage.goto(server.PREFIX + '/beforeunload.html')
+  // We have to interact with a page so that 'beforeunload' handlers
   // fire.
 
   await newPage.click('body')
-  const pageClosingPromise = newPage.close({
-    runBeforeUnload: true
-  })
+  const pageClosingPromise = newPage.close({ runBeforeUnload: true })
   const dialog = await waitEvent(newPage, 'dialog')
   t.is(dialog.type(), 'beforeunload')
   t.is(dialog.defaultValue(), '')
   t.is(dialog.message(), '')
+
   await dialog.accept()
   await pageClosingPromise
 })
@@ -89,7 +90,8 @@ test.serial('Page.close should run beforeunload if asked for', async t => {
 test.serial('Page.close should *not* run beforeunload by default', async t => {
   const { context, server } = t.context
   const newPage = await context.newPage()
-  await newPage.goto(server.PREFIX + '/beforeunload.html') // We have to interact with a page so that 'beforeunload' handlers
+  await newPage.goto(server.PREFIX + '/beforeunload.html')
+  // We have to interact with a page so that 'beforeunload' handlers
   // fire.
 
   await newPage.click('body')
@@ -126,8 +128,10 @@ test.serial('Page.Events.Popup should work', async t => {
     new Promise(x => page.once(Events.Page.Popup, x)),
     page.evaluate(() => window.open('about:blank'))
   ])
-  t.false(await page.evaluate(() => !!window.opener))
-  t.true(await popup.evaluate(() => !!window.opener))
+  const testResult = await page.evaluate(() => !!window.opener)
+  t.false(testResult)
+  const testResult1 = await popup.evaluate(() => !!window.opener)
+  t.true(testResult1)
 })
 
 test.serial('Page.Events.Popup should work with noopener', async t => {
@@ -136,8 +140,10 @@ test.serial('Page.Events.Popup should work with noopener', async t => {
     new Promise(x => page.once('popup', x)),
     page.evaluate(() => window.open('about:blank', null, 'noopener'))
   ])
-  t.false(await page.evaluate(() => !!window.opener))
-  t.false(await popup.evaluate(() => !!window.opener))
+  const testResult = await page.evaluate(() => !!window.opener)
+  t.false(testResult)
+  const testResult1 = await popup.evaluate(() => !!window.opener)
+  t.false(testResult1)
 })
 
 test.serial(
@@ -150,8 +156,10 @@ test.serial(
       new Promise(x => page.once('popup', x)),
       page.click('a')
     ])
-    t.false(await page.evaluate(() => !!window.opener))
-    t.true(await popup.evaluate(() => !!window.opener))
+    const testResult = await page.evaluate(() => !!window.opener)
+    t.false(testResult)
+    const testResult1 = await popup.evaluate(() => !!window.opener)
+    t.true(testResult1)
   }
 )
 
@@ -163,12 +171,15 @@ test.serial(
     await page.setContent(
       '<a target=_blank rel=noopener href="/one-style.html">yo</a>'
     )
+
     const [popup] = await Promise.all([
       new Promise(x => page.once('popup', x)),
       page.$eval('a', a => a.click())
     ])
-    t.false(await page.evaluate(() => !!window.opener))
-    t.false(await popup.evaluate(() => !!window.opener))
+    const testResult = await page.evaluate(() => !!window.opener)
+    t.false(testResult)
+    const testResult1 = await popup.evaluate(() => !!window.opener)
+    t.false(testResult1)
   }
 )
 
@@ -180,12 +191,15 @@ test.serial(
     await page.setContent(
       '<a target=_blank rel=noopener href="/one-style.html">yo</a>'
     )
+
     const [popup] = await Promise.all([
       new Promise(x => page.once('popup', x)),
       page.click('a')
     ])
-    t.false(await page.evaluate(() => !!window.opener))
-    t.false(await popup.evaluate(() => !!window.opener))
+    const testResult = await page.evaluate(() => !!window.opener)
+    t.false(testResult)
+    const testResult1 = await popup.evaluate(() => !!window.opener)
+    t.false(testResult1)
   }
 )
 
@@ -194,7 +208,8 @@ test.serial(
   async t => {
     const { page, server, context } = t.context
     await page.goto(server.EMPTY_PAGE)
-    t.is(await getPermission(page, 'geolocation'), 'prompt')
+    const testResult = await getPermission(page, 'geolocation')
+    t.is(testResult, 'prompt')
   }
 )
 
@@ -204,7 +219,8 @@ test.serial(
     const { page, server, context } = t.context
     await page.goto(server.EMPTY_PAGE)
     await context.overridePermissions(server.EMPTY_PAGE, [])
-    t.is(await getPermission(page, 'geolocation'), 'denied')
+    const testResult = await getPermission(page, 'geolocation')
+    t.is(testResult, 'denied')
   }
 )
 
@@ -227,7 +243,8 @@ test.serial(
     const { page, server, context } = t.context
     await page.goto(server.EMPTY_PAGE)
     await context.overridePermissions(server.EMPTY_PAGE, ['geolocation'])
-    t.is(await getPermission(page, 'geolocation'), 'granted')
+    const testResult = await getPermission(page, 'geolocation')
+    t.is(testResult, 'granted')
   }
 )
 
@@ -237,9 +254,11 @@ test.serial(
     const { page, server, context } = t.context
     await page.goto(server.EMPTY_PAGE)
     await context.overridePermissions(server.EMPTY_PAGE, ['geolocation'])
-    t.is(await getPermission(page, 'geolocation'), 'granted')
+    const testResult = await getPermission(page, 'geolocation')
+    t.is(testResult, 'granted')
     await context.clearPermissionOverrides()
-    t.is(await getPermission(page, 'geolocation'), 'prompt')
+    const testResult1 = await getPermission(page, 'geolocation')
+    t.is(testResult1, 'prompt')
   }
 )
 
@@ -256,17 +275,18 @@ test.serial(
       window.navPermissions.push(result.state)
       return window.navPermissions
     }
-    let navPermissions = await page.evaluate(testFn)
-    t.deepEqual(navPermissions, ['prompt'])
+    const testResult = await page.evaluate(testFn)
+    t.deepEqual(testResult, ['prompt'])
     await context.overridePermissions(server.EMPTY_PAGE, [])
-    navPermissions = await page.evaluate(testFn)
-    t.deepEqual(navPermissions, ['prompt', 'denied'])
+    const testResult1 = await page.evaluate(testFn)
+    t.deepEqual(testResult1, ['prompt', 'denied'])
     await context.overridePermissions(server.EMPTY_PAGE, ['geolocation'])
-    navPermissions = await page.evaluate(testFn)
-    t.deepEqual(navPermissions, ['prompt', 'denied', 'granted'])
+    const testResult2 = await page.evaluate(testFn)
+    t.deepEqual(testResult2, ['prompt', 'denied', 'granted'])
+
     await context.clearPermissionOverrides()
-    navPermissions = await page.evaluate(testFn)
-    t.deepEqual(navPermissions, ['prompt', 'denied', 'granted', 'prompt'])
+    const testResult3 = await page.evaluate(testFn)
+    t.deepEqual(testResult3, ['prompt', 'denied', 'granted', 'prompt'])
   }
 )
 
@@ -278,15 +298,24 @@ test.serial(
     const otherContext = await browser.createIncognitoBrowserContext()
     const otherPage = await otherContext.newPage()
     await otherPage.goto(server.EMPTY_PAGE)
-    t.is(await getPermission(page, 'geolocation'), 'prompt')
-    t.is(await getPermission(otherPage, 'geolocation'), 'prompt')
+    const testResult = await getPermission(page, 'geolocation')
+    t.is(testResult, 'prompt')
+    const testResult1 = await getPermission(otherPage, 'geolocation')
+    t.is(testResult1, 'prompt')
+
     await context.overridePermissions(server.EMPTY_PAGE, [])
     await otherContext.overridePermissions(server.EMPTY_PAGE, ['geolocation'])
-    t.is(await getPermission(page, 'geolocation'), 'denied')
-    t.is(await getPermission(otherPage, 'geolocation'), 'granted')
+    const testResult2 = await getPermission(page, 'geolocation')
+    t.is(testResult2, 'denied')
+    const testResult3 = await getPermission(otherPage, 'geolocation')
+    t.is(testResult3, 'granted')
+
     await context.clearPermissionOverrides()
-    t.is(await getPermission(page, 'geolocation'), 'prompt')
-    t.is(await getPermission(otherPage, 'geolocation'), 'granted')
+    const testResult4 = await getPermission(page, 'geolocation')
+    t.is(testResult4, 'prompt')
+    const testResult5 = await getPermission(otherPage, 'geolocation')
+    t.is(testResult5, 'granted')
+
     await otherContext.close()
   }
 )
@@ -295,10 +324,7 @@ test.serial('Page.setGeolocation should work', async t => {
   const { page, server, context } = t.context
   await context.overridePermissions(server.PREFIX, ['geolocation'])
   await page.goto(server.EMPTY_PAGE)
-  await page.setGeolocation({
-    longitude: 10,
-    latitude: 10
-  })
+  await page.setGeolocation({ longitude: 10, latitude: 10 })
   const geolocation = await page.evaluate(
     () =>
       new Promise(resolve =>
@@ -310,6 +336,7 @@ test.serial('Page.setGeolocation should work', async t => {
         })
       )
   )
+
   t.deepEqual(geolocation, {
     latitude: 10,
     longitude: 10
@@ -348,11 +375,14 @@ test.serial('Page.setOfflineMode should work', async t => {
 
 test.serial('Page.setOfflineMode should emulate navigator.onLine', async t => {
   const { page, server } = t.context
-  t.true(await page.evaluate(() => window.navigator.onLine))
+  const testResult = await page.evaluate(() => window.navigator.onLine)
+  t.true(testResult)
   await page.setOfflineMode(true)
-  t.false(await page.evaluate(() => window.navigator.onLine))
+  const testResult1 = await page.evaluate(() => window.navigator.onLine)
+  t.false(testResult1)
   await page.setOfflineMode(false)
-  t.true(await page.evaluate(() => window.navigator.onLine))
+  const testResult2 = await page.evaluate(() => window.navigator.onLine)
+  t.true(testResult2)
 })
 
 test.serial('ExecutionContext.queryObjects should work', async t => {
@@ -367,8 +397,23 @@ test.serial('ExecutionContext.queryObjects should work', async t => {
     objects => Array.from(objects[0].values()),
     objectsHandle
   )
+
   t.deepEqual(values, ['hello', 'world'])
 })
+
+test.serial(
+  'ExecutionContext.queryObjects should work for non-blank page',
+  async t => {
+    const { page, server } = t.context
+    // Instantiate an object
+    await page.goto(server.EMPTY_PAGE)
+    await page.evaluate(() => (window.set = new Set(['hello', 'world'])))
+    const prototypeHandle = await page.evaluateHandle(() => Set.prototype)
+    const objectsHandle = await page.queryObjects(prototypeHandle)
+    const count = await page.evaluate(objects => objects.length, objectsHandle)
+    t.is(count, 1)
+  }
+)
 
 test.serial(
   'ExecutionContext.queryObjects should fail for disposed handles',
@@ -377,6 +422,7 @@ test.serial(
     const prototypeHandle = await page.evaluateHandle(
       () => HTMLBodyElement.prototype
     )
+
     await prototypeHandle.dispose()
     let error = null
     await page.queryObjects(prototypeHandle).catch(e => (error = e))
@@ -408,15 +454,17 @@ test.serial('Page.Events.Console should work', async t => {
         foo: 'bar'
       })
     ),
-    waitEvent(page, 'console')
+    waitEvent(page, Events.Page.Console)
   ])
-  t.deepEqual(message.text(), 'hello 5 JSHandle@object')
+
+  t.deepEqual(message.text(), 'hello 5 JSHandle@Object')
   t.deepEqual(message.type(), 'log')
-  t.deepEqual(await message.args()[0].jsonValue(), 'hello')
-  t.deepEqual(await message.args()[1].jsonValue(), 5)
-  t.deepEqual(await message.args()[2].jsonValue(), {
-    foo: 'bar'
-  })
+  const testResult = await message.args()[0].jsonValue()
+  t.deepEqual(testResult, 'hello')
+  const testResult1 = await message.args()[1].jsonValue()
+  t.deepEqual(testResult1, 5)
+  const testResult2 = await message.args()[2].jsonValue()
+  t.deepEqual(testResult2, { foo: 'bar' })
 })
 
 test.serial(
@@ -444,13 +492,14 @@ test.serial(
       'error',
       'log'
     ])
+
     t.true(messages[0].text().includes('calling console.time'))
     t.deepEqual(messages.slice(1).map(msg => msg.text()), [
       'calling console.trace',
       'calling console.dir',
       'calling console.warn',
       'calling console.error',
-      'JSHandle@promise'
+      'JSHandle@Promise'
     ])
   }
 )
@@ -465,7 +514,7 @@ test.serial(
       page.evaluate(() => console.error(window)),
       waitEvent(page, Events.Page.Console)
     ])
-    t.is(message.text(), 'JSHandle@object')
+    t.is(message.text(), 'JSHandle@Window')
   }
 )
 
@@ -526,19 +575,20 @@ test.serial(
         'Title',
         'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=780,height=200,top=0,left=0'
       )
-      await new Promise(x => (win.onload = x)) // 2. In this popup, create an iframe that console.logs a message.
 
+      await new Promise(x => (win.onload = x))
+      // 2. In this popup, create an iframe that console.logs a message.
       win.document.body.innerHTML = `<iframe src='/consolelog.html'></iframe>`
       const frame = win.document.querySelector('iframe')
-      await new Promise(x => (frame.onload = x)) // 3. After that, remove the iframe.
-
+      await new Promise(x => (frame.onload = x))
+      // 3. After that, remove the iframe.
       frame.remove()
     })
     const popupTarget = page
       .browserContext()
       .targets()
-      .find(target => target !== page.target()) // 4. Connect to the popup and make sure it doesn't throw.
-
+      .find(target => target !== page.target())
+    // 4. Connect to the popup and make sure it doesn't throw.
     await popupTarget.page()
     t.pass()
   }
@@ -600,6 +650,7 @@ test.serial('Page.waitForRequest should work', async t => {
       fetch('/digits/3.png')
     })
   ])
+
   t.is(request.url(), server.PREFIX + '/digits/2.png')
 })
 
@@ -610,12 +661,14 @@ test.serial('Page.waitForRequest should work with predicate', async t => {
     page.waitForRequest(
       request => request.url() === server.PREFIX + '/digits/2.png'
     ),
+
     page.evaluate(() => {
       fetch('/digits/1.png')
       fetch('/digits/2.png')
       fetch('/digits/3.png')
     })
   ])
+
   t.is(request.url(), server.PREFIX + '/digits/2.png')
 })
 
@@ -653,6 +706,7 @@ test.serial('Page.waitForRequest should work with no timeout', async t => {
       }, 50)
     )
   ])
+
   t.is(request.url(), server.PREFIX + '/digits/2.png')
 })
 
@@ -667,6 +721,7 @@ test.serial('Page.waitForResponse should work', async t => {
       fetch('/digits/3.png')
     })
   ])
+
   t.is(response.url(), server.PREFIX + '/digits/2.png')
 })
 
@@ -696,12 +751,14 @@ test.serial('Page.waitForResponse should work with predicate', async t => {
     page.waitForResponse(
       response => response.url() === server.PREFIX + '/digits/2.png'
     ),
+
     page.evaluate(() => {
       fetch('/digits/1.png')
       fetch('/digits/2.png')
       fetch('/digits/3.png')
     })
   ])
+
   t.is(response.url(), server.PREFIX + '/digits/2.png')
 })
 
@@ -720,6 +777,7 @@ test.serial('Page.waitForResponse should work with no timeout', async t => {
       }, 50)
     )
   ])
+
   t.is(response.url(), server.PREFIX + '/digits/2.png')
 })
 
@@ -790,6 +848,7 @@ test.serial('Page.exposeFunction should survive navigation', async t => {
   await page.exposeFunction('compute', function (a, b) {
     return a * b
   })
+
   await page.goto(server.EMPTY_PAGE)
   const result = await page.evaluate(async function () {
     return await compute(9, 4)
@@ -802,6 +861,7 @@ test.serial('Page.exposeFunction should await returned promise', async t => {
   await page.exposeFunction('compute', function (a, b) {
     return Promise.resolve(a * b)
   })
+
   const result = await page.evaluate(async function () {
     return await compute(3, 5)
   })
@@ -813,6 +873,7 @@ test.serial('Page.exposeFunction should work on frames', async t => {
   await page.exposeFunction('compute', function (a, b) {
     return Promise.resolve(a * b)
   })
+
   await page.goto(server.PREFIX + '/frames/nested-frames.html')
   const frame = page.frames()[1]
   const result = await frame.evaluate(async function () {
@@ -829,6 +890,7 @@ test.serial(
     await page.exposeFunction('compute', function (a, b) {
       return Promise.resolve(a * b)
     })
+
     const frame = page.frames()[1]
     const result = await frame.evaluate(async function () {
       return await compute(3, 5)
@@ -836,6 +898,18 @@ test.serial(
     t.is(result, 15)
   }
 )
+
+test.serial('Page.exposeFunction should work with complex objects', async t => {
+  const { page, server } = t.context
+  await page.exposeFunction('complexObject', function (a, b) {
+    return { x: a.x + b.x }
+  })
+  const result = await page.evaluate(async () =>
+    complexObject({ x: 5 }, { x: 2 })
+  )
+
+  t.is(result.x, 7)
+})
 
 test.serial('Page.Events.PageError should fire', async t => {
   const { page, server } = t.context
@@ -845,6 +919,7 @@ test.serial('Page.Events.PageError should fire', async t => {
     page.goto(server.PREFIX + '/error.html'),
     waitEvent(page, 'pageerror')
   ])
+
   t.true(error.message.includes('Fancy'))
 })
 
@@ -856,6 +931,7 @@ test.serial('Page.setUserAgent should work', async t => {
     server.waitForRequest('/empty.html'),
     page.goto(server.EMPTY_PAGE)
   ])
+
   t.is(request.headers['user-agent'], 'foobar')
 })
 
@@ -867,6 +943,7 @@ test.serial('Page.setUserAgent should work for subframes', async t => {
     server.waitForRequest('/empty.html'),
     utils.attachFrame(page, 'frame1', server.EMPTY_PAGE)
   ])
+
   t.is(request.headers['user-agent'], 'foobar')
 })
 
@@ -949,23 +1026,29 @@ test.serial('Page.setContent should work fast enough', async t => {
   t.pass()
 })
 
+test.serial('Page.setContent should work with tricky content', async t => {
+  const { page, server } = t.context
+  await page.setContent('<div>hello world</div>' + '\x7F')
+  const testResult = await page.$eval('div', div => div.textContent)
+  t.is(testResult, 'hello world')
+})
+
 test.serial('Page.setBypassCSP should bypass CSP meta tag', async t => {
   const { page, server } = t.context
   // Make sure CSP prohibits addScriptTag.
   await page.goto(server.PREFIX + '/csp.html')
   await page
-    .addScriptTag({
-      content: 'window.__injected = 42;'
-    })
+    .addScriptTag({ content: 'window.__injected = 42;' })
     .catch(e => void e)
-  t.falsy(await page.evaluate(() => window.__injected)) // By-pass CSP and try one more time.
+  const testResult = await page.evaluate(() => window.__injected)
+  t.falsy(testResult)
 
+  // By-pass CSP and try one more time.
   await page.setBypassCSP(true)
   await page.reload()
-  await page.addScriptTag({
-    content: 'window.__injected = 42;'
-  })
-  t.is(await page.evaluate(() => window.__injected), 42)
+  await page.addScriptTag({ content: 'window.__injected = 42;' })
+  const testResult1 = await page.evaluate(() => window.__injected)
+  t.is(testResult1, 42)
 })
 
 test.serial('Page.setBypassCSP should bypass CSP header', async t => {
@@ -977,14 +1060,15 @@ test.serial('Page.setBypassCSP should bypass CSP header', async t => {
       content: 'window.__injected = 42;'
     })
     .catch(e => void e)
-  t.falsy(await page.evaluate(() => window.__injected)) // By-pass CSP and try one more time.
+  const testResult = await page.evaluate(() => window.__injected)
+  t.falsy(testResult)
 
+  // By-pass CSP and try one more time.
   await page.setBypassCSP(true)
   await page.reload()
-  await page.addScriptTag({
-    content: 'window.__injected = 42;'
-  })
-  t.is(await page.evaluate(() => window.__injected), 42)
+  await page.addScriptTag({ content: 'window.__injected = 42;' })
+  const testResult1 = await page.evaluate(() => window.__injected)
+  t.is(testResult1, 42)
 })
 
 test.serial(
@@ -993,15 +1077,54 @@ test.serial(
     const { page, server } = t.context
     await page.setBypassCSP(true)
     await page.goto(server.PREFIX + '/csp.html')
-    await page.addScriptTag({
-      content: 'window.__injected = 42;'
-    })
-    t.is(await page.evaluate(() => window.__injected), 42)
+    await page.addScriptTag({ content: 'window.__injected = 42;' })
+    const testResult = await page.evaluate(() => window.__injected)
+    t.is(testResult, 42)
+
     await page.goto(server.CROSS_PROCESS_PREFIX + '/csp.html')
-    await page.addScriptTag({
-      content: 'window.__injected = 42;'
-    })
-    t.is(await page.evaluate(() => window.__injected), 42)
+    await page.addScriptTag({ content: 'window.__injected = 42;' })
+    const testResult1 = await page.evaluate(() => window.__injected)
+    t.is(testResult1, 42)
+  }
+)
+
+test.serial(
+  'Page.setBypassCSP should bypass CSP in iframes as well',
+  async t => {
+    const { page, server } = t.context
+    await page.goto(server.EMPTY_PAGE)
+    {
+      // Make sure CSP prohibits addScriptTag in an iframe.
+      const frame = await utils.attachFrame(
+        page,
+        'frame1',
+        server.PREFIX + '/csp.html'
+      )
+
+      await frame
+        .addScriptTag({ content: 'window.__injected = 42;' })
+        .catch(e => void e)
+      const testResult = await frame.evaluate(() => window.__injected)
+      t.falsy(testResult)
+    }
+
+    // By-pass CSP and try one more time.
+    await page.setBypassCSP(true)
+    await page.reload()
+
+    {
+      const frame = await utils.attachFrame(
+        page,
+        'frame1',
+        server.PREFIX + '/csp.html'
+      )
+
+      await frame
+        .addScriptTag({ content: 'window.__injected = 42;' })
+        .catch(e => void e)
+      const testResult1 = await frame.evaluate(() => window.__injected)
+      t.is(testResult1, 42)
+    }
   }
 )
 
@@ -1027,11 +1150,10 @@ test.serial(
 test.serial('Page.addScriptTag should work with a url', async t => {
   const { page, server } = t.context
   await page.goto(server.EMPTY_PAGE)
-  const scriptHandle = await page.addScriptTag({
-    url: '/injectedfile.js'
-  })
+  const scriptHandle = await page.addScriptTag({ url: '/injectedfile.js' })
   t.truthy(scriptHandle.asElement())
-  t.is(await page.evaluate(() => __injected), 42)
+  const testResult = await page.evaluate(() => __injected)
+  t.is(testResult, 42)
 })
 
 test.serial(
@@ -1039,11 +1161,9 @@ test.serial(
   async t => {
     const { page, server } = t.context
     await page.goto(server.EMPTY_PAGE)
-    await page.addScriptTag({
-      url: '/es6/es6import.js',
-      type: 'module'
-    })
-    t.is(await page.evaluate(() => __es6injected), 42)
+    await page.addScriptTag({ url: '/es6/es6import.js', type: 'module' })
+    const testResult = await page.evaluate(() => __es6injected)
+    t.is(testResult, 42)
   }
 )
 
@@ -1056,8 +1176,10 @@ test.serial(
       path: utils.assetPath('/es6/es6pathimport.js'),
       type: 'module'
     })
+
     await page.waitForFunction('window.__es6injected')
-    t.is(await page.evaluate(() => __es6injected), 42)
+    const testResult = await page.evaluate(() => __es6injected)
+    t.is(testResult, 42)
   }
 )
 
@@ -1070,8 +1192,10 @@ test.serial(
       content: `import num from '/es6/es6module.js';window.__es6injected = num;`,
       type: 'module'
     })
+
     await page.waitForFunction('window.__es6injected')
-    t.is(await page.evaluate(() => __es6injected), 42)
+    const testResult = await page.evaluate(() => __es6injected)
+    t.is(testResult, 42)
   }
 )
 
@@ -1100,8 +1224,10 @@ test.serial('Page.addScriptTag should work with a path', async t => {
   const scriptHandle = await page.addScriptTag({
     path: utils.assetPath('injectedfile.js')
   })
+
   t.truthy(scriptHandle.asElement())
-  t.is(await page.evaluate(() => __injected), 42)
+  const testResult = await page.evaluate(() => __injected)
+  t.is(testResult, 42)
 })
 
 test.serial(
@@ -1112,6 +1238,7 @@ test.serial(
     await page.addScriptTag({
       path: utils.assetPath('injectedfile.js')
     })
+
     const result = await page.evaluate(() => __injectedError.stack)
     t.true(result.includes(utils.assetPath('injectedfile.js')))
   }
@@ -1123,8 +1250,10 @@ test.serial('Page.addScriptTag should work with content', async t => {
   const scriptHandle = await page.addScriptTag({
     content: 'window.__injected = 35;'
   })
+
   t.truthy(scriptHandle.asElement())
-  t.is(await page.evaluate(() => __injected), 35)
+  const testResult = await page.evaluate(() => __injected)
+  t.is(testResult, 35)
 })
 
 test.serial(
@@ -1183,10 +1312,12 @@ test.serial('Page.addStyleTag should work with a url', async t => {
     url: '/injectedstyle.css'
   })
   t.truthy(styleHandle.asElement())
+  const testResult = await page.evaluate(
+    `window.getComputedStyle(document.querySelector('body')).getPropertyValue('background-color')`
+  )
   t.is(
-    await page.evaluate(
-      `window.getComputedStyle(document.querySelector('body')).getPropertyValue('background-color')`
-    ),
+    testResult,
+
     'rgb(255, 0, 0)'
   )
 })
@@ -1216,11 +1347,14 @@ test.serial('Page.addStyleTag should work with a path', async t => {
   const styleHandle = await page.addStyleTag({
     path: utils.assetPath('injectedstyle.css')
   })
+
   t.truthy(styleHandle.asElement())
+  const testResult = await page.evaluate(
+    `window.getComputedStyle(document.querySelector('body')).getPropertyValue('background-color')`
+  )
   t.is(
-    await page.evaluate(
-      `window.getComputedStyle(document.querySelector('body')).getPropertyValue('background-color')`
-    ),
+    testResult,
+
     'rgb(255, 0, 0)'
   )
 })
@@ -1248,11 +1382,14 @@ test.serial('Page.addStyleTag should work with content', async t => {
   const styleHandle = await page.addStyleTag({
     content: 'body { background-color: green; }'
   })
+
   t.truthy(styleHandle.asElement())
+  const testResult = await page.evaluate(
+    `window.getComputedStyle(document.querySelector('body')).getPropertyValue('background-color')`
+  )
   t.is(
-    await page.evaluate(
-      `window.getComputedStyle(document.querySelector('body')).getPropertyValue('background-color')`
-    ),
+    testResult,
+
     'rgb(0, 128, 0)'
   )
 })
@@ -1300,14 +1437,17 @@ test.serial('Page.setJavaScriptEnabled should work', async t => {
   await page.goto(
     'data:text/html, <script>var something = "forbidden"</script>'
   )
+
   let error = null
   await page.evaluate('something').catch(e => (error = e))
   t.true(error.message.includes('something is not defined'))
+
   await page.setJavaScriptEnabled(true)
   await page.goto(
     'data:text/html, <script>var something = "forbidden"</script>'
   )
-  t.is(await page.evaluate('something'), 'forbidden')
+  const testResult = await page.evaluate('something')
+  t.is(testResult, 'forbidden')
 })
 
 test.serial(
@@ -1329,26 +1469,49 @@ test.serial(
   }
 )
 
+test.serial(
+  'Page.setCacheEnabled should stay disabled when toggling request interception on/off',
+  async t => {
+    const { page, server } = t.context
+    await page.setCacheEnabled(false)
+    await page.setRequestInterception(true)
+    await page.setRequestInterception(false)
+
+    await page.goto(server.PREFIX + '/cached/one-style.html')
+    const [nonCachedRequest] = await Promise.all([
+      server.waitForRequest('/cached/one-style.html'),
+      page.reload()
+    ])
+
+    t.falsy(nonCachedRequest.headers['if-modified-since'])
+  }
+)
+
 test.serial('Page.title should return the page title', async t => {
   const { page, server } = t.context
   await page.goto(server.PREFIX + '/title.html')
-  t.is(await page.title(), 'Woof-Woof')
+  const testResult = await page.title()
+  t.is(testResult, 'Woof-Woof')
 })
 
 test.serial('Page.select should select single option', async t => {
   const { page, server } = t.context
   await page.goto(server.PREFIX + '/input/select.html')
   await page.select('select', 'blue')
-  t.deepEqual(await page.evaluate(() => result.onInput), ['blue'])
-  t.deepEqual(await page.evaluate(() => result.onChange), ['blue'])
+  const testResult = await page.evaluate(() => result.onInput)
+  t.deepEqual(testResult, ['blue'])
+  const testResult1 = await page.evaluate(() => result.onChange)
+  t.deepEqual(testResult1, ['blue'])
 })
 
 test.serial('Page.select should select only first option', async t => {
   const { page, server } = t.context
   await page.goto(server.PREFIX + '/input/select.html')
   await page.select('select', 'blue', 'green', 'red')
-  t.deepEqual(await page.evaluate(() => result.onInput), ['blue'])
-  t.deepEqual(await page.evaluate(() => result.onChange), ['blue'])
+  const testResult = await page.evaluate(() => result.onInput)
+  t.deepEqual(testResult, ['blue'])
+  const testResult1 = await page.evaluate(() => result.onChange)
+  t.deepEqual(testResult1, ['blue'])
 })
 
 test.serial('Page.select should select multiple options', async t => {
@@ -1356,24 +1519,20 @@ test.serial('Page.select should select multiple options', async t => {
   await page.goto(server.PREFIX + '/input/select.html')
   await page.evaluate(() => makeMultiple())
   await page.select('select', 'blue', 'green', 'red')
-  t.deepEqual(await page.evaluate(() => result.onInput), [
-    'blue',
-    'green',
-    'red'
-  ])
-  t.deepEqual(await page.evaluate(() => result.onChange), [
-    'blue',
-    'green',
-    'red'
-  ])
+  const testResult = await page.evaluate(() => result.onInput)
+  t.deepEqual(testResult, ['blue', 'green', 'red'])
+  const testResult1 = await page.evaluate(() => result.onChange)
+  t.deepEqual(testResult1, ['blue', 'green', 'red'])
 })
 
 test.serial('Page.select should respect event bubbling', async t => {
   const { page, server } = t.context
   await page.goto(server.PREFIX + '/input/select.html')
   await page.select('select', 'blue')
-  t.deepEqual(await page.evaluate(() => result.onBubblingInput), ['blue'])
-  t.deepEqual(await page.evaluate(() => result.onBubblingChange), ['blue'])
+  const testResult = await page.evaluate(() => result.onBubblingInput)
+  t.deepEqual(testResult, ['blue'])
+  const testResult1 = await page.evaluate(() => result.onBubblingChange)
+  t.deepEqual(testResult1, ['blue'])
 })
 
 test.serial(
@@ -1405,6 +1564,7 @@ test.serial('Page.select should return an array of matched values', async t => {
         ['blue', 'black', 'magenta'].includes(current) && accumulator,
       true
     ),
+
     true
   )
 })
@@ -1434,10 +1594,12 @@ test.serial(
     await page.evaluate(() => makeMultiple())
     await page.select('select', 'blue', 'black', 'magenta')
     await page.select('select')
+    const testResult = await page.$eval('select', select =>
+      Array.from(select.options).every(option => !option.selected)
+    )
     t.deepEqual(
-      await page.$eval('select', select =>
-        Array.from(select.options).every(option => !option.selected)
-      ),
+      testResult,
+
       true
     )
   }
@@ -1450,10 +1612,12 @@ test.serial(
     await page.goto(server.PREFIX + '/input/select.html')
     await page.select('select', 'blue', 'black', 'magenta')
     await page.select('select')
+    const testResult = await page.$eval('select', select =>
+      Array.from(select.options).every(option => !option.selected)
+    )
     t.deepEqual(
-      await page.$eval('select', select =>
-        Array.from(select.options).every(option => !option.selected)
-      ),
+      testResult,
+
       true
     )
   }
@@ -1480,8 +1644,10 @@ test.serial(
     await page.goto(server.PREFIX + '/input/select.html')
     await page.evaluate(() => (window.Event = null))
     await page.select('select', 'blue')
-    t.deepEqual(await page.evaluate(() => result.onInput), ['blue'])
-    t.deepEqual(await page.evaluate(() => result.onChange), ['blue'])
+    const testResult = await page.evaluate(() => result.onInput)
+    t.deepEqual(testResult, ['blue'])
+    const testResult1 = await page.evaluate(() => result.onChange)
+    t.deepEqual(testResult1, ['blue'])
   }
 )
 
@@ -1490,6 +1656,7 @@ test.serial('Page.Events.Close should work with window.close', async t => {
   const newPagePromise = new Promise(fulfill =>
     context.once('targetcreated', target => fulfill(target.page()))
   )
+
   await page.evaluate(() => (window['newPage'] = window.open('about:blank')))
   const newPage = await newPagePromise
   const closedPromise = new Promise(x => newPage.on('close', x))

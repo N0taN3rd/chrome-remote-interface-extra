@@ -50,13 +50,19 @@ test.serial(
   'BrowserContext should close all belonging targets once closing context',
   async t => {
     const { browser, server } = t.context
-    t.is((await browser.pages()).length, 1)
+    const testResult = (await browser.pages()).length
+    t.is(testResult, 1)
+
     const context = await browser.createIncognitoBrowserContext()
     await context.newPage()
-    t.is((await browser.pages()).length, 2)
-    t.is((await context.pages()).length, 1)
+    const testResult1 = (await browser.pages()).length
+    t.is(testResult1, 2)
+    const testResult2 = (await context.pages()).length
+    t.is(testResult2, 1)
+
     await context.close()
-    t.is((await browser.pages()).length, 1)
+    const testResult3 = (await browser.pages()).length
+    t.is(testResult3, 1)
   }
 )
 
@@ -108,7 +114,8 @@ test.serial('BrowserContext should wait for a target', async t => {
   t.false(resolved)
   await page.goto(server.EMPTY_PAGE)
   const target = await targetPromise
-  t.is(await target.page(), page)
+  const testResult = await target.page()
+  t.is(testResult, page)
   await context.close()
 })
 
@@ -135,8 +142,9 @@ test.serial(
     const context1 = await browser.createIncognitoBrowserContext()
     const context2 = await browser.createIncognitoBrowserContext()
     t.is(context1.targets().length, 0)
-    t.is(context2.targets().length, 0) // Create a page in first incognito context.
+    t.is(context2.targets().length, 0)
 
+    // Create a page in first incognito context.
     const page1 = await context1.newPage()
     await page1.goto(server.EMPTY_PAGE)
     await page1.evaluate(() => {
@@ -144,8 +152,9 @@ test.serial(
       document.cookie = 'name=page1'
     })
     t.is(context1.targets().length, 1)
-    t.is(context2.targets().length, 0) // Create a page in second incognito context.
+    t.is(context2.targets().length, 0)
 
+    // Create a page in second incognito context.
     const page2 = await context2.newPage()
     await page2.goto(server.EMPTY_PAGE)
     await page2.evaluate(() => {
@@ -155,13 +164,19 @@ test.serial(
     t.is(context1.targets().length, 1)
     t.is(context1.targets()[0], page1.target())
     t.is(context2.targets().length, 1)
-    t.is(context2.targets()[0], page2.target()) // Make sure pages don't share localstorage or cookies.
+    t.is(context2.targets()[0], page2.target())
 
-    t.is(await page1.evaluate(() => localStorage.getItem('name')), 'page1')
-    t.is(await page1.evaluate(() => document.cookie), 'name=page1')
-    t.is(await page2.evaluate(() => localStorage.getItem('name')), 'page2')
-    t.is(await page2.evaluate(() => document.cookie), 'name=page2') // Cleanup contexts.
+    // Make sure pages don't share localstorage or cookies.
+    const testResult = await page1.evaluate(() => localStorage.getItem('name'))
+    t.is(testResult, 'page1')
+    const testResult1 = await page1.evaluate(() => document.cookie)
+    t.is(testResult1, 'name=page1')
+    const testResult2 = await page2.evaluate(() => localStorage.getItem('name'))
+    t.is(testResult2, 'page2')
+    const testResult3 = await page2.evaluate(() => document.cookie)
+    t.is(testResult3, 'name=page2')
 
+    // Cleanup contexts.
     await Promise.all([context1.close(), context2.close()])
     t.is(browser.browserContexts().length, 1)
   }

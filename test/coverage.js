@@ -25,6 +25,7 @@ test.after.always(async t => {
   await helper.end()
 })
 
+
 test.serial('JSCoverage should work', async t => {
   const { page, server } = t.context
   await page.coverage.startJSCoverage()
@@ -35,14 +36,8 @@ test.serial('JSCoverage should work', async t => {
   t.is(coverage.length, 1)
   t.true(coverage[0].url.includes('/jscoverage/simple.html'))
   t.deepEqual(coverage[0].ranges, [
-    {
-      start: 0,
-      end: 17
-    },
-    {
-      start: 35,
-      end: 61
-    }
+    { start: 0, end: 17 },
+    { start: 35, end: 61 }
   ])
 })
 
@@ -67,9 +62,7 @@ test.serial(
   "JSCoverage shouldn't ignore eval() scripts if reportAnonymousScripts is true",
   async t => {
     const { page, server } = t.context
-    await page.coverage.startJSCoverage({
-      reportAnonymousScripts: true
-    })
+    await page.coverage.startJSCoverage({ reportAnonymousScripts: true })
     await page.goto(server.PREFIX + '/jscoverage/eval.html')
     const coverage = await page.coverage.stopJSCoverage()
     t.truthy(coverage.find(entry => entry.url.startsWith('debugger://')))
@@ -77,13 +70,11 @@ test.serial(
   }
 )
 
-test.serial(
+test.serial.skip(
   'JSCoverage should ignore pptr internal scripts if reportAnonymousScripts is true',
   async t => {
     const { page, server } = t.context
-    await page.coverage.startJSCoverage({
-      reportAnonymousScripts: true
-    })
+    await page.coverage.startJSCoverage({ reportAnonymousScripts: true })
     await page.goto(server.EMPTY_PAGE)
     await page.evaluate('console.log("foo")')
     await page.evaluate(() => console.log('bar'))
@@ -145,9 +136,7 @@ test.serial(
   'JSCoverage - resetOnNavigation: should report scripts across navigations when disabled',
   async t => {
     const { page, server } = t.context
-    await page.coverage.startJSCoverage({
-      resetOnNavigation: false
-    })
+    await page.coverage.startJSCoverage({ resetOnNavigation: false })
     await page.goto(server.PREFIX + '/jscoverage/multiple.html')
     await page.goto(server.EMPTY_PAGE)
     const coverage = await page.coverage.stopJSCoverage()
@@ -160,7 +149,6 @@ test.serial(
   async t => {
     const { page, server } = t.context
     await page.coverage.startJSCoverage() // Enabled by default.
-
     await page.goto(server.PREFIX + '/jscoverage/multiple.html')
     await page.goto(server.EMPTY_PAGE)
     const coverage = await page.coverage.stopJSCoverage()
@@ -189,12 +177,8 @@ test.serial('CSSCoverage should work', async t => {
   const coverage = await page.coverage.stopCSSCoverage()
   t.is(coverage.length, 1)
   t.true(coverage[0].url.includes('/csscoverage/simple.html'))
-  t.deepEqual(coverage[0].ranges, [
-    {
-      start: 1,
-      end: 22
-    }
-  ])
+  t.deepEqual(coverage[0].ranges, [{ start: 1, end: 22 }])
+
   const range = coverage[0].ranges[0]
   t.is(
     coverage[0].text.substring(range.start, range.end),
@@ -242,12 +226,7 @@ test.serial('CSSCoverage should work with media queries', async t => {
   const coverage = await page.coverage.stopCSSCoverage()
   t.is(coverage.length, 1)
   t.true(coverage[0].url.includes('/csscoverage/media.html'))
-  t.deepEqual(coverage[0].ranges, [
-    {
-      start: 17,
-      end: 38
-    }
-  ])
+  t.deepEqual(coverage[0].ranges, [{ start: 17, end: 38 }])
 })
 
 test.serial('CSSCoverage should work with complicated usecases', async t => {
@@ -265,10 +244,8 @@ test.serial('CSSCoverage should work with complicated usecases', async t => {
 test.serial('CSSCoverage should ignore injected stylesheets', async t => {
   const { page, server } = t.context
   await page.coverage.startCSSCoverage()
-  await page.addStyleTag({
-    content: 'body { margin: 10px;}'
-  }) // trigger style recalc
-
+  await page.addStyleTag({ content: 'body { margin: 10px;}' })
+  // trigger style recalc
   const margin = await page.evaluate(
     () => window.getComputedStyle(document.body).margin
   )
@@ -281,9 +258,7 @@ test.serial(
   'CSSCoverage - resetOnNavigation: should report stylesheets across navigations',
   async t => {
     const { page, server } = t.context
-    await page.coverage.startCSSCoverage({
-      resetOnNavigation: false
-    })
+    await page.coverage.startCSSCoverage({ resetOnNavigation: false })
     await page.goto(server.PREFIX + '/csscoverage/multiple.html')
     await page.goto(server.EMPTY_PAGE)
     const coverage = await page.coverage.stopCSSCoverage()
@@ -296,7 +271,6 @@ test.serial(
   async t => {
     const { page, server } = t.context
     await page.coverage.startCSSCoverage() // Enabled by default.
-
     await page.goto(server.PREFIX + '/csscoverage/multiple.html')
     await page.goto(server.EMPTY_PAGE)
     const coverage = await page.coverage.stopCSSCoverage()
@@ -311,6 +285,7 @@ test.serial(
     await page.coverage.startCSSCoverage()
     await page.evaluate(async url => {
       document.body.textContent = 'hello, world'
+
       const link = document.createElement('link')
       link.rel = 'stylesheet'
       link.href = url

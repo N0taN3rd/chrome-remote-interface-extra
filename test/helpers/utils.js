@@ -96,6 +96,7 @@ exports.waitEvent = function waitEvent (
 ) {
   return new Promise(resolve => {
     emitter.on(eventName, function listener (event) {
+      console.log(event)
       if (!predicate(event)) return
       emitter.removeListener(eventName, listener)
       resolve(event)

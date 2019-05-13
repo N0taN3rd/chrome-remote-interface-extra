@@ -90,11 +90,17 @@ test.serial('Tracing should return a buffer', async t => {
   t.deepEqual(trace.toString(), buf.toString())
 })
 
+test.serial('Tracing should work without options', async t => {
+  const { page, server, outputFile } = t.context
+  await page.tracing.start()
+  await page.goto(server.PREFIX + '/grid.html')
+  const trace = await page.tracing.stop()
+  t.truthy(trace)
+})
+
 test.serial('Tracing should return null in case of Buffer error', async t => {
   const { page, server } = t.context
-  await page.tracing.start({
-    screenshots: true
-  })
+  await page.tracing.start({ screenshots: true })
   await page.goto(server.PREFIX + '/grid.html')
   const oldBufferConcat = Buffer.concat
 
@@ -109,9 +115,7 @@ test.serial('Tracing should return null in case of Buffer error', async t => {
 
 test.serial('Tracing should support a buffer without a path', async t => {
   const { page, server } = t.context
-  await page.tracing.start({
-    screenshots: true
-  })
+  await page.tracing.start({ screenshots: true })
   await page.goto(server.PREFIX + '/grid.html')
   const trace = await page.tracing.stop()
   t.true(trace.toString().includes('screenshot'))

@@ -81,7 +81,7 @@ test.serial('Workers should have JSHandles for console logs', async t => {
     () => new Worker(`data:text/javascript,console.log(1,2,3,this)`)
   )
   const log = await logPromise
-  t.is(log.text(), '1 2 3 JSHandle@object')
+  t.is(log.text(), '1 2 3 JSHandle@DedicatedWorkerGlobalScope')
   t.is(log.args().length, 4)
   t.is(await (await log.args()[3].getProperty('origin')).jsonValue(), 'null')
 })

@@ -30,56 +30,48 @@ test.after.always(async t => {
 
 test.serial('Page.viewport should get the proper viewport size', async t => {
   const { page, server } = t.context
-  t.deepEqual(page.viewport(), {
-    width: 800,
-    height: 600
-  })
-  await page.setViewport({
-    width: 123,
-    height: 456
-  })
-  t.deepEqual(page.viewport(), {
-    width: 123,
-    height: 456
-  })
+  t.deepEqual(page.viewport(), { width: 800, height: 600 })
+  await page.setViewport({ width: 123, height: 456 })
+  t.deepEqual(page.viewport(), { width: 123, height: 456 })
 })
 
 test.serial('Page.viewport should support mobile emulation', async t => {
   const { page, server } = t.context
   await page.goto(server.PREFIX + '/mobile.html')
-  t.is(await page.evaluate(() => window.innerWidth), 800)
+  const testResult = await page.evaluate(() => window.innerWidth)
+  t.is(testResult, 800)
   await page.setViewport(iPhone.viewport)
-  t.is(await page.evaluate(() => window.innerWidth), 375)
-  await page.setViewport({
-    width: 400,
-    height: 300
-  })
-  t.is(await page.evaluate(() => window.innerWidth), 400)
+  const testResult1 = await page.evaluate(() => window.innerWidth)
+  t.is(testResult1, 375)
+  await page.setViewport({ width: 400, height: 300 })
+  const testResult2 = await page.evaluate(() => window.innerWidth)
+  t.is(testResult2, 400)
 })
 
 test.serial('Page.viewport should support touch emulation', async t => {
   const { page, server } = t.context
   await page.goto(server.PREFIX + '/mobile.html')
-  t.false(await page.evaluate(() => 'ontouchstart' in window))
+  const testResult = await page.evaluate(() => 'ontouchstart' in window)
+  t.false(testResult)
   await page.setViewport(iPhone.viewport)
-  t.true(await page.evaluate(() => 'ontouchstart' in window))
-  t.is(await page.evaluate(dispatchTouch), 'Received touch')
-  await page.setViewport({
-    width: 100,
-    height: 100
-  })
-  t.false(await page.evaluate(() => 'ontouchstart' in window))
+  const testResult1 = await page.evaluate(() => 'ontouchstart' in window)
+  t.true(testResult1)
+  const testResult2 = await page.evaluate(dispatchTouch)
+  t.is(testResult2, 'Received touch')
+  await page.setViewport({ width: 100, height: 100 })
+  const testResult3 = await page.evaluate(() => 'ontouchstart' in window)
+  t.false(testResult3)
 
   function dispatchTouch () {
     let fulfill
     const promise = new Promise(x => (fulfill = x))
-
     window.ontouchstart = function (e) {
       fulfill('Received touch')
     }
-
     window.dispatchEvent(new Event('touchstart'))
+
     fulfill('Did not receive touch')
+
     return promise
   }
 })
@@ -87,46 +79,46 @@ test.serial('Page.viewport should support touch emulation', async t => {
 test.serial('Page.viewport should be detectable by Modernizr', async t => {
   const { page, server } = t.context
   await page.goto(server.PREFIX + '/detect-touch.html')
-  t.is(await page.evaluate(() => document.body.textContent.trim()), 'NO')
+  const testResult = await page.evaluate(() => document.body.textContent.trim())
+  t.is(testResult, 'NO')
   await page.setViewport(iPhone.viewport)
   await page.goto(server.PREFIX + '/detect-touch.html')
-  t.is(await page.evaluate(() => document.body.textContent.trim()), 'YES')
+  const testResult1 = await page.evaluate(() =>
+    document.body.textContent.trim()
+  )
+  t.is(testResult1, 'YES')
 })
 
 test.serial(
   'Page.viewport should detect touch when applying viewport with touches',
   async t => {
     const { page, server } = t.context
-    await page.setViewport({
-      width: 800,
-      height: 600,
-      hasTouch: true
-    })
-    await page.addScriptTag({
-      url: server.PREFIX + '/modernizr.js'
-    })
-    t.true(await page.evaluate(() => Modernizr.touchevents))
+    await page.setViewport({ width: 800, height: 600, hasTouch: true })
+    await page.addScriptTag({ url: server.PREFIX + '/modernizr.js' })
+    const testResult = await page.evaluate(() => Modernizr.touchevents)
+    t.true(testResult)
   }
 )
 
 test.serial('Page.viewport should support landscape emulation', async t => {
   const { page, server } = t.context
   await page.goto(server.PREFIX + '/mobile.html')
-  t.is(await page.evaluate(() => screen.orientation.type), 'portrait-primary')
+  const testResult = await page.evaluate(() => screen.orientation.type)
+  t.is(testResult, 'portrait-primary')
   await page.setViewport(iPhoneLandscape.viewport)
-  t.is(await page.evaluate(() => screen.orientation.type), 'landscape-primary')
-  await page.setViewport({
-    width: 100,
-    height: 100
-  })
-  t.is(await page.evaluate(() => screen.orientation.type), 'portrait-primary')
+  const testResult1 = await page.evaluate(() => screen.orientation.type)
+  t.is(testResult1, 'landscape-primary')
+  await page.setViewport({ width: 100, height: 100 })
+  const testResult2 = await page.evaluate(() => screen.orientation.type)
+  t.is(testResult2, 'portrait-primary')
 })
 
 test.serial('Page.emulate should work', async t => {
   const { page, server } = t.context
   await page.goto(server.PREFIX + '/mobile.html')
   await page.emulate(iPhone)
-  t.is(await page.evaluate(() => window.innerWidth), 375)
+  const testResult = await page.evaluate(() => window.innerWidth)
+  t.is(testResult, 375)
   t.true((await page.evaluate(() => navigator.userAgent)).includes('iPhone'))
 })
 
@@ -137,19 +129,38 @@ test.serial('Page.emulate should support clicking', async t => {
   const button = await page.$('button')
   await page.evaluate(button => (button.style.marginTop = '200px'), button)
   await button.click()
-  t.is(await page.evaluate(() => result), 'Clicked')
+  const testResult = await page.evaluate(() => result)
+  t.is(testResult, 'Clicked')
 })
 
 test.serial('Page.emulateMedia should work', async t => {
   const { page, server } = t.context
-  t.true(await page.evaluate(() => window.matchMedia('screen').matches))
-  t.false(await page.evaluate(() => window.matchMedia('print').matches))
+  const testResult = await page.evaluate(
+    () => window.matchMedia('screen').matches
+  )
+  t.true(testResult)
+  const testResult1 = await page.evaluate(
+    () => window.matchMedia('print').matches
+  )
+  t.false(testResult1)
   await page.emulateMedia('print')
-  t.false(await page.evaluate(() => window.matchMedia('screen').matches))
-  t.true(await page.evaluate(() => window.matchMedia('print').matches))
+  const testResult2 = await page.evaluate(
+    () => window.matchMedia('screen').matches
+  )
+  t.false(testResult2)
+  const testResult3 = await page.evaluate(
+    () => window.matchMedia('print').matches
+  )
+  t.true(testResult3)
   await page.emulateMedia(null)
-  t.true(await page.evaluate(() => window.matchMedia('screen').matches))
-  t.false(await page.evaluate(() => window.matchMedia('print').matches))
+  const testResult4 = await page.evaluate(
+    () => window.matchMedia('screen').matches
+  )
+  t.true(testResult4)
+  const testResult5 = await page.evaluate(
+    () => window.matchMedia('print').matches
+  )
+  t.false(testResult5)
 })
 
 test.serial(

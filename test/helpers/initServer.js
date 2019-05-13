@@ -282,6 +282,15 @@ function setUpServer (config) {
     .post('/sleep.zzz', (request, reply) => {
       reply.status(200).send(request.body)
     })
+    .get('/empty-http-only-cookie', (request, reply) => {
+      reply.header('Set-Cookie', ';HttpOnly; Path=/').redirect('/empty.html')
+    })
+    .get('/empty-lax-samesite-cookie', (request, reply) => {
+      reply.header('Set-Cookie', ';SameSite=Lax').redirect('/empty.html')
+    })
+    .get('/empty-strict-samesite-cookie', (request, reply) => {
+      reply.header('Set-Cookie', ';SameSite=Strict').redirect('/empty.html')
+    })
     .register(require('fastify-favicon'))
     .register(require('fastify-formbody'))
     .register(require('fastify-basic-auth'), {

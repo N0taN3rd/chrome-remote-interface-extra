@@ -75,29 +75,24 @@ test.serial('Page.waitFor should work with multiline body', async t => {
   const result = await page.waitForFunction(`
         (() => true)()
       `)
-  t.true(await result.jsonValue())
+  const testResult = await result.jsonValue()
+  t.true(testResult)
 })
 
 test.serial('Page.waitFor should wait for predicate', async t => {
   const { page, server } = t.context
   await Promise.all([
     page.waitFor(() => window.innerWidth < 100),
-    page.setViewport({
-      width: 10,
-      height: 10
-    })
+    page.setViewport({ width: 10, height: 10 })
   ])
+
   t.pass()
 })
 
 test.serial('Page.waitFor should throw when unknown type', async t => {
   const { page, server } = t.context
   let error = null
-  await page
-    .waitFor({
-      foo: 'bar'
-    })
-    .catch(e => (error = e))
+  await page.waitFor({ foo: 'bar' }).catch(e => (error = e))
   t.true(error.message.includes('Unsupported target type'))
 })
 
@@ -137,15 +132,14 @@ test.serial('Frame.waitForFunction should poll on interval', async t => {
   const startTime = Date.now()
   const polling = 100
   const watchdog = page
-    .waitForFunction(() => window.__FOO === 'hit', {
-      polling
-    })
+    .waitForFunction(() => window.__FOO === 'hit', { polling })
     .then(() => (success = true))
   await page.evaluate(() => (window.__FOO = 'hit'))
   t.false(success)
   await page.evaluate(() =>
     document.body.appendChild(document.createElement('div'))
   )
+
   await watchdog
   t.true(Date.now() - startTime >= polling / 2)
 })
@@ -154,15 +148,14 @@ test.serial('Frame.waitForFunction should poll on mutation', async t => {
   const { page, server } = t.context
   let success = false
   const watchdog = page
-    .waitForFunction(() => window.__FOO === 'hit', {
-      polling: 'mutation'
-    })
+    .waitForFunction(() => window.__FOO === 'hit', { polling: 'mutation' })
     .then(() => (success = true))
   await page.evaluate(() => (window.__FOO = 'hit'))
   t.false(success)
   await page.evaluate(() =>
     document.body.appendChild(document.createElement('div'))
   )
+
   await watchdog
 })
 
@@ -171,6 +164,7 @@ test.serial('Frame.waitForFunction should poll on raf', async t => {
   const watchdog = page.waitForFunction(() => window.__FOO === 'hit', {
     polling: 'raf'
   })
+
   await page.evaluate(() => (window.__FOO = 'hit'))
   await watchdog
   t.pass()
@@ -184,12 +178,11 @@ test.serial(
     let error = null
     await Promise.all([
       page
-        .waitForFunction(() => window.__FOO === 'hit', {
-          polling: 'raf'
-        })
+        .waitForFunction(() => window.__FOO === 'hit', { polling: 'raf' })
         .catch(e => (error = e)),
       page.evaluate(() => (window.__FOO = 'hit'))
     ])
+
     t.falsy(error)
   }
 )
@@ -236,7 +229,8 @@ test.serial(
   'Frame.waitForFunction should return the success value as a JSHandle',
   async t => {
     const { page } = t.context
-    t.is(await (await page.waitForFunction(() => 5)).jsonValue(), 5)
+    const testResult = await (await page.waitForFunction(() => 5)).jsonValue()
+    t.is(testResult, 5)
   }
 )
 
@@ -244,7 +238,8 @@ test.serial(
   'Frame.waitForFunction should return the window as a success value',
   async t => {
     const { page } = t.context
-    t.truthy(await page.waitForFunction(() => window))
+    const testResult = await page.waitForFunction(() => window)
+    t.truthy(testResult)
   }
 )
 
@@ -359,7 +354,8 @@ test.serial(
       page.waitForSelector('.zombo'),
       page.setContent(`<div class='zombo'>anything</div>`)
     ])
-    t.is(await page.evaluate(x => x.textContent, handle), 'anything')
+    const testResult = await page.evaluate(x => x.textContent, handle)
+    t.is(testResult, 'anything')
   }
 )
 
@@ -479,7 +475,8 @@ test.serial('Frame.waitForSelector should wait for visible', async t => {
   await page.evaluate(() =>
     document.querySelector('div').style.removeProperty('visibility')
   )
-  t.true(await waitForSelector)
+  const testResult = await waitForSelector
+  t.true(testResult)
   t.true(divFound)
 })
 
@@ -504,7 +501,8 @@ test.serial(
     await page.evaluate(() =>
       document.querySelector('div').style.removeProperty('visibility')
     )
-    t.true(await waitForSelector)
+    const testResult = await waitForSelector
+    t.true(testResult)
     t.true(divVisible)
   }
 )
@@ -526,7 +524,8 @@ test.serial(
     await page.evaluate(() =>
       document.querySelector('div').style.setProperty('visibility', 'hidden')
     )
-    t.true(await waitForSelector)
+    const testResult = await waitForSelector
+    t.true(testResult)
     t.true(divHidden)
   }
 )
@@ -548,7 +547,8 @@ test.serial(
     await page.evaluate(() =>
       document.querySelector('div').style.setProperty('display', 'none')
     )
-    t.true(await waitForSelector)
+    const testResult = await waitForSelector
+    t.true(testResult)
     t.true(divHidden)
   }
 )
@@ -566,7 +566,8 @@ test.serial('Frame.waitForSelector hidden should wait for removal', async t => {
 
   t.false(divRemoved)
   await page.evaluate(() => document.querySelector('div').remove())
-  t.true(await waitForSelector)
+  const testResult = await waitForSelector
+  t.true(testResult)
   t.true(divRemoved)
 })
 
@@ -574,9 +575,7 @@ test.serial(
   'Frame.waitForSelector should return null if waiting to hide non-existing element',
   async t => {
     const { page, server } = t.context
-    const handle = await page.waitForSelector('non-existing', {
-      hidden: true
-    })
+    const handle = await page.waitForSelector('non-existing', { hidden: true })
     t.falsy(handle)
   }
 )
@@ -628,7 +627,8 @@ test.serial(
     await page.evaluate(
       () => (document.querySelector('div').className = 'zombo')
     )
-    t.true(await waitForSelector)
+    const testResult = await waitForSelector
+    t.true(testResult)
   }
 )
 
@@ -638,10 +638,11 @@ test.serial(
     const { page, server } = t.context
     const waitForSelector = page.waitForSelector('.zombo')
     await page.setContent(`<div class='zombo'>anything</div>`)
-    t.is(
-      await page.evaluate(x => x.textContent, await waitForSelector),
-      'anything'
+    const testResult = await page.evaluate(
+      x => x.textContent,
+      await waitForSelector
     )
+    t.is(testResult, 'anything')
   }
 )
 
@@ -665,10 +666,8 @@ test.serial('Frame.waitForXPath should support some fancy xpath', async t => {
   const waitForXPath = page.waitForXPath(
     '//p[normalize-space(.)="hello world"]'
   )
-  t.is(
-    await page.evaluate(x => x.textContent, await waitForXPath),
-    'hello  world  '
-  )
+  const testResult = await page.evaluate(x => x.textContent, await waitForXPath)
+  t.is(testResult, 'hello  world  ')
 })
 
 test.serial('Frame.waitForXPath should respect timeout', async t => {
@@ -733,7 +732,8 @@ test.serial(
     await page.evaluate(() =>
       document.querySelector('div').style.setProperty('display', 'none')
     )
-    t.true(await waitForXPath)
+    const testResult = await waitForXPath
+    t.true(testResult)
     t.true(divHidden)
   }
 )
@@ -751,11 +751,8 @@ test.serial(
     const { page, server } = t.context
     await page.setContent(`<div>some text</div>`)
     const text = await page.waitForXPath('//div/text()')
-    t.is(
-      await (await text.getProperty('nodeType')).jsonValue(),
-      3
-      /* Node.TEXT_NODE */
-    )
+    const testResult = await (await text.getProperty('nodeType')).jsonValue()
+    t.is(testResult, 3 /* Node.TEXT_NODE */)
   }
 )
 
@@ -765,9 +762,10 @@ test.serial(
     const { page, server } = t.context
     await page.setContent(`<div>some text</div>`)
     const waitForXPath = page.waitForXPath('/html/body/div')
-    t.is(
-      await page.evaluate(x => x.textContent, await waitForXPath),
-      'some text'
+    const testResult = await page.evaluate(
+      x => x.textContent,
+      await waitForXPath
     )
+    t.is(testResult, 'some text')
   }
 )

@@ -48,7 +48,26 @@ async function doIt () {
     // const { targetInfos } = await client.send('Target.getTargets')
     // console.log(targetInfos)
     page = await Target.connectToPageTarget()
-    const body = await page.querySelector('body')
+    await page.reload()
+    page.on(Events.Page.Console, cmsg => {
+      console.log(cmsg.text())
+    })
+    console.log(await page.window())
+    console.log(await page.document())
+    // const ret = await page.evaluateHandle(() => {
+    //   window.fn = function (...args) {
+    //     console.log(...args)
+    //   }
+    //   return function it () {
+    //     console.log('it called')
+    //   }
+    // })
+    // await ret.call()
+    //
+    // const windowHandle = await page.evaluateHandle(() => window)
+    //
+    // await windowHandle.callFn('fn', 1, 2, 3, 4, 5, 6)
+
     // console.log(await (await body.children())[0].getAttribute('id', 'blah'))
   } catch (err) {
     console.error(err)

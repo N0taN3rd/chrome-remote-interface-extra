@@ -32,10 +32,10 @@ test.serial('Keyboard should type into a textarea', async t => {
   })
   const text = 'Hello world. I am the text that was typed!'
   await page.keyboard.type(text)
-  t.is(
-    await page.evaluate(() => document.querySelector('textarea').value),
-    text
+  const testResult = await page.evaluate(
+    () => document.querySelector('textarea').value
   )
+  t.is(testResult, text)
 })
 
 test.serial('Keyboard should press the metaKey', async t => {
@@ -46,38 +46,37 @@ test.serial('Keyboard should press the metaKey', async t => {
     )
   })
   await page.keyboard.press('Meta')
-  t.is(
-    await page.evaluate('keyPromise'),
-    false && os.platform() !== 'darwin' ? 'OS' : 'Meta'
-  )
+  const testResult = await page.evaluate('keyPromise')
+  t.is(testResult, false && os.platform() !== 'darwin' ? 'OS' : 'Meta')
 })
 
 test.serial('Keyboard should move with the arrow keys', async t => {
   const { page, server } = t.context
   await page.goto(server.PREFIX + '/input/textarea.html')
   await page.type('textarea', 'Hello World!')
-  t.is(
-    await page.evaluate(() => document.querySelector('textarea').value),
-    'Hello World!'
+  const testResult = await page.evaluate(
+    () => document.querySelector('textarea').value
   )
+  t.is(testResult, 'Hello World!')
 
   for (let i = 0; i < 'World!'.length; i++) page.keyboard.press('ArrowLeft')
 
   await page.keyboard.type('inserted ')
-  t.is(
-    await page.evaluate(() => document.querySelector('textarea').value),
-    'Hello inserted World!'
+  const testResult1 = await page.evaluate(
+    () => document.querySelector('textarea').value
   )
+  t.is(testResult1, 'Hello inserted World!')
+
   page.keyboard.down('Shift')
 
   for (let i = 0; i < 'inserted '.length; i++) page.keyboard.press('ArrowLeft')
 
   page.keyboard.up('Shift')
   await page.keyboard.press('Backspace')
-  t.is(
-    await page.evaluate(() => document.querySelector('textarea').value),
-    'Hello World!'
+  const testResult2 = await page.evaluate(
+    () => document.querySelector('textarea').value
   )
+  t.is(testResult2, 'Hello World!')
 })
 
 test.serial(
@@ -87,18 +86,20 @@ test.serial(
     await page.goto(server.PREFIX + '/input/textarea.html')
     const textarea = await page.$('textarea')
     await textarea.press('a')
-    t.is(
-      await page.evaluate(() => document.querySelector('textarea').value),
-      'a'
+    const testResult = await page.evaluate(
+      () => document.querySelector('textarea').value
     )
+    t.is(testResult, 'a')
+
     await page.evaluate(() =>
       window.addEventListener('keydown', e => e.preventDefault(), true)
     )
+
     await textarea.press('b')
-    t.is(
-      await page.evaluate(() => document.querySelector('textarea').value),
-      'a'
+    const testResult1 = await page.evaluate(
+      () => document.querySelector('textarea').value
     )
+    t.is(testResult1, 'a')
   }
 )
 
@@ -108,13 +109,11 @@ test.serial(
     const { page, server } = t.context
     await page.goto(server.PREFIX + '/input/textarea.html')
     const textarea = await page.$('textarea')
-    await textarea.press('a', {
-      text: 'ё'
-    })
-    t.is(
-      await page.evaluate(() => document.querySelector('textarea').value),
-      'ё'
+    await textarea.press('a', { text: 'ё' })
+    const testResult = await page.evaluate(
+      () => document.querySelector('textarea').value
     )
+    t.is(testResult, 'ё')
   }
 )
 
@@ -123,75 +122,75 @@ test.serial('Keyboard should send a character with sendCharacter', async t => {
   await page.goto(server.PREFIX + '/input/textarea.html')
   await page.focus('textarea')
   await page.keyboard.sendCharacter('嗨')
-  t.is(
-    await page.evaluate(() => document.querySelector('textarea').value),
-    '嗨'
+  const testResult = await page.evaluate(
+    () => document.querySelector('textarea').value
   )
+  t.is(testResult, '嗨')
+
   await page.evaluate(() =>
     window.addEventListener('keydown', e => e.preventDefault(), true)
   )
+
   await page.keyboard.sendCharacter('a')
-  t.is(
-    await page.evaluate(() => document.querySelector('textarea').value),
-    '嗨a'
+  const testResult1 = await page.evaluate(
+    () => document.querySelector('textarea').value
   )
+  t.is(testResult1, '嗨a')
 })
 
 test.serial('Keyboard should report shiftKey', async t => {
   const { page, server } = t.context
   await page.goto(server.PREFIX + '/input/keyboard.html')
   const keyboard = page.keyboard
-  const codeForKey = {
-    Shift: 16,
-    Alt: 18,
-    Control: 17
-  }
-
+  const codeForKey = { Shift: 16, Alt: 18, Control: 17 }
   for (const modifierKey in codeForKey) {
     await keyboard.down(modifierKey)
+    const testResult = await page.evaluate(() => getResult())
     t.is(
-      await page.evaluate(() => getResult()),
+      testResult,
       'Keydown: ' +
-      modifierKey +
-      ' ' +
-      modifierKey +
-      'Left ' +
-      codeForKey[modifierKey] +
-      ' [' +
-      modifierKey +
-      ']'
-    )
-    await keyboard.down('!') // Shift+! will generate a keypress
-
-    if (modifierKey === 'Shift')
-      t.is(
-        await page.evaluate(() => getResult()),
-        'Keydown: ! Digit1 49 [' +
         modifierKey +
-        ']\nKeypress: ! Digit1 33 33 [' +
+        ' ' +
+        modifierKey +
+        'Left ' +
+        codeForKey[modifierKey] +
+        ' [' +
         modifierKey +
         ']'
-      )
-    else
-      t.is(
-        await page.evaluate(() => getResult()),
-        'Keydown: ! Digit1 49 [' + modifierKey + ']'
-      )
-    await keyboard.up('!')
-    t.is(
-      await page.evaluate(() => getResult()),
-      'Keyup: ! Digit1 49 [' + modifierKey + ']'
     )
+
+    await keyboard.down('!')
+    // Shift+! will generate a keypress
+    if (modifierKey === 'Shift') {
+      const testResult1 = await page.evaluate(() => getResult())
+      t.is(
+        testResult1,
+        'Keydown: ! Digit1 49 [' +
+          modifierKey +
+          ']\nKeypress: ! Digit1 33 33 [' +
+          modifierKey +
+          ']'
+      )
+    } else {
+      const testResult2 = await page.evaluate(() => getResult())
+      t.is(testResult2, 'Keydown: ! Digit1 49 [' + modifierKey + ']')
+    }
+
+    await keyboard.up('!')
+    const testResult3 = await page.evaluate(() => getResult())
+    t.is(testResult3, 'Keyup: ! Digit1 49 [' + modifierKey + ']')
+
     await keyboard.up(modifierKey)
+    const testResult4 = await page.evaluate(() => getResult())
     t.is(
-      await page.evaluate(() => getResult()),
+      testResult4,
       'Keyup: ' +
-      modifierKey +
-      ' ' +
-      modifierKey +
-      'Left ' +
-      codeForKey[modifierKey] +
-      ' []'
+        modifierKey +
+        ' ' +
+        modifierKey +
+        'Left ' +
+        codeForKey[modifierKey] +
+        ' []'
     )
   }
 })
@@ -201,49 +200,48 @@ test.serial('Keyboard should report multiple modifiers', async t => {
   await page.goto(server.PREFIX + '/input/keyboard.html')
   const keyboard = page.keyboard
   await keyboard.down('Control')
-  t.is(
-    await page.evaluate(() => getResult()),
-    'Keydown: Control ControlLeft 17 [Control]'
-  )
+  const testResult = await page.evaluate(() => getResult())
+  t.is(testResult, 'Keydown: Control ControlLeft 17 [Control]')
+
   await keyboard.down('Alt')
-  t.is(
-    await page.evaluate(() => getResult()),
-    'Keydown: Alt AltLeft 18 [Alt Control]'
-  )
+  const testResult1 = await page.evaluate(() => getResult())
+  t.is(testResult1, 'Keydown: Alt AltLeft 18 [Alt Control]')
+
   await keyboard.down(';')
-  t.is(
-    await page.evaluate(() => getResult()),
-    'Keydown: ; Semicolon 186 [Alt Control]'
-  )
+  const testResult2 = await page.evaluate(() => getResult())
+  t.is(testResult2, 'Keydown: ; Semicolon 186 [Alt Control]')
+
   await keyboard.up(';')
-  t.is(
-    await page.evaluate(() => getResult()),
-    'Keyup: ; Semicolon 186 [Alt Control]'
-  )
+  const testResult3 = await page.evaluate(() => getResult())
+  t.is(testResult3, 'Keyup: ; Semicolon 186 [Alt Control]')
+
   await keyboard.up('Control')
-  t.is(
-    await page.evaluate(() => getResult()),
-    'Keyup: Control ControlLeft 17 [Alt]'
-  )
+  const testResult4 = await page.evaluate(() => getResult())
+  t.is(testResult4, 'Keyup: Control ControlLeft 17 [Alt]')
+
   await keyboard.up('Alt')
-  t.is(await page.evaluate(() => getResult()), 'Keyup: Alt AltLeft 18 []')
+  const testResult5 = await page.evaluate(() => getResult())
+  t.is(testResult5, 'Keyup: Alt AltLeft 18 []')
 })
 
 test.serial('Keyboard should send proper codes while typing', async t => {
   const { page, server } = t.context
   await page.goto(server.PREFIX + '/input/keyboard.html')
   await page.keyboard.type('!')
+  const testResult = await page.evaluate(() => getResult())
   t.is(
-    await page.evaluate(() => getResult()),
+    testResult,
     [
       'Keydown: ! Digit1 49 []',
       'Keypress: ! Digit1 33 33 []',
       'Keyup: ! Digit1 49 []'
     ].join('\n')
   )
+
   await page.keyboard.type('^')
+  const testResult1 = await page.evaluate(() => getResult())
   t.is(
-    await page.evaluate(() => getResult()),
+    testResult1,
     [
       'Keydown: ^ Digit6 54 []',
       'Keypress: ^ Digit6 94 94 []',
@@ -260,8 +258,9 @@ test.serial(
     const keyboard = page.keyboard
     await keyboard.down('Shift')
     await page.keyboard.type('~')
+    const testResult = await page.evaluate(() => getResult())
     t.is(
-      await page.evaluate(() => getResult()),
+      testResult,
       [
         'Keydown: Shift ShiftLeft 16 [Shift]',
         'Keydown: ~ Backquote 192 [Shift]', // 192 is ` keyCode
@@ -269,6 +268,7 @@ test.serial(
         'Keyup: ~ Backquote 192 [Shift]'
       ].join('\n')
     )
+
     await keyboard.up('Shift')
   }
 )
@@ -290,7 +290,8 @@ test.serial('Keyboard should not type canceled events', async t => {
     )
   })
   await page.keyboard.type('Hello World!')
-  t.is(await page.evaluate(() => textarea.value), 'He Wrd!')
+  const testResult = await page.evaluate(() => textarea.value)
+  t.is(testResult, 'He Wrd!')
 })
 
 test.serial('Keyboard should specify repeat property', async t => {
@@ -302,17 +303,25 @@ test.serial('Keyboard should specify repeat property', async t => {
       .querySelector('textarea')
       .addEventListener('keydown', e => (window.lastEvent = e), true)
   )
+
   await page.keyboard.down('a')
-  t.false(await page.evaluate(() => window.lastEvent.repeat))
+  const testResult = await page.evaluate(() => window.lastEvent.repeat)
+  t.false(testResult)
   await page.keyboard.press('a')
-  t.true(await page.evaluate(() => window.lastEvent.repeat))
+  const testResult1 = await page.evaluate(() => window.lastEvent.repeat)
+  t.true(testResult1)
+
   await page.keyboard.down('b')
-  t.false(await page.evaluate(() => window.lastEvent.repeat))
+  const testResult2 = await page.evaluate(() => window.lastEvent.repeat)
+  t.false(testResult2)
   await page.keyboard.down('b')
-  t.true(await page.evaluate(() => window.lastEvent.repeat))
+  const testResult3 = await page.evaluate(() => window.lastEvent.repeat)
+  t.true(testResult3)
+
   await page.keyboard.up('a')
   await page.keyboard.down('a')
-  t.false(await page.evaluate(() => window.lastEvent.repeat))
+  const testResult4 = await page.evaluate(() => window.lastEvent.repeat)
+  t.false(testResult4)
 })
 
 test.serial('Keyboard should type all kinds of characters', async t => {
@@ -321,7 +330,8 @@ test.serial('Keyboard should type all kinds of characters', async t => {
   await page.focus('textarea')
   const text = 'This text goes onto two lines.\nThis character is 嗨.'
   await page.keyboard.type(text)
-  t.is(await page.evaluate('result'), text)
+  const testResult = await page.evaluate('result')
+  t.is(testResult, text)
 })
 
 test.serial('Keyboard should specify location', async t => {
@@ -335,14 +345,22 @@ test.serial('Keyboard should specify location', async t => {
     )
   })
   const textarea = await page.$('textarea')
+
   await textarea.press('Digit5')
-  t.is(await page.evaluate('keyLocation'), 0)
+  const testResult = await page.evaluate('keyLocation')
+  t.is(testResult, 0)
+
   await textarea.press('ControlLeft')
-  t.is(await page.evaluate('keyLocation'), 1)
+  const testResult1 = await page.evaluate('keyLocation')
+  t.is(testResult1, 1)
+
   await textarea.press('ControlRight')
-  t.is(await page.evaluate('keyLocation'), 2)
+  const testResult2 = await page.evaluate('keyLocation')
+  t.is(testResult2, 2)
+
   await textarea.press('NumpadSubtract')
-  t.is(await page.evaluate('keyLocation'), 3)
+  const testResult3 = await page.evaluate('keyLocation')
+  t.is(testResult3, 3)
 })
 
 test.serial('Keyboard should throw on unknown keys', async t => {

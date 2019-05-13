@@ -31,12 +31,10 @@ const chromeArgs = userDataDir => [
   '--disable-backing-store-limit',
   '--metrics-recording-only',
   '--no-first-run',
-  '--safebrowsing-disable-auto-update',
-  '--password-store=basic',
-  '--use-mock-keychain',
   '--mute-audio',
   '--autoplay-policy=no-user-gesture-required',
   `--user-data-dir=${userDataDir}`,
+  // '--headless',
   winPos,
   'about:blank'
 ]

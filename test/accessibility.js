@@ -9,7 +9,6 @@ test.serial.before(async t => {
 })
 
 test.serial.beforeEach(async t => {
-  /** @type {Page} */
   t.context.page = await helper.newPage()
 })
 
@@ -23,12 +22,10 @@ test.after.always(async t => {
 
 function findFocusedNode (node) {
   if (node.focused) return node
-
   for (const child of node.children || []) {
     const focusedChild = findFocusedNode(child)
     if (focusedChild) return focusedChild
   }
-
   return null
 }
 
@@ -54,74 +51,39 @@ test.serial('Accessibility should work', async t => {
           <option>Second Option</option>
         </select>
       </body>`)
+
   const golden = {
     role: 'WebArea',
     name: 'Accessibility Test',
     children: [
-      {
-        role: 'text',
-        name: 'Hello World'
-      },
-      {
-        role: 'heading',
-        name: 'Inputs',
-        level: 1
-      },
-      {
-        role: 'textbox',
-        name: 'Empty input',
-        focused: true
-      },
-      {
-        role: 'textbox',
-        name: 'readonly input',
-        readonly: true
-      },
-      {
-        role: 'textbox',
-        name: 'disabled input',
-        disabled: true
-      },
-      {
-        role: 'textbox',
-        name: 'Input with whitespace',
-        value: '  '
-      },
-      {
-        role: 'textbox',
-        name: '',
-        value: 'value only'
-      },
-      {
-        role: 'textbox',
-        name: 'placeholder',
-        value: 'and a value'
-      },
+      { role: 'text', name: 'Hello World' },
+      { role: 'heading', name: 'Inputs', level: 1 },
+      { role: 'textbox', name: 'Empty input', focused: true },
+      { role: 'textbox', name: 'readonly input', readonly: true },
+      { role: 'textbox', name: 'disabled input', disabled: true },
+      { role: 'textbox', name: 'Input with whitespace', value: '  ' },
+      { role: 'textbox', name: '', value: 'value only' },
+      { role: 'textbox', name: 'placeholder', value: 'and a value' },
       {
         role: 'textbox',
         name: 'placeholder',
         value: 'and a value',
         description: 'This is a description!'
       },
+
       {
         role: 'combobox',
         name: '',
         value: 'First Option',
         children: [
-          {
-            role: 'menuitem',
-            name: 'First Option',
-            selected: true
-          },
-          {
-            role: 'menuitem',
-            name: 'Second Option'
-          }
+          { role: 'menuitem', name: 'First Option', selected: true },
+          { role: 'menuitem', name: 'Second Option' }
         ]
       }
     ]
   }
-  t.deepEqual(await page.accessibility.snapshot(), golden)
+  const testResult = await page.accessibility.snapshot()
+  t.deepEqual(testResult, golden)
 })
 
 test.serial('Accessibility should report uninteresting nodes', async t => {
@@ -146,12 +108,12 @@ test.serial('Accessibility should report uninteresting nodes', async t => {
       }
     ]
   }
+
   t.deepEqual(
     findFocusedNode(
-      await page.accessibility.snapshot({
-        interestingOnly: false
-      })
+      await page.accessibility.snapshot({ interestingOnly: false })
     ),
+
     golden
   )
 })
@@ -168,6 +130,7 @@ test.serial('Accessibility orientation', async t => {
   await page.setContent(
     '<a href="" role="slider" aria-orientation="vertical">11</a>'
   )
+
   const snapshot = await page.accessibility.snapshot()
   t.deepEqual(snapshot.children[0].orientation, 'vertical')
 })
@@ -184,6 +147,7 @@ test.serial('Accessibility multiselectable', async t => {
   await page.setContent(
     '<div role="grid" tabIndex=-1 aria-multiselectable=true>hey</div>'
   )
+
   const snapshot = await page.accessibility.snapshot()
   t.deepEqual(snapshot.children[0].multiselectable, true)
 })
@@ -193,6 +157,7 @@ test.serial('Accessibility keyshortcuts', async t => {
   await page.setContent(
     '<div role="grid" tabIndex=-1 aria-keyshortcuts="foo">hey</div>'
   )
+
   const snapshot = await page.accessibility.snapshot()
   t.deepEqual(snapshot.children[0].keyshortcuts, 'foo')
 })
@@ -215,13 +180,15 @@ test.serial(
           name: 'Tab1',
           selected: true
         },
+
         {
           role: 'tab',
           name: 'Tab2'
         }
       ]
     }
-    t.deepEqual(await page.accessibility.snapshot(), golden)
+    const testResult = await page.accessibility.snapshot()
+    t.deepEqual(testResult, golden)
   }
 )
 
@@ -242,12 +209,14 @@ test.serial(
           role: 'text',
           name: 'Edit this image:'
         },
+
         {
           role: 'img',
           name: 'my fake image'
         }
       ]
     }
+
     const snapshot = await page.accessibility.snapshot()
     t.deepEqual(snapshot.children[0], golden)
   }
@@ -270,19 +239,21 @@ test.serial(
           role: 'text',
           name: 'Edit this image:'
         },
+
         {
           role: 'img',
           name: 'my fake image'
         }
       ]
     }
+
     const snapshot = await page.accessibility.snapshot()
     t.deepEqual(snapshot.children[0], golden)
   }
 )
 
 test.serial(
-  'Accessibility - filtering children of leaf nodes plaintext contenteditable: plain text field with role should not have children',
+  'filtering children of leaf nodes - plaintext contenteditable: plain text field with role should not have children',
   async t => {
     const { page } = t.context
     await page.setContent(`
@@ -297,7 +268,7 @@ test.serial(
 )
 
 test.serial(
-  'Accessibility - filtering children of leaf nodes - plaintext contenteditable: plain text field without role should not have content',
+  'filtering children of leaf nodes - plaintext contenteditable: plain text field without role should not have content',
   async t => {
     const { page } = t.context
     await page.setContent(`
@@ -311,7 +282,7 @@ test.serial(
 )
 
 test.serial(
-  'Accessibility - filtering children of leaf nodes - plaintext contenteditable: plain text field with tabindex and without role should not have content',
+  'filtering children of leaf nodes - plaintext contenteditable: plain text field with tabindex and without role should not have content',
   async t => {
     const { page } = t.context
     await page.setContent(`
@@ -325,7 +296,7 @@ test.serial(
 )
 
 test.serial(
-  'Accessibility - Accessibility - filtering children of leaf nodes: non editable textbox with role and tabIndex and label should not have children',
+  'Accessibility - filtering children of leaf nodes: non editable textbox with role and tabIndex and label should not have children',
   async t => {
     const { page } = t.context
     await page.setContent(`
@@ -338,6 +309,7 @@ test.serial(
       name: 'my favorite textbox',
       value: 'this is the inner content '
     }
+
     const snapshot = await page.accessibility.snapshot()
     t.deepEqual(snapshot.children[0], golden)
   }
@@ -357,6 +329,7 @@ test.serial(
       name: 'my favorite checkbox',
       checked: true
     }
+
     const snapshot = await page.accessibility.snapshot()
     t.deepEqual(snapshot.children[0], golden)
   }
@@ -376,7 +349,97 @@ test.serial(
       name: 'this is the inner content yo',
       checked: true
     }
+
     const snapshot = await page.accessibility.snapshot()
     t.deepEqual(snapshot.children[0], golden)
+  }
+)
+
+test.serial(
+  'filtering children of leaf nodes - root option: should work a button',
+  async t => {
+    const { page } = t.context
+    await page.setContent(`<button>My Button</button>`)
+
+    const button = await page.$('button')
+    const testResult = await page.accessibility.snapshot({ root: button })
+    t.deepEqual(testResult, {
+      role: 'button',
+      name: 'My Button'
+    })
+  }
+)
+
+test.serial(
+  'filtering children of leaf nodes - root option: should work an input',
+  async t => {
+    const { page } = t.context
+    await page.setContent(`<input title="My Input" value="My Value">`)
+
+    const input = await page.$('input')
+    const testResult = await page.accessibility.snapshot({ root: input })
+    t.deepEqual(testResult, {
+      role: 'textbox',
+      name: 'My Input',
+      value: 'My Value'
+    })
+  }
+)
+
+test.serial(
+  'filtering children of leaf nodes - root option: should work a menu',
+  async t => {
+    const { page } = t.context
+    await page.setContent(`
+            <div role="menu" title="My Menu">
+              <div role="menuitem">First Item</div>
+              <div role="menuitem">Second Item</div>
+              <div role="menuitem">Third Item</div>
+            </div>
+          `)
+
+    const menu = await page.$('div[role="menu"]')
+    const testResult = await page.accessibility.snapshot({ root: menu })
+    t.deepEqual(testResult, {
+      role: 'menu',
+      name: 'My Menu',
+      children: [
+        { role: 'menuitem', name: 'First Item' },
+        { role: 'menuitem', name: 'Second Item' },
+        { role: 'menuitem', name: 'Third Item' }
+      ]
+    })
+  }
+)
+
+test.serial(
+  'filtering children of leaf nodes - root option: should return null when the element is no longer in DOM',
+  async t => {
+    const { page } = t.context
+    await page.setContent(`<button>My Button</button>`)
+    const button = await page.$('button')
+    await page.$eval('button', button => button.remove())
+    const testResult = await page.accessibility.snapshot({ root: button })
+    t.deepEqual(testResult, null)
+  }
+)
+
+test.serial(
+  'filtering children of leaf nodes - root option: should support the interestingOnly option',
+  async t => {
+    const { page } = t.context
+    await page.setContent(`<div><button>My Button</button></div>`)
+    const div = await page.$('div')
+    const testResult = await page.accessibility.snapshot({ root: div })
+    t.deepEqual(testResult, null)
+    const testResult1 = await page.accessibility.snapshot({
+      root: div,
+      interestingOnly: false
+    })
+    t.deepEqual(testResult1, {
+      role: 'GenericContainer',
+      name: '',
+      children: [{ role: 'button', name: 'My Button' }]
+    })
   }
 )

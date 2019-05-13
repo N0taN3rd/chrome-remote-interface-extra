@@ -84,20 +84,22 @@ test.serial(
   'Frame Management should send events when frames are manipulated dynamically',
   async t => {
     const { page, server } = t.context
-    await page.goto(server.EMPTY_PAGE) // validate frameattached events
-
+    await page.goto(server.EMPTY_PAGE)
+    // validate frameattached events
     const attachedFrames = []
     page.on('frameattached', frame => attachedFrames.push(frame))
     await utils.attachFrame(page, 'frame1', './assets/frame.html')
     t.is(attachedFrames.length, 1)
-    t.true(attachedFrames[0].url().includes('/assets/frame.html')) // validate framenavigated events
+    t.true(attachedFrames[0].url().includes('/assets/frame.html'))
 
+    // validate framenavigated events
     const navigatedFrames = []
     page.on('framenavigated', frame => navigatedFrames.push(frame))
     await utils.navigateFrame(page, 'frame1', './empty.html')
     t.is(navigatedFrames.length, 1)
-    t.is(navigatedFrames[0].url(), server.EMPTY_PAGE) // validate framedetached events
+    t.is(navigatedFrames[0].url(), server.EMPTY_PAGE)
 
+    // validate framedetached events
     const detachedFrames = []
     page.on('framedetached', frame => detachedFrames.push(frame))
     await utils.detachFrame(page, 'frame1')
@@ -186,6 +188,22 @@ test.serial('Frame Management should support framesets', async t => {
   t.is(detachedFrames.length, 4)
   t.is(navigatedFrames.length, 1)
 })
+
+test.serial(
+  'Frame Management should report frame from-inside shadow DOM',
+  async t => {
+    const { page, server } = t.context
+    await page.goto(server.PREFIX + '/shadow.html')
+    await page.evaluate(async url => {
+      const frame = document.createElement('iframe')
+      frame.src = url
+      document.body.shadowRoot.appendChild(frame)
+      await new Promise(x => (frame.onload = x))
+    }, server.EMPTY_PAGE)
+    t.is(page.frames().length, 2)
+    t.is(page.frames()[1].url(), server.EMPTY_PAGE)
+  }
+)
 
 test.serial('Frame Management should report frame.name()', async t => {
   const { page, server } = t.context

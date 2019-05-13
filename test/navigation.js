@@ -161,10 +161,12 @@ test.serial(
   'Page.goto should throw if networkidle is passed as an option',
   async t => {
     const { page, server } = t.context
-    await t.throwsAsync(
-      page.goto(server.EMPTY_PAGE, {
-        waitUntil: 'networkidle'
-      })
+    let error = null
+    await page
+      .goto(server.EMPTY_PAGE, { waitUntil: 'networkidle' })
+      .catch(err => (error = err))
+    t.true(
+      error.message.includes('"networkidle" option is no longer supported')
     )
   }
 )
@@ -243,10 +245,7 @@ test.serial('Page.goto should disable timeout when its set to 0', async t => {
   let loaded = false
   page.once('load', () => (loaded = true))
   await page
-    .goto(server.PREFIX + '/grid.html', {
-      timeout: 0,
-      waitUntil: ['load']
-    })
+    .goto(server.PREFIX + '/grid.html', { timeout: 0, waitUntil: ['load'] })
     .catch(e => (error = e))
   t.falsy(error)
   t.true(loaded)
@@ -424,8 +423,9 @@ test.serial('Page.goto should send referer', async t => {
       referer: 'http://google.com/'
     })
   ])
-  t.is(request1.headers['referer'], 'http://google.com/') // Make sure subresources do not inherit referer.
 
+  t.is(request1.headers['referer'], 'http://google.com/')
+  // Make sure subresources do not inherit referer.
   t.is(request2.headers['referer'], server.PREFIX + '/grid.html')
 })
 
@@ -439,6 +439,7 @@ test.serial('Page.waitForNavigation should work', async t => {
       server.PREFIX + '/grid.html'
     )
   ])
+
   t.true(response.ok())
   t.true(response.url().includes('grid.html'))
 })
@@ -686,14 +687,15 @@ test.serial(
     const { page, server } = t.context
     await page.goto(server.PREFIX + '/frames/nested-frames.html')
     const frame = page.frames()[1]
-    const navigationPromise = frame.waitForNavigation()
+    let error = null
+    const navigationPromise = frame.waitForNavigation().catch(e => (error = e))
     await Promise.all([
       server.waitForRequest('/longTimeJack'),
       frame.evaluate(() => (window.location = '/longTimeJack'))
     ])
     await page.$eval('iframe', frame => frame.remove())
     await navigationPromise
-    t.pass()
+    t.is(error.message, 'Navigating frame was detached')
   }
 )
 
@@ -702,5 +704,6 @@ test.serial('Page.reload should work', async t => {
   await page.goto(server.EMPTY_PAGE)
   await page.evaluate(() => (window._foo = 10))
   await page.reload()
-  t.falsy(await page.evaluate(() => window._foo))
+  const testResult = await page.evaluate(() => window._foo)
+  t.falsy(testResult)
 })

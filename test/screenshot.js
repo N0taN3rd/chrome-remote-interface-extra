@@ -28,10 +28,7 @@ test.after.always(async t => {
 
 test.serial('Page.screenshot should work', async t => {
   const { page, server } = t.context
-  await page.setViewport({
-    width: 500,
-    height: 500
-  })
+  await page.setViewport({ width: 500, height: 500 })
   await page.goto(server.PREFIX + '/grid.html')
   const screenshot = await page.screenshot()
   t.context.toBeGolden(t, screenshot, 'screenshot-sanity.png')
@@ -39,10 +36,7 @@ test.serial('Page.screenshot should work', async t => {
 
 test.serial('Page.screenshot should clip rect', async t => {
   const { page, server } = t.context
-  await page.setViewport({
-    width: 500,
-    height: 500
-  })
+  await page.setViewport({ width: 500, height: 500 })
   await page.goto(server.PREFIX + '/grid.html')
   const screenshot = await page.screenshot({
     clip: {
@@ -52,15 +46,18 @@ test.serial('Page.screenshot should clip rect', async t => {
       height: 100
     }
   })
-  t.context.toBeGolden(t, screenshot, 'screenshot-clip-rect.png')
+
+  t.context.toBeGolden(
+    t,
+
+    screenshot,
+    'screenshot-clip-rect.png'
+  )
 })
 
 test.serial('Page.screenshot should work for offscreen clip', async t => {
   const { page, server } = t.context
-  await page.setViewport({
-    width: 500,
-    height: 500
-  })
+  await page.setViewport({ width: 500, height: 500 })
   await page.goto(server.PREFIX + '/grid.html')
   const screenshot = await page.screenshot({
     clip: {
@@ -70,15 +67,18 @@ test.serial('Page.screenshot should work for offscreen clip', async t => {
       height: 100
     }
   })
-  t.context.toBeGolden(t, screenshot, 'screenshot-offscreen-clip.png')
+
+  t.context.toBeGolden(
+    t,
+
+    screenshot,
+    'screenshot-offscreen-clip.png'
+  )
 })
 
 test.serial('Page.screenshot should run in parallel', async t => {
   const { page, server } = t.context
-  await page.setViewport({
-    width: 500,
-    height: 500
-  })
+  await page.setViewport({ width: 500, height: 500 })
   await page.goto(server.PREFIX + '/grid.html')
   const promises = []
 
@@ -101,15 +101,18 @@ test.serial('Page.screenshot should run in parallel', async t => {
 
 test.serial('Page.screenshot should take fullPage screenshots', async t => {
   const { page, server } = t.context
-  await page.setViewport({
-    width: 500,
-    height: 500
-  })
+  await page.setViewport({ width: 500, height: 500 })
   await page.goto(server.PREFIX + '/grid.html')
   const screenshot = await page.screenshot({
     fullPage: true
   })
-  t.context.toBeGolden(t, screenshot, 'screenshot-grid-fullpage.png')
+
+  t.context.toBeGolden(
+    t,
+
+    screenshot,
+    'screenshot-grid-fullpage.png'
+  )
 })
 
 test.serial(
@@ -126,17 +129,13 @@ test.serial(
           return page
         })
     )
+
     const promises = []
 
     for (let i = 0; i < N; ++i)
       promises.push(
         pages[i].screenshot({
-          clip: {
-            x: 50 * i,
-            y: 0,
-            width: 50,
-            height: 50
-          }
+          clip: { x: 50 * i, y: 0, width: 50, height: 50 }
         })
       )
 
@@ -151,14 +150,9 @@ test.serial(
 
 test.serial('Page.screenshot should allow transparency', async t => {
   const { page, server } = t.context
-  await page.setViewport({
-    width: 100,
-    height: 100
-  })
+  await page.setViewport({ width: 100, height: 100 })
   await page.goto(server.EMPTY_PAGE)
-  const screenshot = await page.screenshot({
-    omitBackground: true
-  })
+  const screenshot = await page.screenshot({ omitBackground: true })
   t.context.toBeGolden(t, screenshot, 'transparent.png')
 })
 
@@ -166,15 +160,13 @@ test.serial(
   'Page.screenshot should render white background on jpeg file',
   async t => {
     const { page, server } = t.context
-    await page.setViewport({
-      width: 100,
-      height: 100
-    })
+    await page.setViewport({ width: 100, height: 100 })
     await page.goto(server.EMPTY_PAGE)
     const screenshot = await page.screenshot({
       omitBackground: true,
       type: 'jpeg'
     })
+
     t.context.toBeGolden(t, screenshot, 'white.jpg')
   }
 )
@@ -191,22 +183,27 @@ test.serial(
         height: 11
       }
     })
-    t.context.toBeGolden(t, screenshot, 'screenshot-clip-odd-size.png')
+
+    t.context.toBeGolden(
+      t,
+
+      screenshot,
+      'screenshot-clip-odd-size.png'
+    )
   }
 )
 
 test.serial('Page.screenshot should return base64', async t => {
   const { page, server } = t.context
-  await page.setViewport({
-    width: 500,
-    height: 500
-  })
+  await page.setViewport({ width: 500, height: 500 })
   await page.goto(server.PREFIX + '/grid.html')
   const screenshot = await page.screenshot({
     encoding: 'base64'
   })
+
   t.context.toBeGolden(
     t,
+
     Buffer.from(screenshot, 'base64'),
     'screenshot-sanity.png'
   )
@@ -214,10 +211,7 @@ test.serial('Page.screenshot should return base64', async t => {
 
 test.serial('ElementHandle.screenshot should work', async t => {
   const { page, server } = t.context
-  await page.setViewport({
-    width: 500,
-    height: 500
-  })
+  await page.setViewport({ width: 500, height: 500 })
   await page.goto(server.PREFIX + '/grid.html')
   await page.evaluate(() => window.scrollBy(50, 100))
   const elementHandle = await page.$('.box:nth-of-type(3)')
@@ -229,10 +223,7 @@ test.serial(
   'ElementHandle.screenshot should take into account padding and border',
   async t => {
     const { page, server } = t.context
-    await page.setViewport({
-      width: 500,
-      height: 500
-    })
+    await page.setViewport({ width: 500, height: 500 })
     await page.setContent(`
         something above
         <style>div {
@@ -254,10 +245,8 @@ test.serial(
   'ElementHandle.screenshot should capture full element when larger than viewport',
   async t => {
     const { page, server } = t.context
-    await page.setViewport({
-      width: 500,
-      height: 500
-    })
+    await page.setViewport({ width: 500, height: 500 })
+
     await page.setContent(`
         something above
         <style>
@@ -280,15 +269,14 @@ test.serial(
       screenshot,
       'screenshot-element-larger-than-viewport.png'
     )
+    const testResult = await page.evaluate(() => ({
+      w: window.innerWidth,
+      h: window.innerHeight
+    }))
     t.deepEqual(
-      await page.evaluate(() => ({
-        w: window.innerWidth,
-        h: window.innerHeight
-      })),
-      {
-        w: 500,
-        h: 500
-      }
+      testResult,
+
+      { w: 500, h: 500 }
     )
   }
 )
@@ -297,10 +285,7 @@ test.serial(
   'ElementHandle.screenshot should scroll element into view',
   async t => {
     const { page, server } = t.context
-    await page.setViewport({
-      width: 500,
-      height: 500
-    })
+    await page.setViewport({ width: 500, height: 500 })
     await page.setContent(`
         something above
         <style>div.above {
@@ -332,10 +317,7 @@ test.serial(
   'ElementHandle.screenshot should work with a rotated element',
   async t => {
     const { page, server } = t.context
-    await page.setViewport({
-      width: 500,
-      height: 500
-    })
+    await page.setViewport({ width: 500, height: 500 })
     await page.setContent(`<div style="position:absolute;
                                         top: 100px;
                                         left: 100px;
@@ -384,6 +366,7 @@ test.serial(
     await page.setContent(
       '<div style="width:48.51px;height:19.8px;border:1px solid black;"></div>'
     )
+
     const elementHandle = await page.$('div')
     const screenshot = await elementHandle.screenshot()
     t.context.toBeGolden(t, screenshot, 'screenshot-element-fractional.png')
@@ -397,6 +380,7 @@ test.serial(
     await page.setContent(
       '<div style="position:absolute; top: 10.3px; left: 20.4px;width:50.3px;height:20.2px;border:1px solid black;"></div>'
     )
+
     const elementHandle = await page.$('div')
     const screenshot = await elementHandle.screenshot()
     t.context.toBeGolden(

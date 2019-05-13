@@ -36,6 +36,7 @@ test.serial('Page.$eval should accept arguments', async t => {
     (e, suffix) => e.textContent + suffix,
     ' world!'
   )
+
   t.is(text, 'hello world!')
 })
 
@@ -48,6 +49,7 @@ test.serial('Page.$eval should accept ElementHandles as arguments', async t => {
     (e, div) => e.textContent + div.textContent,
     divHandle
   )
+
   t.is(text, 'hello world')
 })
 
@@ -88,7 +90,8 @@ test.serial('Page.$$ should query existing elements', async t => {
   const promises = elements.map(element =>
     page.evaluate(e => e.textContent, element)
   )
-  t.deepEqual(await Promise.all(promises), ['A', 'B'])
+  const testResult = await Promise.all(promises)
+  t.deepEqual(testResult, ['A', 'B'])
 })
 
 test.serial(
@@ -131,6 +134,7 @@ test.serial('ElementHandle.$ should query existing element', async t => {
   await page.setContent(
     '<html><body><div class="second"><div class="inner">A</div></div></body></html>'
   )
+
   const html = await page.$('html')
   const second = await html.$('.second')
   const inner = await second.$('.inner')
@@ -145,6 +149,7 @@ test.serial(
     await page.setContent(
       '<html><body><div class="second"><div class="inner">B</div></div></body></html>'
     )
+
     const html = await page.$('html')
     const second = await html.$('.third')
     t.falsy(second)
@@ -156,6 +161,7 @@ test.serial('ElementHandle.$eval should work', async t => {
   await page.setContent(
     '<html><body><div class="tweet"><div class="like">100</div><div class="retweets">10</div></div></body></html>'
   )
+
   const tweet = await page.$('.tweet')
   const content = await tweet.$eval('.like', node => node.innerText)
   t.is(content, '100')
@@ -194,10 +200,12 @@ test.serial('ElementHandle.$$eval should work', async t => {
   await page.setContent(
     '<html><body><div class="tweet"><div class="like">100</div><div class="like">10</div></div></body></html>'
   )
+
   const tweet = await page.$('.tweet')
   const content = await tweet.$$eval('.like', nodes =>
     nodes.map(n => n.innerText)
   )
+
   t.deepEqual(content, ['100', '10'])
 })
 
@@ -212,6 +220,7 @@ test.serial(
     const content = await elementHandle.$$eval('.a', nodes =>
       nodes.map(n => n.innerText)
     )
+
     t.deepEqual(content, ['a1-child-div', 'a2-child-div'])
   }
 )
@@ -234,13 +243,15 @@ test.serial('ElementHandle.$$ should query existing elements', async t => {
   await page.setContent(
     '<html><body><div>A</div><br/><div>B</div></body></html>'
   )
+
   const html = await page.$('html')
   const elements = await html.$$('div')
   t.is(elements.length, 2)
   const promises = elements.map(element =>
     page.evaluate(e => e.textContent, element)
   )
-  t.deepEqual(await Promise.all(promises), ['A', 'B'])
+  const testResult = await Promise.all(promises)
+  t.deepEqual(testResult, ['A', 'B'])
 })
 
 test.serial(
@@ -250,6 +261,7 @@ test.serial(
     await page.setContent(
       '<html><body><span>A</span><br/><span>B</span></body></html>'
     )
+
     const html = await page.$('html')
     const elements = await html.$$('div')
     t.is(elements.length, 0)
@@ -262,6 +274,7 @@ test.serial('ElementHandle.$x should query existing element', async t => {
   await page.setContent(
     '<html><body><div class="second"><div class="inner">A</div></div></body></html>'
   )
+
   const html = await page.$('html')
   const second = await html.$x(`./body/div[contains(@class, 'second')]`)
   const inner = await second[0].$x(`./div[contains(@class, 'inner')]`)
@@ -276,6 +289,7 @@ test.serial(
     await page.setContent(
       '<html><body><div class="second"><div class="inner">B</div></div></body></html>'
     )
+
     const html = await page.$('html')
     const second = await html.$x(`/div[contains(@class, 'third')]`)
     t.deepEqual(second, [])
