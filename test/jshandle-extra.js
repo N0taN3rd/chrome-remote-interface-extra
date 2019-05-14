@@ -52,7 +52,7 @@ test('JSHandle.call - should not work for handles to non-functions functions', a
   t.truthy(error)
   t.is(
     error.message,
-    'This JSHandle is not a function it is a object - you must supply a function name to be called'
+    'This JSHandle is not a function it is a object - you may want to use callFn'
   )
 })
 

@@ -195,7 +195,7 @@ test.serial.skip(
     let failedRequest = null
     page.on('requestfailed', request => (failedRequest = request))
     page.on('request', request => {
-      request.abort('internetdisconnected').then(() => t.log('aborted'))
+      request.abort('internetdisconnected')
     })
     await page.setRequestInterception(true)
     await page.evaluate(
