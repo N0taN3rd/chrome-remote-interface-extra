@@ -30,7 +30,8 @@ test.serial('Page.click should click the button', async t => {
   const { page, server } = t.context
   await page.goto(server.PREFIX + '/input/button.html')
   await page.click('button')
-  t.is(await page.evaluate(() => result), 'Clicked')
+  const testResult = await page.evaluate(() => result)
+  t.is(testResult, 'Clicked')
 })
 
 test.serial(
@@ -38,9 +39,28 @@ test.serial(
   async t => {
     const { page, server } = t.context
     await page.goto(server.PREFIX + '/input/button.html')
-    await page.evaluate(() => `delete window.Node`)
+    await page.evaluate(() => delete window.Node)
     await page.click('button')
-    t.is(await page.evaluate(() => result), 'Clicked')
+    const testResult = await page.evaluate(() => result)
+    t.is(testResult, 'Clicked')
+  }
+)
+
+test.serial(
+  'Page.click should click on a span with an inline element inside',
+  async t => {
+    const { page, server } = t.context
+    await page.setContent(`
+        <style>
+        span::before {
+          content: 'q';
+        }
+        </style>
+        <span onclick='javascript:window.CLICKED=42'></span>
+      `)
+    await page.click('span')
+    const testResult = await page.evaluate(() => window.CLICKED)
+    t.is(testResult, 42)
   }
 )
 
@@ -50,7 +70,8 @@ test.serial('Page.click should click the button after navigation ', async t => {
   await page.click('button')
   await page.goto(server.PREFIX + '/input/button.html')
   await page.click('button')
-  t.is(await page.evaluate(() => result), 'Clicked')
+  const testResult = await page.evaluate(() => result)
+  t.is(testResult, 'Clicked')
 })
 
 test.serial('Page.click should click with disabled javascript', async t => {
@@ -61,6 +82,25 @@ test.serial('Page.click should click with disabled javascript', async t => {
   t.is(page.url(), server.PREFIX + '/wrappedlink.html#clicked')
 })
 
+test.serial(
+  'Page.click should click when one of inline box children is outside of viewport',
+  async t => {
+    const { page, server } = t.context
+    await page.setContent(`
+        <style>
+        i {
+          position: absolute;
+          top: -1000px;
+        }
+        </style>
+        <span onclick='javascript:window.CLICKED = 42;'><i>woof</i><b>doggo</b></span>
+      `)
+    await page.click('span')
+    const testResult = await page.evaluate(() => window.CLICKED)
+    t.is(testResult, 42)
+  }
+)
+
 test.serial('Page.click should select the text by triple clicking', async t => {
   const { page, server } = t.context
   await page.goto(server.PREFIX + '/input/textarea.html')
@@ -69,22 +109,16 @@ test.serial('Page.click should select the text by triple clicking', async t => {
     "This is the text that we are going to try to select. Let's see how it goes."
   await page.keyboard.type(text)
   await page.click('textarea')
-  await page.click('textarea', {
-    clickCount: 2
+  await page.click('textarea', { clickCount: 2 })
+  await page.click('textarea', { clickCount: 3 })
+  const testResult = await page.evaluate(() => {
+    const textarea = document.querySelector('textarea')
+    return textarea.value.substring(
+      textarea.selectionStart,
+      textarea.selectionEnd
+    )
   })
-  await page.click('textarea', {
-    clickCount: 3
-  })
-  t.is(
-    await page.evaluate(() => {
-      const textarea = document.querySelector('textarea')
-      return textarea.value.substring(
-        textarea.selectionStart,
-        textarea.selectionEnd
-      )
-    }),
-    text
-  )
+  t.is(testResult, text)
 })
 
 test.serial('Page.click should click offscreen buttons', async t => {
@@ -92,13 +126,11 @@ test.serial('Page.click should click offscreen buttons', async t => {
   await page.goto(server.PREFIX + '/offscreenbuttons.html')
   const messages = []
   page.on('console', msg => messages.push(msg.text()))
-
   for (let i = 0; i < 11; ++i) {
     // We might've scrolled to click a button - reset to (0, 0).
     await page.evaluate(() => window.scrollTo(0, 0))
     await page.click(`#btn${i}`)
   }
-
   t.deepEqual(messages, [
     'button #0 clicked',
     'button #1 clicked',
@@ -118,16 +150,20 @@ test.serial('Page.click should click wrapped links', async t => {
   const { page, server } = t.context
   await page.goto(server.PREFIX + '/wrappedlink.html')
   await page.click('a')
-  t.true(await page.evaluate(() => window.__clicked))
+  const testResult = await page.evaluate(() => window.__clicked)
+  t.true(testResult)
 })
 
 test.serial('Page.click should click on checkbox input and toggle', async t => {
   const { page, server } = t.context
   await page.goto(server.PREFIX + '/input/checkbox.html')
-  t.falsy(await page.evaluate(() => result.check))
+  const testResult = await page.evaluate(() => result.check)
+  t.falsy(testResult)
   await page.click('input#agree')
-  t.true(await page.evaluate(() => result.check))
-  t.deepEqual(await page.evaluate(() => result.events), [
+  const testResult1 = await page.evaluate(() => result.check)
+  t.true(testResult1)
+  const testResult2 = await page.evaluate(() => result.events)
+  t.deepEqual(testResult2, [
     'mouseover',
     'mouseenter',
     'mousemove',
@@ -137,23 +173,26 @@ test.serial('Page.click should click on checkbox input and toggle', async t => {
     'input',
     'change'
   ])
+
   await page.click('input#agree')
-  t.false(await page.evaluate(() => result.check))
+  const testResult3 = await page.evaluate(() => result.check)
+  t.false(testResult3)
 })
 
 test.serial('Page.click should click on checkbox label and toggle', async t => {
   const { page, server } = t.context
   await page.goto(server.PREFIX + '/input/checkbox.html')
-  t.falsy(await page.evaluate(() => result.check))
+  const testResult = await page.evaluate(() => result.check)
+  t.falsy(testResult)
   await page.click('label[for="agree"]')
-  t.true(await page.evaluate(() => result.check))
-  t.deepEqual(await page.evaluate(() => result.events), [
-    'click',
-    'input',
-    'change'
-  ])
+  const testResult1 = await page.evaluate(() => result.check)
+  t.true(testResult1)
+  const testResult2 = await page.evaluate(() => result.events)
+  t.deepEqual(testResult2, ['click', 'input', 'change'])
+
   await page.click('label[for="agree"]')
-  t.false(await page.evaluate(() => result.check))
+  const testResult3 = await page.evaluate(() => result.check)
+  t.false(testResult3)
 })
 
 test.serial('Page.click should fail to click a missing button', async t => {
@@ -180,15 +219,16 @@ test.serial('Page.click should scroll and click the button', async t => {
   const { page, server } = t.context
   await page.goto(server.PREFIX + '/input/scrollable.html')
   await page.click('#button-5')
-  t.is(
-    await page.evaluate(() => document.querySelector('#button-5').textContent),
-    'clicked'
+  const testResult = await page.evaluate(
+    () => document.querySelector('#button-5').textContent
   )
+  t.is(testResult, 'clicked')
+
   await page.click('#button-80')
-  t.is(
-    await page.evaluate(() => document.querySelector('#button-80').textContent),
-    'clicked'
+  const testResult1 = await page.evaluate(
+    () => document.querySelector('#button-80').textContent
   )
+  t.is(testResult1, 'clicked')
 })
 
 test.serial('Page.click should double click the button', async t => {
@@ -202,11 +242,11 @@ test.serial('Page.click should double click the button', async t => {
     })
   })
   const button = await page.$('button')
-  await button.click({
-    clickCount: 2
-  })
-  t.true(await page.evaluate('double'))
-  t.is(await page.evaluate('result'), 'Clicked')
+  await button.click({ clickCount: 2 })
+  const testResult = await page.evaluate('double')
+  t.true(testResult)
+  const testResult1 = await page.evaluate('result')
+  t.is(testResult1, 'Clicked')
 })
 
 test.serial('Page.click should click a partially obscured button', async t => {
@@ -219,14 +259,16 @@ test.serial('Page.click should click a partially obscured button', async t => {
     button.style.left = '368px'
   })
   await page.click('button')
-  t.is(await page.evaluate(() => window.result), 'Clicked')
+  const testResult = await page.evaluate(() => window.result)
+  t.is(testResult, 'Clicked')
 })
 
 test.serial('Page.click should click a rotated button', async t => {
   const { page, server } = t.context
   await page.goto(server.PREFIX + '/input/rotatedButton.html')
   await page.click('button')
-  t.is(await page.evaluate(() => result), 'Clicked')
+  const testResult = await page.evaluate(() => result)
+  t.is(testResult, 'Clicked')
 })
 
 test.serial(
@@ -234,13 +276,13 @@ test.serial(
   async t => {
     const { page, server } = t.context
     await page.goto(server.PREFIX + '/input/scrollable.html')
-    await page.click('#button-8', {
-      button: 'right'
-    })
+    await page.click('#button-8', { button: 'right' })
+    const testResult = await page.evaluate(
+      () => document.querySelector('#button-8').textContent
+    )
     t.is(
-      await page.evaluate(
-        () => document.querySelector('#button-8').textContent
-      ),
+      testResult,
+
       'context menu'
     )
   }
@@ -248,8 +290,8 @@ test.serial(
 
 test.serial('Page.click should click links which cause navigation', async t => {
   const { page, server } = t.context
-  await page.setContent(`<a href="${server.EMPTY_PAGE}">empty.html</a>`) // This await should not hang.
-
+  await page.setContent(`<a href="${server.EMPTY_PAGE}">empty.html</a>`)
+  // This await should not hang.
   await page.click('a')
   t.pass()
 })
@@ -263,34 +305,36 @@ test.serial('Page.click should click the button inside an iframe', async t => {
     'button-test',
     server.PREFIX + '/input/button.html'
   )
+
   const frame = page.frames()[1]
   const button = await frame.$('button')
   await button.click()
-  t.is(await frame.evaluate(() => window.result), 'Clicked')
+  const testResult = await frame.evaluate(() => window.result)
+  t.is(testResult, 'Clicked')
 })
 
-test.serial(
+test.serial.failing(
   'Page.click should click the button with fixed position inside an iframe',
   async t => {
     const { page, server } = t.context
     await page.goto(server.EMPTY_PAGE)
-    await page.setViewport({
-      width: 500,
-      height: 500
-    })
+    await page.setViewport({ width: 500, height: 500 })
     await page.setContent('<div style="width:100px;height:2000px">spacer</div>')
     await utils.attachFrame(
       page,
       'button-test',
       server.CROSS_PROCESS_PREFIX + '/input/button.html'
     )
+
     const frame = page.frames()[1]
-    await (await page.getElementById('button-test')).scrollIntoView()
+    // await (await page.getElementById('button-test')).scrollIntoView()
     await frame.$eval('button', button =>
       button.style.setProperty('position', 'fixed')
     )
+
     await frame.click('button')
-    t.is(await frame.evaluate(() => window.result), 'Clicked')
+    const testResult = await frame.evaluate(() => window.result)
+    t.is(testResult, 'Clicked')
   }
 )
 
@@ -298,21 +342,20 @@ test.serial(
   'Page.click should click the button with deviceScaleFactor set',
   async t => {
     const { page, server } = t.context
-    await page.setViewport({
-      width: 400,
-      height: 400,
-      deviceScaleFactor: 5
-    })
-    t.is(await page.evaluate(() => window.devicePixelRatio), 5)
+    await page.setViewport({ width: 400, height: 400, deviceScaleFactor: 5 })
+    const testResult = await page.evaluate(() => window.devicePixelRatio)
+    t.is(testResult, 5)
     await page.setContent('<div style="width:100px;height:100px">spacer</div>')
     await utils.attachFrame(
       page,
       'button-test',
       server.PREFIX + '/input/button.html'
     )
+
     const frame = page.frames()[1]
     const button = await frame.$('button')
     await button.click()
-    t.is(await frame.evaluate(() => window.result), 'Clicked')
+    const testResult1 = await frame.evaluate(() => window.result)
+    t.is(testResult1, 'Clicked')
   }
 )

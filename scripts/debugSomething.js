@@ -8,12 +8,16 @@ const utils = require('../test/helpers/utils')
 const compare = require('../test/helpers/goldenHelper')
 const CRIExtra = require('../lib/chromeRemoteInterfaceExtra')
 const Browser = require('../lib/browser/Browser')
+const Page = require('../lib/page/Page')
+const Target = require('../lib/Target')
 const Events = require('../lib/Events')
 
 const dio = { depth: null, colors: true, compact: false }
 function inspect (object) {
   console.log(util.inspect(object, dio))
 }
+
+// https://www.instagram.com/rhizomedotorg
 
 async function debugTests () {
   const tHelper = await TestHelper.withHTTP(null)
@@ -32,26 +36,50 @@ async function debugTests () {
 }
 
 async function doIt () {
-  let client
+  let client, browser, page
+  let closed = false
   try {
     // connect to endpoint
-    client = await CRIExtra({ host: 'localhost', port: 9222 })
-    const browser = await Browser.create(client, {
-      contextIds: [],
-      ignoreHTTPSErrors: true
+    // const { webSocketDebuggerUrl } = await CRIExtra.Version()
+    // aint the chrome-remote-interface by cyrus-and the best <3
+    // client = await CRIExtra({ target: webSocketDebuggerUrl })
+    // const list = await CRIExtra.List()
+    // console.log(list)
+    // const { targetInfos } = await client.send('Target.getTargets')
+    // console.log(targetInfos)
+    page = await Target.connectToPageTarget()
+    await page.reload()
+    page.on(Events.Page.Console, cmsg => {
+      console.log(cmsg.text())
     })
-    const page = await browser.newPage()
-    await page.goto(
-      'https://webrecorder.io/jberlin/archival-acid-test-v2/list/bookmarks/b1/20170810014348/http://wsdl-docker.cs.odu.edu:8080/tests/reactSPA/',
-      { waitUntil: 'domcontentloaded' }
-    )
-    await page.networkIdlePromise()
-    await page.screenshot({ path: 'wr.png' })
-    await browser.close()
+    console.log(await page.window())
+    console.log(await page.document())
+    // const ret = await page.evaluateHandle(() => {
+    //   window.fn = function (...args) {
+    //     console.log(...args)
+    //   }
+    //   return function it () {
+    //     console.log('it called')
+    //   }
+    // })
+    // await ret.call()
+    //
+    // const windowHandle = await page.evaluateHandle(() => window)
+    //
+    // await windowHandle.callFn('fn', 1, 2, 3, 4, 5, 6)
+
+    // console.log(await (await body.children())[0].getAttribute('id', 'blah'))
   } catch (err) {
     console.error(err)
   } finally {
-    if (client) {
+    if (page && !page.isClosed()) {
+      await page._client.close()
+      // await page.close()
+    }
+    if (browser && !closed) {
+      await browser.close()
+    }
+    if (client && !closed) {
       await client.close()
     }
   }

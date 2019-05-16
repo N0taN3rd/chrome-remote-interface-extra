@@ -31,7 +31,7 @@ test.serial(
     const response = await page.goto(httpsServer.EMPTY_PAGE)
     const securityDetails = response.securityDetails()
     t.is(securityDetails.issuer(), 'puppeteer-tests')
-    t.is(securityDetails.protocol(), 'TLS 1.2')
+    t.regex(securityDetails.protocol(), /TLS\s[0-9]\.[0-9]/)
     t.is(securityDetails.subjectName(), 'puppeteer-tests')
     t.is(securityDetails.validFrom(), 1550084863)
     t.is(securityDetails.validTo(), 33086084863)
@@ -57,7 +57,7 @@ test.serial(
     t.is(responses.length, 2)
     t.is(responses[0].status(), 302)
     const securityDetails = responses[0].securityDetails()
-    t.is(securityDetails.protocol(), 'TLS 1.2')
+    t.regex(securityDetails.protocol(), /TLS\s[0-9]\.[0-9]/)
   }
 )
 

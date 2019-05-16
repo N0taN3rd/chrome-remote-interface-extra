@@ -24,39 +24,23 @@ test.after.always(async t => {
 
 test.serial('ElementHandle.boundingBox should work', async t => {
   const { page, server } = t.context
-  await page.setViewport({
-    width: 500,
-    height: 500
-  })
+  await page.setViewport({ width: 500, height: 500 })
   await page.goto(server.PREFIX + '/grid.html')
   const elementHandle = await page.$('.box:nth-of-type(13)')
   const box = await elementHandle.boundingBox()
-  t.deepEqual(box, {
-    x: 100,
-    y: 50,
-    width: 50,
-    height: 50
-  })
+  t.deepEqual(box, { x: 100, y: 50, width: 50, height: 50 })
 })
 
 test.serial(
   'ElementHandle.boundingBox should handle nested frames',
   async t => {
     const { page, server } = t.context
-    await page.setViewport({
-      width: 500,
-      height: 500
-    })
+    await page.setViewport({ width: 500, height: 500 })
     await page.goto(server.PREFIX + '/frames/nested-frames.html')
     const nestedFrame = page.frames()[1].childFrames()[1]
     const elementHandle = await nestedFrame.$('div')
     const box = await elementHandle.boundingBox()
-    t.deepEqual(box, {
-      x: 28,
-      y: 260,
-      width: 264,
-      height: 18
-    })
+    t.deepEqual(box, { x: 28, y: 260, width: 264, height: 18 })
   }
 )
 
@@ -66,29 +50,23 @@ test.serial(
     const { page, server } = t.context
     await page.setContent('<div style="display:none">hi</div>')
     const element = await page.$('div')
-    t.falsy(await element.boundingBox())
+    const testResult = await element.boundingBox()
+    t.falsy(testResult)
   }
 )
 
 test.serial('ElementHandle.boundingBox should force a layout', async t => {
   const { page, server } = t.context
-  await page.setViewport({
-    width: 500,
-    height: 500
-  })
+  await page.setViewport({ width: 500, height: 500 })
   await page.setContent('<div style="width: 100px; height: 100px">hello</div>')
   const elementHandle = await page.$('div')
   await page.evaluate(
     element => (element.style.height = '200px'),
     elementHandle
   )
+
   const box = await elementHandle.boundingBox()
-  t.deepEqual(box, {
-    x: 8,
-    y: 8,
-    width: 100,
-    height: 200
-  })
+  t.deepEqual(box, { x: 8, y: 8, width: 100, height: 200 })
 })
 
 test.serial('ElementHandle.boundingBox should work with SVG nodes', async t => {
@@ -102,20 +80,16 @@ test.serial('ElementHandle.boundingBox should work with SVG nodes', async t => {
   const pptrBoundingBox = await element.boundingBox()
   const webBoundingBox = await page.evaluate(e => {
     const rect = e.getBoundingClientRect()
-    return {
-      x: rect.x,
-      y: rect.y,
-      width: rect.width,
-      height: rect.height
-    }
+    return { x: rect.x, y: rect.y, width: rect.width, height: rect.height }
   }, element)
   t.deepEqual(pptrBoundingBox, webBoundingBox)
 })
 
 test.serial('ElementHandle.boxModel should work', async t => {
   const { page, server } = t.context
-  await page.goto(server.PREFIX + '/resetcss.html') // Step 1: Add Frame and position it absolutely.
+  await page.goto(server.PREFIX + '/resetcss.html')
 
+  // Step 1: Add Frame and position it absolutely.
   await utils.attachFrame(page, 'frame1', server.PREFIX + '/resetcss.html')
   await page.evaluate(() => {
     const frame = document.querySelector('#frame1')
@@ -124,8 +98,9 @@ test.serial('ElementHandle.boxModel should work', async t => {
           left: 1px;
           top: 2px;
         `
-  }) // Step 2: Add div and position it absolutely inside frame.
+  })
 
+  // Step 2: Add div and position it absolutely inside frame.
   const frame = page.frames()[1]
   const divHandle = (await frame.evaluateHandle(() => {
     const div = document.createElement('div')
@@ -142,29 +117,29 @@ test.serial('ElementHandle.boxModel should work', async t => {
           height: 7px;
         `
     return div
-  })).asElement() // Step 3: query div's boxModel and assert box values.
+  })).asElement()
 
+  // Step 3: query div's boxModel and assert box values.
   const box = await divHandle.boxModel()
   t.is(box.width, 6)
   t.is(box.height, 7)
   t.deepEqual(box.margin[0], {
-    x: 1 + 4,
-    // frame.left + div.left
+    x: 1 + 4, // frame.left + div.left
     y: 2 + 5
   })
+
   t.deepEqual(box.border[0], {
-    x: 1 + 4 + 3,
-    // frame.left + div.left + div.margin-left
+    x: 1 + 4 + 3, // frame.left + div.left + div.margin-left
     y: 2 + 5
   })
+
   t.deepEqual(box.padding[0], {
-    x: 1 + 4 + 3 + 1,
-    // frame.left + div.left + div.marginLeft + div.borderLeft
+    x: 1 + 4 + 3 + 1, // frame.left + div.left + div.marginLeft + div.borderLeft
     y: 2 + 5
   })
+
   t.deepEqual(box.content[0], {
-    x: 1 + 4 + 3 + 1 + 2,
-    // frame.left + div.left + div.marginLeft + div.borderLeft + dif.paddingLeft
+    x: 1 + 4 + 3 + 1 + 2, // frame.left + div.left + div.marginLeft + div.borderLeft + dif.paddingLeft
     y: 2 + 5
   })
 })
@@ -175,7 +150,8 @@ test.serial(
     const { page, server } = t.context
     await page.setContent('<div style="display:none">hi</div>')
     const element = await page.$('div')
-    t.falsy(await element.boxModel())
+    const testResult = await element.boxModel()
+    t.falsy(testResult)
   }
 )
 
@@ -193,7 +169,8 @@ test.serial('ElementHandle.click should work', async t => {
   await page.goto(server.PREFIX + '/input/button.html')
   const button = await page.$('button')
   await button.click()
-  t.is(await page.evaluate(() => result), 'Clicked')
+  const testResult = await page.evaluate(() => result)
+  t.is(testResult, 'Clicked')
 })
 
 test.serial('ElementHandle.click should work for Shadow DOM v1', async t => {
@@ -201,7 +178,8 @@ test.serial('ElementHandle.click should work for Shadow DOM v1', async t => {
   await page.goto(server.PREFIX + '/shadow.html')
   const buttonHandle = await page.evaluateHandle(() => button)
   await buttonHandle.click()
-  t.true(await page.evaluate(() => clicked))
+  const testResult = await page.evaluate(() => clicked)
+  t.true(testResult)
 })
 
 test.serial('ElementHandle.click should work for TextNodes', async t => {
@@ -210,12 +188,10 @@ test.serial('ElementHandle.click should work for TextNodes', async t => {
   const buttonTextNode = await page.evaluateHandle(
     () => document.querySelector('button').firstChild
   )
+
   let error = null
   await buttonTextNode.click().catch(err => (error = err))
-  t.is(
-    error.message,
-    'Node is not of type Element or does not have the scrollIntoView function'
-  )
+  t.is(error.message, 'Node is not of type Element or does not have the scrollIntoView function')
 })
 
 test.serial('ElementHandle.click should throw for detached nodes', async t => {
@@ -247,6 +223,7 @@ test.serial(
       button => (button.parentElement.style.display = 'none'),
       button
     )
+
     const error = await button.click().catch(err => err)
     t.is(error.message, 'Node is either not visible or not an HTMLElement')
   }
@@ -265,20 +242,20 @@ test.serial('ElementHandle.hover should work', async t => {
   await page.goto(server.PREFIX + '/input/scrollable.html')
   const button = await page.$('#button-6')
   await button.hover()
-  t.is(
-    await page.evaluate(() => document.querySelector('button:hover').id),
-    'button-6'
+  const testResult = await page.evaluate(
+    () => document.querySelector('button:hover').id
   )
+  t.is(testResult, 'button-6')
 })
 
 test.serial('ElementHandle.isIntersectingViewport should work', async t => {
   const { page, server } = t.context
   await page.goto(server.PREFIX + '/offscreenbuttons.html')
-
   for (let i = 0; i < 11; ++i) {
-    const button = await page.$('#btn' + i) // All but last button are visible.
-
+    const button = await page.$('#btn' + i)
+    // All but last button are visible.
     const visible = i < 10
-    t.is(await button.isIntersectingViewport(), visible)
+    const testResult = await button.isIntersectingViewport()
+    t.is(testResult, visible)
   }
 })

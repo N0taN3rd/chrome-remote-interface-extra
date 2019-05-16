@@ -31,7 +31,8 @@ test.serial('Touchscreen should tap the button', async t => {
   await page.emulate(iPhone)
   await page.goto(server.PREFIX + '/input/button.html')
   await page.tap('button')
-  t.is(await page.evaluate(() => result), 'Clicked')
+  const testResult = await page.evaluate(() => result)
+  t.is(testResult, 'Clicked')
 })
 
 test.serial('Touchscreen should report touches', async t => {
@@ -40,8 +41,6 @@ test.serial('Touchscreen should report touches', async t => {
   await page.goto(server.PREFIX + '/input/touches.html')
   const button = await page.$('button')
   await button.tap()
-  t.deepEqual(await page.evaluate(() => getResult()), [
-    'Touchstart: 0',
-    'Touchend: 0'
-  ])
+  const testResult = await page.evaluate(() => getResult())
+  t.deepEqual(testResult, ['Touchstart: 0', 'Touchend: 0'])
 })

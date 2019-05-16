@@ -53,51 +53,24 @@ const {
 const { LogEntry, Page } = require('./lib/page')
 const { ServiceWorker, Worker, WorkerManager } = require('./lib/workers')
 
-/**
- * @type {Accessibility}
- */
 exports.Accessibility = Accessibility
 
 exports.adaptChromeRemoteInterfaceClient = adaptChromeRemoteInterfaceClient
 
-/**
- * @type {Animation}
- */
 exports.Animation = Animation
 
-/**
- * @type {AnimationManager}
- */
 exports.AnimationManager = AnimationManager
 
-/**
- * @type {Audits}
- */
 exports.Audits = Audits
 
-/**
- * @type {AXNode}
- */
 exports.AXNode = AXNode
 
-/**
- * @type {Browser}
- */
 exports.Browser = Browser
 
-/**
- * @type {BrowserContext}
- */
 exports.BrowserContext = BrowserContext
 
-/**
- * @type {CDPSession}
- */
 exports.CDPSession = CDPSession
 
-/**
- * @type {ConsoleMessage}
- */
 exports.ConsoleMessage = ConsoleMessage
 
 /**

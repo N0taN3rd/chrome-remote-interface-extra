@@ -54,9 +54,7 @@ test.serial(
     const aHandle = await page.evaluateHandle(() => document.body)
     let error = null
     await page
-      .evaluateHandle(opts => opts.elem.querySelector('p'), {
-        elem: aHandle
-      })
+      .evaluateHandle(opts => opts.elem.querySelector('p'), { elem: aHandle })
       .catch(e => (error = e))
     t.true(error.message.includes('Are you passing a nested JSHandle?'))
   }
@@ -67,7 +65,8 @@ test.serial(
   async t => {
     const { page, server } = t.context
     const aHandle = await page.evaluateHandle(() => Infinity)
-    t.true(await page.evaluate(e => Object.is(e, Infinity), aHandle))
+    const testResult = await page.evaluate(e => Object.is(e, Infinity), aHandle)
+    t.true(testResult)
   }
 )
 
@@ -77,7 +76,8 @@ test.serial('Page.evaluateHandle should use the same JS wrappers', async t => {
     window.FOO = 123
     return window
   })
-  t.is(await page.evaluate(e => e.FOO, aHandle), 123)
+  const testResult = await page.evaluate(e => e.FOO, aHandle)
+  t.is(testResult, 123)
 })
 
 test.serial('Page.evaluateHandle should work with primitives', async t => {
@@ -86,7 +86,8 @@ test.serial('Page.evaluateHandle should work with primitives', async t => {
     window.FOO = 123
     return window
   })
-  t.is(await page.evaluate(e => e.FOO, aHandle), 123)
+  const testResult = await page.evaluate(e => e.FOO, aHandle)
+  t.is(testResult, 123)
 })
 
 test.serial('JSHandle.getProperty should work', async t => {
@@ -96,19 +97,17 @@ test.serial('JSHandle.getProperty should work', async t => {
     two: 2,
     three: 3
   }))
+
   const twoHandle = await aHandle.getProperty('two')
-  t.deepEqual(await twoHandle.jsonValue(), 2)
+  const testResult = await twoHandle.jsonValue()
+  t.deepEqual(testResult, 2)
 })
 
 test.serial('JSHandle.jsonValue should work', async t => {
   const { page, server } = t.context
-  const aHandle = await page.evaluateHandle(() => ({
-    foo: 'bar'
-  }))
+  const aHandle = await page.evaluateHandle(() => ({ foo: 'bar' }))
   const json = await aHandle.jsonValue()
-  t.deepEqual(json, {
-    foo: 'bar'
-  })
+  t.deepEqual(json, { foo: 'bar' })
 })
 
 test.serial('JSHandle.jsonValue should not work with dates', async t => {
@@ -116,6 +115,7 @@ test.serial('JSHandle.jsonValue should not work with dates', async t => {
   const dateHandle = await page.evaluateHandle(
     () => new Date('2017-09-26T00:00:00.000Z')
   )
+
   const json = await dateHandle.jsonValue()
   t.deepEqual(json, {})
 })
@@ -133,10 +133,12 @@ test.serial('JSHandle.getProperties should work', async t => {
   const aHandle = await page.evaluateHandle(() => ({
     foo: 'bar'
   }))
+
   const properties = await aHandle.getProperties()
   const foo = properties.get('foo')
   t.truthy(foo)
-  t.is(await foo.jsonValue(), 'bar')
+  const testResult = await foo.jsonValue()
+  t.is(testResult, 'bar')
 })
 
 test.serial(
@@ -160,8 +162,10 @@ test.serial(
       return new B()
     })
     const properties = await aHandle.getProperties()
-    t.is(await properties.get('a').jsonValue(), '1')
-    t.is(await properties.get('b').jsonValue(), '2')
+    const testResult = await properties.get('a').jsonValue()
+    t.is(testResult, '1')
+    const testResult1 = await properties.get('b').jsonValue()
+    t.is(testResult1, '2')
   }
 )
 
@@ -190,6 +194,7 @@ test.serial(
     const aHandle = await page.evaluateHandle(
       () => document.querySelector('div').firstChild
     )
+
     const element = aHandle.asElement()
     t.truthy(element)
     t.truthy(
@@ -222,11 +227,11 @@ test.serial(
   async t => {
     const { page, server } = t.context
     const aHandle = await page.evaluateHandle(() => window)
-    t.is(aHandle.toString(), 'JSHandle@object')
+    t.is(aHandle.toString(), 'JSHandle@Window')
   }
 )
 
-test.serial(
+test.serial.only(
   'JSHandle.toString should work with different subtypes',
   async t => {
     const { page, server } = t.context
@@ -241,36 +246,36 @@ test.serial(
       'JSHandle:undefined'
     )
     t.is((await page.evaluateHandle('"foo"')).toString(), 'JSHandle:foo')
-    t.is((await page.evaluateHandle('Symbol()')).toString(), 'JSHandle@symbol')
-    t.is((await page.evaluateHandle('new Map()')).toString(), 'JSHandle@map')
-    t.is((await page.evaluateHandle('new Set()')).toString(), 'JSHandle@set')
-    t.is((await page.evaluateHandle('[]')).toString(), 'JSHandle@array')
+    t.is((await page.evaluateHandle('Symbol()')).toString(), 'JSHandle@Symbol')
+    t.is((await page.evaluateHandle('new Map()')).toString(), 'JSHandle@Map')
+    t.is((await page.evaluateHandle('new Set()')).toString(), 'JSHandle@Set')
+    t.is((await page.evaluateHandle('[]')).toString(), 'JSHandle@Array')
     t.is((await page.evaluateHandle('null')).toString(), 'JSHandle:null')
-    t.is((await page.evaluateHandle('/foo/')).toString(), 'JSHandle@regexp')
+    t.is((await page.evaluateHandle('/foo/')).toString(), 'JSHandle@RegExp')
     t.is(
       (await page.evaluateHandle('document.body')).toString(),
-      'ElementHandle@node'
+      'ElementHandle@HTMLBodyElement'
     )
-    t.is((await page.evaluateHandle('new Date()')).toString(), 'JSHandle@date')
+    t.is((await page.evaluateHandle('new Date()')).toString(), 'JSHandle@Date')
     t.is(
       (await page.evaluateHandle('new WeakMap()')).toString(),
-      'JSHandle@weakmap'
+      'JSHandle@WeakMap'
     )
     t.is(
       (await page.evaluateHandle('new WeakSet()')).toString(),
-      'JSHandle@weakset'
+      'JSHandle@WeakSet'
     )
     t.is(
       (await page.evaluateHandle('new Error()')).toString(),
-      'JSHandle@error'
+      'JSHandle@Error'
     )
     t.is(
       (await page.evaluateHandle('new Int32Array()')).toString(),
-      'JSHandle@typedarray'
+      'JSHandle@Int32Array'
     )
     t.is(
       (await page.evaluateHandle('new Proxy({}, {})')).toString(),
-      'JSHandle@proxy'
+      'JSHandle@Proxy'
     )
   }
 )

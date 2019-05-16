@@ -52,6 +52,36 @@ test.serial('Page.cookies should get a cookie', async t => {
   ])
 })
 
+test.serial('Page.cookies should properly report httpOnly cookie', async t => {
+  const { page, server } = t.context
+  await page.goto(server.PREFIX + '/empty-http-only-cookie')
+  const cookies = (await page.cookies()).map(c => c._cookie)
+  t.is(cookies.length, 1)
+  t.true(cookies[0].httpOnly)
+})
+
+test.serial(
+  'Page.cookies should properly report "Strict" sameSite cookie',
+  async t => {
+    const { page, server } = t.context
+    await page.goto(server.PREFIX + '/empty-strict-samesite-cookie')
+    const cookies = (await page.cookies()).map(c => c._cookie)
+    t.is(cookies.length, 1)
+    t.is(cookies[0].sameSite, 'Strict')
+  }
+)
+
+test.serial(
+  'Page.cookies should properly report "Lax" sameSite cookie',
+  async t => {
+    const { page, server } = t.context
+    await page.goto(server.PREFIX + '/empty-lax-samesite-cookie')
+    const cookies = (await page.cookies()).map(c => c._cookie)
+    t.is(cookies.length, 1)
+    t.is(cookies[0].sameSite, 'Lax')
+  }
+)
+
 test.serial('Page.cookies should get multiple cookies', async t => {
   const { page, server } = t.context
   await page.goto(server.EMPTY_PAGE)

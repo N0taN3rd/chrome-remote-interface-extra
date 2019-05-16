@@ -27,7 +27,7 @@ test.serial(
     const { browser } = t.context
     const version = await browser.version()
     t.true(version.length > 0)
-    t.is(version.startsWith('Headless'), false)
+    t.is(version.startsWith('Headless'), true)
   }
 )
 
@@ -58,5 +58,17 @@ test.serial(
     const remoteBrowser = await Browser.connect(browserWSEndpoint)
     t.falsy(remoteBrowser.process())
     await remoteBrowser.disconnect()
+  }
+)
+
+test.serial(
+  'Browser.isConnected should set the browser connected state',
+  async t => {
+    const { browser } = t.context
+    const browserWSEndpoint = browser.wsEndpoint()
+    const newBrowser = await Browser.connect(browserWSEndpoint)
+    t.true(newBrowser.isConnected())
+    await newBrowser.disconnect()
+    t.false(newBrowser.isConnected())
   }
 )

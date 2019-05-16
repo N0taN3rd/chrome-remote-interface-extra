@@ -70,20 +70,23 @@ test.serial(
 test.serial('Page.evaluate should modify global environment', async t => {
   const { page } = t.context
   await page.evaluate(() => (window.globalVar = 123))
-  t.is(await page.evaluate('globalVar'), 123)
+  const testResult = await page.evaluate('globalVar')
+  t.is(testResult, 123)
 })
 
 test.serial('Page.evaluate should evaluate in the page context', async t => {
   const { page, server } = t.context
   await page.goto(server.PREFIX + '/global-var.html')
-  t.is(await page.evaluate('globalVar'), 123)
+  const testResult = await page.evaluate('globalVar')
+  t.is(testResult, 123)
 })
 
 test.serial(
   'Page.evaluate should return undefined for objects with symbols',
   async t => {
     const { page, server } = t.context
-    t.falsy(await page.evaluate(() => [Symbol('foo4')]))
+    const testResult = await page.evaluate(() => [Symbol('foo4')])
+    t.falsy(testResult)
   }
 )
 
@@ -131,7 +134,8 @@ test.serial('Page.evaluate should work right after framenavigated', async t => {
     frameEvaluation = frame.evaluate(() => 6 * 7)
   })
   await page.goto(server.EMPTY_PAGE)
-  t.is(await frameEvaluation, 42)
+  const testResult = await frameEvaluation
+  t.is(testResult, 42)
 })
 
 test.serial(
@@ -360,7 +364,8 @@ test.serial(
       window.injected = 123
     })
     await page.goto(server.PREFIX + '/tamperable.html')
-    t.is(await page.evaluate(() => window.result), 123)
+    const testResult = await page.evaluate(() => window.result)
+    t.is(testResult, 123)
   }
 )
 
@@ -370,14 +375,13 @@ test.serial('Page.evaluateOnNewDocument should work with CSP', async t => {
     window.injected = 123
   })
   await page.goto(server.EMPTY_CSP)
-  t.is(await page.evaluate(() => window.injected), 123) // Make sure CSP works.
+  const testResult = await page.evaluate(() => window.injected)
+  t.is(testResult, 123)
 
-  await page
-    .addScriptTag({
-      content: 'window.e = 10;'
-    })
-    .catch(e => void e)
-  t.falsy(await page.evaluate(() => window.e))
+  // Make sure CSP works.
+  await page.addScriptTag({ content: 'window.e = 10;' }).catch(e => void e)
+  const testResult1 = await page.evaluate(() => window.e)
+  t.falsy(testResult1)
 })
 
 test.serial(
@@ -389,8 +393,10 @@ test.serial(
     t.is(page.frames().length, 2)
     await page.frames()[0].evaluate(() => (window.FOO = 'foo'))
     await page.frames()[1].evaluate(() => (window.FOO = 'bar'))
-    t.is(await page.frames()[0].evaluate(() => window.FOO), 'foo')
-    t.is(await page.frames()[1].evaluate(() => window.FOO), 'bar')
+    const testResult = await page.frames()[0].evaluate(() => window.FOO)
+    t.is(testResult, 'foo')
+    const testResult1 = await page.frames()[1].evaluate(() => window.FOO)
+    t.is(testResult1, 'bar')
   }
 )
 
@@ -400,14 +406,14 @@ test.serial(
     const { page, server } = t.context
     await page.goto(server.PREFIX + '/frames/one-frame.html')
     t.is(page.frames().length, 2)
-    t.is(
-      await page.frames()[0].evaluate(() => document.body.textContent.trim()),
-      ''
-    )
-    t.is(
-      await page.frames()[1].evaluate(() => document.body.textContent.trim()),
-      `Hi, I'm frame`
-    )
+    const testResult = await page
+      .frames()[0]
+      .evaluate(() => document.body.textContent.trim())
+    t.is(testResult, '')
+    const testResult1 = await page
+      .frames()[1]
+      .evaluate(() => document.body.textContent.trim())
+    t.is(testResult1, `Hi, I'm frame`)
   }
 )
 

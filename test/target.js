@@ -38,6 +38,7 @@ test.serial(
         target => target.type() === 'page' && target.url() === 'about:blank'
       )
     )
+
     t.truthy(targets.some(target => target.type() === 'browser'))
   }
 )
@@ -65,11 +66,12 @@ test.serial(
     // The pages will be the testing page and the original newtab page
     const allPages = await browser.pages()
     const originalPage = allPages.find(p => p !== page)
-    t.is(
-      await originalPage.evaluate(() => ['Hello', 'world'].join(' ')),
-      'Hello world'
+    const testResult = await originalPage.evaluate(() =>
+      ['Hello', 'world'].join(' ')
     )
-    t.truthy(await originalPage.$('body'))
+    t.is(testResult, 'Hello world')
+    const testResult1 = await originalPage.$('body')
+    t.truthy(testResult1)
   }
 )
 
@@ -88,20 +90,27 @@ test.serial(
         server.CROSS_PROCESS_PREFIX + '/empty.html'
       )
     ])
+
     t.true(otherPage.url().includes(server.CROSS_PROCESS_PREFIX))
-    t.is(
-      await otherPage.evaluate(() => ['Hello', 'world'].join(' ')),
-      'Hello world'
+    const testResult = await otherPage.evaluate(() =>
+      ['Hello', 'world'].join(' ')
     )
-    t.truthy(await otherPage.$('body'))
+    t.is(testResult, 'Hello world')
+    const testResult1 = await otherPage.$('body')
+    t.truthy(testResult1)
+
     let allPages = await context.pages()
     t.true(allPages.includes(page))
     t.true(allPages.includes(otherPage))
+
     const closePagePromise = new Promise(fulfill =>
       context.once('targetdestroyed', target => fulfill(target.page()))
     )
+
     await otherPage.close()
-    t.is(await closePagePromise, otherPage)
+    const testResult2 = await closePagePromise
+    t.is(testResult2, otherPage)
+
     allPages = await Promise.all(context.targets().map(target => target.page()))
     t.true(allPages.includes(page))
     t.false(allPages.includes(otherPage))
@@ -116,19 +125,23 @@ test.serial(
     const createdTarget = new Promise(fulfill =>
       context.once('targetcreated', target => fulfill(target))
     )
+
     await page.goto(server.PREFIX + '/serviceworkers/empty/sw.html')
     t.is((await createdTarget).type(), 'service_worker')
     t.is(
       (await createdTarget).url(),
       server.PREFIX + '/serviceworkers/empty/sw.js'
     )
+
     const destroyedTarget = new Promise(fulfill =>
       context.once('targetdestroyed', target => fulfill(target))
     )
+
     await page.evaluate(() =>
       window.registrationPromise.then(registration => registration.unregister())
     )
-    t.is(await destroyedTarget, await createdTarget)
+    const testResult = await destroyedTarget
+    t.is(testResult, await createdTarget)
   }
 )
 
@@ -138,11 +151,14 @@ test.serial('Target should report when a target url changes', async t => {
   let changedTarget = new Promise(fulfill =>
     context.once('targetchanged', target => fulfill(target))
   )
+
   await page.goto(server.CROSS_PROCESS_PREFIX + '/')
   t.is((await changedTarget).url(), server.CROSS_PROCESS_PREFIX + '/')
+
   changedTarget = new Promise(fulfill =>
     context.once('targetchanged', target => fulfill(target))
   )
+
   await page.goto(server.EMPTY_PAGE)
   t.is((await changedTarget).url(), server.EMPTY_PAGE)
 })
@@ -157,13 +173,16 @@ test.serial('Target should not report uninitialized pages', async t => {
   const targetPromise = new Promise(fulfill =>
     context.once('targetcreated', target => fulfill(target))
   )
+
   const newPagePromise = context.newPage()
   const target = await targetPromise
   t.is(target.url(), 'about:blank')
+
   const newPage = await newPagePromise
   const targetPromise2 = new Promise(fulfill =>
     context.once('targetcreated', target => fulfill(target))
   )
+
   const evaluatePromise = newPage.evaluate(() => window.open('about:blank'))
   const target2 = await targetPromise2
   t.is(target2.url(), 'about:blank')
@@ -202,8 +221,10 @@ test.serial('Target should have an opener', async t => {
     new Promise(fulfill =>
       context.once('targetcreated', target => fulfill(target))
     ),
+
     page.goto(server.PREFIX + '/popup/window-open.html')
   ])
+
   t.is((await createdTarget.page()).url(), server.PREFIX + '/popup/popup.html')
   t.is(createdTarget.opener(), page.target())
   t.falsy(page.target().opener())
@@ -215,12 +236,14 @@ test.serial('Browser.waitForTarget should wait for a target', async t => {
   const targetPromise = browser.waitForTarget(
     target => target.url() === server.EMPTY_PAGE
   )
+
   targetPromise.then(() => (resolved = true))
   const page = await browser.newPage()
   t.false(resolved)
   await page.goto(server.EMPTY_PAGE)
   const target = await targetPromise
-  t.is(await target.page(), page)
+  const testResult = await target.page()
+  t.is(testResult, page)
   await page.close()
 })
 

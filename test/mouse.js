@@ -77,8 +77,8 @@ test.serial('Mouse should select the text with mouse', async t => {
   await page.focus('textarea')
   const text =
     "This is the text that we are going to try to select. Let's see how it goes."
-  await page.keyboard.type(text) // Firefox needs an extra frame here after typing or it will fail to set the scrollTop
-
+  await page.keyboard.type(text)
+  // Firefox needs an extra frame here after typing or it will fail to set the scrollTop
   await page.evaluate(() => new Promise(requestAnimationFrame))
   await page.evaluate(() => (document.querySelector('textarea').scrollTop = 0))
   const { x, y } = await page.evaluate(dimensions)
@@ -86,36 +86,36 @@ test.serial('Mouse should select the text with mouse', async t => {
   await page.mouse.down()
   await page.mouse.move(100, 100)
   await page.mouse.up()
-  t.is(
-    await page.evaluate(() => {
-      const textarea = document.querySelector('textarea')
-      return textarea.value.substring(
-        textarea.selectionStart,
-        textarea.selectionEnd
-      )
-    }),
-    text
-  )
+  const testResult = await page.evaluate(() => {
+    const textarea = document.querySelector('textarea')
+    return textarea.value.substring(
+      textarea.selectionStart,
+      textarea.selectionEnd
+    )
+  })
+  t.is(testResult, text)
 })
 
 test.serial('Mouse should trigger hover state', async t => {
   const { page, server } = t.context
   await page.goto(server.PREFIX + '/input/scrollable.html')
   await page.hover('#button-6')
-  t.is(
-    await page.evaluate(() => document.querySelector('button:hover').id),
-    'button-6'
+  const testResult = await page.evaluate(
+    () => document.querySelector('button:hover').id
   )
+  t.is(testResult, 'button-6')
+
   await page.hover('#button-2')
-  t.is(
-    await page.evaluate(() => document.querySelector('button:hover').id),
-    'button-2'
+  const testResult1 = await page.evaluate(
+    () => document.querySelector('button:hover').id
   )
+  t.is(testResult1, 'button-2')
+
   await page.hover('#button-91')
-  t.is(
-    await page.evaluate(() => document.querySelector('button:hover').id),
-    'button-91'
+  const testResult2 = await page.evaluate(
+    () => document.querySelector('button:hover').id
   )
+  t.is(testResult2, 'button-91')
 })
 
 test.serial(
@@ -123,12 +123,12 @@ test.serial(
   async t => {
     const { page, server } = t.context
     await page.goto(server.PREFIX + '/input/scrollable.html')
-    await page.evaluate(() => 'delete window.Node')
+    await page.evaluate(() => delete window.Node)
     await page.hover('#button-6')
-    t.is(
-      await page.evaluate(() => document.querySelector('button:hover').id),
-      'button-6'
+    const testResult = await page.evaluate(
+      () => document.querySelector('button:hover').id
     )
+    t.is(testResult, 'button-6')
   }
 )
 
@@ -140,13 +140,15 @@ test.serial('Mouse should set modifier keys on click', async t => {
       .querySelector('#button-3')
       .addEventListener('mousedown', e => (window.lastEvent = e), true)
   )
+
   const modifiers = {
     Shift: 'shiftKey',
     Control: 'ctrlKey',
     Alt: 'altKey',
     Meta: 'metaKey'
-  } // In Firefox, the Meta modifier only exists on Mac
 
+    // In Firefox, the Meta modifier only exists on Mac
+  }
   for (const modifier in modifiers) {
     await page.keyboard.down(modifier)
     await page.click('#button-3')
@@ -176,10 +178,9 @@ test.serial('Mouse should tween mouse movement', async t => {
       window.result.push([event.clientX, event.clientY])
     })
   })
-  await page.mouse.move(200, 300, {
-    steps: 5
-  })
-  t.deepEqual(await page.evaluate('result'), [
+  await page.mouse.move(200, 300, { steps: 5 })
+  const testResult = await page.evaluate('result')
+  t.deepEqual(testResult, [
     [120, 140],
     [140, 180],
     [160, 220],
@@ -193,24 +194,16 @@ test.serial(
   async t => {
     const { page, server } = t.context
     await page.goto(server.EMPTY_PAGE)
-    await page.setViewport({
-      width: 360,
-      height: 640,
-      isMobile: true
-    })
+    await page.setViewport({ width: 360, height: 640, isMobile: true })
     await page.goto(server.CROSS_PROCESS_PREFIX + '/mobile.html')
     await page.evaluate(() => {
       document.addEventListener('click', event => {
-        window.result = {
-          x: event.clientX,
-          y: event.clientY
-        }
+        window.result = { x: event.clientX, y: event.clientY }
       })
     })
+
     await page.mouse.click(30, 40)
-    t.deepEqual(await page.evaluate('result'), {
-      x: 30,
-      y: 40
-    })
+    const testResult = await page.evaluate('result')
+    t.deepEqual(testResult, { x: 30, y: 40 })
   }
 )

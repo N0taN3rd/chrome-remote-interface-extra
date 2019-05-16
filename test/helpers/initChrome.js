@@ -9,7 +9,6 @@ const CHROME_PROFILE_PATH = path.join(os.tmpdir(), 'criextra_profile-')
 const winPos = !process.env.NO_MOVE_WINDOW ? '--window-position=2000,0' : ''
 
 const chromeArgs = userDataDir => [
-  '--enable-automation',
   '--force-color-profile=srgb',
   '--remote-debugging-port=9222',
   '--disable-background-networking',
@@ -32,12 +31,10 @@ const chromeArgs = userDataDir => [
   '--disable-backing-store-limit',
   '--metrics-recording-only',
   '--no-first-run',
-  '--safebrowsing-disable-auto-update',
-  '--password-store=basic',
-  '--use-mock-keychain',
   '--mute-audio',
   '--autoplay-policy=no-user-gesture-required',
   `--user-data-dir=${userDataDir}`,
+  // '--headless',
   winPos,
   'about:blank'
 ]
