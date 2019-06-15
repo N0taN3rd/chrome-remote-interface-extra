@@ -18,12 +18,12 @@
   },
   "dependencies": {
     "bufferutil": "^4.0.1",
-    "chrome-remote-interface": "^0.27.1",
+    "chrome-remote-interface": "^0.27.2",
     "debug": "^4.1.1",
     "eventemitter3": "^3.1.2",
     "fs-extra": "^8.0.1",
     "gh-pages": "^2.0.1",
-    "mime": "^2.4.3",
+    "mime": "^2.4.4",
     "tough-cookie": "^3.0.1",
     "uuid": "^3.3.2",
     "ws": "^7.0.0"
@@ -34,14 +34,14 @@
     "@babel/traverse": "^7.4.5",
     "@babel/types": "^7.4.4",
     "@types/fs-extra": "^7.0.0",
-    "ava": "^1.4.1",
+    "ava": "^2.1.0",
     "commander": "^2.20.0",
     "esdoc": "^1.1.0",
     "esdoc-ecmascript-proposal-plugin": "^1.0.0",
     "esdoc-external-ecmascript-plugin": "^1.0.0",
     "esdoc-node": "^1.0.4",
     "esdoc-standard-plugin": "^1.0.0",
-    "fastify": "^2.4.1",
+    "fastify": "^2.5.0",
     "fastify-basic-auth": "^0.4.0",
     "fastify-favicon": "^2.0.0",
     "fastify-formbody": "^3.1.0",
@@ -50,7 +50,8 @@
     "fastparallel": "^2.3.0",
     "file-url": "^3.0.0",
     "jpeg-js": "^0.3.5",
-    "pixelmatch": "^4.0.2",
+    "just-launch-chrome": "^1.0.0",
+    "pixelmatch": "^5.0.2",
     "pngjs": "^3.4.0",
     "prettier-standard": "^9.1.1",
     "standard": "^12.0.1",
@@ -65,8 +66,7 @@
     "test-only": "ava ./test/accessibility.js"
   },
   "resolutions": {
-    "*/**/graceful-fs": "~4.1.2",
-    "*/**/universalify": "~0.1.2",
+    "*/**/graceful-fs": "~4.1.15",
     "*/**/bufferutil": "^4.0.1",
     "*/**/ws": "^6.2.1"
   },
@@ -85,6 +85,12 @@
     "serial": true,
     "sources": [
       "lib/**/*"
+    ],
+    "files": [
+      "test/*.js"
+    ],
+    "helpers": [
+      "test/helpers/*.js"
     ]
   }
 }
