@@ -77,34 +77,7 @@ const skipped = new Set(['__typeDefs.js', '__shared.js', 'helper.js'])
  * @param {string} id
  */
 function makeIndexExport (id) {
-  if (id[0].toLowerCase() === id[0]) {
-    return `exports.${id} = ${id}
-`
-  }
-  switch (id) {
-    case 'CRIExtra':
-    case 'createJSHandle':
-      return `exports.${id} = ${id}
-`
-  }
-  let type = id
-  switch (id) {
-    case 'CRIClientPatched':
-      type = 'symbol'
-      break
-    case 'EVALUATION_SCRIPT_URL':
-      type = 'string'
-      break
-    case 'USKeyboardLayout':
-    case 'DeviceDescriptors':
-      type = 'Object'
-      break
-  }
-  return `/**
- * @type {${type}}
- */
-exports.${id} = ${id}
-`
+  return `exports.${id} = ${id}`
 }
 
 async function gen () {

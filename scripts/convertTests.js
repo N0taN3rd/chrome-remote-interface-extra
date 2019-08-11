@@ -54,6 +54,7 @@ const FFID = { name: 'FFOX' }
 const ChromeID = { name: 'CHROME' }
 const isIdExpectOpts = { name: 'expect' }
 const describeID = { name: 'describe' }
+const TimeoutErrorID = { name: 'TimeoutError' }
 const avaTId = { name: 't' }
 const describes = new Set(['describe', 'describe_fails_ffox'])
 const its = new Set(['it', 'fit', 'xit', 'it_fails_ffox'])
@@ -70,7 +71,7 @@ const skipped = new Set([
 ])
 
 function printNode (node) {
-  console.log(generator(node, genOpts).code)
+  console.log(generator(node, genOpts).code.trim())
 }
 
 const expectToAva = {
@@ -315,6 +316,27 @@ const isVariableDeclarInnerChildOfDescribe = vdPath =>
     describeID
   )
 
+const socketId = btypes.identifier('socket')
+const socketGetProtocolId = btypes.identifier('getProtocol')
+
+function isServerSocketGetProtocol (path) {
+  const node = path.node
+  if (btypes.isMemberExpression(node.callee)) {
+    const fullCallObj = node.callee.object
+    if (
+      btypes.isCallExpression(fullCallObj) &&
+      btypes.isMemberExpression(fullCallObj.callee)
+    ) {
+      const importantSubCallObj = fullCallObj.callee.object
+      return (
+        btypes.isIdentifier(importantSubCallObj.property, socketId) &&
+        btypes.isIdentifier(fullCallObj.callee.property, socketGetProtocolId)
+      )
+    }
+  }
+  return false
+}
+
 const isImportantTopLevelThingy = init =>
   btypes.isMemberExpression(init) &&
   btypes.isIdentifier(init.object.object, {
@@ -405,36 +427,36 @@ function extractIt ({ fnPath, itPath, collector, parentDescribe, describing }) {
           varDecPath.node.declarations[0].init.alternate
       }
     },
-    CallExpression (expectPath) {
+    CallExpression (callExprPath) {
       // find and convert all expects to ava <3
-      if (isExpect(expectPath)) {
-        const transform = expectToAva[expectPath.node.callee.property.name]
+      if (isExpect(callExprPath)) {
+        const transform = expectToAva[callExprPath.node.callee.property.name]
         if (!transform) {
-          console.log('boooo', expectPath.node.callee.property.name)
-        } else if (expectPath.node.callee.property.name === 'toBeGolden') {
+          console.log('boooo', callExprPath.node.callee.property.name)
+        } else if (callExprPath.node.callee.property.name === 'toBeGolden') {
           collector.requiredContexts.add('toBeGolden')
         }
-        expectPath.parentPath.replaceWith(
+        callExprPath.parentPath.replaceWith(
           transform(
-            expectPath.node.callee.object.arguments[0],
-            expectPath.node.arguments[0]
+            callExprPath.node.callee.object.arguments[0],
+            callExprPath.node.arguments[0]
           )
         )
         hasExpect = true
-      } else if (isInverseExpect(expectPath)) {
+      } else if (isInverseExpect(callExprPath)) {
         const transform =
-          inverseExpectToAva[expectPath.node.callee.property.name]
+          inverseExpectToAva[callExprPath.node.callee.property.name]
         if (!transform) {
-          console.log('boooo inverse', expectPath.node.callee.property.name)
-        } else if (expectPath.node.callee.property.name === 'toBeGolden') {
+          console.log('boooo inverse', callExprPath.node.callee.property.name)
+        } else if (callExprPath.node.callee.property.name === 'toBeGolden') {
           collector.requiredContexts.add('toBeGolden')
         }
         hasExpect = true
         // printNode(expectPath.node)
-        expectPath.parentPath.replaceWith(
+        callExprPath.parentPath.replaceWith(
           transform(
-            expectPath.node.callee.object.object.arguments[0],
-            expectPath.node.arguments[0]
+            callExprPath.node.callee.object.object.arguments[0],
+            callExprPath.node.arguments[0]
           )
         )
       }
@@ -663,6 +685,65 @@ async function createTest (pTestPath, crieTestPath) {
       }
     }
   })
+  let resultCount = 0
+  let lastParentFn
+  traverse.default(ast, {
+    CallExpression (path) {
+      if (isTTestAwaitSomething(path)) {
+        const clonedPath = btypes.clone(path.node)
+        const awaitexpr = btypes.clone(path.node.arguments[0])
+        const curParentFn = path.getFunctionParent()
+        let result
+        if (lastParentFn == null) {
+          lastParentFn = curParentFn
+          resultCount = 0
+        } else if (lastParentFn !== curParentFn) {
+          lastParentFn = curParentFn
+          resultCount = 0
+        } else {
+          resultCount += 1
+        }
+        if (resultCount > 0) {
+          result = btypes.identifier(`testResult${resultCount}`)
+        } else {
+          result = btypes.identifier(`testResult`)
+        }
+        clonedPath.arguments[0] = result
+        path.insertBefore(
+          btypes.variableDeclaration('const', [
+            btypes.variableDeclarator(result, awaitexpr)
+          ])
+        )
+        path.replaceWith(clonedPath)
+        // printNode(path.node)
+      } else if (isServerSocketGetProtocol(path)) {
+        // printNode(expectPath.node)
+        /*
+          serverRequest.socket.getProtocol().replace('v', ' ');
+          -->
+          serverRequest.req.socket.getProtocol().replace('v', ' ');
+        */
+        const start = path.node.callee.object.callee.object.object
+        if (btypes.isIdentifier(start)) {
+          const cloned = btypes.cloneDeep(path.node)
+          cloned.callee.object.callee.object.object = btypes.memberExpression(
+            btypes.identifier(start.name),
+            btypes.identifier('req')
+          )
+          path.replaceWith(cloned)
+        }
+      }
+    },
+    BinaryExpression (path) {
+      if (
+        path.node.operator === 'instanceof' &&
+        btypes.isMemberExpression(path.node.right) &&
+        btypes.isIdentifier(path.node.right.property, TimeoutErrorID)
+      ) {
+        path.node.right = btypes.identifier('TimeoutError')
+      }
+    }
+  })
 
   if (pTestPath.includes('cookies')) {
     // lets be nice to ourselves and ensuring our fundamental changes to cookies
@@ -780,6 +861,23 @@ async function postProcessing () {
           path.replaceWith(clonedPath)
           wasChange = true
           // printNode(path.node)
+        } else if (isServerSocketGetProtocol(path)) {
+          // printNode(expectPath.node)
+          /*
+            serverRequest.socket.getProtocol().replace('v', ' ');
+            -->
+            serverRequest.req.socket.getProtocol().replace('v', ' ');
+          */
+          const start = path.node.callee.object.callee.object.object
+          if (btypes.isIdentifier(start)) {
+            const cloned = btypes.cloneDeep(path.node)
+            cloned.callee.object.callee.object.object = btypes.memberExpression(
+              btypes.identifier(start.name),
+              btypes.identifier('req')
+            )
+            path.replaceWith(cloned)
+            wasChange = true
+          }
         }
       }
     })
@@ -813,7 +911,6 @@ async function doIt () {
     const testFile = testFiles[i]
     if (!testFile.endsWith('spec.js') || skipped.has(testFile)) continue
     const ptp = Path.join(pTestPath, testFile)
-    console.log(testFile, ptp)
     await createTest(
       ptp,
       Path.join(tempTestPath, testFile.replace('.spec', ''))
@@ -838,6 +935,6 @@ async function doIt () {
   })
 }
 
-doIt().then(postProcessing).catch(error => {
+doIt().catch(error => {
   console.error(error)
 })
